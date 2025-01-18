@@ -6,4 +6,3 @@ export default defineConfig({
     baseUrl: 'http://localhost:4173',
   },
 })
-
