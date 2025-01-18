@@ -63,7 +63,7 @@ jobs:
         with:
           project: CLAP
           issuetype: 작업
-          summary: '[BE] ${{ github.event.issue.title }}'
+          summary: '[FE] ${{ github.event.issue.title }}'
           description: '${{ steps.md2jira.outputs.output-text }}'
           fields: |
             {

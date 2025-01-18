@@ -62,7 +62,7 @@ jobs:
         with:
           project: CLAP
           issuetype: 버그
-          summary: "[BE] ${{ github.event.issue.title }}"
+          summary: "[FE] ${{ github.event.issue.title }}"
           description: "${{ steps.md2jira.outputs.output-text }}"
           fields: |
             {
