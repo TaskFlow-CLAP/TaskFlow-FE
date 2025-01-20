@@ -8,13 +8,7 @@ export default [
     files: ['**/*.{ts,mts,tsx,vue}'],
     rules: {
       '@typescript-eslint/no-unused-vars': 'off'
-    },
-    extends: [
-      'eslint:recommended',
-      'plugin:vue/vue3-recommended',
-      'plugin:@typescript-eslint/recommended',
-      'prettier'
-    ]
+    }
   },
   {
     name: 'app/files-to-ignore',
