@@ -61,12 +61,6 @@
     </tbody>
 
 </table>
-
-- Frontend : Vue, typescript, tanstack-query, pinia, axios, tailwind
-
-- 버전 및 이슈관리 : Github
-- 협업 툴 : Slack, Notion, Jira
-- 서비스 배포 환경 : 
 <br>
 
 ## 2. 채택한 개발 기술과 브랜치 전략
