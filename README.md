@@ -27,7 +27,43 @@
 
 ## 1. 개발 환경
 
-- Front : Vue, typescript, tanstack-query, pinia, axios, tailwind
+<table>
+    <thead>
+        <tr>
+            <th>분류</th>
+            <th>기술 스택</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                  <p>프론트엔드</p>
+            </td>
+            <td>
+                  <img src="https://img.shields.io/badge/vue.js-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white" >
+                  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white" /> 
+                  <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=ReactQuery&logoColor=white" /> 
+                  <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white" /> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>협업</p>
+            </td>
+            <td>
+                <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion">
+                <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=ffffff">
+                <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=ffffff">
+                <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=ffffff">
+                <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=ffffff">
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+
+- Frontend : Vue, typescript, tanstack-query, pinia, axios, tailwind
+
 - 버전 및 이슈관리 : Github
 - 협업 툴 : Slack, Notion, Jira
 - 서비스 배포 환경 : 
