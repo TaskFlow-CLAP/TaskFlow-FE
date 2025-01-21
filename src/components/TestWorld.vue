@@ -5,5 +5,5 @@ defineProps<{
 </script>
 
 <template>
-  <div class="bg-black text-xl">{{ msg }}</div>
+  <div class="bg-red-2 text-xl h-screen">{{ msg }}</div>
 </template>
