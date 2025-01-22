@@ -10,27 +10,27 @@
     <form
       @submit.prevent="handleChange"
       class="mb-2">
-      <div class="mb-3">
+      <div class="mb-6">
         <input
           type="password"
           id="newPw"
           v-model="newPw"
           placeholder="새 비밀번호를 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
       </div>
-      <div class="mt-3 mb-8">
+      <div class="mb-8">
         <input
           type="password"
           id="checkPw"
           v-model="checkPw"
           placeholder="새 비밀번호를 다시 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
       </div>
       <button
         type="submit"
-        class="w-full py-4 px-4 bg-primary1 text-white rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+        class="w-full py-4 px-4 bg-primary1 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
         비밀번호 재설정
       </button>
     </form>
