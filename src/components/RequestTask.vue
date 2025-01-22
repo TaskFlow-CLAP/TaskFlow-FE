@@ -3,9 +3,7 @@
     <div class="w-full h-[54px] border-l-8 border-l-primary1 flex items-center pl-5">
       <h1 class="text-2xl font-bold">작업 요청</h1>
     </div>
-    <form
-      @submit.prevent="handleSubmit"
-      class="flex flex-col gap-y-6">
+    <div class="w-full flex flex-col gap-y-6">
       <RequestTaskDropdown
         :placeholderText="category1"
         :options="REQUEST_TASK_CATEGORIES" />
@@ -35,25 +33,28 @@
           파일 선택
         </label>
       </div>
-      <div class="flex">
+      <div class="w-full justify-center flex gap-6 mt-4">
         <button
-          type="submit"
-          class="w-[188px] h-[52px] rounded text-white bg-primary1 flex items-center justify-center">
+          class="w-[188px] h-[52px] rounded text-white bg-primary1 flex items-center justify-center"
+          @click="handleSubmit">
           요청
         </button>
         <button
-          type="button"
           class="w-[188px] h-[52px] border border-disabled rounded text-disabled bg-white flex items-center justify-center"
           @click="handleCancel">
           취소
         </button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { EXPLANATION_PLACEHOLDER, REQUEST_TASK_CATEGORIES, TITLE_PLACEHOLDER } from '@/constants/user'
+import {
+  EXPLANATION_PLACEHOLDER,
+  REQUEST_TASK_CATEGORIES,
+  TITLE_PLACEHOLDER
+} from '@/constants/user'
 import { ref } from 'vue'
 import RequestTaskDropdown from './RequestTaskDropdown.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
