@@ -14,7 +14,7 @@
         :options="REQUEST_TASK_CATEGORIES" />
       <RequestTaskInput
         v-model="title"
-        :placeholderText="placeholderText" />
+        :placeholderText="TITLE_PLACEHOLDER" />
       <RequestTaskTextArea
         v-model="description"
         :placeholderText="EXPLANATION_PLACEHOLDER" />
@@ -53,13 +53,12 @@
 </template>
 
 <script lang="ts" setup>
-import { EXPLANATION_PLACEHOLDER, REQUEST_TASK_CATEGORIES } from '@/constants/user'
+import { EXPLANATION_PLACEHOLDER, REQUEST_TASK_CATEGORIES, TITLE_PLACEHOLDER } from '@/constants/user'
 import { ref } from 'vue'
 import RequestTaskDropdown from './RequestTaskDropdown.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
 
-const placeholderText = ref('제목을 입력해주세요')
 const category1 = ref('1차 카테고리를 선택해주세요')
 const category2 = ref('2차 카테고리를 선택해주세요')
 const title = ref('')
