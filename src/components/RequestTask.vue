@@ -10,23 +10,9 @@
         :initValue="category1"
         :options="REQUEST_TASK_CATEGORIES" />
       <RequestTaskDropdown
-        :initValue="category1"
+        :initValue="category2"
         :options="REQUEST_TASK_CATEGORIES" />
-
-      <div>
-        <label
-          for="title"
-          class="text-xs flex gap-x-1 mb-2">
-          <p class="text-body font-bold">제목</p>
-          <p class="text-red-1">*</p>
-        </label>
-        <input
-          class="w-full h-11 border border-border-1 px-4"
-          type="text"
-          id="title"
-          v-model="title"
-          placeholder="부가 설명을 입력해주세요" />
-      </div>
+      <RequestTaskInput :initValue="category1" />
       <div>
         <label
           for="description"
@@ -78,9 +64,10 @@
 import { REQUEST_TASK_CATEGORIES } from '@/constants/user'
 import { ref } from 'vue'
 import RequestTaskDropdown from './RequestTaskDropdown.vue'
+import RequestTaskInput from './RequestTaskInput.vue'
 
-const category1 = ref('')
-const category2 = ref('')
+const category1 = ref('1차 카테고리를 선택')
+const category2 = ref('2차 카테고리를 선택')
 const title = ref('')
 const description = ref('')
 const file = ref(null as File | null)

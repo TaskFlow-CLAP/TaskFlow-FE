@@ -16,7 +16,7 @@
         v-if="dropdownOpen"
         class="absolute w-full h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow">
         <div
-          v-for="option in REQUEST_TASK_CATEGORIES"
+          v-for="option in props.options"
           :key="option"
           class="w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer"
           @click="selectOption(option)">
@@ -28,7 +28,6 @@
 </template>
 
 <script lang="ts" setup>
-import { REQUEST_TASK_CATEGORIES } from '@/constants/user'
 import type { RequestTaskDropdownProps } from '@/types/user'
 import { ref } from 'vue'
 
