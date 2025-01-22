@@ -15,19 +15,9 @@
       <RequestTaskInput
         v-model="title"
         :placeholderText="placeholderText" />
-      <div>
-        <label
-          for="description"
-          class="text-xs text-body font-bold">
-          부가 설명
-        </label>
-        <textarea
-          class="w-full h-24 mt-2 border border-border-1 px-4 py-2 resize-none"
-          id="description"
-          v-model="description"
-          placeholder="부가 설명을 입력해주세요">
-        </textarea>
-      </div>
+      <RequestTaskTextArea
+        v-model="description"
+        :placeholderText="EXPLANATION_PLACEHOLDER" />
       <div>
         <label
           for="file"
@@ -63,10 +53,11 @@
 </template>
 
 <script lang="ts" setup>
-import { REQUEST_TASK_CATEGORIES } from '@/constants/user'
+import { EXPLANATION_PLACEHOLDER, REQUEST_TASK_CATEGORIES } from '@/constants/user'
 import { ref } from 'vue'
 import RequestTaskDropdown from './RequestTaskDropdown.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
+import RequestTaskTextArea from './RequestTaskTextArea.vue'
 
 const placeholderText = ref('제목을 입력해주세요')
 const category1 = ref('1차 카테고리를 선택해주세요')
