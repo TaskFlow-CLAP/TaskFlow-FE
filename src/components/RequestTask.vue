@@ -7,12 +7,14 @@
       @submit.prevent="handleSubmit"
       class="flex flex-col gap-y-6">
       <RequestTaskDropdown
-        :initValue="category1"
+        :placeholderText="category1"
         :options="REQUEST_TASK_CATEGORIES" />
       <RequestTaskDropdown
-        :initValue="category2"
+        :placeholderText="category2"
         :options="REQUEST_TASK_CATEGORIES" />
-      <RequestTaskInput :initValue="category1" />
+      <RequestTaskInput
+        v-model="title"
+        :placeholderText="placeholderText" />
       <div>
         <label
           for="description"
@@ -20,7 +22,7 @@
           부가 설명
         </label>
         <textarea
-          class="w-full h-24 mt-2 border border-border-1 px-4 py-2"
+          class="w-full h-24 mt-2 border border-border-1 px-4 py-2 resize-none"
           id="description"
           v-model="description"
           placeholder="부가 설명을 입력해주세요">
@@ -66,8 +68,9 @@ import { ref } from 'vue'
 import RequestTaskDropdown from './RequestTaskDropdown.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 
-const category1 = ref('1차 카테고리를 선택')
-const category2 = ref('2차 카테고리를 선택')
+const placeholderText = ref('제목을 입력해주세요')
+const category1 = ref('1차 카테고리를 선택해주세요')
+const category2 = ref('2차 카테고리를 선택해주세요')
 const title = ref('')
 const description = ref('')
 const file = ref(null as File | null)
@@ -96,6 +99,7 @@ const handleSubmit = () => {
   if (file.value) {
     formData.append('file', file.value)
   }
+  console.log(Object.fromEntries(formData))
 }
 </script>
 
