@@ -16,23 +16,7 @@
       <RequestTaskTextArea
         v-model="description"
         :placeholderText="EXPLANATION_PLACEHOLDER" />
-      <div>
-        <label
-          for="file"
-          class="text-xs text-body font-bold">
-          첨부 파일</label
-        >
-        <input
-          class="hidden"
-          type="file"
-          id="file"
-          @change="handleFileUpload" />
-        <label
-          for="file"
-          class="w-[97px] h-8 mt-2 rounded px-4 py-2 bg-primary1 text-white flex items-center justify-center">
-          파일 선택
-        </label>
-      </div>
+      <RequestTaskFileInput v-model="file" />
       <div class="w-full justify-center flex gap-6 mt-4">
         <button
           class="w-[188px] h-[52px] rounded text-white bg-primary1 flex items-center justify-center"
@@ -57,6 +41,7 @@ import {
 } from '@/constants/user'
 import { ref } from 'vue'
 import RequestTaskDropdown from './RequestTaskDropdown.vue'
+import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
 
@@ -65,13 +50,6 @@ const category2 = ref('2차 카테고리를 선택해주세요')
 const title = ref('')
 const description = ref('')
 const file = ref(null as File | null)
-
-const handleFileUpload = (event: Event) => {
-  const target = event.target as HTMLInputElement
-  if (target.files) {
-    file.value = target.files[0]
-  }
-}
 
 const handleCancel = () => {
   category1.value = ''
