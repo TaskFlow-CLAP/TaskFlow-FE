@@ -14,6 +14,7 @@ const router = createRouter({
       name: 'pwChange',
       component: () => import('../views/PwChange.vue')
     },
+
     {
       path: '/pw-change-email',
       name: 'pwChangeEmail',
