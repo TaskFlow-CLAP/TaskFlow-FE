@@ -1,0 +1,23 @@
+<template>
+  <div class="max-w-1200 flex flex-col gap-6">
+    <TitleBar
+      title="내 요청"
+      btn="새 요청 생성"
+      @button-click="createNewRequest" />
+
+    <FilterBarMyRequest />
+  </div>
+</template>
+
+<script setup lang="ts">
+import FilterBarMyRequest from '@/components/my-request/FilterBarMyRequest.vue'
+import TitleBar from '@/components/TitleBar.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const createNewRequest = () => {
+  router.push('/new-request')
+}
+</script>
+
+<style scoped></style>

@@ -1,0 +1,5 @@
+export const TERM_LIST = ['전체', '24시간 이내', '1주일 이내', '1개월 이내', '3개월 이내']
+export const MAIN_CATEGORY_LIST = ['인프라검토', 'VM', 'NFS', 'DNS', 'SSL', 'LB', '기타']
+export const CATEGORY_LIST = ['생성', '삭제', '변경', '기타']
+export const TASK_STATUS_LIST = ['요청', '진행 중', '검토 중', '완료', '종료']
+export const PAGE_SIZE_LIST = ['20', '50', '100']
