@@ -34,7 +34,7 @@ import { ref } from 'vue'
 const props = defineProps<RequestTaskDropdownProps>()
 
 const dropdownOpen = ref(false)
-const selectedOption = ref(props.initValue)
+const selectedOption = ref(props.placeholderText)
 // const filter = ref('filter-icon')
 
 const toggleDropdown = () => {
