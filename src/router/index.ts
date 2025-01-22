@@ -26,6 +26,7 @@ const router = createRouter({
       component: () => import('../views/PwCheck.vue'),
       meta: { requiresAuth: true }
     },
+
     {
       path: '/icon',
       name: 'icon',
