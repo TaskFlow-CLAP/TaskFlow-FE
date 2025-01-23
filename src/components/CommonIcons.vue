@@ -17,18 +17,8 @@
 </template>
 
 <script setup lang="ts">
-import type { IconPathTypes } from '@/types/icon'
-import { defineProps, ref, type PropType } from 'vue'
+import type { IconProps } from '@/types/icon'
+import { defineProps, ref } from 'vue'
 const isHovered = ref(false)
-const { name, className, onClick } = defineProps({
-  name: Object as PropType<IconPathTypes>,
-  className: {
-    type: String,
-    required: false
-  },
-  onClick: {
-    type: Function as PropType<(event: MouseEvent) => void>,
-    required: false
-  }
-})
+const { name, className, onClick } = defineProps<IconProps>()
 </script>

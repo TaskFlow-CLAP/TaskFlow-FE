@@ -15,3 +15,9 @@ interface IconOptions {
   fillRule?: 'evenodd' | 'inherit' | 'nonzero'
   clipRule?: 'evenodd' | 'inherit' | 'nonzero'
 }
+
+export interface IconProps {
+  name: IconPathTypes
+  className?: string
+  onClick?: () => void
+}
