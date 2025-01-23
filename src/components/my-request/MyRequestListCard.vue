@@ -13,8 +13,8 @@
 
 <script setup lang="ts">
 import type { MyRequestListInfo } from '@/types/user'
-import ListCardTab from '../ListCardTab.vue'
 import type { ListCardInfo } from '@/types/common'
+import ListCardTab from '../lists/ListCardTab.vue'
 
 const { info } = defineProps<{ info: MyRequestListInfo }>()
 const myRequestInfoList: ListCardInfo[] = [

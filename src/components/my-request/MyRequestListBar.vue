@@ -12,8 +12,8 @@
 
 <script setup lang="ts">
 import { useMyRequestParamsStore } from '@/stores/params'
-import ListBarTab from '../ListBarTab.vue'
 import { MY_REQUEST_LIST_BAR_TAB } from '@/constants/user'
+import ListBarTab from '../lists/ListBarTab.vue'
 
 const { params } = useMyRequestParamsStore()
 

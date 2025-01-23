@@ -15,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import OrderIcon from './OrderIcon.vue'
 import { useMyRequestParamsStore } from '@/stores/params'
+import OrderIcon from '../OrderIcon.vue'
 
 const { content, width, orderTarget } = defineProps<{
   content: string
