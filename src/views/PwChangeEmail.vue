@@ -1,5 +1,12 @@
 <template>
   <div class="max-w-md mx-auto p-10">
+    <Modal
+      :isOpen="isModalOpen"
+      :type="'checkType'"
+      @close="toggleModal">
+      <template #header> 인증 번호가 전송되었습니다 </template>
+      <template #body> 이메일을 확인해주세요 </template>
+    </Modal>
     <div class="py-16">
       <div class="text-4xl font-bold text-center">
         <p class="pb-2">비밀번호</p>
@@ -59,16 +66,23 @@
 <script lang="ts">
 import { ref } from 'vue'
 import router from '../router/index'
+import Modal from '../components/Modal.vue'
 
 export default {
   name: 'PwChangeEmailPage',
+  components: { Modal },
   setup() {
     const id = ref('')
     const email = ref('')
     const checkCode = ref('')
     const requestEmail = ref(false)
+    const isModalOpen = ref(false)
+    const toggleModal = () => {
+      isModalOpen.value = !isModalOpen.value
+    }
 
     const handleRequestEmail = () => {
+      toggleModal()
       requestEmail.value = true
       //이메일 인증 코드 전송 API 추가 필요
     }
@@ -84,7 +98,9 @@ export default {
       checkCode,
       requestEmail,
       handleRequestEmail,
-      handleCheck
+      handleCheck,
+      toggleModal,
+      isModalOpen
     }
   }
 }
