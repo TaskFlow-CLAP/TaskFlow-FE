@@ -21,7 +21,6 @@
             fill="#7879EB" />
         </svg>
       </div>
-      <div class=""></div>
       <!-- 제목 -->
       <div>
         <div class="flex text-2xl font-bold justify-center mb-2">
@@ -75,47 +74,34 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+<script setup lang="ts">
+import { ref, watch } from 'vue'
 
-export default defineComponent({
-  name: 'ModalView',
-  props: {
-    isOpen: {
-      type: Boolean,
-      required: true
-    },
-    type: {
-      type: String,
-      default: 'checkType'
-    },
-    modelValue: {
-      type: String,
-      default: ''
-    }
-  },
-  emits: ['close', 'click', 'update:modelValue'],
-  setup(props, { emit }) {
-    const textValue = ref('')
-    watch(textValue, newValue => {
-      // textValue 값이 변경되면 부모에게 전달
-      emit('update:modelValue', newValue)
-    })
+const props = defineProps<{
+  isOpen: boolean
+  type?: string
+  modelValue?: string
+}>()
 
-    const closeModal = () => {
-      emit('close')
-    }
-    const onClick = () => {
-      if (props.type == 'inputType') {
-        emit('click')
-      }
-    }
+const emit = defineEmits<{
+  (e: 'close'): void
+  (e: 'click'): void
+  (e: 'update:modelValue', value: string): void
+}>()
 
-    return {
-      closeModal,
-      onClick,
-      textValue
-    }
-  }
+const textValue = ref(props.modelValue || '')
+
+watch(textValue, newValue => {
+  emit('update:modelValue', newValue)
 })
+
+const closeModal = () => {
+  emit('close')
+}
+
+const onClick = () => {
+  if (props.type === 'inputType') {
+    emit('click')
+  }
+}
 </script>
