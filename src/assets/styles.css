@@ -31,7 +31,7 @@ body {
 }
 
 .list-bar {
-  @apply w-full h-8 px-4 bg-background-2 flex items-center gap-4;
+  @apply w-full h-8 px-4 bg-background-2 flex items-center gap-4 shrink-0;
 }
 .list-card {
   @apply flex px-4 py-3 gap-4 border-b border-border-1 cursor-pointer hover:bg-background-2;
