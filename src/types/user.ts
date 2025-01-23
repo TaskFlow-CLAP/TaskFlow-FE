@@ -1,18 +1,4 @@
-import type { Ref } from 'vue'
-
-export interface TitleBar {
-  title: string
-  btn?: string
-}
-
-export interface Filter {
-  title: string
-  width?: number
-  optionList?: string[]
-  value: (Ref<string> | string) | (Ref<string[]> | string[])
-}
-
-export interface ParamsMyRequest {
+export interface MyRequestParams {
   term: string
   mainCategory: number[]
   category: number[]
@@ -20,4 +6,17 @@ export interface ParamsMyRequest {
   nickName: string
   taskStatus: string[]
   pageSize: string
+}
+
+export interface MyRequestListInfo {
+  taskId: number
+  taskCode: string
+  requestedAt: string
+  mainCategoryName: string
+  categoryName: string
+  title: string
+  processorImg?: string
+  processorName?: string
+  taskStatus: string
+  finishedAt?: string
 }

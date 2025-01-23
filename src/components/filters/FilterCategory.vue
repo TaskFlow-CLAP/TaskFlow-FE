@@ -3,21 +3,21 @@
     <div class="filter-container grow">
       <span class="filter-title">1차 카테고리</span>
       <div
-        class="flex justify-center items-center w-full h-8 border-b border-border-1 relative text-xs text-black"
+        class="filter-dropdown"
         @click="toggleDropdown('main')">
         선택
         <ul
           @click.stop
           v-if="isMainOpened"
-          class="w-full max-h-[120px] overflow-y-scroll position absolute left-0 top-[calc(100%+8px)] shadow-custom p-2 flex flex-col gap-2 rounded">
+          class="filter-dropdown-option-list">
           <li
-            class="text-xs text-black p-2 rounded text-center"
+            class="filter-dropdown-option"
             v-for="category in categoryList"
             :key="category.value"
             :class="
               (main as number[]).includes(category.value)
                 ? 'bg-primary1 text-white font-bold'
-                : 'hover:bg-background-2'
+                : 'hover:bg-background-2 text-black'
             "
             @click="() => onMainClick(category)">
             {{ category.content }}
@@ -28,14 +28,14 @@
     <div class="filter-container grow">
       <span class="filter-title">2차 카테고리</span>
       <div
-        class="flex justify-center items-center w-full h-8 border-b border-border-1 relative text-xs text-black"
+        class="filter-dropdown"
         :class="isDisabled ? 'bg-background-2 text-disabled' : 'text-black'"
         @click="!isDisabled && toggleDropdown('sub')">
         선택
         <ul
           @click.stop
           v-if="isSubOpened"
-          class="w-full max-h-[120px] overflow-y-scroll position absolute left-0 top-[calc(100%+8px)] shadow-custom p-2 flex flex-col gap-2 rounded">
+          class="filter-dropdown-option-list">
           <ul
             class="flex flex-col gap-2"
             v-for="category in selectedCategoryList"
@@ -48,13 +48,13 @@
               <div class="h-[1px] grow bg-border-2" />
             </div>
             <li
-              class="text-xs text-black p-2 rounded text-center"
+              class="filter-dropdown-option"
               v-for="subCategory in category.subCategoryList"
               :key="subCategory.value"
               :class="
                 (sub as number[]).includes(subCategory.value)
                   ? 'bg-primary1 text-white font-bold'
-                  : 'hover:bg-background-2'
+                  : 'hover:bg-background-2 text-black'
               "
               @click="() => onSubClick(subCategory.value)">
               {{ subCategory.content }}

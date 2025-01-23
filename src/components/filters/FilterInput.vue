@@ -1,7 +1,7 @@
 <template>
   <div
     class="filter-container"
-    :style="{ width: widthStyle }"
+    :style="{ width: width ? `${width}px` : '' }"
     :class="!width && 'grow'">
     <span class="filter-title">{{ title }}</span>
     <input
@@ -11,15 +11,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Filter } from '@/types/user'
-import { computed } from 'vue'
+import type { Filter } from '@/types/common'
 
 const { title, width } = defineProps<Filter>()
 const emit = defineEmits(['update:value'])
-
-const widthStyle = computed(() => {
-  return width ? `${width}px` : ''
-})
 
 const onValueChange = (event: Event) => {
   const target = event.target as HTMLInputElement

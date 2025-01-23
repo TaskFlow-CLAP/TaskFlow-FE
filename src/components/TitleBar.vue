@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TitleBar } from '@/types/user'
+import type { TitleBar } from '@/types/common'
 
 const props = defineProps<TitleBar>()
 defineEmits(['buttonClick'])

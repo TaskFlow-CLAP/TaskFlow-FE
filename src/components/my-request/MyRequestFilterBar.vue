@@ -46,15 +46,16 @@
 </template>
 
 <script setup lang="ts">
-import { DUMMY_CATEGORY_LIST, PAGE_SIZE_LIST, TASK_STATUS_LIST, TERM_LIST } from '@/constants/user'
-import FilterDropdown from '../FilterDropdown.vue'
-import FilterDropdownMulti from '../FilterDropdownMulti.vue'
-import FilterInput from '../FilterInput.vue'
+import { PAGE_SIZE_LIST, TASK_STATUS_LIST, TERM_LIST } from '@/constants/user'
 import { ref } from 'vue'
-import type { ParamsMyRequest } from '@/types/user'
-import FilterCategory from '../FilterCategory.vue'
+import FilterDropdown from '../filters/FilterDropdown.vue'
+import FilterCategory from '../filters/FilterCategory.vue'
+import FilterInput from '../filters/FilterInput.vue'
+import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
+import type { MyRequestParams } from '@/types/user'
+import { DUMMY_CATEGORY_LIST } from '@/constants/dummy'
 
-const params = ref<ParamsMyRequest>({
+const params = ref<MyRequestParams>({
   term: '전체',
   mainCategory: [],
   category: [],

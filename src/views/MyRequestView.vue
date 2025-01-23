@@ -5,12 +5,15 @@
       btn="새 요청 생성"
       @button-click="createNewRequest" />
 
-    <FilterBarMyRequest />
+    <MyRequestFilterBar />
+
+    <MyRequestList />
   </div>
 </template>
 
 <script setup lang="ts">
-import FilterBarMyRequest from '@/components/my-request/FilterBarMyRequest.vue'
+import MyRequestFilterBar from '@/components/my-request/MyRequestFilterBar.vue'
+import MyRequestList from '@/components/my-request/MyRequestList.vue'
 import TitleBar from '@/components/TitleBar.vue'
 import { useRouter } from 'vue-router'
 
