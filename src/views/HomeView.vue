@@ -1,9 +1,15 @@
-<script setup lang="ts">
-import TestWorld from '@/components/TestWorld.vue'
-</script>
-
 <template>
-  <main class="w-full h-screen">
-    <TestWorld msg="개발 시작 자유롭게 파일구조를 변경해주세요" />
-  </main>
+  <div class="Home">
+    <h1>This is an Home page</h1>
+  </div>
 </template>
+
+<style>
+@media (min-width: 1024px) {
+  .Home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+}
+</style>

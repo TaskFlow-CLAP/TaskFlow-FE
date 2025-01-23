@@ -5,13 +5,13 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <header>
     <div class="wrapper">
-      <nav>
+      <nav class="flex gap-3">
         <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/Icon">Icon</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
   </header>
-
   <RouterView />
 </template>
 
