@@ -2,7 +2,16 @@
 import { RouterView } from 'vue-router'
 </script>
 
-<template class="w-full h-screen flex flex-col items-center">
+<template>
+  <header>
+    <div class="wrapper">
+      <nav class="flex gap-3">
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/Icon">Icon</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+      </nav>
+    </div>
+  </header>
   <RouterView />
 </template>
 <style scoped>
