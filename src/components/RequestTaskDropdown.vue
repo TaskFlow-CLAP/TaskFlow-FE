@@ -11,6 +11,9 @@
         <p :class="{ 'text-gray-400': selectedOption === placeholderText }">
           {{ selectedOption }}
         </p>
+        <CommonIcons
+          :name="dropdownIcon"
+            :class="['ml-auto', { 'rotate-180': dropdownOpen }]" />
       </div>
       <div
         v-if="dropdownOpen"
@@ -28,8 +31,10 @@
 </template>
 
 <script lang="ts" setup>
+import { dropdownIcon } from '@/constants/iconPath'
 import type { RequestTaskDropdownProps } from '@/types/user'
 import { ref } from 'vue'
+import CommonIcons from './CommonIcons.vue'
 
 const { placeholderText, options, labelName } = defineProps<RequestTaskDropdownProps>()
 

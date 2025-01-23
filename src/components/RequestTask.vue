@@ -72,7 +72,6 @@ const handleSubmit = () => {
       formData.append('file', f)
     })
   }
-  console.log(Object.fromEntries(formData))
 }
 </script>
 
