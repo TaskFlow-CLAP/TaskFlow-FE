@@ -3,43 +3,43 @@ import type { MyRequestListInfo } from '@/types/user'
 
 export const DUMMY_CATEGORY_LIST: Category[] = [
   {
-    value: 1,
+    id: 1,
     content: '인프라 검토',
     subCategoryList: [
-      { value: 11, content: '생성' },
-      { value: 12, content: '삭제' },
-      { value: 13, content: '변경' },
-      { value: 14, content: '기타' }
+      { id: 11, content: '생성' },
+      { id: 12, content: '삭제' },
+      { id: 13, content: '변경' },
+      { id: 14, content: '기타' }
     ]
   },
   {
-    value: 2,
+    id: 2,
     content: 'VM',
     subCategoryList: [
-      { value: 21, content: '생성' },
-      { value: 22, content: '삭제' },
-      { value: 23, content: '변경' },
-      { value: 24, content: '기타' }
+      { id: 21, content: '생성' },
+      { id: 22, content: '삭제' },
+      { id: 23, content: '변경' },
+      { id: 24, content: '기타' }
     ]
   },
   {
-    value: 3,
+    id: 3,
     content: 'LB',
     subCategoryList: [
-      { value: 31, content: '생성' },
-      { value: 32, content: '삭제' },
-      { value: 33, content: '변경' },
-      { value: 34, content: '기타' }
+      { id: 31, content: '생성' },
+      { id: 32, content: '삭제' },
+      { id: 33, content: '변경' },
+      { id: 34, content: '기타' }
     ]
   },
   {
-    value: 4,
+    id: 4,
     content: 'K8S',
     subCategoryList: [
-      { value: 41, content: '생성' },
-      { value: 42, content: '삭제' },
-      { value: 43, content: '변경' },
-      { value: 44, content: '기타' }
+      { id: 41, content: '생성' },
+      { id: 42, content: '삭제' },
+      { id: 43, content: '변경' },
+      { id: 44, content: '기타' }
     ]
   }
 ]

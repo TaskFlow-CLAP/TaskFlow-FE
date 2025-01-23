@@ -7,7 +7,7 @@
     <div
       class="filter-dropdown"
       @click="toggleDropdown">
-      {{ value }}
+      {{ optionList?.filter(el => el.value === value)[0].content }}
       <ul
         @click.stop
         v-if="isDropdownOpened"
@@ -15,9 +15,9 @@
         <li
           class="filter-dropdown-option hover:bg-background-2 text-black"
           v-for="option in optionList"
-          :key="option"
-          @click="() => onOptionClick(option)">
-          {{ option }}
+          :key="option.value"
+          @click="() => onOptionClick(option.value)">
+          {{ option.content }}
         </li>
       </ul>
     </div>

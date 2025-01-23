@@ -1,11 +1,11 @@
 export interface MyRequestParams {
-  term: string
+  term: number
   mainCategory: number[]
   category: number[]
   title: string
   nickName: string
   taskStatus: string[]
-  pageSize: string
+  pageSize: number
 }
 
 export interface MyRequestListInfo {

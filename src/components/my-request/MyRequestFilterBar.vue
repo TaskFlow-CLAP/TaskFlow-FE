@@ -4,8 +4,8 @@
       title="조회 기간"
       :width="120"
       :option-list="TERM_LIST"
-      :value="params.term"
-      @update:value="value => (params.term = value)" />
+      :value="String(params.term)"
+      @update:value="value => (params.term = Number(value))" />
     <FilterCategory
       :category-list="DUMMY_CATEGORY_LIST"
       :main="params.mainCategory"
@@ -27,56 +27,46 @@
       :width="120"
       :option-list="TASK_STATUS_LIST"
       :value="params.taskStatus"
-      @update:value="
-        (value: string) => {
-          if (params.taskStatus.includes(value)) {
-            params.taskStatus = [...params.taskStatus].filter(el => el !== value)
-          } else {
-            params.taskStatus.push(value)
-          }
-        }
-      " />
+      @update:value="onTaskStatusClick" />
     <FilterDropdown
       title="페이지 당 개수"
       :width="120"
       :option-list="PAGE_SIZE_LIST"
-      :value="params.pageSize"
-      @update:value="value => (params.pageSize = value)" />
+      :value="String(params.pageSize)"
+      @update:value="value => (params.pageSize = Number(value))" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { PAGE_SIZE_LIST, TASK_STATUS_LIST, TERM_LIST } from '@/constants/user'
-import { ref } from 'vue'
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterInput from '../filters/FilterInput.vue'
 import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
-import type { MyRequestParams } from '@/types/user'
 import { DUMMY_CATEGORY_LIST } from '@/constants/dummy'
+import { useMyRequestParamsStore } from '@/stores/params'
 
-const params = ref<MyRequestParams>({
-  term: '전체',
-  mainCategory: [],
-  category: [],
-  title: '',
-  nickName: '',
-  taskStatus: [],
-  pageSize: '20'
-})
+const { params } = useMyRequestParamsStore()
 
 const onMainChange = (value: number) => {
-  if (params.value.mainCategory.includes(value)) {
-    params.value.mainCategory = [...params.value.mainCategory].filter(el => el !== value)
+  if (params.mainCategory.includes(value)) {
+    params.mainCategory = [...params.mainCategory].filter(el => el !== value)
   } else {
-    params.value.mainCategory.push(value)
+    params.mainCategory.push(value)
   }
 }
 const onSubChange = (value: number) => {
-  if (params.value.category.includes(value)) {
-    params.value.category = [...params.value.category].filter(el => el !== value)
+  if (params.category.includes(value)) {
+    params.category = [...params.category].filter(el => el !== value)
   } else {
-    params.value.category.push(value)
+    params.category.push(value)
+  }
+}
+const onTaskStatusClick = (value: string) => {
+  if (params.taskStatus.includes(value)) {
+    params.taskStatus = [...params.taskStatus].filter(el => el !== value)
+  } else {
+    params.taskStatus.push(value)
   }
 }
 </script>

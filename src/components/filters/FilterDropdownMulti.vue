@@ -15,14 +15,14 @@
         <li
           class="filter-dropdown-option"
           v-for="option in optionList"
-          :key="option"
+          :key="option.value"
           :class="
-            (value as string).includes(option)
+            (value as string[]).includes(option.value)
               ? 'bg-primary1 text-white font-bold'
               : 'hover:bg-background-2 text-black'
           "
-          @click="() => onOptionClick(option)">
-          {{ option }}
+          @click="() => onOptionClick(option.value)">
+          {{ option.content }}
         </li>
       </ul>
     </div>
@@ -39,7 +39,7 @@ const emit = defineEmits(['update:value'])
 const isDropdownOpened = ref(false)
 const toggleDropdown = () => (isDropdownOpened.value = !isDropdownOpened.value)
 
-const onOptionClick = (option: string) => {
+const onOptionClick = (option: string | number) => {
   emit('update:value', option)
 }
 </script>

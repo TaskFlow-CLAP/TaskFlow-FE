@@ -13,9 +13,9 @@
           <li
             class="filter-dropdown-option"
             v-for="category in categoryList"
-            :key="category.value"
+            :key="category.id"
             :class="
-              (main as number[]).includes(category.value)
+              (main as number[]).includes(category.id)
                 ? 'bg-primary1 text-white font-bold'
                 : 'hover:bg-background-2 text-black'
             "
@@ -50,13 +50,13 @@
             <li
               class="filter-dropdown-option"
               v-for="subCategory in category.subCategoryList"
-              :key="subCategory.value"
+              :key="subCategory.id"
               :class="
-                (sub as number[]).includes(subCategory.value)
+                (sub as number[]).includes(subCategory.id)
                   ? 'bg-primary1 text-white font-bold'
                   : 'hover:bg-background-2 text-black'
               "
-              @click="() => onSubClick(subCategory.value)">
+              @click="() => onSubClick(subCategory.id)">
               {{ subCategory.content }}
             </li>
           </ul>
@@ -96,8 +96,8 @@ const onMainClick = (category: Category) => {
     )
     if (category.subCategoryList) {
       category.subCategoryList.forEach(el => {
-        if ((sub as number[]).includes(el.value)) {
-          emit('update:sub', el.value)
+        if ((sub as number[]).includes(el.id)) {
+          emit('update:sub', el.id)
         }
       })
     }
@@ -109,7 +109,7 @@ const onMainClick = (category: Category) => {
       })
     }
   }
-  emit('update:main', category.value)
+  emit('update:main', category.id)
 }
 const onSubClick = (value: number) => {
   emit('update:sub', value)

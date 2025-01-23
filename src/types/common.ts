@@ -8,14 +8,19 @@ export interface TitleBar {
 export interface Filter {
   title: string
   width?: number
-  optionList?: string[]
+  optionList?: Option[]
   value: (Ref<string> | string) | (Ref<string[]> | string[])
 }
 
-export interface Category {
-  value: number
+export interface Option {
+  value: string
   content: string
-  subCategoryList?: { value: number; content: string }[]
+}
+
+export interface Category {
+  id: number
+  content: string
+  subCategoryList?: { id: number; content: string }[]
 }
 
 export interface FilterCategory {
