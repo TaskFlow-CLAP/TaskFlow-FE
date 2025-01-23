@@ -5,7 +5,7 @@
     @click.self="closeModal">
     <div class="bg-white rounded-lg shadow-lg px-8 py-8 min-w-[364px]">
       <!-- 아이콘 -->
-      <!-- icon 추가시, 변경 필요 -->
+      <!-- icon 추가시, 변경 필요, 임시로 체크 아이콘 띄움 -->
       <div class="flex justify-center mb-2">
         <svg
           v-if="
@@ -39,34 +39,37 @@
         v-model="textValue"
         placeholder="거부 사유를 입력해주세요"
         class="flex border w-full border-zinc-300 px-4 py-3 focus:outline-none resize-none mt-6 h-[120px]" />
-      <!-- 확인 버튼(primary1) -->
-      <button
-        v-if="type == 'checkType'"
-        @click="closeModal"
-        class="flex w-full py-3 mt-8 bg-primary1 text-white font-bold rounded items-center justify-center">
-        확인
-      </button>
-      <!-- 확인 버튼(white) -->
-      <button
-        v-if="type == 'xType'"
-        @click="closeModal"
-        class="flex w-full py-3 mt-8 bg-white text-zinc-400 font-bold border border-zinc-400 rounded items-center justify-center">
-        확인
-      </button>
+      <div class="mt-8">
+        <!-- 확인 버튼(primary1) -->
+        <CustomButton
+          v-if="type == 'checkType'"
+          color="primaryButton"
+          @click="closeModal"
+          name="확인" />
+        <!-- 확인 버튼(white) -->
+        <CustomButton
+          v-if="type == 'xType'"
+          color="whiteButton"
+          @click="closeModal"
+          name="확인" />
+      </div>
       <!-- white & red  -->
       <div
-        class="flex mt-8"
+        class="flex mt-8 items-center"
         v-if="type == 'deleteType' || type == 'inputType'">
-        <button
-          @click="closeModal"
-          class="flex w-full py-3 mr-6 bg-white text-zinc-400 font-bold border border-zinc-400 rounded items-center justify-center">
-          확인
-        </button>
-        <button
-          @click="onClick"
-          class="flex w-full py-3 bg-red-1 text-white font-bold border rounded items-center justify-center">
-          <slot name="red"></slot>
-        </button>
+        <div class="mr-6">
+          <CustomButton
+            color="whiteButton"
+            @click="closeModal"
+            name="취소" />
+        </div>
+        <div>
+          <CustomButton
+            color="redButton"
+            size="short"
+            :name="type === 'inputType' ? '거부' : '삭제'"
+            @click="onClick" />
+        </div>
       </div>
     </div>
   </div>
@@ -84,7 +87,7 @@ export default defineComponent({
     },
     type: {
       type: String,
-      default: 'default'
+      default: 'checkType'
     },
     modelValue: {
       type: String,
