@@ -33,14 +33,12 @@
           <slot name="body"></slot>
         </div>
       </div>
-      <form
+      <!-- textarea 사용시 반드시 모달에 [v-model:textValue / @click: 함수] 기재해야됨 -->
+      <textarea
         v-if="type == 'inputType'"
-        @submit.prevent="submitForm">
-        <textarea
-          v-model="textValue"
-          placeholder="거부 사유를 입력해주세요"
-          class="flex border w-full border-zinc-300 px-4 py-3 focus:outline-none resize-none mt-6 h-[120px]" />
-      </form>
+        v-model="textValue"
+        placeholder="거부 사유를 입력해주세요"
+        class="flex border w-full border-zinc-300 px-4 py-3 focus:outline-none resize-none mt-6 h-[120px]" />
       <!-- 확인 버튼(primary1) -->
       <button
         v-if="type == 'checkType'"
