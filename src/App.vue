@@ -7,6 +7,7 @@ import TopMenu from './components/TopMenu.vue'
   <TopMenu />
 
   <header>
+    <TopMenu />
     <div class="wrapper">
       <nav class="flex gap-3">
         <RouterLink to="/">Home</RouterLink>
