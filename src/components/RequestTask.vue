@@ -49,7 +49,7 @@ const category1 = ref('1차 카테고리를 선택해주세요')
 const category2 = ref('2차 카테고리를 선택해주세요')
 const title = ref('')
 const description = ref('')
-const file = ref(null as File | null)
+const file = ref(null as File[] | null)
 
 const handleCancel = () => {
   category1.value = ''
@@ -66,7 +66,9 @@ const handleSubmit = () => {
   formData.append('title', title.value)
   formData.append('description', description.value)
   if (file.value) {
-    formData.append('file', file.value)
+    file.value.forEach(f => {
+      formData.append('file', f)
+    })
   }
   console.log(Object.fromEntries(formData))
 }
