@@ -1,5 +1,4 @@
 <template>
-  <div class="">
     <div class="w-full flex flex-col gap-y-6">
       <RequestTaskDropdown
         :placeholderText="category1"
@@ -27,7 +26,6 @@
           @click="handleCancel">
           취소
         </button>
-      </div>
     </div>
   </div>
 </template>
