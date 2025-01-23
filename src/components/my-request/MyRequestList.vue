@@ -1,10 +1,13 @@
 <template>
-  <div class="flex flex-col">
+  <div class="grow overflow-hidden">
     <MyRequestListBar />
-    <MyRequestListCard
-      v-for="info in DUMMY_MY_REQUEST_LIST_INFO"
-      :key="info.taskId"
-      :info="info" />
+
+    <div class="h-full overflow-y-auto">
+      <MyRequestListCard
+        v-for="info in DUMMY_MY_REQUEST_LIST_INFO"
+        :key="info.taskId"
+        :info="info" />
+    </div>
   </div>
 </template>
 
