@@ -33,8 +33,11 @@
           <slot name="body"></slot>
         </div>
       </div>
-      <form v-if="type == 'inputType'">
+      <form
+        v-if="type == 'inputType'"
+        @submit.prevent="submitForm">
         <textarea
+          v-model="textValue"
           placeholder="거부 사유를 입력해주세요"
           class="flex border w-full border-zinc-300 px-4 py-3 focus:outline-none resize-none mt-6 h-[120px]" />
       </form>
@@ -62,7 +65,7 @@
           확인
         </button>
         <button
-          @click="closeModal"
+          @click="onClick"
           class="flex w-full py-3 bg-red-1 text-white font-bold border rounded items-center justify-center">
           <slot name="red"></slot>
         </button>
@@ -72,7 +75,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'ModalView',
@@ -84,15 +87,37 @@ export default defineComponent({
     type: {
       type: String,
       default: 'default'
+    },
+    modelValue: {
+      type: String,
+      default: ''
     }
   },
-  emits: ['close'],
-  setup(_, { emit }) {
+  emits: ['close', 'click'],
+  setup(props, { emit }) {
+    const textValue = ref('')
     const closeModal = () => {
-      emit('close') // 부모 컴포넌트로 이벤트 전송
+      emit('close')
     }
+    const onClick = () => {
+      emit('click')
+      if (props.type == 'inputType') {
+        submitForm()
+      }
+    }
+    const submitForm = () => {
+      if (textValue.value.trim()) {
+        //거부사유 API 필요
+        console.log('제출된 값:', textValue.value)
+      } else {
+        console.log('제출된 값이 없습니다')
+      }
+    }
+
     return {
-      closeModal
+      closeModal,
+      onClick,
+      textValue
     }
   }
 })
