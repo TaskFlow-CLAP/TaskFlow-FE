@@ -75,7 +75,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'ModalView',
@@ -93,24 +93,20 @@ export default defineComponent({
       default: ''
     }
   },
-  emits: ['close', 'click'],
+  emits: ['close', 'click', 'update:modelValue'],
   setup(props, { emit }) {
     const textValue = ref('')
+    watch(textValue, newValue => {
+      // textValue 값이 변경되면 부모에게 전달
+      emit('update:modelValue', newValue)
+    })
+
     const closeModal = () => {
       emit('close')
     }
     const onClick = () => {
-      emit('click')
       if (props.type == 'inputType') {
-        submitForm()
-      }
-    }
-    const submitForm = () => {
-      if (textValue.value.trim()) {
-        //거부사유 API 필요
-        console.log('제출된 값:', textValue.value)
-      } else {
-        console.log('제출된 값이 없습니다')
+        emit('click')
       }
     }
 
