@@ -6,6 +6,8 @@ export interface MyRequestParams {
   nickName: string
   taskStatus: string[]
   pageSize: number
+  pageNumber: number
+  order: { target: string; type: 'DESC' | 'ASC' }
 }
 
 export interface MyRequestListInfo {

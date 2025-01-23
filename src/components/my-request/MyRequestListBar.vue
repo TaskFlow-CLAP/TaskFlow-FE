@@ -5,26 +5,23 @@
       :key="tab.content"
       :content="tab.content"
       :width="tab.width"
-      :order="tab.key && order[tab.key]"
-      @toggle-order="tab.key && toggleOrder(tab.key)" />
+      :order-target="tab.target"
+      @toggle-order="toggleOrder" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useMyRequestParamsStore } from '@/stores/params'
 import ListBarTab from '../ListBarTab.vue'
 import { MY_REQUEST_LIST_BAR_TAB } from '@/constants/user'
 
-const order = ref<{ requestedAt: 'DESC' | 'ASC'; finishedAt: 'DESC' | 'ASC' }>({
-  requestedAt: 'DESC',
-  finishedAt: 'DESC'
-})
+const { params } = useMyRequestParamsStore()
 
-const toggleOrder = (key: 'requestedAt' | 'finishedAt') => {
-  if (order.value[key] === 'DESC') {
-    order.value[key] = 'ASC'
+const toggleOrder = (orderTarget: string) => {
+  if (orderTarget === params.order.target) {
+    params.order.type = params.order.type === 'DESC' ? 'ASC' : 'DESC'
   } else {
-    order.value[key] = 'DESC'
+    params.order = { target: orderTarget, type: 'DESC' }
   }
 }
 </script>

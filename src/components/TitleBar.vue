@@ -3,8 +3,11 @@
     <span class="text-2xl font-bold text-black">{{ props.title }}</span>
     <button
       v-if="btn"
-      class="text-xs font-bold text-primary1"
+      class="flex items-center gap-1 text-xs font-bold text-primary1"
       @click="$emit('buttonClick')">
+      <CommonIcons
+        :name="plusIcon"
+        :style="{ fill: '#7879EB' }" />
       {{ props.btn }}
     </button>
   </div>
@@ -12,6 +15,8 @@
 
 <script setup lang="ts">
 import type { TitleBar } from '@/types/common'
+import CommonIcons from './CommonIcons.vue'
+import { plusIcon } from '@/constants/iconPath'
 
 const props = defineProps<TitleBar>()
 defineEmits(['buttonClick'])

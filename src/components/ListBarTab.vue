@@ -1,24 +1,29 @@
 <template>
   <div
-    class="text-xs font-bold text-body gap-[2px]"
+    class="text-xs font-bold text-body gap-[2px] flex items-center"
     :style="{ width: width ? `${width}px` : '' }"
     :class="!width && 'grow'">
     {{ content }}
     <button
-      v-if="order"
-      @click="$emit('toggleOrder')">
-      {{ order === 'DESC' ? 'V' : '^' }}
+      v-if="orderTarget"
+      @click="$emit('toggleOrder', orderTarget)">
+      <OrderIcon
+        :is-active="params.order.target === orderTarget"
+        :class="params.order.type === 'ASC' && 'rotate-180'" />
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { type Ref } from 'vue'
+import OrderIcon from './OrderIcon.vue'
+import { useMyRequestParamsStore } from '@/stores/params'
 
-const { content, width, order } = defineProps<{
+const { content, width, orderTarget } = defineProps<{
   content: string
   width?: number
-  order?: Ref<'DESC' | 'ASC'> | 'DESC' | 'ASC'
+  orderTarget?: string
 }>()
 defineEmits(['toggleOrder'])
+
+const { params } = useMyRequestParamsStore()
 </script>

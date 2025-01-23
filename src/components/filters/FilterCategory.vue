@@ -5,7 +5,10 @@
       <div
         class="filter-dropdown"
         @click="toggleDropdown('main')">
-        선택
+        <span class="grow text-center">선택</span>
+        <CommonIcons
+          :name="dropdownIcon"
+          :style="{ fill: '#18181B' }" />
         <ul
           @click.stop
           v-if="isMainOpened"
@@ -31,7 +34,10 @@
         class="filter-dropdown"
         :class="isDisabled ? 'bg-background-2 text-disabled' : 'text-black'"
         @click="!isDisabled && toggleDropdown('sub')">
-        선택
+        <span class="grow text-center">선택</span>
+        <CommonIcons
+          :name="dropdownIcon"
+          :style="{ fill: isDisabled ? '#A1A1AA' : '#18181B' }" />
         <ul
           @click.stop
           v-if="isSubOpened"
@@ -70,6 +76,8 @@
 import type { Category, FilterCategory } from '@/types/common'
 import { computed, watchEffect } from 'vue'
 import { ref } from 'vue'
+import CommonIcons from '../CommonIcons.vue'
+import { dropdownIcon } from '@/constants/iconPath'
 
 const { categoryList, main, sub } = defineProps<FilterCategory>()
 const emit = defineEmits(['update:main', 'update:sub'])

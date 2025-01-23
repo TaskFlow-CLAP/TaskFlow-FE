@@ -7,7 +7,10 @@
     <div
       class="filter-dropdown"
       @click="toggleDropdown">
-      {{ optionList?.filter(el => el.value === value)[0].content }}
+      <span class="grow text-center">{{
+        optionList?.filter(el => el.value === value)[0].content
+      }}</span>
+      <CommonIcons :name="dropdownIcon" />
       <ul
         @click.stop
         v-if="isDropdownOpened"
@@ -27,6 +30,8 @@
 <script setup lang="ts">
 import type { Filter } from '@/types/common'
 import { ref } from 'vue'
+import CommonIcons from '../CommonIcons.vue'
+import { dropdownIcon } from '@/constants/iconPath'
 
 const { title, value, width, optionList } = defineProps<Filter>()
 const emit = defineEmits(['update:value'])

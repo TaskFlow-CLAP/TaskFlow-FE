@@ -15,4 +15,7 @@
 import { DUMMY_MY_REQUEST_LIST_INFO } from '@/constants/dummy'
 import MyRequestListBar from './MyRequestListBar.vue'
 import MyRequestListCard from './MyRequestListCard.vue'
+import { useMyRequestParamsStore } from '@/stores/params'
+
+const { params } = useMyRequestParamsStore()
 </script>

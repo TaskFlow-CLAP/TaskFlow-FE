@@ -10,7 +10,9 @@ export const useMyRequestParamsStore = defineStore('myRequest', () => {
     title: '',
     nickName: '',
     taskStatus: [],
-    pageSize: 20
+    pageSize: 20,
+    pageNumber: 1,
+    order: { target: 'REQUESTED_AT', type: 'DESC' }
   })
 
   return { params }

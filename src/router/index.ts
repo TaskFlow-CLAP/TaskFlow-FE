@@ -8,6 +8,11 @@ const router = createRouter({
       path: '/my-request',
       name: 'MyRequest',
       component: MyRequestView
+    },
+    {
+      path: '/icon',
+      name: 'icon',
+      component: () => import('../views/IconView.vue')
     }
   ]
 })

@@ -44,7 +44,7 @@ body {
   @apply text-[10px] font-bold text-body;
 }
 .filter-dropdown {
-  @apply flex justify-center items-center w-full h-8 border-b border-border-1 relative text-xs cursor-pointer;
+  @apply flex justify-center items-center w-full h-8 px-2 border-b border-border-1 relative text-xs cursor-pointer;
 }
 .filter-dropdown-option-list {
   @apply w-full max-h-[120px] overflow-y-scroll absolute left-0 top-[calc(100%+8px)] shadow-custom p-2 flex flex-col gap-2 rounded bg-white cursor-auto;
