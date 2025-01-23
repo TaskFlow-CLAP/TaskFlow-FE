@@ -6,32 +6,12 @@
       :option-list="TERM_LIST"
       :value="params.term"
       @update:value="value => (params.term = value)" />
-    <FilterDropdownMulti
-      title="1차 카테고리"
-      :option-list="MAIN_CATEGORY_LIST"
-      :value="params.mainCategory"
-      @update:value="
-        (value: string) => {
-          if (params.mainCategory.includes(value)) {
-            params.mainCategory = [...params.mainCategory].filter(el => el !== value)
-          } else {
-            params.mainCategory.push(value)
-          }
-        }
-      " />
-    <FilterDropdownMulti
-      title="2차 카테고리"
-      :option-list="CATEGORY_LIST"
-      :value="params.category"
-      @update:value="
-        (value: string) => {
-          if (params.category.includes(value)) {
-            params.category = [...params.category].filter(el => el !== value)
-          } else {
-            params.category.push(value)
-          }
-        }
-      " />
+    <FilterCategory
+      :category-list="DUMMY_CATEGORY_LIST"
+      :main="params.mainCategory"
+      :sub="params.category"
+      @update:main="onMainChange"
+      @update:sub="onSubChange" />
     <FilterInput
       title="제목"
       :width="120"
@@ -66,18 +46,13 @@
 </template>
 
 <script setup lang="ts">
-import {
-  CATEGORY_LIST,
-  MAIN_CATEGORY_LIST,
-  PAGE_SIZE_LIST,
-  TASK_STATUS_LIST,
-  TERM_LIST
-} from '@/constants/user'
+import { DUMMY_CATEGORY_LIST, PAGE_SIZE_LIST, TASK_STATUS_LIST, TERM_LIST } from '@/constants/user'
 import FilterDropdown from '../FilterDropdown.vue'
 import FilterDropdownMulti from '../FilterDropdownMulti.vue'
 import FilterInput from '../FilterInput.vue'
 import { ref } from 'vue'
 import type { ParamsMyRequest } from '@/types/user'
+import FilterCategory from '../FilterCategory.vue'
 
 const params = ref<ParamsMyRequest>({
   term: '전체',
@@ -88,4 +63,19 @@ const params = ref<ParamsMyRequest>({
   taskStatus: [],
   pageSize: '20'
 })
+
+const onMainChange = (value: number) => {
+  if (params.value.mainCategory.includes(value)) {
+    params.value.mainCategory = [...params.value.mainCategory].filter(el => el !== value)
+  } else {
+    params.value.mainCategory.push(value)
+  }
+}
+const onSubChange = (value: number) => {
+  if (params.value.category.includes(value)) {
+    params.value.category = [...params.value.category].filter(el => el !== value)
+  } else {
+    params.value.category.push(value)
+  }
+}
 </script>

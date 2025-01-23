@@ -14,8 +14,8 @@ export interface Filter {
 
 export interface ParamsMyRequest {
   term: string
-  mainCategory: string[]
-  category: string[]
+  mainCategory: number[]
+  category: number[]
   title: string
   nickName: string
   taskStatus: string[]
