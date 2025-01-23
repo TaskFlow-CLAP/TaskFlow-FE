@@ -7,21 +7,19 @@
     <input
       class="w-full h-11 border border-border-1 px-4 focus:outline-none"
       v-model="model"
-      :placeholder="props.placeholderText" />
+      :placeholder="placeholderText" />
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { RequestTaskInputProps } from '@/types/user'
 import { computed } from 'vue'
 
-const props = defineProps({
-  modelValue: String,
-  placeholderText: String
-})
+const { modelValue, placeholderText } = defineProps<RequestTaskInputProps>()
 const emit = defineEmits(['update:modelValue'])
 
 const model = computed({
-  get: () => props.modelValue,
+  get: () => modelValue,
   set: value => emit('update:modelValue', value)
 })
 </script>

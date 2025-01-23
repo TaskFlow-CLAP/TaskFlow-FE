@@ -44,7 +44,7 @@
 <script lang="ts" setup>
 import { deleteIcon, plusIcon } from '@/constants/iconPath'
 import CommonIcons from './CommonIcons.vue'
-import { formatFileSize } from '@/utils/unit';
+import { formatFileSize } from '@/utils/unit'
 
 const props = defineProps<{
   files: File[] | null

@@ -6,10 +6,12 @@
     <div class="w-full flex flex-col gap-y-6">
       <RequestTaskDropdown
         :placeholderText="category1"
-        :options="REQUEST_TASK_CATEGORIES" />
+        :options="REQUEST_TASK_CATEGORIES"
+        :label-name="'1차 카테고리'" />
       <RequestTaskDropdown
         :placeholderText="category2"
-        :options="REQUEST_TASK_CATEGORIES" />
+        :options="REQUEST_TASK_CATEGORIES"
+        :label-name="'2차 카테고리'" />
       <RequestTaskInput
         v-model="title"
         :placeholderText="TITLE_PLACEHOLDER" />
