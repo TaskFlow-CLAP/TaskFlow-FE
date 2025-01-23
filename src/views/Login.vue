@@ -10,34 +10,34 @@
     <form
       @submit.prevent="handleLogin"
       class="mb-2">
-      <div class="mb-3">
+      <div class="mb-6">
         <input
           type="text"
-          id="username"
-          v-model="username"
+          id="id"
+          v-model="id"
           placeholder="아이디를 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
       </div>
-      <div class="mt-3 mb-8">
+      <div class="mb-8">
         <input
           type="password"
           id="password"
           v-model="password"
           placeholder="비밀번호를 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
       </div>
       <button
         type="submit"
-        class="w-full py-4 px-4 bg-primary1 text-white rounded-[4px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+        class="w-full py-4 px-4 bg-primary1 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
         로그인
       </button>
     </form>
     <div class="flex w-full justify-center">
       <RouterLink
         class="text-body font-bold text-[12px]"
-        to="/pw-change"
+        to="/pw-change-email"
         >비밀번호 재설정</RouterLink
       >
     </div>
@@ -50,11 +50,11 @@ import { ref } from 'vue'
 export default {
   name: 'LoginPage',
   setup() {
-    const username = ref('')
+    const id = ref('')
     const password = ref('')
 
     const handleLogin: () => void = () => {
-      if (username.value === 'asdf' && password.value === 'asdf') {
+      if (id.value === 'asdf' && password.value === 'asdf') {
         alert('로그인 성공!')
       } else {
         alert('아이디나 비밀번호가 잘못되었습니다.')
@@ -62,7 +62,7 @@ export default {
     }
 
     return {
-      username,
+      id,
       password,
       handleLogin
     }
