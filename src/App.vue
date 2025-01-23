@@ -5,6 +5,16 @@ import TopMenu from './components/TopMenu.vue'
 
 <template>
   <TopMenu />
+
+  <header>
+    <div class="wrapper">
+      <nav class="flex gap-3">
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/Icon">Icon</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+      </nav>
+    </div>
+  </header>
   <RouterView />
 </template>
 

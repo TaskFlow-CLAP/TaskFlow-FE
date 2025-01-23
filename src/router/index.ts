@@ -1,8 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '../views/Login.vue'
-import PwChangeView from '../views/PwChange.vue'
-import PwChangeEmailView from '../views/PwChangeEmail.vue'
-import PWCheckView from '../views/PwCheck.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,25 +6,30 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: () => import('../views/Login.vue')
     },
 
     {
       path: '/pw-change',
       name: 'pwChange',
-      component: PwChangeView
+      component: () => import('../views/PwChange.vue')
     },
     {
       path: '/pw-change-email',
       name: 'pwChangeEmail',
-      component: PwChangeEmailView,
+      component: () => import('../views/PwChangeEmail.vue'),
       meta: { requiresAuth: true }
     },
     {
       path: '/pw-check',
       name: 'PWCheckView',
-      component: PWCheckView,
+      component: () => import('../views/PwCheck.vue'),
       meta: { requiresAuth: true }
+    },
+    {
+      path: '/icon',
+      name: 'icon',
+      component: () => import('../views/IconView.vue')
     }
   ]
 })
