@@ -3,7 +3,7 @@
     :width="name?.width"
     :height="name?.height"
     :viewBox="`0 0 ${name?.width} ${name?.height}`"
-    :fill="isHovered ? name?.hoverFill : name?.fill"
+    :fill="isHovered ? name?.hoverFill || name?.fill : name?.fill"
     @mouseover="isHovered = true"
     @mouseleave="isHovered = false"
     :class="className"
