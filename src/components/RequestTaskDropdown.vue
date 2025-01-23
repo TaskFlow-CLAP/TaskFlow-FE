@@ -13,7 +13,7 @@
         </p>
         <CommonIcons
           :name="dropdownIcon"
-            :class="['ml-auto', { 'rotate-180': dropdownOpen }]" />
+          :class="['ml-auto', { 'rotate-180': dropdownOpen }]" />
       </div>
       <div
         v-if="dropdownOpen"
@@ -50,5 +50,3 @@ const selectOption = (option: string) => {
   dropdownOpen.value = false
 }
 </script>
-
-<style scoped></style>

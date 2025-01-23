@@ -43,13 +43,11 @@
 
 <script lang="ts" setup>
 import { deleteIcon, plusIcon } from '@/constants/iconPath'
-import CommonIcons from './CommonIcons.vue'
 import { formatFileSize } from '@/utils/unit'
+import CommonIcons from './CommonIcons.vue'
 
 const props = defineProps<{
   files: File[] | null
   removeFile: (index: number) => void
 }>()
 </script>
-
-<style scoped></style>

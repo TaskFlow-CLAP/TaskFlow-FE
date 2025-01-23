@@ -1,5 +1,10 @@
+<script setup lang="ts">
+import RequestTask from '@/components/RequestTask.vue'
+</script>
+
 <template>
   <div class="Home">
+    <RequestTask />
     <h1>This is an Home page</h1>
   </div>
 </template>

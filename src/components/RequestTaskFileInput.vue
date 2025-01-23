@@ -55,5 +55,3 @@ const removeFile = (index: number) => {
   }
 }
 </script>
-
-<style scoped></style>

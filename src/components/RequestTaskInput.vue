@@ -23,5 +23,3 @@ const model = computed({
   set: value => emit('update:modelValue', value)
 })
 </script>
-
-<style scoped></style>
