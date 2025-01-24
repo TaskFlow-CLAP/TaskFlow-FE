@@ -75,7 +75,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import CommonIcons from './CommonIcons.vue'
+import CommonIcons from './common/CommonIcons.vue'
 import { successIcon, failIcon, warningIcon } from '../constants/iconPath'
 
 const props = defineProps<{
