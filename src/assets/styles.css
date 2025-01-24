@@ -30,6 +30,22 @@ body {
   @apply view-container w-full max-w-[400px] mx-auto;
 }
 
+.button-medium {
+  @apply flex items-center justify-center rounded px-4 py-2 font-bold gap-1 text-xs cursor-pointer shrink-0;
+}
+.button-medium-primary {
+  @apply button-medium bg-primary1 text-white;
+}
+.button-medium-secondary {
+  @apply button-medium bg-white border border-primary1 text-primary1;
+}
+.button-medium-default {
+  @apply button-medium bg-white border border-border-1 text-disabled;
+}
+.button-medium-red {
+  @apply button-medium bg-white border border-red-1 text-red-1;
+}
+
 .list-bar {
   @apply w-full h-8 px-4 bg-background-2 flex items-center gap-4 shrink-0;
 }

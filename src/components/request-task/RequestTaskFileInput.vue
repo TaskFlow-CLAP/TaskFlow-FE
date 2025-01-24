@@ -17,9 +17,9 @@
       <div class="text-sm text-disabled font-bold">첨부할 파일을 끌어 놓으세요</div>
       <label
         for="file"
-        class="flex items-center justify-center h-8 rounded px-4 py-2 bg-primary1 text-white font-bold gap-1 text-xs cursor-pointer">
+        class="button-medium-primary">
         <CommonIcons :name="uploadIcon" />
-        <p>파일선택</p>
+        <p>파일 선택</p>
       </label>
     </div>
   </div>

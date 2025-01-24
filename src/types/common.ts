@@ -29,10 +29,17 @@ export interface FilterCategory {
   sub: Ref<number[]> | number[]
 }
 
-export interface ListCardInfo {
+export interface ListCardProps {
   content?: string
   width?: number
   isTextXs?: boolean
   profileImg?: string
   isStatus?: boolean
+}
+
+export interface ListBarTabProps {
+  content: string
+  width?: number
+  sortBy?: string
+  justifyCenter?: boolean
 }

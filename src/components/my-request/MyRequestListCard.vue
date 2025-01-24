@@ -1,23 +1,23 @@
 <template>
   <div class="list-card">
     <ListCardTab
-      v-for="info in myRequestInfoList"
-      :key="info.content"
-      :content="info.content"
-      :width="info.width"
-      :is-text-xs="info.isTextXs"
-      :profile-img="info.profileImg"
-      :is-status="info.isStatus" />
+      v-for="tab in myRequestTabList"
+      :key="tab.content"
+      :content="tab.content"
+      :width="tab.width"
+      :is-text-xs="tab.isTextXs"
+      :profile-img="tab.profileImg"
+      :is-status="tab.isStatus" />
   </div>
 </template>
 
 <script setup lang="ts">
-import type { MyRequestListInfo } from '@/types/user'
-import type { ListCardInfo } from '@/types/common'
+import type { ListCardProps } from '@/types/common'
 import ListCardTab from '../lists/ListCardTab.vue'
+import type { MyRequestListData } from '@/types/user'
 
-const { info } = defineProps<{ info: MyRequestListInfo }>()
-const myRequestInfoList: ListCardInfo[] = [
+const { info } = defineProps<{ info: MyRequestListData }>()
+const myRequestTabList: ListCardProps[] = [
   { content: info.taskCode, width: 120, isTextXs: true },
   { content: info.requestedAt, width: 80 },
   { content: info.mainCategoryName, width: 80 },
