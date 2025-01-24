@@ -34,7 +34,7 @@
 import { dropdownIcon } from '@/constants/iconPath'
 import type { RequestTaskDropdownProps } from '@/types/user'
 import { ref } from 'vue'
-import CommonIcons from './CommonIcons.vue'
+import CommonIcons from '../common/CommonIcons.vue'
 
 const { placeholderText, options, labelName, modelValue } = defineProps<RequestTaskDropdownProps>()
 const emit = defineEmits(['update:modelValue'])

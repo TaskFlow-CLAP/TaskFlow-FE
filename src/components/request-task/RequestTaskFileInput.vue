@@ -26,9 +26,9 @@
 </template>
 
 <script lang="ts" setup>
+import CommonIcons from '@/components/common/CommonIcons.vue'
 import { uploadIcon } from '@/constants/iconPath'
 import { computed } from 'vue'
-import CommonIcons from './CommonIcons.vue'
 import RequestTaskFileInputAfter from './RequestTaskFileInputAfter.vue'
 
 const props = defineProps<{

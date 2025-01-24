@@ -44,8 +44,8 @@ import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
 
-const category1 = ref('')
-const category2 = ref('')
+const category1 = ref('1차 카테고리를 선택해주세요')
+const category2 = ref('2차 카테고리를 선택해주세요')
 const title = ref('')
 const description = ref('')
 const file = ref(null as File[] | null)

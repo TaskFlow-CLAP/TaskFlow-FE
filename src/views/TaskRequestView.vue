@@ -8,5 +8,5 @@
 </template>
 
 <script setup lang="ts">
-import RequestTask from '@/components/RequestTask.vue'
+import RequestTask from '@/components/request-task/RequestTask.vue'
 </script>

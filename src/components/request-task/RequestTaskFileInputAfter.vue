@@ -45,7 +45,7 @@
 import { deleteIcon, plusIcon } from '@/constants/iconPath'
 import type { RequestTaskFileInputProps } from '@/types/user'
 import { formatFileSize } from '@/utils/unit'
-import CommonIcons from './CommonIcons.vue'
+import CommonIcons from '../common/CommonIcons.vue'
 
 const { files, removeFile } = defineProps<RequestTaskFileInputProps>()
 </script>

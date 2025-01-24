@@ -12,3 +12,43 @@
 body {
   font-family: 'SUIT-Variable', sans-serif;
 }
+
+.shadow-custom {
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.view-container {
+  @apply py-10 px-6;
+}
+.max-w-1200 {
+  @apply view-container w-full max-w-[1200px] min-w-[1024px] mx-auto;
+}
+.max-w-600 {
+  @apply view-container w-full max-w-[600px] mx-auto;
+}
+.max-w-400 {
+  @apply view-container w-full max-w-[400px] mx-auto;
+}
+
+.list-bar {
+  @apply w-full h-8 px-4 bg-background-2 flex items-center gap-4 shrink-0;
+}
+.list-card {
+  @apply flex px-4 py-3 gap-4 border-b border-border-1 cursor-pointer hover:bg-background-2;
+}
+
+.filter-container {
+  @apply flex flex-col gap-1 shrink-0;
+}
+.filter-title {
+  @apply text-[10px] font-bold text-body;
+}
+.filter-dropdown {
+  @apply flex justify-center items-center w-full h-8 px-2 border-b border-border-1 relative text-xs cursor-pointer;
+}
+.filter-dropdown-option-list {
+  @apply w-full max-h-[120px] overflow-y-scroll absolute left-0 top-[calc(100%+8px)] shadow-custom p-2 flex flex-col gap-2 rounded bg-white cursor-auto;
+}
+.filter-dropdown-option {
+  @apply text-xs p-2 rounded text-center cursor-pointer;
+}
