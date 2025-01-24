@@ -24,7 +24,7 @@
           v-model="id"
           placeholder="아이디를 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
+          class="input-box" />
       </div>
       <div class="relative mb-6">
         <div class="absolute flex items-center right-4 h-full">
@@ -41,7 +41,7 @@
           v-model="email"
           placeholder="이메일을 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
+          class="input-box" />
       </div>
       <div class="mb-8">
         <input
@@ -51,7 +51,7 @@
           v-model="checkCode"
           placeholder="인증코드를 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
+          class="input-box" />
       </div>
       <button
         type="submit"

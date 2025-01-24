@@ -17,7 +17,7 @@
           v-model="nickname"
           placeholder="닉네임을 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+          class="input-box" />
       </div>
       <div class="mb-8">
         <input
@@ -26,7 +26,7 @@
           v-model="password"
           placeholder="비밀번호를 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+          class="input-box" />
       </div>
       <button
         type="submit"

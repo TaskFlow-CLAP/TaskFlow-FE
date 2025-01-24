@@ -65,3 +65,6 @@ body {
 .button-large-primary {
   @apply button-large bg-primary1 text-white border-primary1;
 }
+.input-box {
+  @apply block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none;
+}

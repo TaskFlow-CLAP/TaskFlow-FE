@@ -19,7 +19,7 @@
           v-model="pw"
           placeholder="비밀번호를 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
+          class="input-box" />
       </div>
       <div class="mb-8">
         <button
