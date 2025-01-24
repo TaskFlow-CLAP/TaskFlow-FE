@@ -1,12 +1,12 @@
 <template>
   <div class="max-w-md mx-auto p-10">
-    <Modal
+    <ModalView
       :isOpen="isModalOpen"
       :type="'checkType'"
       @close="pwChange">
       <template #header> 비밀번호가 변경 되었습니다 </template>
       <template #body> 다시 로그인 해주세요 </template>
-    </Modal>
+    </ModalView>
     <div class="py-16">
       <div class="text-4xl font-bold text-center">
         <p class="pb-2">비밀번호</p>
@@ -46,45 +46,34 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref } from 'vue'
-import router from '../router/index'
-import Modal from '../components/Modal.vue'
+import { useRouter } from 'vue-router'
+import ModalView from '../components/ModalView.vue'
 
-export default {
-  name: 'PwChangePage',
-  components: Modal,
-  setup() {
-    const newPw = ref('')
-    const checkPw = ref('')
-    const isModalOpen = ref(false)
+const newPw = ref('')
+const checkPw = ref('')
+const isModalOpen = ref(false)
+const router = useRouter() // 라우터 인스턴스 생성
 
-    const toggleModal = () => {
-      isModalOpen.value = !isModalOpen.value
-    }
+// 모달 상태 변경 함수
+const toggleModal = () => {
+  isModalOpen.value = !isModalOpen.value
+}
 
-    const handleChange: () => void = () => {
-      if (newPw.value === checkPw.value) {
-        console.log('asdf')
-        toggleModal()
-        //비밀번호 재설정 API 추가 필요
-      } else {
-        alert('일치x')
-      }
-    }
-
-    const pwChange = () => {
-      router.push('/login')
-    }
-
-    return {
-      newPw,
-      checkPw,
-      handleChange,
-      isModalOpen,
-      toggleModal,
-      pwChange
-    }
+// 비밀번호 변경 처리 함수
+const handleChange = () => {
+  if (newPw.value === checkPw.value) {
+    console.log('비밀번호 변경 성공!')
+    toggleModal()
+    // 비밀번호 재설정 API 호출 필요
+  } else {
+    alert('비밀번호가 일치하지 않습니다.')
   }
+}
+
+// 모달 닫힐 때 로그인 페이지로 이동
+const pwChange = () => {
+  router.push('/login')
 }
 </script>

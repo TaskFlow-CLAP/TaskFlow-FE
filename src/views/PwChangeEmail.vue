@@ -1,12 +1,12 @@
 <template>
   <div class="max-w-md mx-auto p-10">
-    <Modal
+    <ModalView
       :isOpen="isModalOpen"
       :type="'checkType'"
       @close="toggleModal">
       <template #header> 인증 번호가 전송되었습니다 </template>
       <template #body> 이메일을 확인해주세요 </template>
-    </Modal>
+    </ModalView>
     <div class="py-16">
       <div class="text-4xl font-bold text-center">
         <p class="pb-2">비밀번호</p>
@@ -53,55 +53,40 @@
           required
           class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
       </div>
-      <button
+      <CustomButton
+        color="primaryButton"
         type="submit"
-        class="w-full py-4 px-4 bg-primary1 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
-        확인
-      </button>
+        name="확인" />
     </form>
     <div class="flex w-full justify-center"></div>
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref } from 'vue'
 import router from '../router/index'
-import Modal from '../components/Modal.vue'
+import { ModalView } from '../components/ModalView.vue'
 
-export default {
-  name: 'PwChangeEmailPage',
-  components: { Modal },
-  setup() {
-    const id = ref('')
-    const email = ref('')
-    const checkCode = ref('')
-    const requestEmail = ref(false)
-    const isModalOpen = ref(false)
-    const toggleModal = () => {
-      isModalOpen.value = !isModalOpen.value
-    }
+// 상태 관리
+const id = ref('')
+const email = ref('')
+const checkCode = ref('')
+const requestEmail = ref(false)
+const isModalOpen = ref(false)
 
-    const handleRequestEmail = () => {
-      toggleModal()
-      requestEmail.value = true
-      //이메일 인증 코드 전송 API 추가 필요
-    }
+// 함수 정의
+const toggleModal = () => {
+  isModalOpen.value = !isModalOpen.value
+}
 
-    const handleCheck = () => {
-      //이메일 인증 코드 확인 API 추가 필요
-      router.push('/pw-change')
-    }
+const handleRequestEmail = () => {
+  toggleModal()
+  requestEmail.value = true
+  // 이메일 인증 코드 전송 API 추가 필요
+}
 
-    return {
-      id,
-      email,
-      checkCode,
-      requestEmail,
-      handleRequestEmail,
-      handleCheck,
-      toggleModal,
-      isModalOpen
-    }
-  }
+const handleCheck = () => {
+  // 이메일 인증 코드 확인 API 추가 필요
+  router.push('/pw-change')
 }
 </script>

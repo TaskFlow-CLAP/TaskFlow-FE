@@ -22,34 +22,23 @@
           class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
       </div>
       <div class="mb-8"></div>
-      <button
+      <CustomButton
         type="submit"
-        class="w-full py-4 px-4 bg-primary1 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
-        확인
-      </button>
+        color="primaryButton"
+        name="확인" />
     </form>
     <div class="flex w-full justify-center"></div>
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref } from 'vue'
 import router from '../router/index'
 
-export default {
-  name: 'PwChangePage',
-  setup() {
-    const pw = ref('')
+const pw = ref('')
 
-    const handleCheck: () => void = () => {
-      //기존 비밀번호 확인 API 추가 필요
-      router.push('/pw-change')
-    }
-
-    return {
-      pw,
-      handleCheck
-    }
-  }
+const handleCheck = () => {
+  // 기존 비밀번호 확인 API 추가 필요
+  router.push('/pw-change')
 }
 </script>
