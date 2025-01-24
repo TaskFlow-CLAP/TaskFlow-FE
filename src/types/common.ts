@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 
-export interface TitleBar {
+export interface TitleBarProps {
   title: string
   btn?: string
 }
@@ -23,7 +23,7 @@ export interface Category {
   subCategoryList?: { id: number; content: string }[]
 }
 
-export interface FilterCategory {
+export interface FilterCategoryProps {
   categoryList: Category[]
   main: Ref<number[]> | number[]
   sub: Ref<number[]> | number[]
@@ -41,6 +41,6 @@ export interface ListBarTabProps {
   content: string
   width?: number
   sortBy?: string
-  currentOrderRequest: { sortBy: string; sortDirection: 'DESC' | 'ASC' }
+  currentOrderRequest?: { sortBy: string; sortDirection: 'DESC' | 'ASC' }
   justifyCenter?: boolean
 }
