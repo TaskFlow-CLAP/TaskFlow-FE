@@ -6,17 +6,17 @@
     <div class="bg-white rounded-lg shadow-lg px-8 py-8 min-w-[364px]">
       <div class="mb-2 min-h-16">
         <div
-          v-if="type == 'checkType'"
+          v-if="type == 'successType'"
           class="flex ic justify-center">
           <CommonIcons :name="successIcon" />
         </div>
         <div
-          v-if="type == 'xType' || type == 'inputType'"
+          v-if="type == 'failType' || type == 'inputType'"
           class="flex ic justify-center">
           <CommonIcons :name="failIcon" />
         </div>
         <div
-          v-if="type == 'deleteType'"
+          v-if="type == 'warningType'"
           class="flex ic justify-center">
           <CommonIcons :name="warningIcon" />
         </div>
@@ -40,13 +40,13 @@
         class="flex border w-full border-zinc-300 px-4 py-3 focus:outline-none resize-none mt-6 h-[120px]" />
       <div class="mt-8">
         <CustomButton
-          v-if="type == 'checkType'"
+          v-if="type == 'successType'"
           color="primaryButton"
           @click="closeModal"
           name="확인" />
 
         <CustomButton
-          v-if="type == 'xType'"
+          v-if="type == 'failType'"
           color="whiteButton"
           @click="closeModal"
           name="확인" />
@@ -54,7 +54,7 @@
 
       <div
         class="flex mt-8 items-center"
-        v-if="type == 'deleteType' || type == 'inputType'">
+        v-if="type == 'warningType' || type == 'inputType'">
         <div class="mr-6">
           <CustomButton
             color="whiteButton"
