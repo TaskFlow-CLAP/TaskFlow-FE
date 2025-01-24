@@ -30,18 +30,10 @@ import CommonIcons from '../common/CommonIcons.vue'
 import type { Status } from '@/types/common'
 import { computed } from 'vue'
 import { statusAsColor } from '@/utils/statusAsColor'
+import type { TaskCardProps } from '@/types/manager'
 
 const { title, mainCategoryName, categoryName, taskCode, requesterName, requesterTeam, status } =
-  defineProps<{
-    title: string
-    mainCategoryName: string
-    categoryName: string
-    taskCode: string
-    requesterTeam: string
-    requesterImg: string
-    requesterName: string
-    status: string
-  }>()
+  defineProps<TaskCardProps>()
 
 const borderLeft = computed(() => {
   console.log(statusAsColor(status as Status))
