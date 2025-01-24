@@ -29,25 +29,24 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+interface ButtonPropsTypes {
+  color?: string
+  name?: string
+  type?: string
+  size?: string
+}
 
-export default defineComponent({
-  name: 'ButtonView',
- const props = withDefaults(defineProps<ButtonPropsTypes>(), {
+const props = withDefaults(defineProps<ButtonPropsTypes>(), {
   color: 'default',
   name: '확인',
   type: 'button',
-  size: 'button',
-});
-  emits: ['click'],
-  setup(_, { emit }) {
-    const handleClick = () => {
-      emit('click')
-    }
-    return {
-      handleClick
-    }
-  }
+  size: 'button'
 })
+
+const emit = defineEmits(['click'])
+
+const handleClick = () => {
+  emit('click')
+}
 </script>
