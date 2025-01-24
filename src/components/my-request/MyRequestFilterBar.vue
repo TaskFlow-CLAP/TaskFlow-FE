@@ -43,8 +43,8 @@ import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterInput from '../filters/FilterInput.vue'
 import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
-import { DUMMY_CATEGORY_LIST } from '@/constants/dummy'
 import { useMyRequestParamsStore } from '@/stores/params'
+import { DUMMY_CATEGORY_LIST } from '@/datas/dummy'
 
 const { params } = useMyRequestParamsStore()
 
