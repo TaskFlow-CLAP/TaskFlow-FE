@@ -34,24 +34,12 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'ButtonView',
-  props: {
-    color: {
-      type: String,
-      default: 'default'
-    },
-    name: {
-      type: String,
-      default: '확인'
-    },
-    type: {
-      type: String,
-      default: 'button'
-    },
-    size: {
-      size: String,
-      default: 'button'
-    }
-  },
+ const props = withDefaults(defineProps<ButtonPropsTypes>(), {
+  color: 'default',
+  name: '확인',
+  type: 'button',
+  size: 'button',
+});
   emits: ['click'],
   setup(_, { emit }) {
     const handleClick = () => {
