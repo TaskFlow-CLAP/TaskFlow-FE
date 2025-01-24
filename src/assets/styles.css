@@ -46,6 +46,19 @@ body {
   @apply button-medium bg-white border border-red-1 text-red-1;
 }
 
+.button-small {
+  @apply flex items-center gap-1 text-xs font-bold;
+}
+.button-small-primary {
+  @apply text-primary1;
+}
+.button-small-default {
+  @apply text-disabled;
+}
+.button-small-red {
+  @apply text-red-1;
+}
+
 .list-bar {
   @apply w-full h-8 px-4 bg-background-2 flex items-center gap-4 shrink-0;
 }
