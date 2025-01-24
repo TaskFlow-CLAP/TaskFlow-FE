@@ -2,7 +2,7 @@
   <div class="max-w-md mx-auto p-10">
     <ModalView
       :isOpen="isModalOpen"
-      :type="'warningType'"
+      :type="'inputType'"
       @close="toggleModal">
       <template #header> 인증 번호가 전송되었습니다 </template>
       <template #body> 이메일을 확인해주세요 </template>
@@ -53,10 +53,11 @@
           required
           class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
       </div>
-      <CustomButton
-        color="primaryButton"
+      <button
         type="submit"
-        name="확인" />
+        class="button-large-primary">
+        확인
+      </button>
     </form>
     <div class="flex w-full justify-center"></div>
   </div>

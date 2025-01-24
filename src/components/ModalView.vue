@@ -39,34 +39,37 @@
         placeholder="거부 사유를 입력해주세요"
         class="flex border w-full border-zinc-300 px-4 py-3 focus:outline-none resize-none mt-6 h-[120px]" />
       <div class="mt-8">
-        <CustomButton
+        <button
+          class="button-large-primary"
           v-if="type == 'successType'"
-          color="primaryButton"
-          @click="closeModal"
-          name="확인" />
+          @click="closeModal">
+          확인
+        </button>
 
-        <CustomButton
+        <button
+          class="button-large-default"
           v-if="type == 'failType'"
-          color="whiteButton"
-          @click="closeModal"
-          name="확인" />
-      </div>
+          @click="closeModal">
+          확인
+        </button>
 
-      <div
-        class="flex mt-8 items-center"
-        v-if="type == 'warningType' || type == 'inputType'">
-        <div class="mr-6">
-          <CustomButton
-            color="whiteButton"
-            @click="closeModal"
-            name="취소" />
-        </div>
-        <div>
-          <CustomButton
-            color="redButton"
-            size="short"
-            :name="type === 'inputType' ? '거부' : '삭제'"
-            @click="onClick" />
+        <div
+          class="flex mt-8 items-center"
+          v-if="type == 'warningType' || type == 'inputType'">
+          <div class="mr-6">
+            <button
+              class="button-large-default"
+              @click="closeModal">
+              취소
+            </button>
+          </div>
+          <div>
+            <button
+              class="button-large-red"
+              @click="closeModal">
+              {{ type === 'inputType' ? '거부' : '삭제' }}
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -98,11 +101,5 @@ watch(textValue, newValue => {
 
 const closeModal = () => {
   emit('close')
-}
-
-const onClick = () => {
-  if (props.type === 'inputType') {
-    emit('click')
-  }
 }
 </script>

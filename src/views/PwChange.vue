@@ -35,12 +35,11 @@
           required
           class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
       </div>
-
-      <CustomButton
-        color="primaryButton"
+      <button
         type="submit"
-        name="비밀번호 재설정"
-        click="handleChange" />
+        class="button-large-primary">
+        비밀번호 재설정
+      </button>
     </form>
     <div class="flex w-full justify-center"></div>
   </div>

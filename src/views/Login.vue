@@ -28,10 +28,11 @@
           required
           class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
       </div>
-      <CustomButton
+      <button
         type="submit"
-        color="primaryButton"
-        name="로그인" />
+        class="button-large-primary">
+        로그인
+      </button>
     </form>
     <div class="flex w-full justify-center">
       <RouterLink

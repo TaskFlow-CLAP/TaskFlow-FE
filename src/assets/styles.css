@@ -52,3 +52,16 @@ body {
 .filter-dropdown-option {
   @apply text-xs p-2 rounded text-center cursor-pointer;
 }
+
+.button-large {
+  @apply flex w-full py-3 font-bold border rounded items-center justify-center min-w-[138px];
+}
+.button-large-default {
+  @apply button-large bg-white text-zinc-400 border-zinc-400;
+}
+.button-large-red {
+  @apply button-large bg-red-1 text-white border-red-1;
+}
+.button-large-primary {
+  @apply button-large bg-primary1 text-white border-primary1;
+}

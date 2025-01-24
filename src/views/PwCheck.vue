@@ -22,10 +22,11 @@
           class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
       </div>
       <div class="mb-8">
-        <CustomButton
+        <button
           type="submit"
-          color="primaryButton"
-          name="확인" />
+          class="button-large-">
+          확인
+        </button>
       </div>
     </form>
     <div class="flex w-full justify-center"></div>
