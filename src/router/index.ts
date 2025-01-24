@@ -27,12 +27,12 @@ const router = createRouter({
       component: () => import('../views/PwCheck.vue'),
       meta: { requiresAuth: true }
     },
-
+    {
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue')
     },
-      {
+    {
       path: '/my-request',
       name: 'MyRequest',
       component: MyRequestView
