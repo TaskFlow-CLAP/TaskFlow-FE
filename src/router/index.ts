@@ -43,15 +43,14 @@ const router = createRouter({
       component: () => import('../views/TaskRequestView.vue')
     },
     {
-<<<<<<< HEAD
-      path: '/task-board',
-      name: 'TaskBoard',
-      component: () => import('../views/TaskBoardView.vue')
-=======
       path: '/requested',
       name: 'Requested',
       component: () => import('../views/RequestedView.vue')
->>>>>>> 858bdd9630d2c3ba928ee83d07b99f5937146557
+    },
+    {
+      path: '/task-board',
+      name: 'TaskBoard',
+      component: () => import('../views/TaskBoardView.vue')
     }
   ]
 })

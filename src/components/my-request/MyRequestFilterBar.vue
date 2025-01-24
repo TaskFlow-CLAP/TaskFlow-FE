@@ -44,11 +44,8 @@ import FilterInput from '../filters/FilterInput.vue'
 import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
 import { useMyRequestParamsStore } from '@/stores/params'
 import { DUMMY_CATEGORY_LIST } from '@/datas/dummy'
-<<<<<<< HEAD
-import type { Status } from '@/types/common'
-=======
 import { PAGE_SIZE_LIST, TASK_STATUS_LIST, TERM_LIST } from '@/constants/common'
->>>>>>> 858bdd9630d2c3ba928ee83d07b99f5937146557
+import type { Status } from '@/types/common'
 
 const { params } = useMyRequestParamsStore()
 
