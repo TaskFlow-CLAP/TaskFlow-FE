@@ -24,7 +24,7 @@
           v-model="id"
           placeholder="아이디를 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
       </div>
       <div class="relative mb-6">
         <div class="absolute flex items-center right-4 h-full">
@@ -41,7 +41,7 @@
           v-model="email"
           placeholder="이메일을 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
       </div>
       <div class="mb-8">
         <input
@@ -51,7 +51,7 @@
           v-model="checkCode"
           placeholder="인증코드를 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
       </div>
       <CustomButton
         color="primaryButton"
@@ -67,14 +67,12 @@ import { ref } from 'vue'
 import router from '../router/index'
 import ModalView from '../components/ModalView.vue'
 
-// 상태 관리
 const id = ref('')
 const email = ref('')
 const checkCode = ref('')
 const requestEmail = ref(false)
 const isModalOpen = ref(false)
 
-// 함수 정의
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }

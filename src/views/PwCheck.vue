@@ -19,13 +19,14 @@
           v-model="pw"
           placeholder="비밀번호를 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
       </div>
-      <div class="mb-8"></div>
-      <CustomButton
-        type="submit"
-        color="primaryButton"
-        name="확인" />
+      <div class="mb-8">
+        <CustomButton
+          type="submit"
+          color="primaryButton"
+          name="확인" />
+      </div>
     </form>
     <div class="flex w-full justify-center"></div>
   </div>

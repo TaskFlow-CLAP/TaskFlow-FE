@@ -24,7 +24,7 @@
           v-model="newPw"
           placeholder="새 비밀번호를 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
       </div>
       <div class="mb-8">
         <input
@@ -33,7 +33,7 @@
           v-model="checkPw"
           placeholder="새 비밀번호를 다시 입력해주세요"
           required
-          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+          class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none" />
       </div>
 
       <CustomButton
@@ -54,14 +54,12 @@ import ModalView from '../components/ModalView.vue'
 const newPw = ref('')
 const checkPw = ref('')
 const isModalOpen = ref(false)
-const router = useRouter() // 라우터 인스턴스 생성
+const router = useRouter()
 
-// 모달 상태 변경 함수
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
 
-// 비밀번호 변경 처리 함수
 const handleChange = () => {
   if (newPw.value === checkPw.value) {
     console.log('비밀번호 변경 성공!')
@@ -72,7 +70,6 @@ const handleChange = () => {
   }
 }
 
-// 모달 닫힐 때 로그인 페이지로 이동
 const pwChange = () => {
   router.push('/login')
 }

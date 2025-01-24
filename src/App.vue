@@ -4,8 +4,6 @@ import TopMenu from './components/TopMenu.vue'
 </script>
 
 <template>
-  <TopMenu />
-
   <header>
     <TopMenu />
     <div class="wrapper">
