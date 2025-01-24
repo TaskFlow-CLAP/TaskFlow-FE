@@ -15,9 +15,9 @@
 
 <script setup lang="ts">
 import { plusIcon } from '@/constants/iconPath'
-import type { TitleBar } from '@/types/common'
+import type { TitleBarProps } from '@/types/common'
 import CommonIcons from './common/CommonIcons.vue'
 
-const props = defineProps<TitleBar>()
+const props = defineProps<TitleBarProps>()
 defineEmits(['buttonClick'])
 </script>

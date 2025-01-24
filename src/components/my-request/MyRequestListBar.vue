@@ -5,8 +5,9 @@
       :key="tab.content"
       :content="tab.content"
       :width="tab.width"
-      :order-target="tab.target"
-      @toggle-order="toggleOrder" />
+      :sortBy="tab.sortBy"
+      :current-order-request="params.orderRequest"
+      @toggle-sort-by="toggleSortBy" />
   </div>
 </template>
 
@@ -17,11 +18,12 @@ import ListBarTab from '../lists/ListBarTab.vue'
 
 const { params } = useMyRequestParamsStore()
 
-const toggleOrder = (orderTarget: string) => {
-  if (orderTarget === params.order.target) {
-    params.order.type = params.order.type === 'DESC' ? 'ASC' : 'DESC'
+const toggleSortBy = (sortBy: 'REQUESTED' | 'FINISHED') => {
+  if (sortBy === params.orderRequest.sortBy) {
+    params.orderRequest.sortDirection =
+      params.orderRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
   } else {
-    params.order = { target: orderTarget, type: 'DESC' }
+    params.orderRequest = { sortBy, sortDirection: 'DESC' }
   }
 }
 </script>
