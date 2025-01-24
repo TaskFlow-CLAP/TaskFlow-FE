@@ -8,19 +8,24 @@
       v-if="sortBy"
       @click="$emit('toggleSortBy', sortBy)">
       <OrderIcon
-        :is-active="params.orderRequest.sortBy === sortBy"
-        :class="params.orderRequest.sortDirection === 'ASC' && 'rotate-180'" />
+        :is-active="isActive"
+        :class="isASC && 'rotate-180'" />
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useMyRequestParamsStore } from '@/stores/params'
+import { computed } from 'vue'
 import OrderIcon from '../OrderIcon.vue'
 import type { ListBarTabProps } from '@/types/common'
 
-const { content, width, sortBy } = defineProps<ListBarTabProps>()
+const { content, width, sortBy, currentOrderRequest } = defineProps<ListBarTabProps>()
 defineEmits(['toggleSortBy'])
 
-const { params } = useMyRequestParamsStore()
+const isActive = computed(() => {
+  return sortBy === currentOrderRequest.sortBy
+})
+const isASC = computed(() => {
+  return currentOrderRequest.sortDirection === 'ASC'
+})
 </script>

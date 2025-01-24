@@ -5,7 +5,8 @@
       :key="tab.content"
       :content="tab.content"
       :width="tab.width"
-      :sort-by="tab.sortBy"
+      :sortBy="tab.sortBy"
+      :current-order-request="params.orderRequest"
       @toggle-sort-by="toggleSortBy" />
   </div>
 </template>
@@ -22,7 +23,7 @@ const toggleSortBy = (sortBy: 'REQUESTED' | 'FINISHED') => {
     params.orderRequest.sortDirection =
       params.orderRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
   } else {
-    params.orderRequest = { sortBy: sortBy, sortDirection: 'DESC' }
+    params.orderRequest = { sortBy, sortDirection: 'DESC' }
   }
 }
 </script>

@@ -41,5 +41,6 @@ export interface ListBarTabProps {
   content: string
   width?: number
   sortBy?: string
+  currentOrderRequest: { sortBy: string; sortDirection: 'DESC' | 'ASC' }
   justifyCenter?: boolean
 }

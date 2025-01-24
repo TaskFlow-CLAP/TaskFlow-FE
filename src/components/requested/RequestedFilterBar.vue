@@ -35,11 +35,11 @@
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { useMyRequestParamsStore } from '@/stores/params'
 import { DUMMY_CATEGORY_LIST } from '@/datas/dummy'
 import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
+import { useRequestedParamsStore } from '@/stores/params'
 
-const { params } = useMyRequestParamsStore()
+const { params } = useRequestedParamsStore()
 
 const onTermChange = (value: string) => {
   if (value === '') {

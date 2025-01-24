@@ -5,25 +5,21 @@
       :key="tab.content"
       :content="tab.content"
       :width="tab.width"
-      :sorted-by="tab.sortBy"
+      :sort-by="tab.sortBy"
+      :current-order-request="params.orderRequest"
       @toggle-sort-by="toggleSortBy"
       :justify-center="tab.justifyCenter" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useMyRequestParamsStore } from '@/stores/params'
 import { REQUESTED_LIST_BAR_TAB } from '@/constants/user'
 import ListBarTab from '../lists/ListBarTab.vue'
+import { useRequestedParamsStore } from '@/stores/params'
 
-const { params } = useMyRequestParamsStore()
+const { params } = useRequestedParamsStore()
 
-const toggleSortBy = (sortBy: 'REQUESTED' | 'FINISHED') => {
-  if (sortBy === params.orderRequest.sortBy) {
-    params.orderRequest.sortDirection =
-      params.orderRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
-  } else {
-    params.orderRequest = { sortBy: sortBy, sortDirection: 'DESC' }
-  }
+const toggleSortBy = () => {
+  params.orderRequest.sortDirection = params.orderRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
 }
 </script>
