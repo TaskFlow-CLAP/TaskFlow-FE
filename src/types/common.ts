@@ -36,3 +36,5 @@ export interface ListCardInfo {
   profileImg?: string
   isStatus?: boolean
 }
+
+export type Status = '요청' | '진행 중' | '검토 중' | '완료' | '종료'

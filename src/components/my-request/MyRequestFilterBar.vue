@@ -45,6 +45,7 @@ import FilterInput from '../filters/FilterInput.vue'
 import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
 import { useMyRequestParamsStore } from '@/stores/params'
 import { DUMMY_CATEGORY_LIST } from '@/datas/dummy'
+import type { Status } from '@/types/common'
 
 const { params } = useMyRequestParamsStore()
 
@@ -62,7 +63,7 @@ const onSubChange = (value: number) => {
     params.category.push(value)
   }
 }
-const onTaskStatusClick = (value: string) => {
+const onTaskStatusClick = (value: Status) => {
   if (params.taskStatus.includes(value)) {
     params.taskStatus = [...params.taskStatus].filter(el => el !== value)
   } else {

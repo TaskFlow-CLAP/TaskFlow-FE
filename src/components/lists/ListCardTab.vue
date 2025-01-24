@@ -10,7 +10,7 @@
     </div>
     <TaskStatus
       v-if="isStatus"
-      :status="content" />
+      :status="content as Status" />
     <span
       v-else
       class="text-black"
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ListCardInfo } from '@/types/common'
+import type { ListCardInfo, Status } from '@/types/common'
 import TaskStatus from '../TaskStatus.vue'
 
 const { content, width, isTextXs, profileImg, isStatus } = defineProps<ListCardInfo>()

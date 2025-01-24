@@ -1,10 +1,12 @@
+import type { Status } from './common'
+
 export interface MyRequestParams {
   term: number
   mainCategory: number[]
   category: number[]
   title: string
   nickName: string
-  taskStatus: string[]
+  taskStatus: Status[]
   pageSize: number
   pageNumber: number
   order: { target: string; type: 'DESC' | 'ASC' }
@@ -19,7 +21,7 @@ export interface MyRequestListInfo {
   title: string
   processorImg?: string
   processorName?: string
-  taskStatus: string
+  taskStatus: Status
   finishedAt?: string
 }
 export interface RequestTaskDropdownProps {

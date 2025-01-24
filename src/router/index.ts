@@ -18,6 +18,11 @@ const router = createRouter({
       path: '/task-request',
       name: 'task-request',
       component: () => import('../views/TaskRequestView.vue')
+    },
+    {
+      path: '/task-board',
+      name: 'TaskBoard',
+      component: () => import('../views/TaskBoardView.vue')
     }
   ]
 })

@@ -282,3 +282,117 @@ export const DUMMY_MY_REQUEST_LIST_INFO: MyRequestListInfo[] = [
     finishedAt: '2025.01.11'
   }
 ]
+
+export const DUMMY_TASK_CARD_LIST = [
+  {
+    taskStatus: '진행 중',
+    taskList: [
+      {
+        taskId: 1,
+        title: '제목1',
+        mainCategoryName: '1차 카테고리',
+        categoryName: '2차 카테고리',
+        taskCode: 'VMCR25010100001',
+        requesterTeam: '백엔드 1팀',
+        requesterImg: 'https://picsum.photos/24/24',
+        requesterName: 'Hello.world'
+      },
+      {
+        taskId: 2,
+        title: '제목2',
+        mainCategoryName: '1차 카테고리',
+        categoryName: '2차 카테고리',
+        taskCode: 'VMCR25010100001',
+        requesterTeam: '백엔드 1팀',
+        requesterImg: 'https://picsum.photos/24/24',
+        requesterName: 'Hello.world'
+      },
+      {
+        taskId: 3,
+        title: '제목3',
+        mainCategoryName: '1차 카테고리',
+        categoryName: '2차 카테고리',
+        taskCode: 'VMCR25010100001',
+        requesterTeam: '백엔드 1팀',
+        requesterImg: 'https://picsum.photos/24/24',
+        requesterName: 'Hello.world'
+      }
+    ]
+  },
+  { taskStatus: '검토 중', taskList: [] },
+  {
+    taskStatus: '완료',
+    taskList: [
+      {
+        taskId: 4,
+        title: '제목4',
+        mainCategoryName: '1차 카테고리',
+        categoryName: '2차 카테고리',
+        taskCode: 'VMCR25010100001',
+        requesterTeam: '백엔드 1팀',
+        requesterImg: 'https://picsum.photos/24/24',
+        requesterName: 'Hello.world'
+      },
+      {
+        taskId: 5,
+        title: '제목5',
+        mainCategoryName: '1차 카테고리',
+        categoryName: '2차 카테고리',
+        taskCode: 'VMCR25010100001',
+        requesterTeam: '백엔드 1팀',
+        requesterImg: 'https://picsum.photos/24/24',
+        requesterName: 'Hello.world'
+      },
+      {
+        taskId: 6,
+        title: '제목6',
+        mainCategoryName: '1차 카테고리',
+        categoryName: '2차 카테고리',
+        taskCode: 'VMCR25010100001',
+        requesterTeam: '백엔드 1팀',
+        requesterImg: 'https://picsum.photos/24/24',
+        requesterName: 'Hello.world'
+      },
+      {
+        taskId: 7,
+        title: '제목7',
+        mainCategoryName: '1차 카테고리',
+        categoryName: '2차 카테고리',
+        taskCode: 'VMCR25010100001',
+        requesterTeam: '백엔드 1팀',
+        requesterImg: 'https://picsum.photos/24/24',
+        requesterName: 'Hello.world'
+      },
+      {
+        taskId: 8,
+        title: '제목8',
+        mainCategoryName: '1차 카테고리',
+        categoryName: '2차 카테고리',
+        taskCode: 'VMCR25010100001',
+        requesterTeam: '백엔드 1팀',
+        requesterImg: 'https://picsum.photos/24/24',
+        requesterName: 'Hello.world'
+      },
+      {
+        taskId: 9,
+        title: '제목9',
+        mainCategoryName: '1차 카테고리',
+        categoryName: '2차 카테고리',
+        taskCode: 'VMCR25010100001',
+        requesterTeam: '백엔드 1팀',
+        requesterImg: 'https://picsum.photos/24/24',
+        requesterName: 'Hello.world'
+      },
+      {
+        taskId: 10,
+        title: '제목10',
+        mainCategoryName: '1차 카테고리',
+        categoryName: '2차 카테고리',
+        taskCode: 'VMCR25010100001',
+        requesterTeam: '백엔드 1팀',
+        requesterImg: 'https://picsum.photos/24/24',
+        requesterName: 'Hello.world'
+      }
+    ]
+  }
+]
