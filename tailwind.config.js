@@ -1,6 +1,28 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  safelist: [
+    'bg-gray-1',
+    'bg-gray-2',
+    'bg-blue-1',
+    'bg-blue-2',
+    'bg-orange-1',
+    'bg-orange-2',
+    'bg-green-1',
+    'bg-green-2',
+    'bg-red-1',
+    'bg-red-2',
+    'text-gray-1',
+    'text-gray-2',
+    'text-blue-1',
+    'text-blue-2',
+    'text-orange-1',
+    'text-orange-2',
+    'text-green-1',
+    'text-green-2',
+    'text-red-1',
+    'text-red-2'
+  ],
   theme: {
     extend: {
       colors: {
