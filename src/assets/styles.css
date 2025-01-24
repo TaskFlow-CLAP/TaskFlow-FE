@@ -30,6 +30,35 @@ body {
   @apply view-container w-full max-w-[400px] mx-auto;
 }
 
+.button-medium {
+  @apply flex items-center justify-center rounded px-4 py-2 font-bold gap-1 text-xs cursor-pointer shrink-0;
+}
+.button-medium-primary {
+  @apply button-medium bg-primary1 text-white;
+}
+.button-medium-secondary {
+  @apply button-medium bg-white border border-primary1 text-primary1;
+}
+.button-medium-default {
+  @apply button-medium bg-white border border-border-1 text-disabled;
+}
+.button-medium-red {
+  @apply button-medium bg-white border border-red-1 text-red-1;
+}
+
+.button-small {
+  @apply flex items-center gap-1 text-xs font-bold;
+}
+.button-small-primary {
+  @apply text-primary1;
+}
+.button-small-default {
+  @apply text-disabled;
+}
+.button-small-red {
+  @apply text-red-1;
+}
+
 .list-bar {
   @apply w-full h-8 px-4 bg-background-2 flex items-center gap-4 shrink-0;
 }
@@ -51,4 +80,20 @@ body {
 }
 .filter-dropdown-option {
   @apply text-xs p-2 rounded text-center cursor-pointer;
+}
+
+.button-large {
+  @apply flex w-full py-3 font-bold border rounded items-center justify-center min-w-[138px];
+}
+.button-large-default {
+  @apply button-large bg-white text-zinc-400 border-zinc-400;
+}
+.button-large-red {
+  @apply button-large bg-red-1 text-white border-red-1;
+}
+.button-large-primary {
+  @apply button-large bg-primary1 text-white border-primary1;
+}
+.input-box {
+  @apply block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none;
 }

@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 
-export interface TitleBar {
+export interface TitleBarProps {
   title: string
   btn?: string
 }
@@ -23,18 +23,26 @@ export interface Category {
   subCategoryList?: { id: number; content: string }[]
 }
 
-export interface FilterCategory {
+export interface FilterCategoryProps {
   categoryList: Category[]
   main: Ref<number[]> | number[]
   sub: Ref<number[]> | number[]
 }
 
-export interface ListCardInfo {
+export interface ListCardProps {
   content?: string
   width?: number
   isTextXs?: boolean
   profileImg?: string
   isStatus?: boolean
+}
+
+export interface ListBarTabProps {
+  content: string
+  width?: number
+  sortBy?: string
+  currentOrderRequest?: { sortBy: string; sortDirection: 'DESC' | 'ASC' }
+  justifyCenter?: boolean
 }
 
 export type Status = '요청' | '진행 중' | '검토 중' | '완료' | '종료'

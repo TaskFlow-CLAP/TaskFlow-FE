@@ -21,10 +21,14 @@
 </template>
 
 <script setup lang="ts">
+<<<<<<< HEAD
 import type { ListCardInfo, Status } from '@/types/common'
+=======
+import type { ListCardProps } from '@/types/common'
+>>>>>>> 858bdd9630d2c3ba928ee83d07b99f5937146557
 import TaskStatus from '../TaskStatus.vue'
 
-const { content, width, isTextXs, profileImg, isStatus } = defineProps<ListCardInfo>()
+const { content, width, isTextXs, profileImg, isStatus } = defineProps<ListCardProps>()
 </script>
 
 <style scoped></style>

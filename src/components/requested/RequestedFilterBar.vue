@@ -22,12 +22,6 @@
       title="처리자"
       :value="params.nickName"
       @update:value="value => (params.nickName = value)" />
-    <FilterDropdownMulti
-      title="상태"
-      :width="120"
-      :option-list="TASK_STATUS_LIST"
-      :value="params.taskStatus"
-      @update:value="onTaskStatusClick" />
     <FilterDropdown
       title="페이지 당 개수"
       :width="120"
@@ -41,16 +35,11 @@
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
-import { useMyRequestParamsStore } from '@/stores/params'
 import { DUMMY_CATEGORY_LIST } from '@/datas/dummy'
-<<<<<<< HEAD
-import type { Status } from '@/types/common'
-=======
-import { PAGE_SIZE_LIST, TASK_STATUS_LIST, TERM_LIST } from '@/constants/common'
->>>>>>> 858bdd9630d2c3ba928ee83d07b99f5937146557
+import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
+import { useRequestedParamsStore } from '@/stores/params'
 
-const { params } = useMyRequestParamsStore()
+const { params } = useRequestedParamsStore()
 
 const onTermChange = (value: string) => {
   if (value === '') {
@@ -70,13 +59,6 @@ const onSubChange = (value: number) => {
     params.categoryId = [...params.categoryId].filter(el => el !== value)
   } else {
     params.categoryId.push(value)
-  }
-}
-const onTaskStatusClick = (value: Status) => {
-  if (params.taskStatus.includes(value)) {
-    params.taskStatus = [...params.taskStatus].filter(el => el !== value)
-  } else {
-    params.taskStatus.push(value)
   }
 }
 </script>

@@ -1,5 +1,6 @@
 import type { Category } from '@/types/common'
-import type { MyRequestListInfo } from '@/types/user'
+import type { RequestedListData } from '@/types/manager'
+import type { MyRequestListData } from '@/types/user'
 
 export const DUMMY_CATEGORY_LIST: Category[] = [
   {
@@ -44,7 +45,7 @@ export const DUMMY_CATEGORY_LIST: Category[] = [
   }
 ]
 
-export const DUMMY_MY_REQUEST_LIST_INFO: MyRequestListInfo[] = [
+export const DUMMY_MY_REQUEST_LIST_DATA: MyRequestListData[] = [
   {
     taskId: 1,
     taskCode: 'asfawnwakngla',
@@ -280,6 +281,189 @@ export const DUMMY_MY_REQUEST_LIST_INFO: MyRequestListInfo[] = [
     processorName: 'Tony.tsx',
     taskStatus: '종료',
     finishedAt: '2025.01.11'
+  }
+]
+
+export const DUMMY_REQUESTED_LIST_DATA: RequestedListData[] = [
+  {
+    taskId: 1,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 2,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 3,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 4,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 5,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 6,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 7,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 8,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 9,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 10,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 11,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 12,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 13,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 14,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 15,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 16,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 17,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 18,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 19,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
+  },
+  {
+    taskId: 20,
+    requestedAt: '2025.01.01',
+    mainCategoryName: 'VM',
+    categoryName: '생성',
+    title: 'VM 생성 부탁드립니다',
+    requesterImg: 'https://picsum.photos/24/24',
+    requesterName: 'Hello.world'
   }
 ]
 

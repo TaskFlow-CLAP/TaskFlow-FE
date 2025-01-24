@@ -1,18 +1,6 @@
 import type { Status } from './common'
 
-export interface MyRequestParams {
-  term: number
-  mainCategory: number[]
-  category: number[]
-  title: string
-  nickName: string
-  taskStatus: Status[]
-  pageSize: number
-  pageNumber: number
-  order: { target: string; type: 'DESC' | 'ASC' }
-}
-
-export interface MyRequestListInfo {
+export interface MyRequestListData {
   taskId: number
   taskCode: string
   requestedAt: string
@@ -24,6 +12,7 @@ export interface MyRequestListInfo {
   taskStatus: Status
   finishedAt?: string
 }
+
 export interface RequestTaskDropdownProps {
   placeholderText: string
   options: string[]

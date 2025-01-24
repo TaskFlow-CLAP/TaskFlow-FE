@@ -14,6 +14,7 @@
 <script setup lang="ts">
 import MyRequestFilterBar from '@/components/my-request/MyRequestFilterBar.vue'
 import MyRequestList from '@/components/my-request/MyRequestList.vue'
+import TitleBar from '@/components/TitleBar.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

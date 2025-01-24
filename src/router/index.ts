@@ -5,6 +5,29 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/Login.vue')
+    },
+
+    {
+      path: '/pw-change',
+      name: 'pwChange',
+      component: () => import('../views/PwChange.vue')
+    },
+    {
+      path: '/pw-change-email',
+      name: 'pwChangeEmail',
+      component: () => import('../views/PwChangeEmail.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/pw-check',
+      name: 'PWCheckView',
+      component: () => import('../views/PwCheck.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
       path: '/my-request',
       name: 'MyRequest',
       component: MyRequestView
@@ -20,11 +43,31 @@ const router = createRouter({
       component: () => import('../views/TaskRequestView.vue')
     },
     {
+<<<<<<< HEAD
       path: '/task-board',
       name: 'TaskBoard',
       component: () => import('../views/TaskBoardView.vue')
+=======
+      path: '/requested',
+      name: 'Requested',
+      component: () => import('../views/RequestedView.vue')
+>>>>>>> 858bdd9630d2c3ba928ee83d07b99f5937146557
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/pw-change') {
+    if (from.path === '/pw-check' || from.path === '/pw-change-email') {
+      next()
+    } else {
+      alert('비밀번호를 먼저 확인해주세요.')
+      next('/login')
+      return
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

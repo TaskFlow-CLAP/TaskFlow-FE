@@ -34,7 +34,7 @@
           <CommonIcons
             :name="plusIcon"
             :style="{ fill: '#7879eb' }" />
-          <p>파일선택</p>
+          <p>파일 선택</p>
         </label>
       </div>
     </div>

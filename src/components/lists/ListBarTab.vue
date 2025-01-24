@@ -2,28 +2,30 @@
   <div
     class="text-xs font-bold text-body gap-[2px] flex items-center"
     :style="{ width: width ? `${width}px` : '' }"
-    :class="!width && 'grow'">
+    :class="`${!width && 'grow'} ${justifyCenter && 'justify-center'}`">
     {{ content }}
     <button
-      v-if="orderTarget"
-      @click="$emit('toggleOrder', orderTarget)">
+      v-if="sortBy"
+      @click="$emit('toggleSortBy', sortBy)">
       <OrderIcon
-        :is-active="params.order.target === orderTarget"
-        :class="params.order.type === 'ASC' && 'rotate-180'" />
+        :is-active="isActive"
+        :class="isASC && 'rotate-180'" />
     </button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useMyRequestParamsStore } from '@/stores/params'
+import { computed } from 'vue'
 import OrderIcon from '../OrderIcon.vue'
+import type { ListBarTabProps } from '@/types/common'
 
-const { content, width, orderTarget } = defineProps<{
-  content: string
-  width?: number
-  orderTarget?: string
-}>()
-defineEmits(['toggleOrder'])
+const { content, width, sortBy, currentOrderRequest } = defineProps<ListBarTabProps>()
+defineEmits(['toggleSortBy'])
 
-const { params } = useMyRequestParamsStore()
+const isActive = computed(() => {
+  return sortBy === currentOrderRequest.sortBy
+})
+const isASC = computed(() => {
+  return currentOrderRequest.sortDirection === 'ASC'
+})
 </script>

@@ -74,11 +74,11 @@
 
 <script setup lang="ts">
 import { dropdownIcon } from '@/constants/iconPath'
-import type { Category, FilterCategory } from '@/types/common'
+import type { Category, FilterCategoryProps } from '@/types/common'
 import { computed, ref, watchEffect } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { categoryList, main, sub } = defineProps<FilterCategory>()
+const { categoryList, main, sub } = defineProps<FilterCategoryProps>()
 const emit = defineEmits(['update:main', 'update:sub'])
 
 const isMainOpened = ref(false)
