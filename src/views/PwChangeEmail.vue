@@ -65,7 +65,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import router from '../router/index'
-import { ModalView } from '../components/ModalView.vue'
+import ModalView from '../components/ModalView.vue'
 
 // 상태 관리
 const id = ref('')
