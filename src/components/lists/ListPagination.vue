@@ -42,7 +42,7 @@
 <script setup lang="ts">
 import { nextIcon, nextSetIcon, prevIcon, prevSetIcon } from '@/constants/iconPath'
 import { computed } from 'vue'
-import CommonIcons from '../CommonIcons.vue'
+import CommonIcons from '../common/CommonIcons.vue';
 
 const { pageNumber, totalPage } = defineProps<{ pageNumber: number; totalPage: number }>()
 const emit = defineEmits(['update:pageNumber'])

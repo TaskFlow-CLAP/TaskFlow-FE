@@ -73,11 +73,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Category, FilterCategory } from '@/types/common'
-import { computed, watchEffect } from 'vue'
-import { ref } from 'vue'
-import CommonIcons from '../CommonIcons.vue'
 import { dropdownIcon } from '@/constants/iconPath'
+import type { Category, FilterCategory } from '@/types/common'
+import { computed, ref, watchEffect } from 'vue'
+import CommonIcons from '../common/CommonIcons.vue'
 
 const { categoryList, main, sub } = defineProps<FilterCategory>()
 const emit = defineEmits(['update:main', 'update:sub'])
