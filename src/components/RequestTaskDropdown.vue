@@ -8,8 +8,8 @@
       <div
         class="flex w-full h-11 items-center rounded p-4 bg-white border border-border-1 cursor-pointer"
         @click="toggleDropdown">
-        <p :class="{ 'text-gray-400': selectedOption === placeholderText }">
-          {{ selectedOption }}
+        <p :class="{ 'text-body': modelValue === placeholderText }">
+          {{ model }}
         </p>
         <CommonIcons
           :name="dropdownIcon"
@@ -33,20 +33,24 @@
 <script lang="ts" setup>
 import { dropdownIcon } from '@/constants/iconPath'
 import type { RequestTaskDropdownProps } from '@/types/user'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import CommonIcons from './CommonIcons.vue'
 
-const { placeholderText, options, labelName } = defineProps<RequestTaskDropdownProps>()
-
+const { placeholderText, options, labelName, modelValue } = defineProps<RequestTaskDropdownProps>()
+const emit = defineEmits(['update:modelValue'])
 const dropdownOpen = ref(false)
-const selectedOption = ref(placeholderText)
 
 const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value
 }
 
+const model = computed({
+  get: () => modelValue,
+  set: value => emit('update:modelValue', value)
+})
+
 const selectOption = (option: string) => {
-  selectedOption.value = option
+  model.value = option
   dropdownOpen.value = false
 }
 </script>

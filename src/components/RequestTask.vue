@@ -1,31 +1,33 @@
 <template>
-    <div class="w-full flex flex-col gap-y-6">
-      <RequestTaskDropdown
-        :placeholderText="category1"
-        :options="REQUEST_TASK_CATEGORIES"
-        :label-name="'1차 카테고리'" />
-      <RequestTaskDropdown
-        :placeholderText="category2"
-        :options="REQUEST_TASK_CATEGORIES"
-        :label-name="'2차 카테고리'" />
-      <RequestTaskInput
-        v-model="title"
-        :placeholderText="TITLE_PLACEHOLDER" />
-      <RequestTaskTextArea
-        v-model="description"
-        :placeholderText="EXPLANATION_PLACEHOLDER" />
-      <RequestTaskFileInput v-model="file" />
-      <div class="w-full justify-center flex gap-6 mt-4">
-        <button
-          class="w-[188px] h-[52px] rounded text-white bg-primary1 flex items-center justify-center"
-          @click="handleSubmit">
-          요청
-        </button>
-        <button
-          class="w-[188px] h-[52px] border border-disabled rounded text-disabled bg-white flex items-center justify-center"
-          @click="handleCancel">
-          취소
-        </button>
+  <div class="w-[552px] flex flex-col gap-y-6">
+    <RequestTaskDropdown
+      v-model="category1"
+      :options="REQUEST_TASK_CATEGORIES"
+      :label-name="'1차 카테고리'"
+      :placeholderText="'1차 카테고리를 선택해주세요'" />
+    <RequestTaskDropdown
+      v-model="category2"
+      :options="REQUEST_TASK_CATEGORIES"
+      :label-name="'2차 카테고리'"
+      :placeholderText="'2차 카테고리를 선택해주세요'" />
+    <RequestTaskInput
+      v-model="title"
+      :placeholderText="TITLE_PLACEHOLDER" />
+    <RequestTaskTextArea
+      v-model="description"
+      :placeholderText="EXPLANATION_PLACEHOLDER" />
+    <RequestTaskFileInput v-model="file" />
+    <div class="w-full justify-center flex gap-6 mt-4">
+      <button
+        class="w-[188px] h-[52px] rounded text-white bg-primary1 flex items-center justify-center"
+        @click="handleSubmit">
+        요청
+      </button>
+      <button
+        class="w-[188px] h-[52px] border border-disabled rounded text-disabled bg-white flex items-center justify-center"
+        @click="handleCancel">
+        취소
+      </button>
     </div>
   </div>
 </template>
