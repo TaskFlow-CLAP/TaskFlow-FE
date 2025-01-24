@@ -3,23 +3,20 @@
     <p class="text-body text-xs font-bold">부가설명</p>
     <textarea
       class="w-full h-24 mt-2 border border-border-1 px-4 py-2 resize-none focus:outline-none"
-      v-model="model"
-      :placeholder="props.placeholderText">
+      :value="modelValue"
+      :placeholder="placeholderText"
+      @input="updateValue(($event.target as HTMLInputElement).value)">
     </textarea>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import type { RequestTaskTextAreaProps } from '@/types/user'
 
-const props = defineProps({
-  modelValue: String,
-  placeholderText: String
-})
+const { modelValue, placeholderText } = defineProps<RequestTaskTextAreaProps>()
 const emit = defineEmits(['update:modelValue'])
 
-const model = computed({
-  get: () => props.modelValue,
-  set: value => emit('update:modelValue', value)
-})
+const updateValue = (value: string) => {
+  emit('update:modelValue', value)
+}
 </script>

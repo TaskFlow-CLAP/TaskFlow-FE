@@ -11,11 +11,11 @@
         </div>
       </div>
       <div
-        v-if="props.files && props.files.length > 0"
+        v-if="files && files.length > 0"
         class="flex flex-col h-[102px] overflow-hidden overflow-y-auto">
         <div
-          v-for="(file, index) in props.files"
-          :key="index"
+          v-for="(file, index) in files"
+          :key="file.name"
           class="flex w-full justify-between items-center h-8 text-xs border-b border-b-border-2 text-black px-4 shrink-0">
           <p class="flex truncate mr-3">{{ file.name }}</p>
           <div class="flex gap-6">
@@ -24,7 +24,7 @@
             <div class="w-10 flex items-center justify-center cursor-pointer">
               <CommonIcons
                 :name="deleteIcon"
-                @click="props.removeFile(index)" />
+                @click="removeFile(index)" />
             </div>
           </div>
         </div>
@@ -43,11 +43,9 @@
 
 <script lang="ts" setup>
 import { deleteIcon, plusIcon } from '@/constants/iconPath'
+import type { RequestTaskFileInputProps } from '@/types/user'
 import { formatFileSize } from '@/utils/unit'
 import CommonIcons from './CommonIcons.vue'
 
-const props = defineProps<{
-  files: File[] | null
-  removeFile: (index: number) => void
-}>()
+const { files, removeFile } = defineProps<RequestTaskFileInputProps>()
 </script>
