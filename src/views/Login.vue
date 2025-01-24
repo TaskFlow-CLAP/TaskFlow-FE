@@ -13,9 +13,9 @@
       <div class="mb-6">
         <input
           type="text"
-          id="id"
-          v-model="id"
-          placeholder="아이디를 입력해주세요"
+          id="nickname"
+          v-model="nickname"
+          placeholder="닉네임을 입력해주세요"
           required
           class="block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
       </div>
@@ -43,28 +43,13 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref } from 'vue'
 
-export default {
-  name: 'LoginPage',
-  setup() {
-    const id = ref('')
-    const password = ref('')
+const nickname = ref('')
+const password = ref('')
 
-    const handleLogin: () => void = () => {
-      if (id.value === 'asdf' && password.value === 'asdf') {
-        alert('로그인 성공!')
-      } else {
-        alert('아이디나 비밀번호가 잘못되었습니다.')
-      }
-    }
-
-    return {
-      id,
-      password,
-      handleLogin
-    }
-  }
+const handleLogin = async () => {
+  // 로그인 API 필요
 }
 </script>
