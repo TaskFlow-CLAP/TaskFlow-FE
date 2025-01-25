@@ -46,6 +46,11 @@ const router = createRouter({
       path: '/requested',
       name: 'Requested',
       component: () => import('../views/RequestedView.vue')
+    },
+    {
+      path: '/request-history',
+      name: 'RequestHistory',
+      component: () => import('../views/RequestHistory.vue')
     }
   ]
 })

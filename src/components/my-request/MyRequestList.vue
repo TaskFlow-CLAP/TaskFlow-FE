@@ -23,12 +23,12 @@
 <script setup lang="ts">
 import MyRequestListBar from './MyRequestListBar.vue'
 import MyRequestListCard from './MyRequestListCard.vue'
-import { useMyRequestParamsStore } from '@/stores/params'
 import ListPagination from '../lists/ListPagination.vue'
 import ListContainer from '../lists/ListContainer.vue'
 import { DUMMY_MY_REQUEST_LIST_DATA } from '@/datas/dummy'
+import { useRequestParamsStore } from '@/stores/params'
 
-const { params } = useMyRequestParamsStore()
+const { params } = useRequestParamsStore()
 const DUMMY_TOTAL_PAGE = 18
 const onPageChange = (value: number) => {
   params.page = value
