@@ -1,23 +1,23 @@
 <template>
   <div class="w-60 flex flex-col gap-y-6 py-6 text-black">
     <div>
-      <p class="task-detail-right">ID</p>
+      <p class="task-detail">ID</p>
       <p>{{ taskDetail.taskId }}</p>
     </div>
     <div>
-      <p class="task-detail-right">요청일</p>
+      <p class="task-detail">요청일</p>
       <p>{{ taskDetail.requestedAt }}</p>
     </div>
     <div>
-      <p class="task-detail-right">종료일</p>
+      <p class="task-detail">종료일</p>
       <p>{{ taskDetail.finishedAt }}</p>
     </div>
     <div>
-      <p class="task-detail-right">상태</p>
+      <p class="task-detail">상태</p>
       <p>{{ taskDetail.taskStatus }}</p>
     </div>
     <div>
-      <p class="task-detail-right">요청자</p>
+      <p class="task-detail">요청자</p>
       <div class="flex gap-2">
         <img
           :src="taskDetail.requesterImageUrl"
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div>
-      <p class="task-detail-right">처리자</p>
+      <p class="task-detail">처리자</p>
       <div class="flex gap-2">
         <img
           :src="taskDetail.processorImageUrl"
