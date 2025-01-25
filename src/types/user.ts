@@ -43,3 +43,39 @@ export interface RequestTaskTextAreaProps {
   modelValue: string
   placeholderText: string
 }
+
+export interface TaskDetailRightProps {
+  taskId: string
+  requestedAt: string
+  finishedAt: string
+  taskStatus: string
+  requesterNickName: string
+  requesterImageUrl: string
+  processorNickName: string
+  processorImageUrl: string
+}
+
+export interface AttachmentResponse {
+  fileId: number
+  fileUrl: string
+  fileUploadedAt: string
+  fileSize: string
+  fileName: string
+}
+
+export interface TaskDetailDatas {
+  taskId: string
+  taskCode: string
+  requestedAt: string
+  finishedAt: string
+  taskStatus: string
+  requesterNickName: string
+  requesterImageUrl: string
+  processorNickName: string
+  processorImageUrl: string
+  mainCategoryName: string
+  categoryName: string
+  title: string
+  description: string
+  attachmentResponse: AttachmentResponse[]
+}

@@ -32,12 +32,6 @@ export const MY_REQUEST_LIST_BAR_TAB: {
   { content: '상태', width: 64 },
   { content: '종료일', width: 80, target: 'FINISHED_AT' }
 ]
-export const REQUEST_TASK_CATEGORIES: string[] = [
-  'Categroy 1',
-  'Categroy 2',
-  'Categroy 3',
-  'Categroy 4'
-]
 
 export const TITLE_PLACEHOLDER = '제목을 입력해주세요'
 
