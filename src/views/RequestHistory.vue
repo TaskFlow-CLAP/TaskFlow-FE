@@ -4,7 +4,7 @@
 
     <RequestHistoryFilterBar />
 
-    <!-- <RequestHistoryList /> -->
+    <RequestHistoryList />
   </div>
 </template>
 

@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { REQUESTED_LIST_BAR_TAB } from '@/constants/user'
+import { REQUESTED_LIST_BAR_TAB } from '@/constants/manager'
 import ListBarTab from '../lists/ListBarTab.vue'
 import { useRequestParamsStore } from '@/stores/params'
 
