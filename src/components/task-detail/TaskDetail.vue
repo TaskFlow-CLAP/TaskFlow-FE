@@ -10,7 +10,7 @@
         class="cursor-pointer" />
     </div>
     <div class="w-full flex gap-6">
-      <div class="w-full flex flex-col gap-y-8">
+      <div class="w-full flex flex-col gap-y-8 overflow-y-auto scrollbar-hide">
         <TaskDetailLeft :task-detail="DUMMY_TASK_DETAIL_LEFT" />
         <div class="w-full border-border-1 border"></div>
         <TaskDetailHistory :history="DUMMY_TASK_DETAIL_HISTORY" />

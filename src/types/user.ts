@@ -88,7 +88,7 @@ export interface TaskDetailDatas {
   attachmentResponse: AttachmentResponse[]
 }
 
-type TaskHistoryType =
+export type TaskHistoryType =
   | 'COMMENT'
   | 'COMMENT_FILE'
   | 'STATUS_SWITCHED'

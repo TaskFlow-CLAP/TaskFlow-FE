@@ -1,49 +1,30 @@
 <template>
   <div>
     <p class="task-detail">히스토리</p>
-    <div
-      :class="[
-        'w-full flex gap-3 px-6 py-4 border border-border-1 items-center',
-        { 'bg-background-2': !isPossible }
-      ]">
-      <input
-        class="w-full h-8 focus:outline-none"
-        type="text"
-        :placeholder="placeHolderText"
-        :disabled="!isPossible" />
-      <input
-        class="hidden"
-        type="file"
-        id="file"
-        multiple
-        @change="handleFileUpload" />
-      <label
-        for="file"
-        class="cursor-pointer">
-        <CommonIcons :name="clipIcon" />
-      </label>
-      <CommonIcons
-        :name="sendIcon"
-        class="cursor-pointer"
-        :style="{ fill: isPossible ? '#7879EB' : '#A1A1AA' }" />
+    <TaskDetailHistoryInput :history="history" />
+    <div class="flex flex-col w-full items-center gap-6">
+      <div
+      class="flex flex-col items-center"
+        v-for="(item, i) in history"
+        :key="i">
+        <div
+          class="flex w-[150px] h-7 items-center justify-center bg-background-1 rounded-xl text-body text-xs font-bold">
+          {{ item.date }}
+        </div>
+        <div class="flex">
+          <p>{{ HistoryMessageBefore[item.TaskHistoryType] }}</p>
+          <p>{{ item.details.taskStatus }}</p>
+          <p>{{ HistoryMessageAfter[item.TaskHistoryType] }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { clipIcon, sendIcon } from '@/constants/iconPath'
+import { HistoryMessageAfter, HistoryMessageBefore } from '@/constants/user'
 import type { TaskDetailHistoryProps } from '@/types/user'
-import { ref } from 'vue'
-import CommonIcons from '../common/CommonIcons.vue'
+import TaskDetailHistoryInput from './TaskDetailHistoryInput.vue'
 
 const { history } = defineProps<{ history: TaskDetailHistoryProps[] }>()
-const isPossible = ref(history.length !== 0)
-const placeHolderText = ref(isPossible?.value ? '텍스트를 입력' : '요청 승인 후 작성할 수 있습니다')
-
-const handleFileUpload = (event: Event) => {
-  const target = event.target as HTMLInputElement
-  if (target.files && target.files.length > 0) {
-    console.log('향후 파일 전송로직 추가')
-  }
-}
 </script>

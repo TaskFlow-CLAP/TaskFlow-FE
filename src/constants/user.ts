@@ -1,3 +1,5 @@
+import type { TaskHistoryType } from "@/types/user"
+
 export const TERM_LIST = [
   { value: '0', content: '전체' },
   { value: '1', content: '24시간 이내' },
@@ -36,3 +38,19 @@ export const MY_REQUEST_LIST_BAR_TAB: {
 export const TITLE_PLACEHOLDER = '제목을 입력해주세요'
 
 export const EXPLANATION_PLACEHOLDER = '부가 정보를 입력해주세요'
+
+export const HistoryMessageBefore: Record<TaskHistoryType, string> = {
+  STATUS_SWITCHED: '요청이',
+  PROCESSOR_CHANGED: '처리자가',
+  COMMENT: '',
+  COMMENT_FILE: '',
+  PROCESSOR_ASSIGNED: ''
+}
+
+export const HistoryMessageAfter: Record<TaskHistoryType, string> = {
+  STATUS_SWITCHED: '상태로 변경되었습니다.',
+  PROCESSOR_CHANGED: '님으로 변경되었습니다.',
+  COMMENT: '',
+  COMMENT_FILE: '',
+  PROCESSOR_ASSIGNED: ''
+}
