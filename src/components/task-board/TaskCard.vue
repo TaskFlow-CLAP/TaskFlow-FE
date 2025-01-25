@@ -1,7 +1,8 @@
 <template>
   <div
-    class="w-full max-w-80 border-l-8 bg-white py-4 pl-6 pr-4 flex flex-col gap-6 rounded-lg shadow-custom"
-    :class="borderLeft">
+    class="w-full max-w-80 border-l-8 bg-white py-4 pl-6 pr-4 flex flex-col gap-6 rounded-lg shadow-custom hover:bg-background-2"
+    :class="borderLeft"
+    @click="onTaskClick">
     <div class="flex flex-col gap-1">
       <div class="flex justify-between items-center gap-4">
         <span class="text-black">{{ title }}</span>
@@ -36,7 +37,10 @@ const { title, mainCategoryName, categoryName, taskCode, requesterName, requeste
   defineProps<TaskCardProps>()
 
 const borderLeft = computed(() => {
-  console.log(statusAsColor(status as Status))
   return `border-${statusAsColor(status as Status)}-1`
 })
+
+const onTaskClick = () => {
+  console.log('clicked')
+}
 </script>
