@@ -44,6 +44,14 @@ export interface RequestTaskTextAreaProps {
   placeholderText: string
 }
 
+export interface AttachmentResponse {
+  fileId: number
+  fileUrl: string
+  fileUploadedAt: string
+  fileSize: string
+  fileName: string
+}
+
 export interface TaskDetailRightProps {
   taskId: string
   requestedAt: string
@@ -55,12 +63,12 @@ export interface TaskDetailRightProps {
   processorImageUrl: string
 }
 
-export interface AttachmentResponse {
-  fileId: number
-  fileUrl: string
-  fileUploadedAt: string
-  fileSize: string
-  fileName: string
+export interface TaskDetailLeftProps {
+  mainCategoryName: string
+  categoryName: string
+  title: string
+  description: string
+  attachmentResponse: AttachmentResponse[]
 }
 
 export interface TaskDetailDatas {
