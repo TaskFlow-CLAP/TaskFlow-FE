@@ -1,12 +1,12 @@
 <template>
   <ListContainer>
     <template #listBar>
-      <MyRequestListBar />
+      <RequestedListBar />
     </template>
 
     <template #listCards>
-      <MyRequestListCard
-        v-for="info in DUMMY_MY_REQUEST_LIST_DATA"
+      <RequestedListCard
+        v-for="info in DUMMY_REQUESTED_LIST_DATA"
         :key="info.taskId"
         :info="info" />
     </template>
@@ -21,14 +21,14 @@
 </template>
 
 <script setup lang="ts">
-import MyRequestListBar from './MyRequestListBar.vue'
-import MyRequestListCard from './MyRequestListCard.vue'
-import { useMyRequestParamsStore } from '@/stores/params'
 import ListPagination from '../lists/ListPagination.vue'
 import ListContainer from '../lists/ListContainer.vue'
-import { DUMMY_MY_REQUEST_LIST_DATA } from '@/datas/dummy'
+import RequestedListBar from './RequestedListBar.vue'
+import { useRequestedParamsStore } from '@/stores/params'
+import { DUMMY_REQUESTED_LIST_DATA } from '@/datas/dummy'
+import RequestedListCard from './RequestedListCard.vue'
 
-const { params } = useMyRequestParamsStore()
+const { params } = useRequestedParamsStore()
 const DUMMY_TOTAL_PAGE = 18
 const onPageChange = (value: number) => {
   params.page = value

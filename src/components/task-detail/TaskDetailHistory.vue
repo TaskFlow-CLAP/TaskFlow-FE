@@ -4,7 +4,7 @@
     <TaskDetailHistoryInput :history="history" />
     <div class="flex flex-col w-full items-center gap-6">
       <div
-      class="flex flex-col items-center"
+        class="flex flex-col items-center"
         v-for="(item, i) in history"
         :key="i">
         <div
