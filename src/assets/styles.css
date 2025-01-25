@@ -53,6 +53,6 @@ body {
   @apply text-xs p-2 rounded text-center cursor-pointer;
 }
 
-.task-detail{
+.task-detail {
   @apply text-xs text-body font-bold mb-2;
 }

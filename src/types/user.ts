@@ -87,3 +87,33 @@ export interface TaskDetailDatas {
   description: string
   attachmentResponse: AttachmentResponse[]
 }
+
+type TaskHistoryType =
+  | 'COMMENT'
+  | 'COMMENT_FILE'
+  | 'STATUS_SWITCHED'
+  | 'PROCESSOR_ASSIGNED'
+  | 'PROCESSOR_CHANGED'
+
+interface TaskDetailHistoryFileTypes {
+  fileId: number
+  fileUrl: string
+  fileName: string
+}
+
+export interface TaskDetailHistoryProps {
+  date: string
+  time: string
+  name: string
+  profileImageUrl: string
+  TaskHistoryType: TaskHistoryType
+  isModified: boolean
+  details: {
+    previousProcessor: string
+    currentProcessor: string
+    comment?: string
+    updateDetails?: string
+    taskStatus?: string
+    file?: TaskDetailHistoryFileTypes
+  }
+}

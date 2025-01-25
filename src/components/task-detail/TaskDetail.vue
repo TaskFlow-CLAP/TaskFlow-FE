@@ -10,7 +10,11 @@
         class="cursor-pointer" />
     </div>
     <div class="w-full flex gap-6">
-      <TaskDetailLeft :task-detail="DUMMY_TASK_DETAIL_LEFT" />
+      <div class="w-full flex flex-col gap-y-8">
+        <TaskDetailLeft :task-detail="DUMMY_TASK_DETAIL_LEFT" />
+        <div class="w-full border-border-1 border"></div>
+        <TaskDetailHistory :history="DUMMY_TASK_DETAIL_HISTORY" />
+      </div>
       <div class="w-[1px] border border-border-1"></div>
       <TaskDetailRight :task-detail="DUMMY_TASK_DETAIL_RIGHT" />
     </div>
@@ -19,8 +23,13 @@
 
 <script setup lang="ts">
 import { closeIcon, reRequestIcon } from '@/constants/iconPath'
-import { DUMMY_TASK_DETAIL_LEFT, DUMMY_TASK_DETAIL_RIGHT } from '@/datas/taskdetail'
+import {
+  DUMMY_TASK_DETAIL_HISTORY,
+  DUMMY_TASK_DETAIL_LEFT,
+  DUMMY_TASK_DETAIL_RIGHT
+} from '@/datas/taskdetail'
 import CommonIcons from '../common/CommonIcons.vue'
 import TaskDetailLeft from './TaskDetailLeft.vue'
 import TaskDetailRight from './TaskDetailRight.vue'
+import TaskDetailHistory from './TaskDetailHistory.vue'
 </script>

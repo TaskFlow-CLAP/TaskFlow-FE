@@ -31,7 +31,7 @@
 import type { Filter } from '@/types/common'
 import { ref } from 'vue'
 import { dropdownIcon } from '@/constants/iconPath'
-import CommonIcons from '../common/CommonIcons.vue';
+import CommonIcons from '../common/CommonIcons.vue'
 
 const { title, value, width, optionList } = defineProps<Filter>()
 const emit = defineEmits(['update:value'])

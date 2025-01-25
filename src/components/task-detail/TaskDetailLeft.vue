@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow flex flex-col gap-6 py-6">
+  <div class="flex-grow flex flex-col gap-6 pt-6">
     <div>
       <p class="task-detail">1차 카테고리</p>
       <p>{{ taskDetail.mainCategoryName }}</p>
