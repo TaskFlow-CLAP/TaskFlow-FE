@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-1200 h-screen flex flex-col gap-6 overflow-hidden">
+  <div class="list-view">
     <TitleBar
       title="내 요청"
       btn="새 요청 생성"

@@ -7,7 +7,7 @@ export interface TitleBarProps {
 
 export interface Filter {
   title: string
-  width?: number
+  width?: string
   optionList?: Option[]
   value: (Ref<string> | string) | (Ref<string[]> | string[])
 }

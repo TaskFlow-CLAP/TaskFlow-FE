@@ -16,7 +16,7 @@
       :value="store.params.title"
       @update:value="onParamsChange.onTitleChange" />
     <FilterInput
-      title="처리자"
+      title="이름"
       :value="store.params.nickName"
       @update:value="onParamsChange.onNickNameChange" />
     <FilterDropdownMulti
@@ -36,10 +36,10 @@
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
-import { useRequestParamsStore } from '@/stores/params'
 import { DUMMY_CATEGORY_LIST } from '@/datas/dummy'
 import { PAGE_SIZE_LIST, TASK_STATUS_LIST, TERM_LIST } from '@/constants/common'
+import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
+import { useRequestParamsStore } from '@/stores/params'
 import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 
 const store = useRequestParamsStore()

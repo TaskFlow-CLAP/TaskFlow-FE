@@ -2,7 +2,7 @@
   <div
     class="filter-container"
     :style="{ width: width ? `${width}px` : '' }"
-    :class="!width && 'grow'">
+    :class="width === 'full' && 'grow'">
     <span class="filter-title">{{ title }}</span>
     <input
       @input="onValueChange"
@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import type { Filter } from '@/types/common'
 
-const { title, width } = defineProps<Filter>()
+const { title, width = '120' } = defineProps<Filter>()
 const emit = defineEmits(['update:value'])
 
 const onValueChange = (event: Event) => {
