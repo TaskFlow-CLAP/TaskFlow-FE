@@ -3,11 +3,16 @@ import { useRequestParamsStore } from '@/stores/params'
 export const useRequestParamsChange = () => {
   const { params } = useRequestParamsStore()
 
+  const onArrayChange = <Value extends number | string>(array: Value[], value: Value) => {
+    return array.includes(value) ? array.filter(el => el !== value) : [...array, value]
+  }
+
   const onTermChange = (value: string) => {
     if (value === '') {
       params.term = ''
+    } else {
+      params.term = Number(value)
     }
-    params.term = Number(value)
   }
   const onTitleChange = (value: string) => {
     params.title = value
@@ -16,27 +21,13 @@ export const useRequestParamsChange = () => {
     params.nickName = value
   }
   const onMainChange = (value: number) => {
-    if (params.mainCategoryId.includes(value)) {
-      params.mainCategoryId = [...params.mainCategoryId].filter(el => el !== value)
-    } else {
-      params.mainCategoryId.push(value)
-    }
+    params.mainCategoryId = onArrayChange(params.mainCategoryId, value)
   }
   const onSubChange = (value: number) => {
-    if (params.categoryId.includes(value)) {
-      params.categoryId = [...params.categoryId].filter(el => el !== value)
-    } else {
-      params.categoryId.push(value)
-    }
+    params.categoryId = onArrayChange(params.categoryId, value)
   }
   const onTaskStatusChange = (value: string) => {
-    if (params.taskStatus) {
-      if (params.taskStatus.includes(value)) {
-        params.taskStatus = [...params.taskStatus].filter(el => el !== value)
-      } else {
-        params.taskStatus.push(value)
-      }
-    }
+    params.taskStatus = onArrayChange(params.taskStatus!, value)
   }
   const onPageSizeChange = (value: string) => {
     params.pageSize = Number(value)

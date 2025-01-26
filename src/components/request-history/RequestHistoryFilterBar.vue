@@ -2,7 +2,6 @@
   <div class="flex gap-4">
     <FilterDropdown
       title="조회 기간"
-      :width="120"
       :option-list="TERM_LIST"
       :value="String(store.params.term)"
       @update:value="onParamsChange.onTermChange" />
@@ -14,23 +13,19 @@
       @update:sub="onParamsChange.onSubChange" />
     <FilterInput
       title="제목"
-      :width="120"
       :value="store.params.title"
       @update:value="onParamsChange.onTitleChange" />
     <FilterInput
-      :width="120"
       title="이름"
       :value="store.params.nickName"
       @update:value="onParamsChange.onNickNameChange" />
     <FilterDropdownMulti
       title="상태"
-      :width="120"
       :option-list="TASK_STATUS_LIST"
       :value="store.params.taskStatus!"
       @update:value="onParamsChange.onTaskStatusChange" />
     <FilterDropdown
       title="페이지 당 개수"
-      :width="120"
       :option-list="PAGE_SIZE_LIST"
       :value="String(store.params.pageSize)"
       @update:value="onParamsChange.onPageSizeChange" />
