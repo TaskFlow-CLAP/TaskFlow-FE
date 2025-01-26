@@ -2,32 +2,28 @@
   <div class="flex gap-4">
     <FilterDropdown
       title="조회 기간"
-      :width="120"
       :option-list="TERM_LIST"
-      :value="String(params.term)"
-      @update:value="onTermChange" />
+      :value="String(store.params.term)"
+      @update:value="onParamsChange.onTermChange" />
     <FilterCategory
       :category-list="DUMMY_CATEGORY_LIST"
-      :main="params.mainCategoryId"
-      :sub="params.categoryId"
-      @update:main="onMainChange"
-      @update:sub="onSubChange" />
+      :main="store.params.mainCategoryId"
+      :sub="store.params.categoryId"
+      @update:main="onParamsChange.onMainChange"
+      @update:sub="onParamsChange.onSubChange" />
     <FilterInput
       title="제목"
-      :width="120"
-      :value="params.title"
-      @update:value="value => (params.title = value)" />
+      :value="store.params.title"
+      @update:value="onParamsChange.onTitleChange" />
     <FilterInput
-      :width="120"
       title="처리자"
-      :value="params.nickName"
-      @update:value="value => (params.nickName = value)" />
+      :value="store.params.nickName"
+      @update:value="onParamsChange.onNickNameChange" />
     <FilterDropdown
       title="페이지 당 개수"
-      :width="120"
       :option-list="PAGE_SIZE_LIST"
-      :value="String(params.pageSize)"
-      @update:value="value => (params.pageSize = Number(value))" />
+      :value="String(store.params.pageSize)"
+      @update:value="onParamsChange.onPageSizeChange" />
   </div>
 </template>
 
@@ -37,28 +33,11 @@ import FilterCategory from '../filters/FilterCategory.vue'
 import FilterInput from '../filters/FilterInput.vue'
 import { DUMMY_CATEGORY_LIST } from '@/datas/dummy'
 import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
-import { useRequestedParamsStore } from '@/stores/params'
+import { useRequestParamsStore } from '@/stores/params'
+import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 
-const { params } = useRequestedParamsStore()
+const store = useRequestParamsStore()
+store.$reset()
 
-const onTermChange = (value: string) => {
-  if (value === '') {
-    params.term = ''
-  }
-  params.term = Number(value)
-}
-const onMainChange = (value: number) => {
-  if (params.mainCategoryId.includes(value)) {
-    params.mainCategoryId = [...params.mainCategoryId].filter(el => el !== value)
-  } else {
-    params.mainCategoryId.push(value)
-  }
-}
-const onSubChange = (value: number) => {
-  if (params.categoryId.includes(value)) {
-    params.categoryId = [...params.categoryId].filter(el => el !== value)
-  } else {
-    params.categoryId.push(value)
-  }
-}
+const onParamsChange = useRequestParamsChange()
 </script>

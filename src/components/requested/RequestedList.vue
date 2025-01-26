@@ -24,11 +24,11 @@
 import ListPagination from '../lists/ListPagination.vue'
 import ListContainer from '../lists/ListContainer.vue'
 import RequestedListBar from './RequestedListBar.vue'
-import { useRequestedParamsStore } from '@/stores/params'
 import { DUMMY_REQUESTED_LIST_DATA } from '@/datas/dummy'
 import RequestedListCard from './RequestedListCard.vue'
+import { useRequestParamsStore } from '@/stores/params'
 
-const { params } = useRequestedParamsStore()
+const { params } = useRequestParamsStore()
 const DUMMY_TOTAL_PAGE = 18
 const onPageChange = (value: number) => {
   params.page = value
