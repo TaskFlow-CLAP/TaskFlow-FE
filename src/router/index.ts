@@ -51,6 +51,11 @@ const router = createRouter({
       path: '/request-history',
       name: 'RequestHistory',
       component: () => import('../views/RequestHistory.vue')
+    },
+    {
+      path: '/my-task',
+      name: 'MyTask',
+      component: () => import('../views/MyTaskView.vue')
     }
   ]
 })
