@@ -66,7 +66,7 @@
           <div>
             <button
               class="button-large-red"
-              @click="closeModal">
+              @click="confirmModal">
               {{ type === 'inputType' ? '거부' : '삭제' }}
             </button>
           </div>
@@ -101,5 +101,9 @@ watch(textValue, newValue => {
 
 const closeModal = () => {
   emit('close')
+}
+
+const confirmModal = () => {
+  emit('click')
 }
 </script>
