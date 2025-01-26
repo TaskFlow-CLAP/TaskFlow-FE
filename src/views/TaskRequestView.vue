@@ -5,11 +5,18 @@
     </div>
     <RequestTask />
   </div> -->
-  <div class="w-full h-screen bg-body">
-    <TaskDetail status="아님" />
+  <div class="w-full bg-body">
+    <TaskDetail
+      :isManager="false"
+      :isApproved="false"
+      :closeTaskDetail="closeTaskDetailFunction" />
   </div>
 </template>
 
 <script setup lang="ts">
 import TaskDetail from '@/components/task-detail/TaskDetail.vue'
+
+const closeTaskDetailFunction = () => {
+  // Define the function to close task detail
+}
 </script>

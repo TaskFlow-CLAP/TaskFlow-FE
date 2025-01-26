@@ -106,3 +106,9 @@ export interface TaskDetailHistoryProps {
     file?: TaskDetailHistoryFileTypes
   }
 }
+
+export interface TaskDetailProps {
+  isManager: boolean
+  isApproved: boolean
+  closeTaskDetail: () => void
+}
