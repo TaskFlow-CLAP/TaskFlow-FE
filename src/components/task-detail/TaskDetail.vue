@@ -35,7 +35,7 @@
           :is-approved="false"
           :is-manager="false" />
       </div>
-      <div class="w-[1px] border border-border-1"></div>
+      <div class="w-[1px] bg-border-1"></div>
       <TaskDetailRight :task-detail="DUMMY_TASK_DETAIL_RIGHT" />
     </div>
   </div>
