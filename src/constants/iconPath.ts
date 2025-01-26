@@ -217,4 +217,3 @@ export const approveIcon = {
   height: 18,
   fill: '#7879EB'
 }
-
