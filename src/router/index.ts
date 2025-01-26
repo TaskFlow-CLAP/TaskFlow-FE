@@ -48,6 +48,11 @@ const router = createRouter({
       component: () => import('../views/RequestedView.vue')
     },
     {
+      path: '/request-history',
+      name: 'RequestHistory',
+      component: () => import('../views/RequestHistory.vue')
+    },
+    {
       path: '/team-board',
       name: 'TeamBoard',
       component: () => import('../views/TeamBoardView.vue')

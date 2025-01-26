@@ -2,7 +2,7 @@
   <div
     class="filter-container"
     :style="{ width: width ? `${width}px` : '' }"
-    :class="!width && 'grow'">
+    :class="width === 'full' && 'grow'">
     <span class="filter-title">{{ title }}</span>
     <div
       class="filter-dropdown"
@@ -34,9 +34,9 @@
 import type { Filter } from '@/types/common'
 import { ref } from 'vue'
 import { dropdownIcon } from '@/constants/iconPath'
-import CommonIcons from '../common/CommonIcons.vue';
+import CommonIcons from '../common/CommonIcons.vue'
 
-const { title, width, optionList, value } = defineProps<Filter>()
+const { title, width = '120', optionList, value } = defineProps<Filter>()
 const emit = defineEmits(['update:value'])
 
 const isDropdownOpened = ref(false)
