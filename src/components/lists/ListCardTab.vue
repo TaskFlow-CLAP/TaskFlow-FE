@@ -2,7 +2,7 @@
   <div
     class="flex gap-2 items-center"
     :style="{ width: width ? `${width}px` : '' }"
-    :class="!width && 'grow'">
+    :class="width ? 'shrink-0' : 'grow'">
     <div
       v-if="profileImg"
       class="w-6 h-6 rounded-full overflow-hidden">

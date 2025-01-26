@@ -1,7 +1,7 @@
 <template>
   <div class="list-bar">
     <ListBarTab
-      v-for="tab in MY_REQUEST_LIST_BAR_TAB"
+      v-for="tab in REQUEST_HISTORY_LIST_BAR_TAB"
       :key="tab.content"
       :content="tab.content"
       :width="tab.width"
@@ -12,9 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import { MY_REQUEST_LIST_BAR_TAB } from '@/constants/user'
 import ListBarTab from '../lists/ListBarTab.vue'
 import { useRequestParamsStore } from '@/stores/params'
+import { REQUEST_HISTORY_LIST_BAR_TAB } from '@/constants/manager'
 
 const { params } = useRequestParamsStore()
 
