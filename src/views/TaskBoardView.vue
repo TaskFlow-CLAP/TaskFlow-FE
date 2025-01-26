@@ -23,7 +23,8 @@
           :list="status.taskList"
           group="taskList"
           item-key="task"
-          class="flex flex-col grow px-4 pb-4 gap-4 overflow-y-scroll">
+          class="flex flex-col grow px-4 pb-4 gap-4 overflow-y-scroll"
+          @change="onListChange">
           <template #item="{ element }">
             <TaskCard
               :key="element.taskId"
@@ -48,6 +49,11 @@ import TitleBar from '@/components/TitleBar.vue'
 import { DUMMY_TASK_CARD_LIST } from '@/datas/dummy'
 import { ref } from 'vue'
 import draggableComponent from 'vuedraggable'
+import type { SortableEvent } from 'sortablejs'
 
 const cardList = ref(DUMMY_TASK_CARD_LIST)
+
+const onListChange = (event: SortableEvent) => {
+  console.log(event)
+}
 </script>
