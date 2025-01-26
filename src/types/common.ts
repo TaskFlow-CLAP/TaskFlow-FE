@@ -1,10 +1,5 @@
 import type { Ref } from 'vue'
 
-export interface TitleBarProps {
-  title: string
-  btn?: string
-}
-
 export interface Filter {
   title: string
   width?: string
@@ -41,6 +36,10 @@ export interface ListBarTabProps {
   content: string
   width?: number
   sortBy?: string
-  currentOrderRequest?: { sortBy: string; sortDirection: 'DESC' | 'ASC' }
+  currentOrderRequest?: { sortBy: string; sortDirection: SortDirection }
   justifyCenter?: boolean
 }
+
+export type SortDirection = 'DESC' | 'ASC'
+
+export type Role = 'USER' | 'MANAGER' | 'ADMIN'

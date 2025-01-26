@@ -1,4 +1,4 @@
-import type { RequestParams } from '@/types/stores'
+import type { MemberManagementParams, RequestParams } from '@/types/stores'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -28,4 +28,19 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
   }
 
   return { params, $reset }
+})
+
+export const useMemberManagementParamsStore = defineStore('userManagementParams', () => {
+  const params = ref<MemberManagementParams>({
+    name: '',
+    nickName: '',
+    department: '',
+    email: '',
+    role: '',
+    pageSize: 20,
+    page: 1,
+    orderRequest: { sortBy: 'REGISTERED', sortDirection: 'DESC' }
+  })
+
+  return { params }
 })

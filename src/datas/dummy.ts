@@ -1,3 +1,4 @@
+import type { MemberManagementListData } from '@/types/admin'
 import type { Category } from '@/types/common'
 import type { MyTaskListData, RequestedListData, RequestHistoryListData } from '@/types/manager'
 import type { MyRequestListData } from '@/types/user'
@@ -986,5 +987,211 @@ export const DUMMY_MY_TASK_LIST_DATA: MyTaskListData[] = [
     requesterName: 'Tony.tsx',
     taskStatus: '종료',
     finishedAt: '2025.01.11'
+  }
+]
+
+export const DUMMY_MEMBER_MANAGEMENT_LIST_DATA: MemberManagementListData[] = [
+  {
+    memberId: 1,
+    name: '김기기',
+    nickName: 'gigi.kim',
+    department: '백엔드 1팀',
+    departmentRole: '백엔드 개발자',
+    email: 'gigikim@gachon.ac.kr',
+    role: 'USER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 2,
+    name: '남니니',
+    nickName: 'nini.nam',
+    department: '인프라팀',
+    departmentRole: '인프라 아키텍터',
+    email: 'nininam@gachon.ac.kr',
+    role: 'MANAGER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 3,
+    name: '도디디',
+    nickName: 'didi.do',
+    department: '인프라팀',
+    departmentRole: '네트워크 엔지니어',
+    email: 'didido@gachon.ac.kr',
+    role: 'MANAGER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 4,
+    name: '류리리',
+    nickName: 'riri.ryu',
+    department: '인프라팀',
+    departmentRole: '시스템 엔지니어',
+    email: 'ririryu@gachon.ac.kr',
+    role: 'MANAGER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 5,
+    name: '민미미',
+    nickName: 'mimi.min',
+    department: '인프라팀',
+    departmentRole: '공통플랫폼 운영 담당자',
+    email: 'mimimin@gachon.ac.kr',
+    role: 'MANAGER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 6,
+    name: '방비비',
+    nickName: 'bibi.bang',
+    department: '인프라팀',
+    departmentRole: 'Project Manager',
+    email: 'bibibang@gachon.ac.kr',
+    role: 'MANAGER',
+    permission: true,
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 7,
+    name: '심시시',
+    nickName: 'sisi.shim',
+    department: '매니지먼트팀',
+    departmentRole: 'TMS 시스템 관리자',
+    email: 'sisishim@gachon.ac.kr',
+    role: 'ADMIN',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 8,
+    name: '김기기',
+    nickName: 'gigi.kim',
+    department: '백엔드 1팀',
+    departmentRole: '백엔드 개발자',
+    email: 'gigikim@gachon.ac.kr',
+    role: 'USER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 9,
+    name: '남니니',
+    nickName: 'nini.nam',
+    department: '인프라팀',
+    departmentRole: '인프라 아키텍터',
+    email: 'nininam@gachon.ac.kr',
+    role: 'MANAGER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 10,
+    name: '도디디',
+    nickName: 'didi.do',
+    department: '인프라팀',
+    departmentRole: '네트워크 엔지니어',
+    email: 'didido@gachon.ac.kr',
+    role: 'MANAGER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 11,
+    name: '류리리',
+    nickName: 'riri.ryu',
+    department: '인프라팀',
+    departmentRole: '시스템 엔지니어',
+    email: 'ririryu@gachon.ac.kr',
+    role: 'MANAGER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 12,
+    name: '민미미',
+    nickName: 'mimi.min',
+    department: '인프라팀',
+    departmentRole: '공통플랫폼 운영 담당자',
+    email: 'mimimin@gachon.ac.kr',
+    role: 'MANAGER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 13,
+    name: '방비비',
+    nickName: 'bibi.bang',
+    department: '인프라팀',
+    departmentRole: 'Project Manager',
+    email: 'bibibang@gachon.ac.kr',
+    role: 'MANAGER',
+    permission: true,
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 14,
+    name: '심시시',
+    nickName: 'sisi.shim',
+    department: '매니지먼트팀',
+    departmentRole: 'TMS 시스템 관리자',
+    email: 'sisishim@gachon.ac.kr',
+    role: 'ADMIN',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 15,
+    name: '김기기',
+    nickName: 'gigi.kim',
+    department: '백엔드 1팀',
+    departmentRole: '백엔드 개발자',
+    email: 'gigikim@gachon.ac.kr',
+    role: 'USER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 16,
+    name: '남니니',
+    nickName: 'nini.nam',
+    department: '인프라팀',
+    departmentRole: '인프라 아키텍터',
+    email: 'nininam@gachon.ac.kr',
+    role: 'MANAGER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 17,
+    name: '도디디',
+    nickName: 'didi.do',
+    department: '인프라팀',
+    departmentRole: '네트워크 엔지니어',
+    email: 'didido@gachon.ac.kr',
+    role: 'MANAGER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 18,
+    name: '류리리',
+    nickName: 'riri.ryu',
+    department: '인프라팀',
+    departmentRole: '시스템 엔지니어',
+    email: 'ririryu@gachon.ac.kr',
+    role: 'MANAGER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 19,
+    name: '민미미',
+    nickName: 'mimi.min',
+    department: '인프라팀',
+    departmentRole: '공통플랫폼 운영 담당자',
+    email: 'mimimin@gachon.ac.kr',
+    role: 'MANAGER',
+    registeredAt: '2025.01.11'
+  },
+  {
+    memberId: 20,
+    name: '방비비',
+    nickName: 'bibi.bang',
+    department: '인프라팀',
+    departmentRole: 'Project Manager',
+    email: 'bibibang@gachon.ac.kr',
+    role: 'MANAGER',
+    permission: true,
+    registeredAt: '2025.01.11'
   }
 ]

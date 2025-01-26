@@ -13,10 +13,10 @@
       :status="content" />
     <span
       v-else
-      class="text-black"
+      class="text-black break-all"
       :class="isTextXs ? 'text-xs' : 'text-sm'">
-      {{ content ? content : '-' }}</span
-    >
+      {{ content ? content : '-' }}
+    </span>
   </div>
 </template>
 
