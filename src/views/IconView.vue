@@ -76,7 +76,7 @@
 </template>
 
 <script setup lang="ts">
-import CommonIcons from '@/components/common/CommonIcons.vue';
+import CommonIcons from '@/components/common/CommonIcons.vue'
 import {
   bentoIcon,
   calendarIcon,

@@ -33,11 +33,8 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  EXPLANATION_PLACEHOLDER,
-  REQUEST_TASK_CATEGORIES,
-  TITLE_PLACEHOLDER
-} from '@/constants/user'
+import { EXPLANATION_PLACEHOLDER, TITLE_PLACEHOLDER } from '@/constants/user'
+import { REQUEST_TASK_CATEGORIES } from '@/datas/taskdetail'
 import { ref } from 'vue'
 import RequestTaskDropdown from './RequestTaskDropdown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'

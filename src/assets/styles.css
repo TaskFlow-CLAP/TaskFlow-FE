@@ -100,3 +100,7 @@ body {
 .input-box {
   @apply block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none;
 }
+
+.task-detail {
+  @apply text-xs text-body font-bold mb-2;
+}
