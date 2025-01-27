@@ -26,12 +26,12 @@
           inputType="time" />
       </div>
     </div>
-
     <RequestTaskDropdown
-      v-model="approveForm.category2"
-      :options="DUMMY_REQUEST_TASK_CATEGORIES"
-      :label-name="'2차 카테고리'"
-      :placeholderText="'2차 카테고리를 선택해주세요'" />
+      v-model="approveForm.labeling"
+      :options="DUMMY_REQUEST_TASK_LABELS"
+      :label-name="'구분'"
+      :is-label="true"
+      :placeholderText="'구분을 선택해주세요'" />
     <div class="w-full mt-4 flex justify-center">
       <div class="w-[400px] flex gap-6">
         <button
@@ -42,7 +42,7 @@
         <button
           class="button-large-primary"
           @click="handleSubmit">
-          요청
+          승인
         </button>
       </div>
     </div>
@@ -50,7 +50,11 @@
 </template>
 
 <script lang="ts" setup>
-import { DUMMY_REQUEST_PROCESSORS, DUMMY_REQUEST_TASK_CATEGORIES } from '@/datas/taskdetail'
+import {
+  DUMMY_REQUEST_PROCESSORS,
+  DUMMY_REQUEST_TASK_CATEGORIES,
+  DUMMY_REQUEST_TASK_LABELS
+} from '@/datas/taskdetail'
 import { ref } from 'vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import DueDateInput from './DueDateInput.vue'
@@ -60,7 +64,7 @@ const approveForm = ref({
   category1: '1차 카테고리를 선택해주세요',
   category2: '2차 카테고리를 선택해주세요',
   processor: '담당자를 선택해주세요',
-  labeling: '',
+  labeling: '구분을 선택해주세요',
   dueDate: '',
   dueTime: ''
 })

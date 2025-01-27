@@ -19,14 +19,14 @@
     <RequestTaskFileInput v-model="file" />
     <div class="w-full justify-center flex gap-6 mt-4">
       <button
-        class="w-[188px] h-[52px] rounded text-white bg-primary1 flex items-center justify-center"
-        @click="handleSubmit">
-        요청
-      </button>
-      <button
         class="w-[188px] h-[52px] border border-disabled rounded text-disabled bg-white flex items-center justify-center"
         @click="handleCancel">
         취소
+      </button>
+      <button
+        class="w-[188px] h-[52px] rounded text-white bg-primary1 flex items-center justify-center"
+        @click="handleSubmit">
+        요청
       </button>
     </div>
   </div>
