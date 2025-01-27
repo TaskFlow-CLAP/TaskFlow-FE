@@ -2,7 +2,7 @@ import axios, { type InternalAxiosRequestConfig } from 'axios'
 import Cookies from 'js-cookie'
 const baseURL = import.meta.env.VITE_API_BASE_URL
 
-const instance = axios.create({
+const axiosInstance = axios.create({
   baseURL: baseURL,
   withCredentials: true,
   headers: {
@@ -11,7 +11,7 @@ const instance = axios.create({
   }
 })
 
-instance.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (typeof window !== 'undefined') {
       const token = Cookies.get('accessToken')
@@ -24,7 +24,7 @@ instance.interceptors.request.use(
   error => Promise.reject(error)
 )
 
-instance.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   response => response,
   error => {
     if (axios.isCancel(error)) {
@@ -55,4 +55,4 @@ instance.interceptors.response.use(
   }
 )
 
-export default instance
+export default axiosInstance
