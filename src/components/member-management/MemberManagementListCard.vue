@@ -28,7 +28,7 @@
   </div>
 
   <ModalView
-    type="inputType"
+    type="warningType"
     :is-open="isModalOpen.delete"
     @click="onMemberDelete(info.memberId)"
     @close="toggleModal('delete')">

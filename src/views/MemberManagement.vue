@@ -29,9 +29,9 @@
 
 <script setup lang="ts">
 import CommonIcons from '@/components/common/CommonIcons.vue'
+import MemberManagementFilterBar from '@/components/member-management/MemberManagementFilterBar.vue'
+import MemberManagementList from '@/components/member-management/MemberManagementList.vue'
 import TitleBar from '@/components/TitleBar.vue'
-import MemberManagementFilterBar from '@/components/user-management/MemberManagementFilterBar.vue'
-import MemberManagementList from '@/components/user-management/MemberManagementList.vue'
 import { plusIcon } from '@/constants/iconPath'
 import { useRouter } from 'vue-router'
 
