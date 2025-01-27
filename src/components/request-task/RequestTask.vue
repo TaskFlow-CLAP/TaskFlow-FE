@@ -2,12 +2,12 @@
   <div class="w-[552px] flex flex-col gap-y-6">
     <RequestTaskDropdown
       v-model="category1"
-      :options="REQUEST_TASK_CATEGORIES"
+      :options="DUMMY_REQUEST_TASK_CATEGORIES"
       :label-name="'1차 카테고리'"
       :placeholderText="'1차 카테고리를 선택해주세요'" />
     <RequestTaskDropdown
       v-model="category2"
-      :options="REQUEST_TASK_CATEGORIES"
+      :options="DUMMY_REQUEST_TASK_CATEGORIES"
       :label-name="'2차 카테고리'"
       :placeholderText="'2차 카테고리를 선택해주세요'" />
     <RequestTaskInput
@@ -34,7 +34,7 @@
 
 <script lang="ts" setup>
 import { EXPLANATION_PLACEHOLDER, TITLE_PLACEHOLDER } from '@/constants/user'
-import { REQUEST_TASK_CATEGORIES } from '@/datas/taskdetail'
+import { DUMMY_REQUEST_TASK_CATEGORIES } from '@/datas/taskdetail'
 import { ref } from 'vue'
 import RequestTaskDropdown from './RequestTaskDropdown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'

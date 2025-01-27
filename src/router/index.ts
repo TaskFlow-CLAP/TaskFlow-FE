@@ -34,7 +34,7 @@ const router = createRouter({
     },
     {
       path: '/task-request',
-      name: 'task-request',
+      name: 'taskRequest',
       component: () => import('../views/TaskRequestView.vue')
     },
     {

@@ -5,16 +5,9 @@
     </div>
     <RequestTask />
   </div>
-  <div class="w-full bg-body">
-    <!-- <TaskDetail
-      :isManager="false"
-      :isApproved="false"
-      :closeTaskDetail="closeTaskDetailFunction" /> -->
-  </div>
+  <div class="w-full bg-body"></div>
 </template>
 
 <script setup lang="ts">
-// const closeTaskDetailFunction = () => {
-//   // Define the function to close task detail
-// }
+import RequestTask from '@/components/request-task/RequestTask.vue'
 </script>
