@@ -50,6 +50,7 @@
 </template>
 
 <script lang="ts" setup>
+import { INITIAL_REQUEST_APPROVE_FORM } from '@/constants/manager'
 import {
   DUMMY_REQUEST_PROCESSORS,
   DUMMY_REQUEST_TASK_CATEGORIES,
@@ -60,22 +61,10 @@ import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import DueDateInput from './DueDateInput.vue'
 import ProcessorDropdown from './ProcessorDropdown.vue'
 
-const approveForm = ref({
-  category1: '1차 카테고리를 선택해주세요',
-  category2: '2차 카테고리를 선택해주세요',
-  processor: '담당자를 선택해주세요',
-  labeling: '구분을 선택해주세요',
-  dueDate: '',
-  dueTime: ''
-})
+const approveForm = ref(INITIAL_REQUEST_APPROVE_FORM)
 
 const handleCancel = () => {
-  approveForm.value.category1 = '1차 카테고리를 선택해주세요'
-  approveForm.value.category2 = '2차 카테고리를 선택해주세요'
-  approveForm.value.processor = ''
-  approveForm.value.labeling = ''
-  approveForm.value.dueDate = ''
-  approveForm.value.dueTime = ''
+  approveForm.value = { ...INITIAL_REQUEST_APPROVE_FORM }
 }
 
 const handleSubmit = () => {
