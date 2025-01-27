@@ -46,6 +46,11 @@ const router = createRouter({
       path: '/request-history',
       name: 'RequestHistory',
       component: () => import('../views/RequestHistory.vue')
+    },
+    {
+      path: '/request-approve',
+      name: 'requestApprove',
+      component: () => import('../views/RequestApproveView.vue')
     }
   ]
 })
