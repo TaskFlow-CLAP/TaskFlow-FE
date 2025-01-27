@@ -22,3 +22,13 @@ export interface MemberManagementParams {
   page: number
   orderRequest: { sortBy: 'REGISTERED'; sortDirection: SortDirection }
 }
+
+export interface LogsParams {
+  term: number | ''
+  division: string
+  nickName: string
+  ipAddress: string
+  pageSize: number
+  page: number
+  orderRequest: { sortBy: 'CREATED'; sortDirection: SortDirection }
+}

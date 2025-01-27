@@ -13,8 +13,8 @@
       :status="content" />
     <span
       v-else
-      class="text-black break-all"
-      :class="isTextXs ? 'text-xs' : 'text-sm'">
+      class="break-all"
+      :class="`${isTextXs ? 'text-xs font-bold' : 'text-sm'} ${isStatusCode ? (content === '200' ? 'text-green-1' : 'text-red-1') : ''} ${isTextBody ? 'text-body' : 'text-black'}`">
       {{ content ? content : '-' }}
     </span>
   </div>
@@ -24,7 +24,8 @@
 import type { ListCardProps } from '@/types/common'
 import TaskStatus from '../TaskStatus.vue'
 
-const { content, width, isTextXs, profileImg, isStatus } = defineProps<ListCardProps>()
+const { content, width, isTextXs, profileImg, isStatus, isStatusCode, isTextBody } =
+  defineProps<ListCardProps>()
 </script>
 
 <style scoped></style>

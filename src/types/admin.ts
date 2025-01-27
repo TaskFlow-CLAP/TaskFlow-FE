@@ -11,3 +11,13 @@ export interface MemberManagementListData {
   permission?: boolean
   registeredAt: string
 }
+
+export interface LoginLogsListData {
+  logId: number
+  division: string
+  createdAt: string
+  nickName: string
+  ipAddress: string
+  status: number
+  result?: string
+}

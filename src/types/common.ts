@@ -30,6 +30,8 @@ export interface ListCardProps {
   isTextXs?: boolean
   profileImg?: string
   isStatus?: boolean
+  isStatusCode?: boolean
+  isTextBody?: boolean
 }
 
 export interface ListBarTabProps {

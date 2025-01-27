@@ -61,6 +61,11 @@ const router = createRouter({
       path: '/member-management',
       name: 'MemberManagement',
       component: () => import('../views/MemberManagement.vue')
+    },
+    {
+      path: '/login-logs',
+      name: 'LoginLogs',
+      component: () => import('../views/LoginLogsView.vue')
     }
   ]
 })

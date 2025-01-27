@@ -1,4 +1,4 @@
-import type { MemberManagementListData } from '@/types/admin'
+import type { LoginLogsListData, MemberManagementListData } from '@/types/admin'
 import type { Category } from '@/types/common'
 import type { MyTaskListData, RequestedListData, RequestHistoryListData } from '@/types/manager'
 import type { MyRequestListData } from '@/types/user'
@@ -1193,5 +1193,184 @@ export const DUMMY_MEMBER_MANAGEMENT_LIST_DATA: MemberManagementListData[] = [
     role: 'MANAGER',
     permission: true,
     registeredAt: '2025.01.11'
+  }
+]
+
+export const DUMMY_LOGIN_LOGS_LIST_DATA: LoginLogsListData[] = [
+  {
+    logId: 1,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=4'
+  },
+  {
+    logId: 2,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=3'
+  },
+  {
+    logId: 3,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=2'
+  },
+  {
+    logId: 4,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=1'
+  },
+  {
+    logId: 5,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 6,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=4'
+  },
+  {
+    logId: 7,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=3'
+  },
+  {
+    logId: 8,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=2'
+  },
+  {
+    logId: 9,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=1'
+  },
+  {
+    logId: 10,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 11,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=4'
+  },
+  {
+    logId: 12,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=3'
+  },
+  {
+    logId: 13,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=2'
+  },
+  {
+    logId: 14,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=1'
+  },
+  {
+    logId: 15,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 16,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=4'
+  },
+  {
+    logId: 17,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=3'
+  },
+  {
+    logId: 18,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=2'
+  },
+  {
+    logId: 19,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 400,
+    result: 'count=1'
+  },
+  {
+    logId: 20,
+    division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
   }
 ]
