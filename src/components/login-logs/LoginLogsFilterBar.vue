@@ -15,7 +15,7 @@
       width="full"
       :value="store.params.nickName"
       @update:value="onParamsChange.onNickNameChange" />
-    <FilterIpAddress />
+    <FilterIpAddress @update:value="onParamsChange.onIpAddressChange" />
     <FilterDropdown
       title="페이지 당 개수"
       :option-list="PAGE_SIZE_LIST"
