@@ -44,3 +44,8 @@ export interface ListBarTabProps {
   currentOrderRequest?: { sortBy: string; sortDirection: 'DESC' | 'ASC' }
   justifyCenter?: boolean
 }
+
+export interface DueDateInputProps {
+  modelValue: string
+  inputType: string
+}
