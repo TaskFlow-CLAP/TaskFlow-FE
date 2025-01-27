@@ -15,10 +15,7 @@
       width="full"
       :value="store.params.nickName"
       @update:value="onParamsChange.onNickNameChange" />
-    <FilterInput
-      title="IP 주소"
-      :value="store.params.ipAddress"
-      @update:value="onParamsChange.onIpAddressChange" />
+    <FilterIpAddress />
     <FilterDropdown
       title="페이지 당 개수"
       :option-list="PAGE_SIZE_LIST"
@@ -34,6 +31,7 @@ import { useLogsParamsStore } from '@/stores/params'
 import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
 import { LOGIN_LOGS_DIVISION_LIST } from '@/constants/admin'
 import { useLogsParamsChange } from '../hooks/useLogsParamsChange'
+import FilterIpAddress from '../filters/FilterIpAddress.vue'
 
 const store = useLogsParamsStore()
 store.$reset()
