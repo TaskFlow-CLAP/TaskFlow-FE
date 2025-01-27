@@ -12,7 +12,7 @@ export interface MemberManagementListData {
   registeredAt: string
 }
 
-export interface LoginLogsListData {
+export interface LogsListData {
   logId: number
   division: string
   createdAt: string

@@ -1,4 +1,4 @@
-import type { LoginLogsListData, MemberManagementListData } from '@/types/admin'
+import type { LogsListData, MemberManagementListData } from '@/types/admin'
 import type { Category } from '@/types/common'
 import type { MyTaskListData, RequestedListData, RequestHistoryListData } from '@/types/manager'
 import type { MyRequestListData } from '@/types/user'
@@ -1196,7 +1196,7 @@ export const DUMMY_MEMBER_MANAGEMENT_LIST_DATA: MemberManagementListData[] = [
   }
 ]
 
-export const DUMMY_LOGIN_LOGS_LIST_DATA: LoginLogsListData[] = [
+export const DUMMY_LOGIN_LOGS_LIST_DATA: LogsListData[] = [
   {
     logId: 1,
     division: '로그인 시도',
@@ -1368,6 +1368,169 @@ export const DUMMY_LOGIN_LOGS_LIST_DATA: LoginLogsListData[] = [
   {
     logId: 20,
     division: '로그인 시도',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  }
+]
+
+export const DUMMY_API_LOGS_LIST_DATA: LogsListData[] = [
+  {
+    logId: 1,
+    division: '요청 생성',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 2,
+    division: '요청 수정',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 3,
+    division: '요청 취소',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 4,
+    division: '요청 승인',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 5,
+    division: '요청 생성',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 6,
+    division: '요청 수정',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 7,
+    division: '요청 취소',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 8,
+    division: '요청 승인',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 9,
+    division: '요청 생성',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 10,
+    division: '요청 수정',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 11,
+    division: '요청 취소',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 12,
+    division: '요청 승인',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 13,
+    division: '요청 생성',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 14,
+    division: '요청 수정',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 15,
+    division: '요청 취소',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 16,
+    division: '요청 승인',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 17,
+    division: '요청 생성',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 18,
+    division: '요청 수정',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 19,
+    division: '요청 취소',
+    createdAt: '2025.01.08 오전 12:23:04',
+    nickName: 'Tony.tsx',
+    ipAddress: '192.168.222.222',
+    status: 200
+  },
+  {
+    logId: 20,
+    division: '요청 승인',
     createdAt: '2025.01.08 오전 12:23:04',
     nickName: 'Tony.tsx',
     ipAddress: '192.168.222.222',

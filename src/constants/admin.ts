@@ -25,7 +25,7 @@ export const API_LOGS_DIVISION_LIST: Option[] = [
   { content: '요청 승인', value: 'REQUEST_APPROVED' }
 ]
 
-export const LOGIN_LOGS_LIST_BAR_TAB: ListBarTabProps[] = [
+export const LOGS_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '구분', width: 80 },
   { content: '시각', width: 180, sortBy: 'CREATED' },
   { content: '아이디', width: 80 },
