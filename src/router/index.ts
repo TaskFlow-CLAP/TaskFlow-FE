@@ -33,11 +33,6 @@ const router = createRouter({
       component: MyRequestView
     },
     {
-      path: '/icon',
-      name: 'icon',
-      component: () => import('../views/IconView.vue')
-    },
-    {
       path: '/task-request',
       name: 'task-request',
       component: () => import('../views/TaskRequestView.vue')
