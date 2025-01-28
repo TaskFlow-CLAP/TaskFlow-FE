@@ -28,14 +28,7 @@
           <template #item="{ element }">
             <TaskCard
               :key="element.taskId"
-              :title="element.title"
-              :main-category-name="element.mainCategoryName"
-              :category-name="element.categoryName"
-              :task-code="element.taskCode"
-              :requester-team="element.requesterTeam"
-              :requester-img="element.requesterImg"
-              :requester-name="element.requesterName"
-              :status="status.taskStatus" />
+              :data="element" />
           </template>
         </draggableComponent>
       </div>
@@ -44,12 +37,12 @@
 </template>
 
 <script setup lang="ts">
-import TaskCard from '@/components/task-board/TaskCard.vue'
 import TitleBar from '@/components/TitleBar.vue'
 import { DUMMY_TASK_CARD_LIST } from '@/datas/dummy'
 import { ref } from 'vue'
 import draggableComponent from 'vuedraggable'
 import type { SortableEvent } from 'sortablejs'
+import TaskCard from '@/components/TaskCard.vue'
 
 const cardList = ref(DUMMY_TASK_CARD_LIST)
 

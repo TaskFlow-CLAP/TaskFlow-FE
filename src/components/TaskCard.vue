@@ -5,20 +5,20 @@
     @click="onTaskClick">
     <div class="flex flex-col gap-1">
       <div class="flex justify-between items-center gap-4">
-        <span class="text-black">{{ title }}</span>
+        <span class="text-black">{{ data.title }}</span>
         <CommonIcons :name="bentoIcon" />
       </div>
-      <span class="text-xs text-body">{{ mainCategoryName }} - {{ categoryName }}</span>
+      <span class="text-xs text-body">{{ data.mainCategoryName }} - {{ data.categoryName }}</span>
     </div>
     <div class="flex justify-between items-end">
-      <span class="text-xs font-bold text-black">{{ taskCode }}</span>
+      <span class="text-xs font-bold text-black">{{ data.taskCode }}</span>
       <div class="flex flex-col gap-1 items-end">
-        <span class="text-xs font-bold text-body">{{ requesterTeam }}</span>
+        <span class="text-xs font-bold text-body">{{ data.requesterTeam }}</span>
         <div class="flex items-center gap-1">
           <div class="w-4 h-4 rounded-full bg-background-1 overflow-hidden">
-            <img :src="requesterImg" />
+            <img :src="data.requesterImg" />
           </div>
-          <span class="text-xs font-bold text-black">{{ requesterName }}</span>
+          <span class="text-xs font-bold text-black">{{ data.requesterName }}</span>
         </div>
       </div>
     </div>
@@ -27,14 +27,13 @@
 
 <script setup lang="ts">
 import { bentoIcon } from '@/constants/iconPath'
-import CommonIcons from '../common/CommonIcons.vue'
 import type { Status } from '@/types/common'
 import { computed } from 'vue'
 import { statusAsColor } from '@/utils/statusAsColor'
 import type { TaskCardProps } from '@/types/manager'
+import CommonIcons from './common/CommonIcons.vue'
 
-const { title, mainCategoryName, categoryName, taskCode, requesterName, requesterTeam, status } =
-  defineProps<TaskCardProps>()
+const { data } = defineProps<{ data: TaskCardProps }>()
 
 const borderLeft = computed(() => {
   return `border-${statusAsColor(status as Status)}-1`
