@@ -47,10 +47,10 @@ export interface TaskCardList {
 }
 
 export interface RequestApproveFormData {
-  category1: string;
-  category2: string;
-  processor: string;
-  labeling: string;
-  dueDate: string;
-  dueTime: string;
+  category1: string
+  category2: string
+  processor: string
+  labeling: string
+  dueDate: string
+  dueTime: string
 }
