@@ -9,3 +9,10 @@ export interface RequestParams {
   page: number
   orderRequest: { sortBy: 'REQUESTED' | 'FINISHED'; sortDirection: 'DESC' | 'ASC' }
 }
+
+export interface TeamBoardParams {
+  order: string
+  title: string
+  mainCategoryId: number[]
+  categoryId: number[]
+}

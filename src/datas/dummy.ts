@@ -809,25 +809,30 @@ export const DUMMY_TEAM_MEMBERS_LIST = [
     tasks: [
       {
         taskId: 1,
-        code: 'AAAA2025011310000',
-        title: '작업 제목 1',
-        mainCategoryName: '카테고리 1',
-        categoryName: '카테고리 1-1',
-        requester: {
-          name: 'atom.park',
-          department: '기획팀'
-        }
+        taskCode: 'string',
+        mainCategoryName: 'string',
+        categoryName: 'string',
+        title: 'string',
+        requesterNickName: 'string',
+        requesterImageUrl: 'string',
+        requesterDepartment: 'string',
+        processorOrder: 0,
+        taskStatus: '진행 중',
+        createdAt: '2025-01-28T09:34:00.128Z'
       },
+
       {
         taskId: 2,
-        code: 'AAAA2025011310003',
-        title: '작업 제목 4',
-        mainCategoryName: '카테고리 2',
-        categoryName: '카테고리 2-1',
-        requester: {
-          name: 'john.doe',
-          department: '운영팀'
-        }
+        taskCode: 'string',
+        mainCategoryName: 'string',
+        categoryName: 'string',
+        title: 'string',
+        requesterNickName: 'string',
+        requesterImageUrl: 'string',
+        requesterDepartment: 'string',
+        processorOrder: 0,
+        taskStatus: '진행 중',
+        createdAt: '2025-01-28T09:34:00.128Z'
       }
     ]
   },
@@ -842,25 +847,182 @@ export const DUMMY_TEAM_MEMBERS_LIST = [
     tasks: [
       {
         taskId: 3,
-        code: 'AAAA2025011310001',
-        title: '작업 제목 2',
-        mainCategoryName: '카테고리 3',
-        categoryName: '카테고리 3-1',
-        requester: {
-          name: 'kim.lee',
-          department: '개발팀'
-        }
+        taskCode: 'string',
+        mainCategoryName: 'string',
+        categoryName: 'string',
+        title: 'string',
+        requesterNickName: 'string',
+        requesterImageUrl: 'string',
+        requesterDepartment: 'string',
+        processorOrder: 0,
+        taskStatus: '진행 중',
+        createdAt: '2025-01-28T09:34:00.128Z'
       },
+
       {
         taskId: 4,
-        code: 'AAAA2025011310004',
-        title: '작업 제목 5',
-        mainCategoryName: '카테고리 4',
-        categoryName: '카테고리 4-1',
-        requester: {
-          name: 'john.doe',
-          department: '운영팀'
-        }
+        taskCode: 'string',
+        mainCategoryName: 'string',
+        categoryName: 'string',
+        title: 'string',
+        requesterNickName: 'string',
+        requesterImageUrl: 'string',
+        requesterDepartment: 'string',
+        processorOrder: 0,
+        taskStatus: '진행 중',
+        createdAt: '2025-01-28T09:34:00.128Z'
+      }
+    ]
+  },
+  {
+    name: 'atom.park',
+    department: '기획팀',
+    taskStatusSummary: {
+      inProgress: 5,
+      pendingCompletion: 3,
+      totalTasks: 8
+    },
+    tasks: [
+      {
+        taskId: 1,
+        taskCode: 'string',
+        mainCategoryName: 'string',
+        categoryName: 'string',
+        title: 'string',
+        requesterNickName: 'string',
+        requesterImageUrl: 'string',
+        requesterDepartment: 'string',
+        processorOrder: 0,
+        taskStatus: '진행 중',
+        createdAt: '2025-01-28T09:34:00.128Z'
+      },
+
+      {
+        taskId: 2,
+        taskCode: 'string',
+        mainCategoryName: 'string',
+        categoryName: 'string',
+        title: 'string',
+        requesterNickName: 'string',
+        requesterImageUrl: 'string',
+        requesterDepartment: 'string',
+        processorOrder: 0,
+        taskStatus: '진행 중',
+        createdAt: '2025-01-28T09:34:00.128Z'
+      }
+    ]
+  },
+  {
+    name: 'kim.lee',
+    department: '개발팀',
+    taskStatusSummary: {
+      inProgress: 3,
+      pendingCompletion: 2,
+      totalTasks: 5
+    },
+    tasks: [
+      {
+        taskId: 3,
+        taskCode: 'string',
+        mainCategoryName: 'string',
+        categoryName: 'string',
+        title: 'string',
+        requesterNickName: 'string',
+        requesterImageUrl: 'string',
+        requesterDepartment: 'string',
+        processorOrder: 0,
+        taskStatus: '진행 중',
+        createdAt: '2025-01-28T09:34:00.128Z'
+      },
+
+      {
+        taskId: 4,
+        taskCode: 'string',
+        mainCategoryName: 'string',
+        categoryName: 'string',
+        title: 'string',
+        requesterNickName: 'string',
+        requesterImageUrl: 'string',
+        requesterDepartment: 'string',
+        processorOrder: 0,
+        taskStatus: '진행 중',
+        createdAt: '2025-01-28T09:34:00.128Z'
+      }
+    ]
+  },
+  {
+    name: 'atom.park',
+    department: '기획팀',
+    taskStatusSummary: {
+      inProgress: 5,
+      pendingCompletion: 3,
+      totalTasks: 8
+    },
+    tasks: [
+      {
+        taskId: 1,
+        taskCode: 'string',
+        mainCategoryName: 'string',
+        categoryName: 'string',
+        title: 'string',
+        requesterNickName: 'string',
+        requesterImageUrl: 'string',
+        requesterDepartment: 'string',
+        processorOrder: 0,
+        taskStatus: '진행 중',
+        createdAt: '2025-01-28T09:34:00.128Z'
+      },
+
+      {
+        taskId: 2,
+        taskCode: 'string',
+        mainCategoryName: 'string',
+        categoryName: 'string',
+        title: 'string',
+        requesterNickName: 'string',
+        requesterImageUrl: 'string',
+        requesterDepartment: 'string',
+        processorOrder: 0,
+        taskStatus: '진행 중',
+        createdAt: '2025-01-28T09:34:00.128Z'
+      }
+    ]
+  },
+  {
+    name: 'kim.lee',
+    department: '개발팀',
+    taskStatusSummary: {
+      inProgress: 3,
+      pendingCompletion: 2,
+      totalTasks: 5
+    },
+    tasks: [
+      {
+        taskId: 3,
+        taskCode: 'string',
+        mainCategoryName: 'string',
+        categoryName: 'string',
+        title: 'string',
+        requesterNickName: 'string',
+        requesterImageUrl: 'string',
+        requesterDepartment: 'string',
+        processorOrder: 0,
+        taskStatus: '진행 중',
+        createdAt: '2025-01-28T09:34:00.128Z'
+      },
+
+      {
+        taskId: 4,
+        taskCode: 'string',
+        mainCategoryName: 'string',
+        categoryName: 'string',
+        title: 'string',
+        requesterNickName: 'string',
+        requesterImageUrl: 'string',
+        requesterDepartment: 'string',
+        processorOrder: 0,
+        taskStatus: '진행 중',
+        createdAt: '2025-01-28T09:34:00.128Z'
       }
     ]
   }

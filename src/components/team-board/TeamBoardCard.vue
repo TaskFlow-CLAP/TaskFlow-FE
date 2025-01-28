@@ -22,24 +22,18 @@
       <span class="text-xs font-bold text-primary1">총 {{ taskStatusSummary.totalTasks }}건</span>
     </div>
     <div
-      class="w-full h-[360px] rounded-lg bg-primary2 shadow-custom overflow-y-scroll flex flex-col gap-4">
-      <!-- <TaskCard /> -->
+      class="w-full h-[360px] rounded-lg bg-primary2 shadow-custom overflow-y-scroll flex flex-col items-center p-6 gap-4">
+      <TaskCard
+        v-for="task in tasks"
+        :key="task.taskId"
+        :data="task" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const { name, department, taskStatusSummary, tasks } = defineProps<{
-  name: string
-  department: string
-  taskStatusSummary: { inProgress: number; pendingCompletion: number; totalTasks: number }
-  tasks: {
-    taskId: number
-    code: string
-    title: string
-    mainCategoryName: string
-    categoryName: string
-    requester: { name: string; department: string }
-  }[]
-}>()
+import type { TeamBoardCardProps } from '@/types/manager'
+import TaskCard from '../TaskCard.vue'
+
+const { name, department, taskStatusSummary, tasks } = defineProps<TeamBoardCardProps>()
 </script>

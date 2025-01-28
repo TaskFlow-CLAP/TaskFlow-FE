@@ -1,5 +1,5 @@
 <template>
-  <div class="grow overflow-y-scroll">
+  <div class="grow overflow-y-scroll p-6">
     <div class="grid grid-cols-3 gap-12">
       <TeamBoardCard
         v-for="member in DUMMY_TEAM_MEMBERS_LIST"

@@ -1,4 +1,4 @@
-import type { RequestParams } from '@/types/stores'
+import type { RequestParams, TeamBoardParams } from '@/types/stores'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -28,4 +28,15 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
   }
 
   return { params, $reset }
+})
+
+export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
+  const params = ref<TeamBoardParams>({
+    order: 'CONTRIBUTION',
+    title: '',
+    mainCategoryId: [],
+    categoryId: []
+  })
+
+  return { params }
 })
