@@ -44,3 +44,5 @@ export interface ListBarTabProps {
   currentOrderRequest?: { sortBy: string; sortDirection: 'DESC' | 'ASC' }
   justifyCenter?: boolean
 }
+
+export type Status = '요청' | '진행 중' | '검토 중' | '완료' | '종료'

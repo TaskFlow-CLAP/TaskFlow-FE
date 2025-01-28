@@ -1,3 +1,5 @@
+import type { Status } from './common'
+
 export interface MyRequestListData {
   taskId: number
   taskCode: string
@@ -7,7 +9,7 @@ export interface MyRequestListData {
   title: string
   processorImg?: string
   processorName?: string
-  taskStatus: string
+  taskStatus: Status
   finishedAt?: string
 }
 

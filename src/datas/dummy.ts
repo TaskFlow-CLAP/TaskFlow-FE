@@ -1,5 +1,5 @@
 import type { Category } from '@/types/common'
-import type { RequestedListData, RequestHistoryListData } from '@/types/manager'
+import type { RequestedListData, RequestHistoryListData, TaskCardList } from '@/types/manager'
 import type { MyRequestListData } from '@/types/user'
 
 export const DUMMY_CATEGORY_LIST: Category[] = [
@@ -745,3 +745,54 @@ export const DUMMY_REQUEST_HISTORY_LIST_DATA: RequestHistoryListData[] = [
     finishedAt: '2025.01.11'
   }
 ]
+
+export const DUMMY_TASK_CARD_LIST: TaskCardList = {
+  tasksInProgress: [
+    {
+      taskId: 0,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '진행 중',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    }
+  ],
+  tasksPendingComplete: [
+    {
+      taskId: 0,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '검토 중',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    }
+  ],
+  tasksCompleted: [
+    {
+      taskId: 0,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '완료',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    }
+  ],
+  hasNext: true,
+  isFirst: true,
+  isLast: true
+}
