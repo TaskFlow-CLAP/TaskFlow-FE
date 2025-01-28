@@ -799,7 +799,7 @@ export const DUMMY_TASK_CARD_LIST: TaskCardList = {
 
 export const DUMMY_TEAM_MEMBERS_LIST = [
   {
-    name: 'atom.park',
+    name: 'Tony.tsx',
     department: '기획팀',
     taskStatusSummary: {
       inProgress: 5,
@@ -837,7 +837,7 @@ export const DUMMY_TEAM_MEMBERS_LIST = [
     ]
   },
   {
-    name: 'kim.lee',
+    name: 'Hello.world',
     department: '개발팀',
     taskStatusSummary: {
       inProgress: 3,
@@ -875,7 +875,7 @@ export const DUMMY_TEAM_MEMBERS_LIST = [
     ]
   },
   {
-    name: 'atom.park',
+    name: 'John.doe',
     department: '기획팀',
     taskStatusSummary: {
       inProgress: 5,
@@ -913,7 +913,7 @@ export const DUMMY_TEAM_MEMBERS_LIST = [
     ]
   },
   {
-    name: 'kim.lee',
+    name: 'Jane.doe',
     department: '개발팀',
     taskStatusSummary: {
       inProgress: 3,
