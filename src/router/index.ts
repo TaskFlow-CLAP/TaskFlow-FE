@@ -48,6 +48,11 @@ const router = createRouter({
       component: () => import('../views/RequestHistory.vue')
     },
     {
+      path: '/task-board',
+      name: 'TaskBoard',
+      component: () => import('../views/TaskBoardView.vue')
+    },
+    {
       path: '/request-approve',
       name: 'requestApprove',
       component: () => import('../views/RequestApproveView.vue')
