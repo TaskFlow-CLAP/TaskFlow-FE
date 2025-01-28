@@ -1,5 +1,5 @@
 import type { Category } from '@/types/common'
-import type { RequestedListData, RequestHistoryListData } from '@/types/manager'
+import type { RequestedListData, RequestHistoryListData, TaskCardList } from '@/types/manager'
 import type { MyRequestListData } from '@/types/user'
 
 export const DUMMY_CATEGORY_LIST: Category[] = [
@@ -746,116 +746,53 @@ export const DUMMY_REQUEST_HISTORY_LIST_DATA: RequestHistoryListData[] = [
   }
 ]
 
-export const DUMMY_TASK_CARD_LIST = [
-  {
-    taskStatus: '진행 중',
-    taskList: [
-      {
-        taskId: 1,
-        title: '제목1',
-        mainCategoryName: '1차 카테고리',
-        categoryName: '2차 카테고리',
-        taskCode: 'VMCR25010100001',
-        requesterTeam: '백엔드 1팀',
-        requesterImg: 'https://picsum.photos/24/24',
-        requesterName: 'Hello.world'
-      },
-      {
-        taskId: 2,
-        title: '제목2',
-        mainCategoryName: '1차 카테고리',
-        categoryName: '2차 카테고리',
-        taskCode: 'VMCR25010100001',
-        requesterTeam: '백엔드 1팀',
-        requesterImg: 'https://picsum.photos/24/24',
-        requesterName: 'Hello.world'
-      },
-      {
-        taskId: 3,
-        title: '제목3',
-        mainCategoryName: '1차 카테고리',
-        categoryName: '2차 카테고리',
-        taskCode: 'VMCR25010100001',
-        requesterTeam: '백엔드 1팀',
-        requesterImg: 'https://picsum.photos/24/24',
-        requesterName: 'Hello.world'
-      }
-    ]
-  },
-  { taskStatus: '검토 중', taskList: [] },
-  {
-    taskStatus: '완료',
-    taskList: [
-      {
-        taskId: 4,
-        title: '제목4',
-        mainCategoryName: '1차 카테고리',
-        categoryName: '2차 카테고리',
-        taskCode: 'VMCR25010100001',
-        requesterTeam: '백엔드 1팀',
-        requesterImg: 'https://picsum.photos/24/24',
-        requesterName: 'Hello.world'
-      },
-      {
-        taskId: 5,
-        title: '제목5',
-        mainCategoryName: '1차 카테고리',
-        categoryName: '2차 카테고리',
-        taskCode: 'VMCR25010100001',
-        requesterTeam: '백엔드 1팀',
-        requesterImg: 'https://picsum.photos/24/24',
-        requesterName: 'Hello.world'
-      },
-      {
-        taskId: 6,
-        title: '제목6',
-        mainCategoryName: '1차 카테고리',
-        categoryName: '2차 카테고리',
-        taskCode: 'VMCR25010100001',
-        requesterTeam: '백엔드 1팀',
-        requesterImg: 'https://picsum.photos/24/24',
-        requesterName: 'Hello.world'
-      },
-      {
-        taskId: 7,
-        title: '제목7',
-        mainCategoryName: '1차 카테고리',
-        categoryName: '2차 카테고리',
-        taskCode: 'VMCR25010100001',
-        requesterTeam: '백엔드 1팀',
-        requesterImg: 'https://picsum.photos/24/24',
-        requesterName: 'Hello.world'
-      },
-      {
-        taskId: 8,
-        title: '제목8',
-        mainCategoryName: '1차 카테고리',
-        categoryName: '2차 카테고리',
-        taskCode: 'VMCR25010100001',
-        requesterTeam: '백엔드 1팀',
-        requesterImg: 'https://picsum.photos/24/24',
-        requesterName: 'Hello.world'
-      },
-      {
-        taskId: 9,
-        title: '제목9',
-        mainCategoryName: '1차 카테고리',
-        categoryName: '2차 카테고리',
-        taskCode: 'VMCR25010100001',
-        requesterTeam: '백엔드 1팀',
-        requesterImg: 'https://picsum.photos/24/24',
-        requesterName: 'Hello.world'
-      },
-      {
-        taskId: 10,
-        title: '제목10',
-        mainCategoryName: '1차 카테고리',
-        categoryName: '2차 카테고리',
-        taskCode: 'VMCR25010100001',
-        requesterTeam: '백엔드 1팀',
-        requesterImg: 'https://picsum.photos/24/24',
-        requesterName: 'Hello.world'
-      }
-    ]
-  }
-]
+export const DUMMY_TASK_CARD_LIST: TaskCardList = {
+  tasksInProgress: [
+    {
+      taskId: 0,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '진행 중',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    }
+  ],
+  tasksPendingComplete: [
+    {
+      taskId: 0,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '검토 중',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    }
+  ],
+  tasksCompleted: [
+    {
+      taskId: 0,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '완료',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    }
+  ],
+  hasNext: true,
+  isFirst: true,
+  isLast: true
+}

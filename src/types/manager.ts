@@ -24,12 +24,24 @@ export interface RequestHistoryListData {
 }
 
 export interface TaskCardProps {
-  title: string
+  taskId: number
+  taskCode: string
   mainCategoryName: string
   categoryName: string
-  taskCode: string
-  requesterTeam: string
-  requesterImg: string
-  requesterName: string
-  status: string
+  title: string
+  requesterNickName: string
+  requesterImageUrl: string
+  requesterDepartment: string
+  processorOrder: number
+  taskStatus: string
+  createdAt: string
+}
+
+export interface TaskCardList {
+  tasksInProgress: TaskCardProps[]
+  tasksPendingComplete: TaskCardProps[]
+  tasksCompleted: TaskCardProps[]
+  hasNext: boolean
+  isFirst: boolean
+  isLast: boolean
 }
