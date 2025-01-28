@@ -21,7 +21,10 @@ export default {
     'text-green-1',
     'text-green-2',
     'text-red-1',
-    'text-red-2'
+    'text-red-2',
+    'border-blue-1',
+    'border-orange-1',
+    'border-green-1'
   ],
   theme: {
     extend: {
