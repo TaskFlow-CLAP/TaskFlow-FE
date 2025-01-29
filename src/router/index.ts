@@ -56,6 +56,11 @@ const router = createRouter({
       path: '/request-approve',
       name: 'requestApprove',
       component: () => import('../views/RequestApproveView.vue')
+    },
+    {
+      path: '/user-registration',
+      name: 'UserRegistration',
+      component: () => import('../views/UserRegistrationView.vue')
     }
   ]
 })
