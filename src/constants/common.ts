@@ -18,3 +18,10 @@ export const PAGE_SIZE_LIST = [
   { value: '50', content: '50' },
   { value: '100', content: '100' }
 ]
+
+export const ROLE_LIST = [
+  { value: '', content: '전체' },
+  { value: 'user', content: '사용자' },
+  { value: 'manager', content: '담당자' },
+  { value: 'admin', content: '관리자' }
+]

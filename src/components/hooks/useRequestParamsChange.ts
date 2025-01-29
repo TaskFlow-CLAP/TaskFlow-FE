@@ -33,6 +33,15 @@ export const useRequestParamsChange = () => {
     params.pageSize = Number(value)
   }
 
+  const toggleSortBy = (sortBy: 'REQUESTED' | 'FINISHED') => {
+    if (sortBy === params.orderRequest.sortBy) {
+      params.orderRequest.sortDirection =
+        params.orderRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
+    } else {
+      params.orderRequest = { sortBy, sortDirection: 'DESC' }
+    }
+  }
+
   return {
     onTermChange,
     onTitleChange,
@@ -40,6 +49,7 @@ export const useRequestParamsChange = () => {
     onMainChange,
     onSubChange,
     onTaskStatusChange,
-    onPageSizeChange
+    onPageSizeChange,
+    toggleSortBy
   }
 }
