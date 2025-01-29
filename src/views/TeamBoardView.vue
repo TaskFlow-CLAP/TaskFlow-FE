@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-1200 py-0! h-screen flex flex-col gap-6 overflow-hidden">
+  <div class="max-w-1200 h-screen flex flex-col gap-6 overflow-hidden">
     <TitleBar title="팀 작업 현황" />
 
     <TeamBoardFilterBar />
