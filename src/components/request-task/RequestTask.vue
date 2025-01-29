@@ -12,7 +12,8 @@
       :placeholderText="'2차 카테고리를 선택해주세요'" />
     <RequestTaskInput
       v-model="title"
-      :placeholderText="TITLE_PLACEHOLDER" />
+      :placeholderText="TITLE_PLACEHOLDER"
+      :label-name="'제목'" />
     <RequestTaskTextArea
       v-model="description"
       :placeholderText="EXPLANATION_PLACEHOLDER" />
