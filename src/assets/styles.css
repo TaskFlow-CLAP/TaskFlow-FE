@@ -114,3 +114,7 @@ body {
 .request-task-dropdown-option {
   @apply w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer;
 }
+
+.form-view-container{
+  @apply max-w-600 flex flex-col gap-y-6
+}
