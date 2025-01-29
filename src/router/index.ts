@@ -67,6 +67,11 @@ const router = createRouter({
       path: '/api-logs',
       name: 'ApiLogs',
       component: () => import('../views/ApiLogsView.vue')
+    },
+    {
+      path: '/team-board',
+      name: 'TeamBoard',
+      component: () => import('../views/TeamBoardView.vue')
     }
   ]
 })

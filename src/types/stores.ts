@@ -32,3 +32,10 @@ export interface LogsParams {
   page: number
   orderRequest: { sortBy: 'CREATED'; sortDirection: SortDirection }
 }
+
+export interface TeamBoardParams {
+  order: string
+  title: string
+  mainCategoryId: number[]
+  categoryId: number[]
+}

@@ -58,3 +58,10 @@ export interface MyTaskListData {
   taskStatus: string
   finishedAt?: string
 }
+
+export interface TeamBoardCardProps {
+  name: string
+  department: string
+  taskStatusSummary: { inProgress: number; pendingCompletion: number; totalTasks: number }
+  tasks: TaskCardProps[]
+}
