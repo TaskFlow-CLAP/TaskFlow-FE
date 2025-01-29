@@ -87,6 +87,11 @@ const router = createRouter({
       path: '/user-update',
       name: 'UserUpdate',
       component: () => import('../views/UserUpdateView.vue')
+    },
+    {
+      path: '/task-management',
+      name: 'TaskManagement',
+      component: () => import('../views/TaskManagementView.vue')
     }
   ]
 })
