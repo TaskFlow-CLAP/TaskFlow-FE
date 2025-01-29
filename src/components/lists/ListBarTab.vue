@@ -23,9 +23,9 @@ const { content, width, sortBy, currentOrderRequest } = defineProps<ListBarTabPr
 defineEmits(['toggleSortBy'])
 
 const isActive = computed(() => {
-  return sortBy === currentOrderRequest.sortBy
+  return sortBy === currentOrderRequest?.sortBy
 })
 const isASC = computed(() => {
-  return currentOrderRequest.sortDirection === 'ASC'
+  return currentOrderRequest?.sortDirection === 'ASC'
 })
 </script>

@@ -1,3 +1,5 @@
+import type { Role, SortDirection } from './common'
+
 export interface RequestParams {
   term: number | ''
   mainCategoryId: number[]
@@ -7,5 +9,26 @@ export interface RequestParams {
   taskStatus?: string[]
   pageSize: number
   page: number
-  orderRequest: { sortBy: 'REQUESTED' | 'FINISHED'; sortDirection: 'DESC' | 'ASC' }
+  orderRequest: { sortBy: 'REQUESTED' | 'FINISHED'; sortDirection: SortDirection }
+}
+
+export interface MemberManagementParams {
+  name: string
+  nickName: string
+  department: string
+  email: string
+  role: Role | ''
+  pageSize: number
+  page: number
+  orderRequest: { sortBy: 'REGISTERED'; sortDirection: SortDirection }
+}
+
+export interface LogsParams {
+  term: number | ''
+  division: string
+  nickName: string
+  ipAddress: string
+  pageSize: number
+  page: number
+  orderRequest: { sortBy: 'CREATED'; sortDirection: SortDirection }
 }

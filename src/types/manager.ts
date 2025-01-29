@@ -45,3 +45,16 @@ export interface TaskCardList {
   isFirst: boolean
   isLast: boolean
 }
+
+export interface MyTaskListData {
+  taskId: number
+  taskCode: string
+  requestedAt: string
+  mainCategoryName: string
+  categoryName: string
+  title: string
+  requesterImg: string
+  requesterName: string
+  taskStatus: string
+  finishedAt?: string
+}

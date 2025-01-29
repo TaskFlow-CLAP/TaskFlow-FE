@@ -1,10 +1,5 @@
 import type { Ref } from 'vue'
 
-export interface TitleBarProps {
-  title: string
-  btn?: string
-}
-
 export interface Filter {
   title: string
   width?: string
@@ -35,14 +30,20 @@ export interface ListCardProps {
   isTextXs?: boolean
   profileImg?: string
   isStatus?: boolean
+  isStatusCode?: boolean
+  isTextBody?: boolean
 }
 
 export interface ListBarTabProps {
   content: string
   width?: number
   sortBy?: string
-  currentOrderRequest?: { sortBy: string; sortDirection: 'DESC' | 'ASC' }
+  currentOrderRequest?: { sortBy: string; sortDirection: SortDirection }
   justifyCenter?: boolean
 }
 
 export type Status = '요청' | '진행 중' | '검토 중' | '완료' | '종료'
+
+export type SortDirection = 'DESC' | 'ASC'
+
+export type Role = 'USER' | 'MANAGER' | 'ADMIN'
