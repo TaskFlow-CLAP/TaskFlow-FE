@@ -18,18 +18,11 @@
       v-model="description"
       :placeholderText="EXPLANATION_PLACEHOLDER" />
     <RequestTaskFileInput v-model="file" />
-    <div class="w-full justify-center flex gap-6 mt-4">
-      <button
-        class="w-[188px] h-[52px] border border-disabled rounded text-disabled bg-white flex items-center justify-center"
-        @click="handleCancel">
-        취소
-      </button>
-      <button
-        class="w-[188px] h-[52px] rounded text-white bg-primary1 flex items-center justify-center"
-        @click="handleSubmit">
-        요청
-      </button>
-    </div>
+    <FormButtonContainer
+      :handleCancel="handleCancel"
+      :handleSubmit="handleSubmit"
+      cancelText="취소"
+      submitText="요청" />
   </div>
 </template>
 
@@ -37,6 +30,7 @@
 import { EXPLANATION_PLACEHOLDER, TITLE_PLACEHOLDER } from '@/constants/user'
 import { DUMMY_REQUEST_TASK_CATEGORIES } from '@/datas/taskdetail'
 import { ref } from 'vue'
+import FormButtonContainer from '../user-registration/FormButtonContainer.vue'
 import RequestTaskDropdown from './RequestTaskDropdown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
