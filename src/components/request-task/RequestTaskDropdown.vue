@@ -12,7 +12,7 @@
       <div
         class="flex w-full h-11 items-center rounded p-4 bg-white border border-border-1 cursor-pointer"
         @click="toggleDropdown">
-        <p :class="{ 'text-body': modelValue === placeholderText }">
+        <p :class="{ 'text-disabled': modelValue === placeholderText }">
           {{ modelValue || placeholderText }}
         </p>
         <CommonIcons
