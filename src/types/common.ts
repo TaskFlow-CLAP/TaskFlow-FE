@@ -42,6 +42,8 @@ export interface ListBarTabProps {
   justifyCenter?: boolean
 }
 
+export type Status = '요청' | '진행 중' | '검토 중' | '완료' | '종료'
+
 export type SortDirection = 'DESC' | 'ASC'
 
 export type Role = 'USER' | 'MANAGER' | 'ADMIN'

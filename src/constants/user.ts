@@ -1,3 +1,5 @@
+import type { TaskHistoryType } from '@/types/user'
+
 import type { ListBarTabProps } from '@/types/common'
 
 export const MY_REQUEST_LIST_BAR_TAB: ListBarTabProps[] = [
@@ -11,13 +13,31 @@ export const MY_REQUEST_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '종료일', width: 80, sortBy: 'FINISHED' }
 ]
 
-export const REQUEST_TASK_CATEGORIES: string[] = [
-  'Categroy 1',
-  'Categroy 2',
-  'Categroy 3',
-  'Categroy 4'
+export const REQUESTED_LIST_BAR_TAB: ListBarTabProps[] = [
+  { content: '요청일', width: 80, sortBy: 'REQUESTED' },
+  { content: '1차 카테고리', width: 80 },
+  { content: '2차 카테고리', width: 80 },
+  { content: '제목' },
+  { content: '요청자', width: 120 },
+  { content: '처리', width: 120, justifyCenter: true }
 ]
 
 export const TITLE_PLACEHOLDER = '제목을 입력해주세요'
 
 export const EXPLANATION_PLACEHOLDER = '부가 정보를 입력해주세요'
+
+export const HistoryMessageBefore: Record<TaskHistoryType, string> = {
+  STATUS_SWITCHED: '요청이',
+  PROCESSOR_CHANGED: '처리자가',
+  COMMENT: '',
+  COMMENT_FILE: '',
+  PROCESSOR_ASSIGNED: '처리자가'
+}
+
+export const HistoryMessageAfter: Record<TaskHistoryType, string> = {
+  STATUS_SWITCHED: '상태로 변경되었습니다.',
+  PROCESSOR_CHANGED: '님으로 변경되었습니다.',
+  COMMENT: '',
+  COMMENT_FILE: '',
+  PROCESSOR_ASSIGNED: '님으로 할당되었습니다.'
+}

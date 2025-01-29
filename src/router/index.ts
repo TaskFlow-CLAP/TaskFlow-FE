@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
 import MyRequestView from '@/views/MyRequestView.vue'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/Login.vue')
+      component: () => import('../views/LoginView.vue')
     },
 
     {
@@ -33,11 +33,6 @@ const router = createRouter({
       component: MyRequestView
     },
     {
-      path: '/icon',
-      name: 'icon',
-      component: () => import('../views/IconView.vue')
-    },
-    {
       path: '/task-request',
       name: 'task-request',
       component: () => import('../views/TaskRequestView.vue')
@@ -53,10 +48,11 @@ const router = createRouter({
       component: () => import('../views/RequestHistory.vue')
     },
     {
-      path: '/my-task',
-      name: 'MyTask',
-      component: () => import('../views/MyTaskView.vue')
+      path: '/task-board',
+      name: 'TaskBoard',
+      component: () => import('../views/TaskBoardView.vue')
     },
+    { path: '/my-task', name: 'MyTask', component: () => import('../views/MyTaskView.vue') },
     {
       path: '/member-management',
       name: 'MemberManagement',
