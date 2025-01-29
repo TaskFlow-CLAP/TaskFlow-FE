@@ -56,9 +56,9 @@ import {
 import { ref } from 'vue'
 import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
-import FormButtonContainer from '../user-registration/FormButtonContainer.vue'
 import DueDateInput from './DueDateInput.vue'
 import ProcessorDropdown from './ProcessorDropdown.vue'
+import FormButtonContainer from '../user-manage/FormButtonContainer.vue'
 
 const isModalVisible = ref(false)
 const approveForm = ref(INITIAL_REQUEST_APPROVE_FORM)

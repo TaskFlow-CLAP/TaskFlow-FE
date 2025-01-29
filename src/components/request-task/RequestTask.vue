@@ -30,7 +30,7 @@
 import { EXPLANATION_PLACEHOLDER, TITLE_PLACEHOLDER } from '@/constants/user'
 import { DUMMY_REQUEST_TASK_CATEGORIES } from '@/datas/taskdetail'
 import { ref } from 'vue'
-import FormButtonContainer from '../user-registration/FormButtonContainer.vue'
+import FormButtonContainer from '../user-manage/FormButtonContainer.vue'
 import RequestTaskDropdown from './RequestTaskDropdown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
