@@ -58,3 +58,9 @@ export interface FormButtonProps {
   cancelText: string
   submitText: string
 }
+
+export interface FormCheckboxProps {
+  labelName: string
+  checkButtonName: string
+  isChecked: boolean
+}
