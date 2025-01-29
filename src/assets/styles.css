@@ -115,6 +115,9 @@ body {
   @apply w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer;
 }
 
-.form-view-container{
-  @apply max-w-600 flex flex-col gap-y-6
+.form-view-container {
+  @apply max-w-600 flex flex-col gap-y-6;
+}
+.form-view-title {
+  @apply w-full h-[54px] border-l-8 border-l-primary1 flex items-center pl-5;
 }
