@@ -4,7 +4,7 @@
       :isOpen="isModalVisible"
       :type="'successType'"
       @close="handleCancel">
-      <template #header> 새로운 회원이 추가되었습니다 </template>
+      <template #header> 회원정보가 수정되었습니다 </template>
     </ModalView>
     <RequestTaskInput
       v-model="userRegistrationForm.name"
@@ -13,6 +13,7 @@
     <RequestTaskInput
       v-model="userRegistrationForm.nickname"
       :placeholderText="'회원의 아이디를 입력해주세요'"
+      :isEdit="true"
       :labelName="'아이디'" />
     <RequestTaskInput
       v-model="userRegistrationForm.email"
@@ -23,16 +24,16 @@
       :options="RoleKeys"
       :label-name="'역할'"
       :placeholderText="'회원의 역할을 선택해주세요'" />
-    <RequestTaskInput
-      v-model="userRegistrationForm.departmentId"
-      :placeholderText="'회원의 부서를 입력해주세요'"
-      :is-not-required="true"
-      :labelName="'부서'" />
     <FormCheckbox
       v-model="userRegistrationForm.isReviewer"
       :labelName="'요청 승인 권한'"
       :checkButtonName="'허용'"
       :isChecked="userRegistrationForm.isReviewer" />
+    <RequestTaskInput
+      v-model="userRegistrationForm.departmentId"
+      :placeholderText="'회원의 부서를 입력해주세요'"
+      :is-not-required="true"
+      :labelName="'부서'" />
     <RequestTaskInput
       v-model="userRegistrationForm.departmentRole"
       :placeholderText="'회원의 직무를 입력해주세요'"
@@ -42,7 +43,7 @@
       :handleCancel="handleCancel"
       :handleSubmit="handleSubmit"
       cancelText="취소"
-      submitText="추가" />
+      submitText="수정" />
   </div>
 </template>
 

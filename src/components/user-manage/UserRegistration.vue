@@ -23,16 +23,16 @@
       :options="RoleKeys"
       :label-name="'역할'"
       :placeholderText="'회원의 역할을 선택해주세요'" />
-    <RequestTaskInput
-      v-model="userRegistrationForm.departmentId"
-      :placeholderText="'회원의 부서를 입력해주세요'"
-      :is-not-required="true"
-      :labelName="'부서'" />
     <FormCheckbox
       v-model="userRegistrationForm.isReviewer"
       :labelName="'요청 승인 권한'"
       :checkButtonName="'허용'"
       :isChecked="userRegistrationForm.isReviewer" />
+    <RequestTaskInput
+      v-model="userRegistrationForm.departmentId"
+      :placeholderText="'회원의 부서를 입력해주세요'"
+      :is-not-required="true"
+      :labelName="'부서'" />
     <RequestTaskInput
       v-model="userRegistrationForm.departmentRole"
       :placeholderText="'회원의 직무를 입력해주세요'"

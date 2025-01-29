@@ -11,6 +11,7 @@
     <input
       class="w-full h-11 border border-border-1 px-4 focus:outline-none"
       :value="modelValue"
+      :disabled="isEdit"
       @input="updateValue(($event.target as HTMLInputElement).value)"
       :placeholder="placeholderText" />
   </div>
@@ -19,7 +20,7 @@
 <script lang="ts" setup>
 import type { RequestTaskInputProps } from '@/types/user'
 
-const { modelValue, placeholderText, labelName, isNotRequired } =
+const { modelValue, placeholderText, labelName, isNotRequired, isEdit } =
   defineProps<RequestTaskInputProps>()
 const emit = defineEmits(['update:modelValue'])
 
