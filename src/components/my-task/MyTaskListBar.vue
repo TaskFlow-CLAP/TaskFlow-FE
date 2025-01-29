@@ -1,21 +1,20 @@
 <template>
   <div class="list-bar">
     <ListBarTab
-      v-for="tab in REQUESTED_LIST_BAR_TAB"
+      v-for="tab in MY_TASK_LIST_BAR_TAB"
       :key="tab.content"
       :content="tab.content"
       :width="tab.width"
-      :sort-by="tab.sortBy"
+      :sortBy="tab.sortBy"
       :current-order-request="params.orderRequest"
-      @toggle-sort-by="toggleSortBy"
-      :justify-center="tab.justifyCenter" />
+      @toggle-sort-by="toggleSortBy" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { REQUESTED_LIST_BAR_TAB } from '@/constants/manager'
 import ListBarTab from '../lists/ListBarTab.vue'
 import { useRequestParamsStore } from '@/stores/params'
+import { MY_TASK_LIST_BAR_TAB } from '@/constants/manager'
 import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 
 const { params } = useRequestParamsStore()

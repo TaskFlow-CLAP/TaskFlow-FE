@@ -6,7 +6,9 @@
     <div class="flex flex-col gap-1">
       <div class="flex justify-between items-center gap-4">
         <span class="text-black">{{ data.title }}</span>
-        <CommonIcons :name="bentoIcon" />
+        <CommonIcons
+          v-if="draggable"
+          :name="bentoIcon" />
       </div>
       <span class="text-xs text-body">{{ data.mainCategoryName }} - {{ data.categoryName }}</span>
     </div>
@@ -33,7 +35,7 @@ import type { TaskCardProps } from '@/types/manager'
 import CommonIcons from './common/CommonIcons.vue'
 import { statusAsColor } from '@/utils/statusAsColor'
 
-const { data } = defineProps<{ data: TaskCardProps }>()
+const { data } = defineProps<{ data: TaskCardProps; draggable?: boolean }>()
 
 const borderLeft = computed(() => {
   return `border-${statusAsColor(data.taskStatus as Status)}-1`
