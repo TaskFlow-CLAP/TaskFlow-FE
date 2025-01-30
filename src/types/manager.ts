@@ -65,3 +65,5 @@ export interface TeamBoardCardProps {
   taskStatusSummary: { inProgress: number; pendingCompletion: number; totalTasks: number }
   tasks: TaskCardProps[]
 }
+
+export type PeriodType = 'DAY' | 'WEEK' | 'MONTH'
