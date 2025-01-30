@@ -46,6 +46,26 @@ export interface TaskCardList {
   isLast: boolean
 }
 
+export interface MyTaskListData {
+  taskId: number
+  taskCode: string
+  requestedAt: string
+  mainCategoryName: string
+  categoryName: string
+  title: string
+  requesterImg: string
+  requesterName: string
+  taskStatus: string
+  finishedAt?: string
+}
+
+export interface TeamBoardCardProps {
+  name: string
+  department: string
+  taskStatusSummary: { inProgress: number; pendingCompletion: number; totalTasks: number }
+  tasks: TaskCardProps[]
+}
+
 export interface RequestApproveFormData {
   category1: string
   category2: string

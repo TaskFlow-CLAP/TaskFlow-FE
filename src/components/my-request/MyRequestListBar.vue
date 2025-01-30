@@ -15,15 +15,9 @@
 import { MY_REQUEST_LIST_BAR_TAB } from '@/constants/user'
 import ListBarTab from '../lists/ListBarTab.vue'
 import { useRequestParamsStore } from '@/stores/params'
+import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 
 const { params } = useRequestParamsStore()
 
-const toggleSortBy = (sortBy: 'REQUESTED' | 'FINISHED') => {
-  if (sortBy === params.orderRequest.sortBy) {
-    params.orderRequest.sortDirection =
-      params.orderRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
-  } else {
-    params.orderRequest = { sortBy, sortDirection: 'DESC' }
-  }
-}
+const { toggleSortBy } = useRequestParamsChange()
 </script>

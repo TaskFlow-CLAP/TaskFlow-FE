@@ -52,6 +52,27 @@ const router = createRouter({
       name: 'TaskBoard',
       component: () => import('../views/TaskBoardView.vue')
     },
+    { path: '/my-task', name: 'MyTask', component: () => import('../views/MyTaskView.vue') },
+    {
+      path: '/member-management',
+      name: 'MemberManagement',
+      component: () => import('../views/MemberManagement.vue')
+    },
+    {
+      path: '/login-logs',
+      name: 'LoginLogs',
+      component: () => import('../views/LoginLogsView.vue')
+    },
+    {
+      path: '/api-logs',
+      name: 'ApiLogs',
+      component: () => import('../views/ApiLogsView.vue')
+    },
+    {
+      path: '/team-board',
+      name: 'TeamBoard',
+      component: () => import('../views/TeamBoardView.vue')
+    },
     {
       path: '/request-approve',
       name: 'requestApprove',
