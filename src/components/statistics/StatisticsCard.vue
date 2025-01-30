@@ -27,9 +27,19 @@ import { ref } from 'vue'
 import PieChart from '../PieChart.vue'
 import LineChart from '../LineChart.vue'
 import PeriodButtons from './PeriodButtons.vue'
-import type { PeriodType, StatisticsCardProps } from '@/types/manager'
+import type { PeriodType } from '@/types/manager'
 
-const { title, statisticsType, chartType } = defineProps<StatisticsCardProps>()
+const { title, statisticsType, chartType } = defineProps<{
+  title: string
+  statisticsType: StatisticsType
+  chartType: 'line' | 'pie'
+}>()
+
+type StatisticsType =
+  | 'REQUEST_BY_PERIOD'
+  | 'PROCESS_BY_PERIOD'
+  | 'REQUEST_BY_CATEGORY'
+  | 'PROCESS_BY_MANAGER'
 
 const periodType = ref<PeriodType>('DAY')
 const changePeriod = (newPeriodType: PeriodType) => {
