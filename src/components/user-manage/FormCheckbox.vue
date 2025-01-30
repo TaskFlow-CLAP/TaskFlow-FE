@@ -9,7 +9,7 @@
           { 'bg-primary1 text-white': isChecked, 'border border-disabled': !isChecked }
         ]"
         :style="isChecked ? { fill: 'white' } : {}"
-        @click="updateValue()" />
+        @click="updateValue" />
       <p>{{ checkButtonName }}</p>
     </div>
   </div>
