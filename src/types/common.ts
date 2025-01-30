@@ -66,8 +66,8 @@ export interface FormCheckboxProps {
   isChecked: boolean
 }
 
-export interface LabelDataTypes {
-  labelId: number
-  labelName: string
-  labelColor: string
+export interface ColorSelectProps {
+  devisionId: number
+  selectedDivisionId: number | null
+  isOpen: boolean
 }
