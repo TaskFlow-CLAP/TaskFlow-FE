@@ -760,11 +760,115 @@ export const DUMMY_TASK_CARD_LIST: TaskCardList = {
       processorOrder: 0,
       taskStatus: '진행 중',
       createdAt: '2025-01-28T09:34:00.128Z'
+    },
+    {
+      taskId: 1,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '진행 중',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    },
+    {
+      taskId: 2,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '진행 중',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    },
+    {
+      taskId: 3,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '진행 중',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    },
+    {
+      taskId: 4,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '진행 중',
+      createdAt: '2025-01-28T09:34:00.128Z'
     }
   ],
   tasksPendingComplete: [
     {
-      taskId: 0,
+      taskId: 5,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '검토 중',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    },
+    {
+      taskId: 6,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '검토 중',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    },
+    {
+      taskId: 7,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '검토 중',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    },
+    {
+      taskId: 8,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '검토 중',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    },
+    {
+      taskId: 9,
       taskCode: 'string',
       mainCategoryName: 'string',
       categoryName: 'string',
@@ -779,7 +883,59 @@ export const DUMMY_TASK_CARD_LIST: TaskCardList = {
   ],
   tasksCompleted: [
     {
-      taskId: 0,
+      taskId: 10,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '완료',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    },
+    {
+      taskId: 11,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '완료',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    },
+    {
+      taskId: 12,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '완료',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    },
+    {
+      taskId: 13,
+      taskCode: 'string',
+      mainCategoryName: 'string',
+      categoryName: 'string',
+      title: 'string',
+      requesterNickName: 'string',
+      requesterImageUrl: 'string',
+      requesterDepartment: 'string',
+      processorOrder: 0,
+      taskStatus: '완료',
+      createdAt: '2025-01-28T09:34:00.128Z'
+    },
+    {
+      taskId: 14,
       taskCode: 'string',
       mainCategoryName: 'string',
       categoryName: 'string',
@@ -796,3 +952,10 @@ export const DUMMY_TASK_CARD_LIST: TaskCardList = {
   isFirst: true,
   isLast: true
 }
+
+export const DUMMY_DIVISION_LIST = [
+  { value: '', content: '전체' },
+  { value: '‼️ 긴급', content: '‼️ 긴급' },
+  { value: '❌ 오류', content: '❌ 오류' },
+  { value: '🕑 정기', content: '🕑 정기' }
+]

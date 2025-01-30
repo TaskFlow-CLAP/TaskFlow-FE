@@ -1,4 +1,4 @@
-import type { RequestParams } from '@/types/stores'
+import type { RequestParams, TaskBoardParams } from '@/types/stores'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -28,4 +28,18 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
   }
 
   return { params, $reset }
+})
+
+export const useTaskBoardParamsStore = defineStore('requestParams', () => {
+  const params = ref<TaskBoardParams>({
+    division: '',
+    mainCategoryId: [],
+    categoryId: [],
+    title: '',
+    nickName: '',
+    pageSize: 20,
+    page: 1
+  })
+
+  return { params }
 })
