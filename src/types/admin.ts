@@ -31,6 +31,6 @@ export interface UserRegistrationProps {
   departmentRole: string
 }
 
-export type Role = '관리자' | '사용자' | '담당자'
+export type RoleTypes = '관리자' | '사용자' | '담당자'
 
-export type RoleTypes = 'ROLE_ADMIN' | 'ROLE_USER' | 'ROLE_MANAGER'
+export type RoleTypesEnum = 'ROLE_ADMIN' | 'ROLE_USER' | 'ROLE_MANAGER'
