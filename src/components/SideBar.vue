@@ -5,39 +5,41 @@
     <div class="w-80 bg-white h-screen shadow-lg shadow-black">
       <div class="flex justify-center items-center gap-28 py-3 h-[10%]">
         <div>
-          <CommonIcons
-            class=""
-            :name="hamburgerIcon" />
+          <CommonIcons :name="hamburgerIcon" />
         </div>
         <div>
-          <img src="../../public/MainLogo.svg" />
+          <img src="/MainLogo.svg" />
         </div>
       </div>
       <div class="h-[80%]">
         <div
           v-for="menuGroup in filteredMenu"
-          :key="menuGroup[0].menuId">
+          :key="menuGroup.groupId">
           <div
-            v-for="menuItem in menuGroup"
+            v-for="menuItem in menuGroup.items"
             :key="menuItem.menuId"
             class="flex">
             <div :class="['px-1', { 'bg-primary1': menuItem.link === route.path }]" />
             <RouterLink
               v-if="menuItem.link"
               :to="menuItem.link"
-              :class="['flex py-4 px-6', { 'font-bold': menuItem.link === route.path }]">
+              :class="[
+                'flex py-4 px-6 text-zinc-900',
+                { 'font-bold': menuItem.link === route.path }
+              ]">
               {{ menuItem.content }}
             </RouterLink>
             <span
               v-else
-              class="text-xs text-zinc-400 font-bold px-6"
-              >{{ menuItem.content }}</span
-            >
+              class="text-xs text-zinc-400 font-bold px-6 pt-8 pb-2">
+              {{ menuItem.content }}
+            </span>
           </div>
         </div>
       </div>
       <div class="flex w-full h-[10%] py-4 px-6">
         <div class="flex items-center max-w-[140px]">
+          <!-- 프로필 사진 API 필요 -->
           <div class="w-[40px] h-[40px] rounded-full bg-zinc-100" />
           <div class="px-3">
             <p class="text-xs">{{ name }}</p>
