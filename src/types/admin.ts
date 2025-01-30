@@ -34,3 +34,27 @@ export interface UserRegistrationProps {
 export type RoleTypes = '관리자' | '사용자' | '담당자'
 
 export type RoleTypesEnum = 'ROLE_ADMIN' | 'ROLE_USER' | 'ROLE_MANAGER'
+
+export interface CategoryLineProps {
+  name?: string
+  code?: string
+  mainCategoryId?: string
+}
+
+export interface mainCategoryTypes {
+  id: number
+  name: string
+  code: string
+}
+
+export interface subCategoryTypes {
+  id: number
+  mainCategoryId: number
+  name: string
+  code: string
+}
+
+export interface CategoryAllData {
+  mainCategory: mainCategoryTypes[]
+  subCategory: subCategoryTypes[]
+}
