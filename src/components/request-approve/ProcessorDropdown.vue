@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex text-xs gap-x-1 mb-2">
-      <p class="text-body font-bold">{{ labelName }}</p>
+      <p class="text-disabled font-bold">{{ labelName }}</p>
       <p class="text-red-1">*</p>
     </div>
     <div class="relative flex text-base">

@@ -52,3 +52,16 @@ export interface DueDateInputProps {
   modelValue: string
   inputType: string
 }
+
+export interface FormButtonProps {
+  handleCancel: () => void
+  handleSubmit: () => void
+  cancelText: string
+  submitText: string
+}
+
+export interface FormCheckboxProps {
+  labelName: string
+  checkButtonName: string
+  isChecked: boolean
+}

@@ -38,20 +38,11 @@
       :label-name="'구분'"
       :is-label="true"
       :placeholderText="'구분을 선택해주세요'" />
-    <div class="w-full mt-4 flex justify-center">
-      <div class="w-[400px] flex gap-6">
-        <button
-          class="button-large-default"
-          @click="handleCancel">
-          취소
-        </button>
-        <button
-          class="button-large-primary"
-          @click="handleSubmit">
-          승인
-        </button>
-      </div>
-    </div>
+    <FormButtonContainer
+      :handleCancel="handleCancel"
+      :handleSubmit="handleSubmit"
+      cancelText="취소"
+      submitText="승인" />
   </div>
 </template>
 
@@ -67,6 +58,7 @@ import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import DueDateInput from './DueDateInput.vue'
 import ProcessorDropdown from './ProcessorDropdown.vue'
+import FormButtonContainer from '../user-manage/FormButtonContainer.vue'
 
 const isModalVisible = ref(false)
 const approveForm = ref(INITIAL_REQUEST_APPROVE_FORM)
