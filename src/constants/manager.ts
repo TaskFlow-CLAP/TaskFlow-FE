@@ -1,4 +1,5 @@
 import type { ListBarTabProps } from '@/types/common'
+import type { RequestApproveFormData } from '@/types/manager'
 
 export const REQUESTED_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '요청일', width: 80, sortBy: 'REQUESTED' },
@@ -31,3 +32,12 @@ export const MY_TASK_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '상태', width: 64 },
   { content: '종료일', width: 80, sortBy: 'FINISHED' }
 ]
+
+export const INITIAL_REQUEST_APPROVE_FORM: RequestApproveFormData = {
+  category1: '1차 카테고리를 선택해주세요',
+  category2: '2차 카테고리를 선택해주세요',
+  processor: '담당자를 선택해주세요',
+  labeling: '구분을 선택해주세요',
+  dueDate: '',
+  dueTime: ''
+}

@@ -18,6 +18,7 @@ export interface RequestTaskDropdownProps {
   options: string[]
   labelName: string
   modelValue: string
+  isLabel?: boolean
 }
 
 export interface RequestTaskInputProps {

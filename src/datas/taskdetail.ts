@@ -4,7 +4,7 @@ import type {
   TaskDetailRightProps
 } from '@/types/user'
 
-export const REQUEST_TASK_CATEGORIES: string[] = [
+export const DUMMY_REQUEST_TASK_CATEGORIES: string[] = [
   'Categroy 1',
   'Categroy 2',
   'Categroy 3',
@@ -103,3 +103,7 @@ export const DUMMY_TASK_DETAIL_HISTORY: TaskDetailHistoryProps[] = [
     }
   }
 ]
+
+export const DUMMY_REQUEST_PROCESSORS: string[] = ['Tony', 'Chloe', 'Moya', 'MoyaMoya']
+
+export const DUMMY_REQUEST_TASK_LABELS: string[] = ['긴급', '정기', '오류', '점검']
