@@ -25,7 +25,8 @@
           <template #item="{ element }">
             <TaskCard
               :key="element.taskId"
-              :data="element" />
+              :data="element"
+              draggable />
           </template>
         </draggableComponent>
       </div>
