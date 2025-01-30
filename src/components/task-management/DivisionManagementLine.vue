@@ -12,25 +12,45 @@
               backgroundColor: getColor(division.divisionColor)?.fillColor
             }"
             class="w-4 h-4 rounded-full border-2 cursor-pointer pr-3"
-            @click="clickColor(division.divisionId)"></div>
+            @click="isEdit && clickColor(division.divisionId)"></div>
           <ColorSelectModal
-            v-if="isColorModalVisible && selectedDivisionId === division.divisionId"
+            v-if="isColorModalVisible && editValue.divisionId === division.divisionId"
             :is-open="isColorModalVisible"
             :devisionId="division.divisionId"
             :selectedDivisionId="selectedDivisionId"
             @close="closeColor" />
-          <p class="text-black">{{ division.divisionName }}</p>
+          <input
+            v-if="isEdit && editValue.divisionId === division.divisionId"
+            v-model="editValue.divisionName"
+            type="text"
+            placeholder="새로운 구분명을 입력"
+            class="w-full flex focus:outline-none" />
+          <p
+            v-else
+            class="text-black">
+            {{ division.divisionName }}
+          </p>
         </div>
         <div class="flex gap-2 text-xs font-bold">
           <button
-            @click="router.push('수정경로')"
-            class="text-primary1">
-            수정
+            @click="
+              isEdit && editValue.divisionId === division.divisionId
+                ? finishEdit()
+                : startEdit(division)
+            "
+            class="text-primary1 w-[21px]">
+            {{ isEdit && editValue.divisionId === division.divisionId ? '확인' : '수정' }}
           </button>
           <button
-            @click="handleDelete"
-            class="text-red-1">
-            삭제
+            @click="
+              isEdit && editValue.divisionId === division.divisionId ? cancelEdit() : handleDelete()
+            "
+            :class="
+              isEdit && editValue.divisionId === division.divisionId
+                ? 'text-disabled w-[21px]'
+                : 'text-red-1 w-[21px]'
+            ">
+            {{ isEdit&& editValue.divisionId === division.divisionId ? '취소' : '삭제' }}
           </button>
         </div>
       </div>
@@ -49,17 +69,20 @@
 import type { DivisionDataTypes } from '@/types/admin'
 import { getColor } from '@/utils/color'
 import { defineProps, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import ModalView from '../ModalView.vue'
 import ColorSelectModal from './ColorSelectModal.vue'
 
 const { divisionData } = defineProps<{ divisionData: DivisionDataTypes[] }>()
 
-const router = useRouter()
-
 const isModalVisible = ref(false)
+const isEdit = ref(false)
 const isColorModalVisible = ref(false)
 const selectedDivisionId = ref<number | null>(null)
+const editValue = ref<DivisionDataTypes>({
+  divisionName: '',
+  divisionColor: '',
+  divisionId: 9999
+})
 
 const handleCancel = () => {
   isModalVisible.value = false
@@ -76,6 +99,18 @@ const clickColor = (divisionId: number) => {
 
 const closeColor = () => {
   isColorModalVisible.value = false
-  selectedDivisionId.value = null
+}
+
+const startEdit = (division: DivisionDataTypes) => {
+  isEdit.value = true
+  editValue.value = division
+}
+
+const finishEdit = () => {
+  isEdit.value = false
+}
+
+const cancelEdit = () => {
+  isEdit.value = false
 }
 </script>
