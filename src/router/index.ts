@@ -111,6 +111,11 @@ const router = createRouter({
       path: '/edit-information',
       name: 'EditInformation',
       component: () => import('../views/EditInformationView.vue')
+    },
+    {
+      path: '/statistics',
+      name: 'Statistics',
+      component: () => import('../views/StatisticsView.vue')
     }
   ]
 })
