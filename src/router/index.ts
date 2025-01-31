@@ -126,6 +126,11 @@ const router = createRouter({
       path: '/statistics',
       name: 'Statistics',
       component: () => import('../views/StatisticsView.vue')
+    },
+    {
+      path: '/task-detail',
+      name: 'TaskDetail',
+      component: () => import('../views/TaskDetailView.vue')
     }
   ]
 })
