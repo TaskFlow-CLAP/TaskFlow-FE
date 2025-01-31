@@ -1,16 +1,17 @@
 <template>
   <div class="text-xs font-bold">
     <p class="text-body mb-2">{{ labelName }}</p>
-    <div class="flex gap-2 items-center cursor-pointer">
+    <div
+      class="w-fit flex gap-2 items-center cursor-pointer"
+      @click="updateValue">
       <CommonIcons
         :name="checkBoxIcon"
         :class="[
           'w-4 h-4 rounded-full',
           { 'bg-primary1 text-white': isChecked, 'border border-disabled': !isChecked }
         ]"
-        :style="isChecked ? { fill: 'white' } : {}"
-        @click="updateValue" />
-      <p>{{ checkButtonName }}</p>
+        :style="isChecked ? { fill: 'white' } : {}" />
+      <p class="text-black">{{ checkButtonName }}</p>
     </div>
   </div>
 </template>

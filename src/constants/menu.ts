@@ -29,20 +29,20 @@ export const SIDE_MANAGER_MENU: SideMenu[] = [
     ]
   },
   {
-    groupId: 4,
+    groupId: 1,
     groupTitle: '작업',
     items: [
       { menuId: 21, content: '내 작업', link: '/my-task', role: 'manager' },
       { menuId: 22, content: '작업 보드', link: '/task-board', role: 'manager' },
       { menuId: 23, content: '팀 작업 현황', link: '/team-board', role: 'manager' },
-      { menuId: 24, content: '통계', link: '/', role: 'manager' }
+      { menuId: 24, content: '통계', link: '/statistics', role: 'manager' }
     ]
   }
 ]
 
 export const SIDE_ADMIN_MENU: SideMenu[] = [
   {
-    groupId: 2,
+    groupId: 1,
     groupTitle: '관리',
     items: [
       { menuId: 11, content: '회원 관리', link: '/member-management', role: 'admin' },
@@ -50,7 +50,7 @@ export const SIDE_ADMIN_MENU: SideMenu[] = [
     ]
   },
   {
-    groupId: 4,
+    groupId: 2,
     groupTitle: '감사 로그',
     items: [
       { menuId: 21, content: '로그인 기록', link: '/login-logs', role: 'admin' },

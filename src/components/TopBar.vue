@@ -10,10 +10,9 @@
         </button>
         <img src="/MainLogo.svg" />
       </div>
-      <div class="flex-1 h-full"></div>
       <div
         v-show="isLogined"
-        class="w-[10%] h-full flex items-center gap-6">
+        class="flex items-center gap-6">
         <NotificationIcon :new-notification="12" />
         <!-- 프로필 사진 API 필요 -->
         <div class="rounded-[50%] bg-zinc-100 p-5" />

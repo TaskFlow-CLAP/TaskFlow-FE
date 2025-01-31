@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[552px] flex flex-col gap-y-6">
+  <div class="w-full flex flex-col gap-y-6">
     <RequestTaskDropdown
       v-model="category1"
       :options="DUMMY_REQUEST_TASK_CATEGORIES"
@@ -35,6 +35,7 @@ import RequestTaskDropdown from './RequestTaskDropdown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
+import { useRouter } from 'vue-router'
 
 const category1 = ref('1차 카테고리를 선택해주세요')
 const category2 = ref('2차 카테고리를 선택해주세요')
@@ -42,12 +43,9 @@ const title = ref('')
 const description = ref('')
 const file = ref(null as File[] | null)
 
+const router = useRouter()
 const handleCancel = () => {
-  category1.value = ''
-  category2.value = ''
-  title.value = ''
-  description.value = ''
-  file.value = null
+  router.back()
 }
 
 const handleSubmit = () => {

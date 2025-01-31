@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[552px] flex flex-col gap-y-6">
+  <div class="w-full flex flex-col gap-y-6">
     <ModalView
       :isOpen="isModalVisible"
       :type="'successType'"
