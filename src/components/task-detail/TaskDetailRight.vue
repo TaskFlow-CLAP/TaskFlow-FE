@@ -1,53 +1,68 @@
 <template>
-  <div class="w-60 flex flex-col gap-y-6 py-6 text-black">
+  <div class="w-60 flex flex-col gap-y-6 pb-6 text-black">
     <div>
       <p class="task-detail">ID</p>
-      <p>{{ taskDetail.taskId }}</p>
+      <p class="text-sm text-black">{{ taskDetail.taskId || '-' }}</p>
     </div>
     <div>
       <p class="task-detail">요청일</p>
-      <p>{{ taskDetail.requestedAt }}</p>
+      <p class="text-sm text-black">{{ formatDate(taskDetail.requestedAt) }}</p>
     </div>
     <div>
       <p class="task-detail">종료일</p>
-      <p>{{ taskDetail.finishedAt }}</p>
+      <p class="text-sm text-black">{{ formatDate(taskDetail.finishedAt) || '-' }}</p>
     </div>
     <div>
       <p class="task-detail">상태</p>
-      <p>{{ taskDetail.taskStatus }}</p>
+      <div class="w-fit">
+        <TaskStatus :status="taskDetail.taskStatus" />
+      </div>
     </div>
     <div>
       <p class="task-detail">요청자</p>
       <div class="flex gap-2">
         <img
           :src="taskDetail.requesterImageUrl"
-          width="24"
-          height="24"
-          class="rounded-full"
+          class="rounded-full overflow-hidden"
+          style="width: 20px; height: 20px"
           alt="requesterImg" />
-        <p>{{ taskDetail.requesterNickName }}</p>
+        <p class="text-sm text-black">{{ taskDetail.requesterNickName }}</p>
       </div>
     </div>
     <div>
       <p class="task-detail">처리자</p>
-      <div class="flex gap-2">
+      <div v-if="isManager">
+        <TaskDetailDropdown
+          v-model="processor"
+          :options="DUMMY_REQUEST_PROCESSORS"
+          :processor="DUMMY_PROCESSOR" />
+      </div>
+      <div
+        v-else
+        class="flex gap-2">
         <img
+          v-if="taskDetail.processorImageUrl"
           :src="taskDetail.processorImageUrl"
-          width="24"
-          height="24"
+          style="width: 20px; height: 20px"
           class="rounded-full"
-          alt="requesterImg" />
-        <p>{{ taskDetail.processorNickName }}</p>
+          alt="processorImg" />
+        <p class="text-sm text-black">{{ taskDetail.processorNickName || '-' }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { DUMMY_PROCESSOR, DUMMY_REQUEST_PROCESSORS } from '@/datas/taskdetail'
 import type { TaskDetailRightProps } from '@/types/user'
-import { defineProps } from 'vue'
+import { formatDate } from '@/utils/date'
+import { defineProps, ref } from 'vue'
+import TaskStatus from '../TaskStatus.vue'
+import TaskDetailDropdown from './TaskDetailDropdown.vue'
 
-const { taskDetail } = defineProps<{ taskDetail: TaskDetailRightProps }>()
+const { taskDetail, isManager } = defineProps<TaskDetailRightProps>()
+
+const processor = ref(DUMMY_PROCESSOR.nickName)
 </script>
 
 <script setup lang="ts"></script>
