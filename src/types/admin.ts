@@ -87,19 +87,3 @@ export interface NewDevisonTypes {
   divisionName: string
   divisionColor: string
 }
-
-export interface CategoryAllData {
-  mainCategory: mainCategoryTypes[]
-  subCategory: subCategoryTypes[]
-}
-
-export interface DivisionDataTypes {
-  divisionId: number
-  divisionName: string
-  divisionColor: string
-}
-
-export interface NewDevisonTypes {
-  divisionName: string
-  divisionColor: string
-}

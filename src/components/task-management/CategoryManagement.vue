@@ -12,17 +12,15 @@
       </div>
     </div>
     <div class="flex w-full">
-      <CategoryLineMain
-        :mainCategory="mockCategoryAllData.mainCategory"
-        :subCategory="mockCategoryAllData.subCategory" />
+      <CategoryLine :categories="mockCategoryAllData.categories" />
+      <CategoryLineSub :categories="mockCategoryAllData.categories" />
       <div class="bg-border-1 w-0.5"></div>
-      <CategoryLineSub
-        :mainCategory="mockCategoryAllData.mainCategory"
-        :subCategory="mockCategoryAllData.subCategory" />
     </div>
-    <div class="text-xs text-disabled gap-1 category-management-line justify-center cursor-pointer">
-      <p>새 1차 카테고리 추가</p>
+    <div
+      class="text-xs text-disabled font-bold gap-1 category-management-line justify-center cursor-pointer"
+      @click="MovetoAddCategory">
       <CommonIcons :name="plusIcon" />
+      <p>새 1차 카테고리 추가</p>
     </div>
     <div class="mt-4">
       <CategoryList />
@@ -33,7 +31,14 @@
 <script setup lang="ts">
 import { plusIcon } from '@/constants/iconPath'
 import { mockCategoryAllData } from '@/datas/taskmanagement'
+import { useRouter } from 'vue-router'
 import CommonIcons from '../common/CommonIcons.vue'
-import CategoryLineMain from './CategoryLineMain.vue'
+import CategoryLine from './CategoryLine.vue'
 import CategoryLineSub from './CategoryLineSub.vue'
+
+const router = useRouter()
+
+const MovetoAddCategory = () => {
+  router.push({ name: 'AddCategory' })
+}
 </script>
