@@ -2,7 +2,7 @@
   <div class="w-fit flex items-center gap-2 relative">
     <div class="flex gap-1 absolute left-0 top-1/2 -translate-x-[calc(100%+8px)] -translate-y-1/2">
       <button
-        v-if="pageSet[0] !== 1"
+        v-if="pageSet[0] !== 0"
         @click="onPrevSetClick"
         class="rounded hover:bg-primary2">
         <CommonIcons :name="prevSetIcon" />
@@ -21,7 +21,7 @@
         page === pageNumber ? 'text-white font-bold bg-primary1' : 'text-black hover:bg-primary2'
       "
       @click="onNumClick(page)">
-      {{ page }}
+      {{ page + 1 }}
     </button>
     <div class="flex gap-1 absolute right-0 top-1/2 translate-x-[calc(100%+8px)] -translate-y-1/2">
       <button
@@ -49,7 +49,7 @@ const emit = defineEmits(['update:pageNumber'])
 
 const pageSet = computed(() => {
   const set: number[] = []
-  const startPage = Math.floor((pageNumber - 1) / 5) * 5 + 1
+  const startPage = Math.floor(pageNumber / 5) * 5
   for (let i = 0; i < 5; i++) {
     if (startPage + i > totalPage) break
     set.push(startPage + i)
@@ -58,11 +58,11 @@ const pageSet = computed(() => {
 })
 
 const onPrevSetClick = () => {
-  const prevSetEnd = Math.floor((pageNumber - 1) / 5) * 5
+  const prevSetEnd = Math.floor(pageNumber / 5) * 5 - 1
   emit('update:pageNumber', prevSetEnd)
 }
 const onPrevClick = () => {
-  const prev = Math.max(pageNumber - 1, 1)
+  const prev = Math.max(pageNumber - 1, 0)
   emit('update:pageNumber', prev)
 }
 const onNextClick = () => {
@@ -70,8 +70,8 @@ const onNextClick = () => {
   emit('update:pageNumber', next)
 }
 const onNextSetClick = () => {
-  const nextSetStart = Math.floor((pageNumber - 1) / 5) * 5 + 6
-  emit('update:pageNumber', nextSetStart)
+  const nextSetStart = Math.floor(pageNumber / 5) * 5 + 5
+  emit('update:pageNumber', Math.min(nextSetStart, totalPage))
 }
 const onNumClick = (num: number) => {
   emit('update:pageNumber', num)

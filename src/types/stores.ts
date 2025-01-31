@@ -1,15 +1,17 @@
 import type { Role, SortDirection } from './common'
 
 export interface RequestParams {
-  term: number | ''
-  mainCategoryId: number[]
-  categoryId: number[]
-  title: string
-  nickName: string
-  taskStatus?: string[]
-  pageSize: number
   page: number
-  orderRequest: { sortBy: 'REQUESTED' | 'FINISHED'; sortDirection: SortDirection }
+  pageSize: number
+  filterTaskListRequest: {
+    term: number | ''
+    mainCategoryId: number[]
+    categoryId: number[]
+    title: string
+    nickName: string
+    taskStatus?: string[]
+    orderRequest: { sortBy: 'REQUESTED' | 'FINISHED'; sortDirection: SortDirection }
+  }
 }
 
 export interface MemberManagementParams {

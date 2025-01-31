@@ -27,6 +27,8 @@ import ListPagination from '../lists/ListPagination.vue'
 import ListContainer from '../lists/ListContainer.vue'
 import { DUMMY_MY_REQUEST_LIST_DATA } from '@/datas/dummy'
 import { useRequestParamsStore } from '@/stores/params'
+import axiosInstance from '@/utils/axios'
+import { useQuery } from '@tanstack/vue-query'
 
 const { params } = useRequestParamsStore()
 const DUMMY_TOTAL_PAGE = 18
@@ -34,5 +36,15 @@ const onPageChange = (value: number) => {
   params.page = value
 }
 
-// Data Handling
+const fetchRequestList = async () => {
+  const response = await axiosInstance.get('/api/tasks/requests', { params })
+  return response.data
+}
+
+const { data } = useQuery({
+  queryKey: ['myRequest'],
+  queryFn: fetchRequestList
+})
+
+console.log(data.value)
 </script>

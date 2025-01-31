@@ -3,26 +3,26 @@
     <FilterDropdown
       title="조회 기간"
       :option-list="TERM_LIST"
-      :value="String(store.params.term)"
+      :value="String(store.params.filterTaskListRequest.term)"
       @update:value="onParamsChange.onTermChange" />
     <FilterCategory
       :category-list="DUMMY_CATEGORY_LIST"
-      :main="store.params.mainCategoryId"
-      :sub="store.params.categoryId"
+      :main="store.params.filterTaskListRequest.mainCategoryId"
+      :sub="store.params.filterTaskListRequest.categoryId"
       @update:main="onParamsChange.onMainChange"
       @update:sub="onParamsChange.onSubChange" />
     <FilterInput
       title="제목"
-      :value="store.params.title"
+      :value="store.params.filterTaskListRequest.title"
       @update:value="onParamsChange.onTitleChange" />
     <FilterInput
       title="처리자"
-      :value="store.params.nickName"
+      :value="store.params.filterTaskListRequest.nickName"
       @update:value="onParamsChange.onNickNameChange" />
     <FilterDropdownMulti
       title="상태"
       :option-list="TASK_STATUS_LIST"
-      :value="store.params.taskStatus!"
+      :value="store.params.filterTaskListRequest.taskStatus!"
       @update:value="onParamsChange.onTaskStatusChange" />
     <FilterDropdown
       title="페이지 당 개수"

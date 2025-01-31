@@ -9,36 +9,45 @@ export const useRequestParamsChange = () => {
 
   const onTermChange = (value: string) => {
     if (value === '') {
-      params.term = ''
+      params.filterTaskListRequest.term = ''
     } else {
-      params.term = Number(value)
+      params.filterTaskListRequest.term = Number(value)
     }
   }
   const onTitleChange = (value: string) => {
-    params.title = value
+    params.filterTaskListRequest.title = value
   }
   const onNickNameChange = (value: string) => {
-    params.nickName = value
+    params.filterTaskListRequest.nickName = value
   }
   const onMainChange = (value: number) => {
-    params.mainCategoryId = onArrayChange(params.mainCategoryId, value)
+    params.filterTaskListRequest.mainCategoryId = onArrayChange(
+      params.filterTaskListRequest.mainCategoryId,
+      value
+    )
   }
   const onSubChange = (value: number) => {
-    params.categoryId = onArrayChange(params.categoryId, value)
+    params.filterTaskListRequest.categoryId = onArrayChange(
+      params.filterTaskListRequest.categoryId,
+      value
+    )
   }
   const onTaskStatusChange = (value: string) => {
-    params.taskStatus = onArrayChange(params.taskStatus!, value)
+    params.filterTaskListRequest.taskStatus = onArrayChange(
+      params.filterTaskListRequest.taskStatus!,
+      value
+    )
   }
   const onPageSizeChange = (value: string) => {
     params.pageSize = Number(value)
   }
 
   const toggleSortBy = (sortBy: 'REQUESTED' | 'FINISHED') => {
-    if (sortBy === params.orderRequest.sortBy) {
-      params.orderRequest.sortDirection =
-        params.orderRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
+    if (sortBy === params.filterTaskListRequest.orderRequest.sortBy) {
+      params.filterTaskListRequest.orderRequest.sortDirection =
+        params.filterTaskListRequest.orderRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
     } else {
-      params.orderRequest = { sortBy, sortDirection: 'DESC' }
+      params.filterTaskListRequest.orderRequest = { sortBy, sortDirection: 'DESC' }
     }
   }
 
