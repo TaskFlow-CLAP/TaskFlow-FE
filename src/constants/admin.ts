@@ -33,7 +33,8 @@ export const LOGS_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: 'Status', width: 40 },
   { content: '결과' }
 ]
-import type { Role, RoleTypes, UserRegistrationProps } from '@/types/admin'
+
+import type { RoleTypes, RoleTypesEnum, UserRegistrationProps } from '@/types/admin'
 
 export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {
   name: '',
@@ -45,10 +46,10 @@ export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {
   departmentRole: ''
 }
 
-export const RoleTypeMapping: { [key in Role]: RoleTypes } = {
+export const RoleTypeMapping: { [key in RoleTypes]: RoleTypesEnum } = {
   사용자: 'ROLE_USER',
   담당자: 'ROLE_MANAGER',
   관리자: 'ROLE_ADMIN'
 }
 
-export const RoleKeys: Role[] = Object.keys(RoleTypeMapping) as Role[]
+export const RoleKeys: RoleTypes[] = Object.keys(RoleTypeMapping) as RoleTypes[]

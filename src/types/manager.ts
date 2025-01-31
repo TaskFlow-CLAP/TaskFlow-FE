@@ -69,6 +69,8 @@ export interface TeamBoardCardProps {
   tasks: TaskCardProps[]
 }
 
+export type PeriodType = 'DAY' | 'WEEK' | 'MONTH'
+
 export interface RequestApproveFormData {
   category1: string
   category2: string

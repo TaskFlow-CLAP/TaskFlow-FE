@@ -18,7 +18,7 @@
 <script lang="ts" setup>
 import { checkBoxIcon } from '@/constants/iconPath'
 import type { FormCheckboxProps } from '@/types/common'
-import CommonIcons from '../common/CommonIcons.vue'
+import CommonIcons from './CommonIcons.vue'
 
 const { labelName, checkButtonName, isChecked } = defineProps<FormCheckboxProps>()
 const emit = defineEmits(['update:modelValue'])

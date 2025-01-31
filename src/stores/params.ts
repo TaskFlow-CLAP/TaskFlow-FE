@@ -2,7 +2,8 @@ import type {
   LogsParams,
   MemberManagementParams,
   RequestParams,
-  TeamBoardParams
+  TeamBoardParams,
+  TaskBoardParams
 } from '@/types/stores'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
@@ -80,6 +81,20 @@ export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
     title: '',
     mainCategoryId: [],
     categoryId: []
+  })
+
+  return { params }
+})
+
+export const useTaskBoardParamsStore = defineStore('requestParams', () => {
+  const params = ref<TaskBoardParams>({
+    division: '',
+    mainCategoryId: [],
+    categoryId: [],
+    title: '',
+    nickName: '',
+    pageSize: 20,
+    page: 1
   })
 
   return { params }
