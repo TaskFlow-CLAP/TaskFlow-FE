@@ -13,8 +13,8 @@
     </div>
     <div class="flex w-full">
       <CategoryLine :categories="mockCategoryAllData.categories" />
-      <CategoryLineSub :categories="mockCategoryAllData.categories" />
       <div class="bg-border-1 w-0.5"></div>
+      <CategoryLineSub :categories="mockCategoryAllData.categories" />
     </div>
     <div
       class="text-xs text-disabled font-bold gap-1 category-management-line justify-center cursor-pointer"

@@ -8,7 +8,7 @@
         v-for="sub in main.subCategory"
         :key="sub.id"
         class="flex w-full flex-col">
-        <div class="category-management-line justify-between border-l border-l-border-1">
+        <div class="category-management-line justify-between">
           <div class="flex gap-4 items-center">
             <p class="text-xs font-bold text-body w-[60px] text-center">{{ sub.code }}</p>
             <p class="text-black">{{ sub.name }}</p>
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div
-        class="category-management-line gap-1 justify-center cursor-pointer border-l border-l-border-1"
+        class="category-management-line gap-1 justify-center cursor-pointer"
         @click="MovetoAddSubCategory">
         <CommonIcons :name="plusIcon" />
         <p class="text-xs text-disabled font-bold">새 2차 카테고리 추가</p>
