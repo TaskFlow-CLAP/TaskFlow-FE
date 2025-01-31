@@ -1,4 +1,4 @@
-import type { Status } from './common'
+import type { LabelDataTypes, Status } from './common'
 
 export interface MyRequestListData {
   taskId: number
@@ -67,11 +67,11 @@ export interface TaskDetailLeftProps {
 }
 
 export interface TaskDetailDatas {
-  taskId: string
+  taskId: number
   taskCode: string
   requestedAt: string
   finishedAt: string
-  taskStatus: string
+  taskStatus: Status
   requesterNickName: string
   requesterImageUrl: string
   processorNickName: string
@@ -81,6 +81,8 @@ export interface TaskDetailDatas {
   title: string
   description: string
   attachmentResponse: AttachmentResponse[]
+  dueDate?: string
+  labelName?: string
 }
 
 export type TaskHistoryType =
@@ -117,4 +119,25 @@ export interface TaskDetailProps {
   isManager: boolean
   isApproved: boolean
   closeTaskDetail: () => void
+}
+export interface ManagerInfoTypes {
+  nickName: string
+  profileUrl: string
+  totalAssignedTasks: number
+}
+
+export interface TaskDetailDropdownProps {
+  options: string[]
+  modelValue: string
+  processor: ManagerInfoTypes
+}
+
+export interface TaskDetailRightProps {
+  taskDetail: TaskDetailDatas
+  isManager: boolean
+}
+
+export interface TaskDetailLabelDropdownProps {
+  options: LabelDataTypes[]
+  modelValue: string
 }
