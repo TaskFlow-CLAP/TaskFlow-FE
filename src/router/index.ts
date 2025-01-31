@@ -1,4 +1,3 @@
-import MyRequestView from '@/views/MyRequestView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -6,18 +5,18 @@ const router = createRouter({
   routes: [
     {
       path: '/login',
-      name: 'login',
+      name: 'Login',
       component: () => import('../views/LoginView.vue')
     },
 
     {
       path: '/pw-change',
-      name: 'pwChange',
+      name: 'PwChange',
       component: () => import('../views/PwChange.vue')
     },
     {
       path: '/pw-change-email',
-      name: 'pwChangeEmail',
+      name: 'PwChangeEmail',
       component: () => import('../views/PwChangeEmail.vue'),
       meta: { requiresAuth: true }
     },
@@ -30,7 +29,7 @@ const router = createRouter({
     {
       path: '/my-request',
       name: 'MyRequest',
-      component: MyRequestView
+      component: () => import('../views/MyRequestView.vue')
     },
     {
       path: '/task-request',
@@ -57,6 +56,16 @@ const router = createRouter({
       path: '/member-management',
       name: 'MemberManagement',
       component: () => import('../views/MemberManagement.vue')
+    },
+    {
+      path: '/category-first',
+      name: 'CategoryFirst',
+      component: () => import('../views/CategoryFirstAdd.vue')
+    },
+    {
+      path: '/category-second',
+      name: 'CategorySecond',
+      component: () => import('../views/CategorySecondAdd.vue')
     },
     {
       path: '/login-logs',
@@ -87,6 +96,31 @@ const router = createRouter({
       path: '/user-update',
       name: 'UserUpdate',
       component: () => import('../views/UserUpdateView.vue')
+    },
+    {
+      path: '/edit-information',
+      name: 'EditInformation',
+      component: () => import('../views/EditInformationView.vue')
+    },
+    {
+      path: '/statistics',
+      name: 'Statistics',
+      component: () => import('../views/StatisticsView.vue')
+    },
+    {
+      path: '/edit-information',
+      name: 'EditInformation',
+      component: () => import('../views/EditInformationView.vue')
+    },
+    {
+      path: '/task-management',
+      name: 'TaskManagement',
+      component: () => import('../views/TaskManagementView.vue')
+    },
+    {
+      path: '/edit-information',
+      name: 'EditInformation',
+      component: () => import('../views/EditInformationView.vue')
     },
     {
       path: '/statistics',
