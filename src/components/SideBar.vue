@@ -45,7 +45,7 @@
         </div>
         <div class="flex items-end justify-end w-full">
           <RouterLink
-            to="/"
+            to="/edit-information"
             class="text-primary1 text-sm font-bold"
             >내 정보 수정</RouterLink
           >
