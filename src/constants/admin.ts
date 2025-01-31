@@ -53,8 +53,6 @@ export const CATEGORY_SECOND_ADD: CategorySecondData = {
   code: ''
 }
 
-import type { RoleTypes, RoleTypesEnum, UserRegistrationProps } from '@/types/admin'
-
 export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {
   name: '',
   email: '',
