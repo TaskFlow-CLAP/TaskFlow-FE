@@ -98,41 +98,6 @@ const router = createRouter({
       component: () => import('../views/UserUpdateView.vue')
     },
     {
-      path: '/edit-information',
-      name: 'EditInformation',
-      component: () => import('../views/EditInformationView.vue')
-    },
-    {
-      path: '/statistics',
-      name: 'Statistics',
-      component: () => import('../views/StatisticsView.vue')
-    },
-    {
-      path: '/edit-information',
-      name: 'EditInformation',
-      component: () => import('../views/EditInformationView.vue')
-    },
-    {
-      path: '/task-management',
-      name: 'TaskManagement',
-      component: () => import('../views/TaskManagementView.vue')
-    },
-    {
-      path: '/edit-information',
-      name: 'EditInformation',
-      component: () => import('../views/EditInformationView.vue')
-    },
-    {
-      path: '/statistics',
-      name: 'Statistics',
-      component: () => import('../views/StatisticsView.vue')
-    },
-    {
-      path: '/edit-information',
-      name: 'EditInformation',
-      component: () => import('../views/EditInformationView.vue')
-    },
-    {
       path: '/task-management',
       name: 'TaskManagement',
       component: () => import('../views/TaskManagementView.vue')

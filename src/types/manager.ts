@@ -70,3 +70,38 @@ export interface TeamBoardCardProps {
 }
 
 export type PeriodType = 'DAY' | 'WEEK' | 'MONTH'
+
+export interface RequestApproveFormData {
+  category1: string
+  category2: string
+  processor: string
+  labeling: string
+  dueDate: string
+  dueTime: string
+}
+
+export interface MyTaskDetailDatas {
+  taskId: number
+  taskCode: string
+  requestedAt: string
+  finishedAt: string
+  taskStatus: Status
+  requesterNickName: string
+  requesterImageUrl: string
+  processorNickName: string
+  processorImageUrl: string
+  mainCategoryName: string
+  categoryName: string
+  title: string
+  description: string
+  dueDate: string
+  labelName: string
+  attachmentResponses: AttachmentResponse[]
+}
+
+export interface TaskDetailTopBarProps {
+  isManager: boolean
+  isApproved: boolean
+  closeTaskDetail: () => void
+}
+
