@@ -54,9 +54,15 @@ export interface subCategoryTypes {
   code: string
 }
 
-export interface CategoryAllData {
-  mainCategory: mainCategoryTypes[]
+export interface categoriesTypes {
+  id: number
+  name: string
+  code: string
   subCategory: subCategoryTypes[]
+}
+
+export interface CategoryAllData {
+  categories: categoriesTypes[]
 }
 
 export interface DivisionDataTypes {
