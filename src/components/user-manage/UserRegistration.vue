@@ -61,6 +61,8 @@ const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
 
 const router = useRouter()
 const handleCancel = () => {
+  userRegistrationForm.value = { ...INITIAL_USER_REGISTRATION }
+  isModalVisible.value = false
   router.back()
 }
 

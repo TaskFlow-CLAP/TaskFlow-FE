@@ -45,6 +45,11 @@ const file = ref(null as File[] | null)
 
 const router = useRouter()
 const handleCancel = () => {
+  category1.value = ''
+  category2.value = ''
+  title.value = ''
+  description.value = ''
+  file.value = null
   router.back()
 }
 

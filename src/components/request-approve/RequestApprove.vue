@@ -66,6 +66,8 @@ const approveForm = ref(INITIAL_REQUEST_APPROVE_FORM)
 
 const router = useRouter()
 const handleCancel = () => {
+  approveForm.value = { ...INITIAL_REQUEST_APPROVE_FORM }
+  isModalVisible.value = false
   router.back()
 }
 

@@ -46,7 +46,7 @@ export const SIDE_ADMIN_MENU: SideMenu[] = [
     groupTitle: '관리',
     items: [
       { menuId: 11, content: '회원 관리', link: '/member-management', role: 'admin' },
-      { menuId: 12, content: '작업 관리', link: '/task-request', role: 'admin' }
+      { menuId: 12, content: '작업 관리', link: '/task-management', role: 'admin' }
     ]
   },
   {

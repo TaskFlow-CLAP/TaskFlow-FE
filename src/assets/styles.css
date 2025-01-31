@@ -119,9 +119,6 @@ body {
 .form-view-container {
   @apply max-w-600 flex flex-col gap-y-6;
 }
-.form-view-title {
-  @apply w-full h-[54px] border-l-8 border-l-primary1 flex items-center pl-5;
-}
 
 .task-management-view {
   @apply max-w-1200 h-screen flex flex-col gap-6;
@@ -141,4 +138,3 @@ body {
 .task-detail-dropdown-option {
   @apply w-full flex items-center h-10 p-2 rounded hover:bg-background-2 cursor-pointer;
 }
-
