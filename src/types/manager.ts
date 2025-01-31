@@ -1,3 +1,6 @@
+import type { Status } from './common'
+import type { AttachmentResponse } from './user'
+
 export interface RequestedListData {
   taskId: number
   requestedAt: string
@@ -73,4 +76,29 @@ export interface RequestApproveFormData {
   labeling: string
   dueDate: string
   dueTime: string
+}
+
+export interface MyTaskDetailDatas {
+  taskId: number
+  taskCode: string
+  requestedAt: string
+  finishedAt: string
+  taskStatus: Status
+  requesterNickName: string
+  requesterImageUrl: string
+  processorNickName: string
+  processorImageUrl: string
+  mainCategoryName: string
+  categoryName: string
+  title: string
+  description: string
+  dueDate: string
+  labelName: string
+  attachmentResponses: AttachmentResponse[]
+}
+
+export interface TaskDetailTopBarProps {
+  isManager: boolean
+  isApproved: boolean
+  closeTaskDetail: () => void
 }
