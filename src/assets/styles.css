@@ -33,6 +33,19 @@ body {
   @apply max-w-1200 h-screen flex flex-col gap-6 overflow-hidden;
 }
 
+.button-large {
+  @apply flex w-full py-3 font-bold border rounded items-center justify-center min-w-[138px];
+}
+.button-large-default {
+  @apply button-large bg-white text-zinc-400 border-zinc-400;
+}
+.button-large-red {
+  @apply button-large bg-red-1 text-white border-red-1;
+}
+.button-large-primary {
+  @apply button-large bg-primary1 text-white border-primary1;
+}
+
 .button-medium {
   @apply flex items-center justify-center rounded px-4 py-2 font-bold gap-1 text-xs cursor-pointer shrink-0;
 }
@@ -85,20 +98,8 @@ body {
   @apply text-xs p-2 rounded text-center cursor-pointer;
 }
 
-.button-large {
-  @apply flex w-full py-3 font-bold border rounded items-center justify-center min-w-[138px];
-}
-.button-large-default {
-  @apply button-large bg-white text-zinc-400 border-zinc-400;
-}
-.button-large-red {
-  @apply button-large bg-red-1 text-white border-red-1;
-}
-.button-large-primary {
-  @apply button-large bg-primary1 text-white border-primary1;
-}
 .input-box {
-  @apply block w-full px-4 py-4 border border-zinc-300 rounded focus:outline-none;
+  @apply block w-full px-4 py-4 border border-border-1 rounded focus:outline-none;
 }
 
 .task-detail {
