@@ -61,7 +61,7 @@ export interface FormButtonProps {
 }
 
 export interface FormCheckboxProps {
-  labelName: string
+  labelName?: string
   checkButtonName: string
   isChecked: boolean
 }
