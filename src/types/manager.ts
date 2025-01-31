@@ -88,3 +88,19 @@ export interface StatisticsCardProps {
   statisticsType: StatisticsType
   chartType: 'line' | 'pie'
 }
+
+export interface DraggableEvent {
+  added?: {
+    element: TaskCardProps
+    newIndex: number
+  }
+  removed?: {
+    element: TaskCardProps
+    oldIndex: number
+  }
+  moved?: {
+    element: TaskCardProps
+    oldIndex: number
+    newIndex: number
+  }
+}
