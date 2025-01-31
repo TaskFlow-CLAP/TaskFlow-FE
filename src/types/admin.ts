@@ -21,6 +21,7 @@ export interface LogsListData {
   status: number
   result?: string
 }
+
 export interface UserRegistrationProps {
   name: string
   email: string

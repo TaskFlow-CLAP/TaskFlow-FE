@@ -58,6 +58,16 @@ const router = createRouter({
       component: () => import('../views/MemberManagement.vue')
     },
     {
+      path: '/category-first',
+      name: 'CategoryFirst',
+      component: () => import('../views/CategoryFirstAdd.vue')
+    },
+    {
+      path: '/category-second',
+      name: 'CategorySecond',
+      component: () => import('../views/CategorySecondAdd.vue')
+    },
+    {
       path: '/login-logs',
       name: 'LoginLogs',
       component: () => import('../views/LoginLogsView.vue')
@@ -88,21 +98,6 @@ const router = createRouter({
       component: () => import('../views/UserUpdateView.vue')
     },
     {
-      path: '/edit-information',
-      name: 'EditInformation',
-      component: () => import('../views/EditInformationView.vue')
-    },
-    {
-      path: '/statistics',
-      name: 'Statistics',
-      component: () => import('../views/StatisticsView.vue')
-    },
-    {
-      path: '/edit-information',
-      name: 'EditInformation',
-      component: () => import('../views/EditInformationView.vue')
-    },
-    {
       path: '/task-management',
       name: 'TaskManagement',
       component: () => import('../views/TaskManagementView.vue')
@@ -116,6 +111,11 @@ const router = createRouter({
       path: '/statistics',
       name: 'Statistics',
       component: () => import('../views/StatisticsView.vue')
+    },
+    {
+      path: '/task-detail',
+      name: 'TaskDetail',
+      component: () => import('../views/TaskDetailView.vue')
     }
   ]
 })

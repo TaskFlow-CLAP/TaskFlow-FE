@@ -34,7 +34,26 @@ export const LOGS_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '결과' }
 ]
 
-import type { RoleTypes, RoleTypesEnum, UserRegistrationProps } from '@/types/admin'
+import type {
+  RoleTypes,
+  RoleTypesEnum,
+  UserRegistrationProps,
+  mainCategoryTypes,
+  subCategoryTypes
+} from '@/types/admin'
+
+export const CATEGORY_FIRST_ADD: mainCategoryTypes = {
+  name: '',
+  code: '',
+  id: 0
+}
+
+export const CATEGORY_SECOND_ADD: subCategoryTypes = {
+  name: '',
+  mainCategoryId: 0,
+  code: '',
+  id: 0
+}
 
 export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {
   name: '',

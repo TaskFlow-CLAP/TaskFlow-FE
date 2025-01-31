@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow flex flex-col gap-6 pt-6">
+  <div class="flex-grow flex flex-col gap-6">
     <div>
       <p class="task-detail">1차 카테고리</p>
       <p>{{ taskDetail.mainCategoryName }}</p>
@@ -24,9 +24,9 @@
 </template>
 
 <script setup lang="ts">
-import type { TaskDetailLeftProps } from '@/types/user'
+import type { TaskDetailDatas } from '@/types/user'
 import TaskDetailFiles from './TaskDetailFiles.vue'
-const { taskDetail } = defineProps<{ taskDetail: TaskDetailLeftProps }>()
+const { taskDetail } = defineProps<{ taskDetail: TaskDetailDatas }>()
 </script>
 
 <style scoped></style>

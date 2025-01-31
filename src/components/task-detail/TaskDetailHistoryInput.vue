@@ -13,6 +13,7 @@
       class="hidden"
       type="file"
       id="file"
+      :disabled="!isPossible"
       multiple
       @change="handleFileUpload" />
     <label
@@ -34,7 +35,7 @@ import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
 const { history } = defineProps<{ history: TaskDetailHistoryProps[] }>()
-const isPossible = ref(history.length !== 0)
+const isPossible = ref(history.length === 0)
 const placeHolderText = ref(isPossible?.value ? '텍스트를 입력' : '요청 승인 후 작성할 수 있습니다')
 
 const handleFileUpload = (event: Event) => {

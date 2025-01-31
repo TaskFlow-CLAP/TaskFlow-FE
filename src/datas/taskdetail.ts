@@ -1,8 +1,5 @@
-import type {
-  TaskDetailHistoryProps,
-  TaskDetailLeftProps,
-  TaskDetailRightProps
-} from '@/types/user'
+import type { LabelDataTypes } from '@/types/common'
+import type { TaskDetailDatas, TaskDetailHistoryProps } from '@/types/user'
 
 export const DUMMY_REQUEST_TASK_CATEGORIES: string[] = [
   'Categroy 1',
@@ -11,18 +8,16 @@ export const DUMMY_REQUEST_TASK_CATEGORIES: string[] = [
   'Categroy 4'
 ]
 
-export const DUMMY_TASK_DETAIL_RIGHT: TaskDetailRightProps = {
-  taskId: '1',
+export const DUMMY_TASK_DETAIL: TaskDetailDatas = {
+  taskId: 1,
+  taskCode: 'T202310',
   requestedAt: '2023-10-01T10:00:00Z',
   finishedAt: '2023-10-02T15:00:00Z',
-  taskStatus: 'completed',
+  taskStatus: '진행 중',
   requesterNickName: 'JohnDoe',
   requesterImageUrl: 'images/mockProfile.jpg',
   processorNickName: 'JaneSmith',
-  processorImageUrl: 'images/mockProfile.jpg'
-}
-
-export const DUMMY_TASK_DETAIL_LEFT: TaskDetailLeftProps = {
+  processorImageUrl: 'images/mockProfile.jpg',
   mainCategoryName: 'Virtual Machine',
   categoryName: 'Virtual Machine 생성',
   title: '카카오워크',
@@ -42,7 +37,9 @@ export const DUMMY_TASK_DETAIL_LEFT: TaskDetailLeftProps = {
       fileSize: '2MB',
       fileName: 'log2.jpg'
     }
-  ]
+  ],
+  dueDate: '2023-10-10',
+  labelName: '긴급'
 }
 
 export const DUMMY_TASK_DETAIL_HISTORY: TaskDetailHistoryProps[] = [
@@ -107,3 +104,34 @@ export const DUMMY_TASK_DETAIL_HISTORY: TaskDetailHistoryProps[] = [
 export const DUMMY_REQUEST_PROCESSORS: string[] = ['Tony', 'Chloe', 'Moya', 'MoyaMoya']
 
 export const DUMMY_REQUEST_TASK_LABELS: string[] = ['긴급', '정기', '오류', '점검']
+
+export const DUMMY_PROCESSOR = {
+  nickName: 'Tony',
+  profileUrl: 'images/mockProfile.jpg',
+  totalAssignedTasks: 5
+}
+
+export const DUMMY_TASK_DETAIL_LABELS: string[] = ['긴급', '정기', '오류', '점검']
+
+export const DUMMY_TASK_LABELS: LabelDataTypes[] = [
+  {
+    labelId: 1,
+    labelName: '긴급',
+    labelColor: 'red'
+  },
+  {
+    labelId: 2,
+    labelName: '정기',
+    labelColor: 'green'
+  },
+  {
+    labelId: 3,
+    labelName: '오류',
+    labelColor: 'blue'
+  },
+  {
+    labelId: 4,
+    labelName: '점검',
+    labelColor: 'gray'
+  }
+]
