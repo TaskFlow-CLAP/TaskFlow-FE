@@ -77,5 +77,5 @@ export default {
       }
     }
   },
-  plugins: []
+  plugins: [import('tailwind-scrollbar-hide')]
 }

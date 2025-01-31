@@ -123,7 +123,7 @@ body {
 }
 
 .task-management-view {
-  @apply max-w-1200 h-screen flex flex-col gap-6 overflow-y-auto;
+  @apply max-w-1200 h-screen flex flex-col gap-6;
 }
 .task-management-title {
   @apply flex w-full h-8 pl-6 gap-6 items-center text-xs bg-background-2 text-body font-bold border-b border-b-border-1;
