@@ -126,6 +126,31 @@ const router = createRouter({
       path: '/statistics',
       name: 'Statistics',
       component: () => import('../views/StatisticsView.vue')
+    },
+    {
+      path: '/edit-information',
+      name: 'EditInformation',
+      component: () => import('../views/EditInformationView.vue')
+    },
+    {
+      path: '/task-management',
+      name: 'TaskManagement',
+      component: () => import('../views/TaskManagementView.vue')
+    },
+    {
+      path: '/edit-information',
+      name: 'EditInformation',
+      component: () => import('../views/EditInformationView.vue')
+    },
+    {
+      path: '/statistics',
+      name: 'Statistics',
+      component: () => import('../views/StatisticsView.vue')
+    },
+    {
+      path: '/task-detail',
+      name: 'TaskDetail',
+      component: () => import('../views/TaskDetailView.vue')
     }
   ]
 })
