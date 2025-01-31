@@ -34,7 +34,7 @@ const router = createRouter({
     },
     {
       path: '/task-request',
-      name: 'task-request',
+      name: 'TaskRequest',
       component: () => import('../views/TaskRequestView.vue')
     },
     {
@@ -72,6 +72,21 @@ const router = createRouter({
       path: '/team-board',
       name: 'TeamBoard',
       component: () => import('../views/TeamBoardView.vue')
+    },
+    {
+      path: '/request-approve',
+      name: 'RequestApprove',
+      component: () => import('../views/RequestApproveView.vue')
+    },
+    {
+      path: '/user-registration',
+      name: 'UserRegistration',
+      component: () => import('../views/UserRegistrationView.vue')
+    },
+    {
+      path: '/user-update',
+      name: 'UserUpdate',
+      component: () => import('../views/UserUpdateView.vue')
     },
     {
       path: '/statistics',

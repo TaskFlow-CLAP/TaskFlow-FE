@@ -47,3 +47,21 @@ export type Status = '요청' | '진행 중' | '검토 중' | '완료' | '종료
 export type SortDirection = 'DESC' | 'ASC'
 
 export type Role = 'USER' | 'MANAGER' | 'ADMIN'
+
+export interface DueDateInputProps {
+  modelValue: string
+  inputType: string
+}
+
+export interface FormButtonProps {
+  handleCancel: () => void
+  handleSubmit: () => void
+  cancelText: string
+  submitText: string
+}
+
+export interface FormCheckboxProps {
+  labelName: string
+  checkButtonName: string
+  isChecked: boolean
+}

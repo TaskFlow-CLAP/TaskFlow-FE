@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TopMenu from './components/TopMenu.vue'
+import TopBar from './components/TopBar.vue'
 import TheView from './layout/TheView.vue'
 </script>
 
 <template>
-  <TopMenu />
+  <TopBar />
   <TheView />
 </template>

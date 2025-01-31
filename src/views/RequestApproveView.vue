@@ -1,13 +1,13 @@
 <template>
   <div class="form-view-container">
     <div class="form-view-title">
-      <h1 class="text-2xl font-bold">작업 요청</h1>
+      <h1 class="text-2xl font-bold">요청 승인</h1>
     </div>
-    <RequestTask />
+    <RequestApprove />
   </div>
   <div class="w-full bg-body"></div>
 </template>
 
 <script setup lang="ts">
-import RequestTask from '@/components/request-task/RequestTask.vue'
+import RequestApprove from '@/components/request-approve/RequestApprove.vue'
 </script>

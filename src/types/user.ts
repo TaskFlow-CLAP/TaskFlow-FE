@@ -18,11 +18,15 @@ export interface RequestTaskDropdownProps {
   options: string[]
   labelName: string
   modelValue: string
+  isLabel?: boolean
 }
 
 export interface RequestTaskInputProps {
   modelValue: string
   placeholderText: string
+  labelName: string
+  isNotRequired?: boolean
+  isEdit?: boolean
 }
 
 export interface RequestTaskFileInputProps {
