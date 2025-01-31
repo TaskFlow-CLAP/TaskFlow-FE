@@ -1,8 +1,8 @@
 <template>
-  <div class="max-w-md mx-auto p-10">
+  <div class="max-w-400">
     <ModalView
       :isOpen="isModalOpen"
-      :type="'checkType'"
+      type="successType"
       @close="pwChange">
       <template #header> 비밀번호가 변경 되었습니다 </template>
       <template #body> 다시 로그인 해주세요 </template>

@@ -1,8 +1,8 @@
 <template>
-  <div class="max-w-md mx-auto p-10">
+  <div class="max-w-400">
     <ModalView
       :isOpen="isModalOpen"
-      :type="'inputType'"
+      type="successType"
       @close="toggleModal">
       <template #header> 인증 번호가 전송되었습니다 </template>
       <template #body> 이메일을 확인해주세요 </template>

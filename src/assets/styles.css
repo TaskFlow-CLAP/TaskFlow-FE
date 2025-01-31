@@ -27,7 +27,7 @@ body {
   @apply view-container w-full max-w-[600px] mx-auto;
 }
 .max-w-400 {
-  @apply view-container w-full max-w-[400px] mx-auto;
+  @apply view-container w-full max-w-[400px] mx-auto !pt-16;
 }
 .list-view {
   @apply max-w-1200 h-screen flex flex-col gap-6 overflow-hidden;
