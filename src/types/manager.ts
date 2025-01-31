@@ -1,3 +1,6 @@
+import type { Status } from './common'
+import type { AttachmentResponse } from './user'
+
 export interface RequestedListData {
   taskId: number
   requestedAt: string
@@ -75,32 +78,27 @@ export interface RequestApproveFormData {
   dueTime: string
 }
 
-export type PeriodType = 'DAY' | 'WEEK' | 'MONTH'
-
-type StatisticsType =
-  | 'REQUEST_BY_PERIOD'
-  | 'PROCESS_BY_PERIOD'
-  | 'REQUEST_BY_CATEGORY'
-  | 'PROCESS_BY_MANAGER'
-
-export interface StatisticsCardProps {
+export interface MyTaskDetailDatas {
+  taskId: number
+  taskCode: string
+  requestedAt: string
+  finishedAt: string
+  taskStatus: Status
+  requesterNickName: string
+  requesterImageUrl: string
+  processorNickName: string
+  processorImageUrl: string
+  mainCategoryName: string
+  categoryName: string
   title: string
-  statisticsType: StatisticsType
-  chartType: 'line' | 'pie'
+  description: string
+  dueDate: string
+  labelName: string
+  attachmentResponses: AttachmentResponse[]
 }
 
-export interface DraggableEvent {
-  added?: {
-    element: TaskCardProps
-    newIndex: number
-  }
-  removed?: {
-    element: TaskCardProps
-    oldIndex: number
-  }
-  moved?: {
-    element: TaskCardProps
-    oldIndex: number
-    newIndex: number
-  }
+export interface TaskDetailTopBarProps {
+  isManager: boolean
+  isApproved: boolean
+  closeTaskDetail: () => void
 }
