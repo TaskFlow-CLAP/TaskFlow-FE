@@ -1,5 +1,4 @@
 import type { LogsListData, MemberManagementListData } from '@/types/admin'
-import type { Category } from '@/types/common'
 import type {
   MyTaskListData,
   RequestedListData,
@@ -7,49 +6,6 @@ import type {
   TaskCardList
 } from '@/types/manager'
 import type { MyRequestListData } from '@/types/user'
-
-export const DUMMY_CATEGORY_LIST: Category[] = [
-  {
-    id: 1,
-    content: '인프라 검토',
-    subCategoryList: [
-      { id: 11, content: '생성' },
-      { id: 12, content: '삭제' },
-      { id: 13, content: '변경' },
-      { id: 14, content: '기타' }
-    ]
-  },
-  {
-    id: 2,
-    content: 'VM',
-    subCategoryList: [
-      { id: 21, content: '생성' },
-      { id: 22, content: '삭제' },
-      { id: 23, content: '변경' },
-      { id: 24, content: '기타' }
-    ]
-  },
-  {
-    id: 3,
-    content: 'LB',
-    subCategoryList: [
-      { id: 31, content: '생성' },
-      { id: 32, content: '삭제' },
-      { id: 33, content: '변경' },
-      { id: 34, content: '기타' }
-    ]
-  },
-  {
-    id: 4,
-    content: 'K8S',
-    subCategoryList: [
-      { id: 41, content: '생성' },
-      { id: 42, content: '삭제' },
-      { id: 43, content: '변경' },
-      { id: 44, content: '기타' }
-    ]
-  }
-]
 
 export const DUMMY_MY_REQUEST_LIST_DATA: MyRequestListData[] = [
   {

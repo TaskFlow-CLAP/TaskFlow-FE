@@ -23,7 +23,7 @@
                 : 'hover:bg-background-2 text-black'
             "
             @click="() => onMainClick(category)">
-            {{ category.content }}
+            {{ category.name }}
           </li>
         </ul>
       </div>
@@ -45,17 +45,17 @@
           <ul
             class="flex flex-col gap-2"
             v-for="category in selectedCategoryList"
-            :key="category.content">
+            :key="category.name">
             <div class="w-full flex items-center gap-2">
               <div class="h-[1px] grow bg-border-2" />
               <span class="text-[10px] font-bold text-disabled">
-                {{ category.content }}
+                {{ category.name }}
               </span>
               <div class="h-[1px] grow bg-border-2" />
             </div>
             <li
               class="filter-dropdown-option"
-              v-for="subCategory in category.subCategoryList"
+              v-for="subCategory in category.subCategory"
               :key="subCategory.id"
               :class="
                 (sub as number[]).includes(subCategory.id)
@@ -63,7 +63,7 @@
                   : 'hover:bg-background-2 text-black'
               "
               @click="() => onSubClick(subCategory.id)">
-              {{ subCategory.content }}
+              {{ subCategory.name }}
             </li>
           </ul>
         </ul>
@@ -88,7 +88,7 @@ const toggleDropdown = (type: 'main' | 'sub') =>
     ? (isMainOpened.value = !isMainOpened.value)
     : (isSubOpened.value = !isSubOpened.value)
 
-const selectedCategoryList = ref<{ content: string; subCategoryList: Category[] }[]>([])
+const selectedCategoryList = ref<{ name: string; subCategory: Category[] }[]>([])
 const isDisabled = computed(() => {
   return selectedCategoryList.value.length === 0
 })
@@ -97,22 +97,22 @@ watchEffect(() => {
 })
 
 const onMainClick = (category: Category) => {
-  if (selectedCategoryList.value.map(el => el.content).includes(category.content)) {
+  if (selectedCategoryList.value.map(el => el.name).includes(category.name)) {
     selectedCategoryList.value = [...selectedCategoryList.value].filter(
-      el => el.content !== category.content
+      el => el.name !== category.name
     )
-    if (category.subCategoryList) {
-      category.subCategoryList.forEach(el => {
+    if (category.subCategory) {
+      category.subCategory.forEach(el => {
         if ((sub as number[]).includes(el.id)) {
           emit('update:sub', el.id)
         }
       })
     }
   } else {
-    if (category.subCategoryList) {
+    if (category.subCategory) {
       selectedCategoryList.value.push({
-        content: category.content,
-        subCategoryList: category.subCategoryList
+        name: category.name,
+        subCategory: category.subCategory
       })
     }
   }
@@ -121,6 +121,6 @@ const onMainClick = (category: Category) => {
 const onSubClick = (value: number) => {
   emit('update:sub', value)
 }
-</script>
 
-<style scoped></style>
+console.log(selectedCategoryList.value)
+</script>

@@ -14,8 +14,9 @@ export interface Option {
 
 export interface Category {
   id: number
-  content: string
-  subCategoryList?: { id: number; content: string }[]
+  name: string
+  code: string
+  subCategory?: { id: number; mainCategoryId: number; name: string; code: string }[]
 }
 
 export interface FilterCategoryProps {
