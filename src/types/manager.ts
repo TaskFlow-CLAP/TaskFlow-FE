@@ -76,3 +76,15 @@ export interface RequestApproveFormData {
 }
 
 export type PeriodType = 'DAY' | 'WEEK' | 'MONTH'
+
+type StatisticsType =
+  | 'REQUEST_BY_PERIOD'
+  | 'PROCESS_BY_PERIOD'
+  | 'REQUEST_BY_CATEGORY'
+  | 'PROCESS_BY_MANAGER'
+
+export interface StatisticsCardProps {
+  title: string
+  statisticsType: StatisticsType
+  chartType: 'line' | 'pie'
+}
