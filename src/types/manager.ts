@@ -66,41 +66,4 @@ export interface TeamBoardCardProps {
   tasks: TaskCardProps[]
 }
 
-export interface RequestApproveFormData {
-  category1: string
-  category2: string
-  processor: string
-  labeling: string
-  dueDate: string
-  dueTime: string
-}
-
 export type PeriodType = 'DAY' | 'WEEK' | 'MONTH'
-
-type StatisticsType =
-  | 'REQUEST_BY_PERIOD'
-  | 'PROCESS_BY_PERIOD'
-  | 'REQUEST_BY_CATEGORY'
-  | 'PROCESS_BY_MANAGER'
-
-export interface StatisticsCardProps {
-  title: string
-  statisticsType: StatisticsType
-  chartType: 'line' | 'pie'
-}
-
-export interface DraggableEvent {
-  added?: {
-    element: TaskCardProps
-    newIndex: number
-  }
-  removed?: {
-    element: TaskCardProps
-    oldIndex: number
-  }
-  moved?: {
-    element: TaskCardProps
-    oldIndex: number
-    newIndex: number
-  }
-}

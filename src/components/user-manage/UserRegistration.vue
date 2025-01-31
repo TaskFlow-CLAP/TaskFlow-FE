@@ -52,9 +52,9 @@ import { ref } from 'vue'
 import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
-import FormButtonContainer from './FormButtonContainer.vue'
-import FormCheckbox from './FormCheckbox.vue'
 import { useRouter } from 'vue-router'
+import FormCheckbox from '../common/FormCheckbox.vue'
+import FormButtonContainer from '../common/FormButtonContainer.vue'
 
 const isModalVisible = ref(false)
 const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)

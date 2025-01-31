@@ -48,7 +48,7 @@
         </div>
         <div class="flex items-end whitespace-nowrap">
           <RouterLink
-            to="/"
+            to="/edit-information"
             class="text-primary1 text-sm font-bold"
             @click="$emit('close')">
             내 정보 수정
