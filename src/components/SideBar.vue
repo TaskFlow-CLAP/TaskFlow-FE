@@ -69,7 +69,7 @@ import { SIDE_USER_MENU, SIDE_MANAGER_MENU, SIDE_ADMIN_MENU } from '@/constants/
 const route = useRoute()
 
 // 회원 역할, 닉네임 필요
-const role = ref('admin')
+const role = ref('manager')
 const name = ref('백지연')
 const nickname = ref('Chloe.yeon')
 

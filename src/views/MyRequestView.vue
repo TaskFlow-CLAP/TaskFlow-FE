@@ -29,7 +29,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const createNewRequest = () => {
-  router.push('/new-request')
+  router.push('/task-request')
 }
 </script>
 
