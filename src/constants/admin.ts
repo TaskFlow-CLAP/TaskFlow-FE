@@ -38,19 +38,21 @@ import type {
   RoleTypes,
   RoleTypesEnum,
   UserRegistrationProps,
-  CategoryFirstData,
-  CategorySecondData
+  mainCategoryTypes,
+  subCategoryTypes
 } from '@/types/admin'
 
-export const CATEGORY_FIRST_ADD: CategoryFirstData = {
+export const CATEGORY_FIRST_ADD: mainCategoryTypes = {
   name: '',
-  code: ''
+  code: '',
+  id: 0
 }
 
-export const CATEGORY_SECOND_ADD: CategorySecondData = {
+export const CATEGORY_SECOND_ADD: subCategoryTypes = {
   name: '',
-  firstCategory: '',
-  code: ''
+  mainCategoryId: 0,
+  code: '',
+  id: 0
 }
 
 export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {

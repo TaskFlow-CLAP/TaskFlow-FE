@@ -22,17 +22,6 @@ export interface LogsListData {
   result?: string
 }
 
-export interface CategoryFirstData {
-  name: string
-  code: string
-}
-
-export interface CategorySecondData {
-  name: string
-  firstCategory: string
-  code: string
-}
-
 export interface UserRegistrationProps {
   name: string
   email: string
