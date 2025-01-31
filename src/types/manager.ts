@@ -104,3 +104,4 @@ export interface TaskDetailTopBarProps {
   isApproved: boolean
   closeTaskDetail: () => void
 }
+

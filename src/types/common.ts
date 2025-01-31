@@ -71,9 +71,3 @@ export interface ColorSelectProps {
   selectedDivisionId: number | null
   isOpen: boolean
 }
-
-export interface LabelDataTypes {
-  labelId: number
-  labelName: string
-  labelColor: string
-}
