@@ -6,7 +6,7 @@
     <span class="filter-title">{{ title }}</span>
     <input
       @input="onValueChange"
-      class="w-full h-8 border-b border-border-1 focus:outline-none text-xs text-black px-2" />
+      class="w-full h-8 border-b border-border-1 outline-none text-xs text-black px-2" />
   </div>
 </template>
 

@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
 import MyRequestView from '@/views/MyRequestView.vue'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/Login.vue')
+      component: () => import('../views/LoginView.vue')
     },
 
     {
@@ -33,13 +33,8 @@ const router = createRouter({
       component: MyRequestView
     },
     {
-      path: '/icon',
-      name: 'icon',
-      component: () => import('../views/IconView.vue')
-    },
-    {
       path: '/task-request',
-      name: 'task-request',
+      name: 'TaskRequest',
       component: () => import('../views/TaskRequestView.vue')
     },
     {
@@ -56,6 +51,47 @@ const router = createRouter({
       path: '/task-board',
       name: 'TaskBoard',
       component: () => import('../views/TaskBoardView.vue')
+    },
+    { path: '/my-task', name: 'MyTask', component: () => import('../views/MyTaskView.vue') },
+    {
+      path: '/member-management',
+      name: 'MemberManagement',
+      component: () => import('../views/MemberManagement.vue')
+    },
+    {
+      path: '/login-logs',
+      name: 'LoginLogs',
+      component: () => import('../views/LoginLogsView.vue')
+    },
+    {
+      path: '/api-logs',
+      name: 'ApiLogs',
+      component: () => import('../views/ApiLogsView.vue')
+    },
+    {
+      path: '/team-board',
+      name: 'TeamBoard',
+      component: () => import('../views/TeamBoardView.vue')
+    },
+    {
+      path: '/request-approve',
+      name: 'RequestApprove',
+      component: () => import('../views/RequestApproveView.vue')
+    },
+    {
+      path: '/user-registration',
+      name: 'UserRegistration',
+      component: () => import('../views/UserRegistrationView.vue')
+    },
+    {
+      path: '/user-update',
+      name: 'UserUpdate',
+      component: () => import('../views/UserUpdateView.vue')
+    },
+    {
+      path: '/statistics',
+      name: 'Statistics',
+      component: () => import('../views/StatisticsView.vue')
     }
   ]
 })

@@ -8,7 +8,7 @@
       :is-text-xs="tab.isTextXs"
       :profile-img="tab.profileImg"
       :is-status="tab.isStatus" />
-    <div class="w-[120px] flex gap-2 justify-center">
+    <div class="w-[120px] flex gap-2 justify-center items-center shrink-0">
       <button
         @click="router.push(`/assign/${info.taskId}`)"
         class="button-medium-primary">

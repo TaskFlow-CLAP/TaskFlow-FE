@@ -2,13 +2,17 @@
   <div>
     <div class="flex text-xs gap-x-1 mb-2">
       <p class="text-body font-bold">{{ labelName }}</p>
-      <p class="text-red-1">*</p>
+      <p
+        v-if="!isLabel"
+        class="text-red-1">
+        *
+      </p>
     </div>
     <div class="relative flex text-base">
       <div
         class="flex w-full h-11 items-center rounded p-4 bg-white border border-border-1 cursor-pointer"
         @click="toggleDropdown">
-        <p :class="{ 'text-body': modelValue === placeholderText }">
+        <p :class="{ 'text-disabled': modelValue === placeholderText }">
           {{ modelValue || placeholderText }}
         </p>
         <CommonIcons
@@ -36,7 +40,8 @@ import type { RequestTaskDropdownProps } from '@/types/user'
 import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { placeholderText, options, labelName, modelValue } = defineProps<RequestTaskDropdownProps>()
+const { placeholderText, options, labelName, modelValue, isLabel } =
+  defineProps<RequestTaskDropdownProps>()
 const emit = defineEmits(['update:modelValue'])
 const dropdownOpen = ref(false)
 
