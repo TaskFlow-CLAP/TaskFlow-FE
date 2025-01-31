@@ -2,53 +2,57 @@
   <div
     class="fixed inset-0 bg-black bg-opacity-15 flex items-center z-50"
     @click.self="$emit('close')">
-    <div class="flex flex-col relative w-80 bg-white h-screen shadow-lg shadow-black">
-      <div class="flex justify-between items-center my-3 h-[48px] px-6">
-        <div>
-          <CommonIcons :name="hamburgerIcon" />
-        </div>
-        <div>
+    <div class="flex flex-col relative w-80 bg-white h-screen shadow-custom py-2">
+      <div class="flex flex-col gap-12 flex-1 overflow-hidden">
+        <div class="flex justify-between items-center px-6">
+          <CommonIcons
+            @click="$emit('close')"
+            class="cursor-pointer"
+            :name="hamburgerIcon" />
           <img src="/MainLogo.svg" />
         </div>
-      </div>
-      <div class="flex-1 min-h-0 overflow-y-auto">
-        <div
-          v-for="menuGroup in filteredMenu"
-          :key="menuGroup.groupId">
+        <div class="flex-1 overflow-y-auto flex flex-col gap-6">
           <div
-            v-for="menuItem in menuGroup.items"
-            :key="menuItem.menuId"
-            class="flex">
-            <div :class="['px-1', { 'bg-primary1': menuItem.link === route.path }]" />
-            <RouterLink
-              v-if="menuItem.link"
-              :to="menuItem.link"
-              :class="['flex py-4 px-6 text-black', { 'font-bold': menuItem.link === route.path }]">
-              {{ menuItem.content }}
-            </RouterLink>
-            <span
-              v-else
-              class="text-xs text-disabled font-bold px-6 pt-8 pb-2">
-              {{ menuItem.content }}
+            v-for="menuGroup in filteredMenu"
+            :key="menuGroup.groupId">
+            <span class="flex text-xs text-disabled font-bold px-6 py-2">
+              {{ menuGroup.groupTitle }}
             </span>
+            <div
+              v-for="menuItem in menuGroup.items"
+              :key="menuItem.menuId">
+              <RouterLink
+                :to="menuItem.link"
+                class="flex items-center text-black w-full h-[52px] hover:bg-background-2"
+                :class="
+                  menuItem.link === route.path
+                    ? 'px-4 border-l-8 border-primary1 font-bold'
+                    : 'px-6'
+                "
+                @click="$emit('close')">
+                {{ menuItem.content }}
+              </RouterLink>
+            </div>
           </div>
         </div>
       </div>
-      <div class="flex w-full px-6 bg-white py-6">
-        <div class="flex items-center max-w-[140px]">
+
+      <div class="flex w-full justify-between px-6 py-4 bg-white">
+        <div class="flex w-full items-center gap-3">
           <!-- 프로필 사진 API 필요 -->
-          <div class="w-[40px] h-[40px] rounded-full bg-zinc-100" />
-          <div class="px-3">
+          <div class="w-10 h-10 rounded-full bg-background-1" />
+          <div class="flex flex-col gap-1">
             <p class="text-xs text-body font-bold">{{ name }}</p>
             <p class="text-sm text-black">{{ nickname }}</p>
           </div>
         </div>
-        <div class="flex items-end justify-end w-full">
+        <div class="flex items-end whitespace-nowrap">
           <RouterLink
             to="/edit-information"
             class="text-primary1 text-sm font-bold"
-            >내 정보 수정</RouterLink
-          >
+            @click="$emit('close')">
+            내 정보 수정
+          </RouterLink>
         </div>
       </div>
     </div>
@@ -65,7 +69,7 @@ import { SIDE_USER_MENU, SIDE_MANAGER_MENU, SIDE_ADMIN_MENU } from '@/constants/
 const route = useRoute()
 
 // 회원 역할, 닉네임 필요
-const role = ref('manager')
+const role = ref('admin')
 const name = ref('백지연')
 const nickname = ref('Chloe.yeon')
 
@@ -77,5 +81,3 @@ const filteredMenu = computed(() => {
       : SIDE_ADMIN_MENU
 })
 </script>
-
-<style scoped></style>

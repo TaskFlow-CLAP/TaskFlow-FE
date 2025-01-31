@@ -17,7 +17,7 @@
               v-if="type == 'warningType'"
               :name="warningIcon" />
 
-            <div class="flex text-2xl font-bold justify-center">
+            <div class="flex text-2xl font-bold justify-center text-black">
               <slot name="header"></slot>
             </div>
 
@@ -32,7 +32,7 @@
             v-if="type == 'inputType'"
             v-model="textValue"
             placeholder="거부 사유를 입력해주세요"
-            class="flex border w-full border-zinc-300 px-4 py-3 focus:outline-none resize-none h-[120px]" />
+            class="flex border w-full border-border-1 px-4 py-3 focus:outline-none resize-none h-[120px]" />
         </div>
 
         <button

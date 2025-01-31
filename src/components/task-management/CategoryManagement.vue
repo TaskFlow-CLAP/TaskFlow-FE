@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full min-h-[480px] border border-border-1 rounded-lg">
+  <div class="flex flex-col w-full min-h-[480px] border border-border-1 rounded-lg bg-background-1">
     <div class="flex w-full">
       <div class="task-management-title rounded-tl-lg">
         <p>고유코드</p>
@@ -17,7 +17,7 @@
       <CategoryLineSub :categories="mockCategoryAllData.categories" />
     </div>
     <div
-      class="text-xs text-disabled font-bold gap-1 category-management-line justify-center cursor-pointer"
+      class="text-xs text-disabled font-bold gap-1 category-management-line justify-center cursor-pointer bg-white"
       @click="MovetoAddCategory">
       <CommonIcons :name="plusIcon" />
       <p>새 1차 카테고리 추가</p>
@@ -39,6 +39,6 @@ import CategoryLineSub from './CategoryLineSub.vue'
 const router = useRouter()
 
 const MovetoAddCategory = () => {
-  router.push({ name: 'AddCategory' })
+  router.push('/category-first')
 }
 </script>

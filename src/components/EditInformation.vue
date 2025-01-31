@@ -24,25 +24,25 @@
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">이름</p>
       <input
-        class="input-box h-11 mt-2"
+        class="input-box h-11 mt-2 text-black"
         placeholder="이름을 입력해주세요"
         v-model="memberName" />
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">아이디</p>
-      <p class="mt-">{{ memberId }}</p>
+      <p class="mt-2 text-black">{{ memberId }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">이메일</p>
-      <p class="mt-2">{{ memberEmail }}</p>
+      <p class="mt-2 text-black">{{ memberEmail }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">부서</p>
-      <p class="mt-2">{{ memberDepartment }}</p>
+      <p class="mt-2 text-black">{{ memberDepartment }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">직무</p>
-      <p class="mt-2">{{ memberJob }}</p>
+      <p class="mt-2 text-black">{{ memberJob }}</p>
     </div>
     <div>
       <p class="text-body text-xs font-bold">알림 수신 여부</p>
@@ -101,7 +101,7 @@ const memberForm = ref({
 })
 
 const handleCancel = () => {
-  isModalVisible.value = false
+  router.back()
 }
 
 const handleSubmit = () => {

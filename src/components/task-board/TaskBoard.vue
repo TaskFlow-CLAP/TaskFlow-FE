@@ -1,6 +1,6 @@
 <template>
   <div class="flex-1 overflow-y-auto">
-    <div class="w-full flex gap-12 sticky top-0 bg-white z-40">
+    <div class="w-full flex gap-12 sticky top-0 bg-white z-30">
       <div class="flex flex-1 bg-primary2 rounded-t-lg">
         <span class="text-xs font-bold text-body p-4">
           진행 중 {{ cardList.tasksInProgress.length }}

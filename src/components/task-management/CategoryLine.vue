@@ -7,7 +7,7 @@
       <div
         v-for="(sub, index) in main.subCategory.length + 1"
         :key="sub"
-        class="category-management-line w-full justify-between">
+        class="category-management-line w-full justify-between bg-white">
         <template v-if="index === 0">
           <div
             v-if="index === 0"

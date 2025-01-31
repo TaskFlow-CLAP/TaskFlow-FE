@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[552px] flex flex-col gap-y-6">
+  <div class="w-full flex flex-col gap-y-6">
     <ModalView
       :isOpen="isModalVisible"
       :type="'successType'"
@@ -52,15 +52,18 @@ import { ref } from 'vue'
 import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
-import FormButtonContainer from '../common/FormButtonContainer.vue'
+import { useRouter } from 'vue-router'
 import FormCheckbox from '../common/FormCheckbox.vue'
+import FormButtonContainer from '../common/FormButtonContainer.vue'
 
 const isModalVisible = ref(false)
 const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
 
+const router = useRouter()
 const handleCancel = () => {
   userRegistrationForm.value = { ...INITIAL_USER_REGISTRATION }
   isModalVisible.value = false
+  router.back()
 }
 
 const handleSubmit = () => {

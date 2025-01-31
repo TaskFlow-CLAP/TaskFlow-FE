@@ -8,7 +8,7 @@
       <div
         class="request-task-dropdown"
         @click="toggleDropdown">
-        <p :class="{ 'text-body': modelValue === placeholderText }">
+        <p :class="{ 'text-disabled': modelValue === placeholderText }">
           {{ modelValue || placeholderText }}
         </p>
         <CommonIcons

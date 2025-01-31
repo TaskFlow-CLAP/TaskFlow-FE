@@ -1,14 +1,12 @@
 <template>
   <div class="form-view-container">
-    <div class="form-view-title">
-      <h1 class="text-2xl font-bold">1차 카테고리 생성</h1>
-    </div>
+    <TitleBar title="1차 카테고리 생성" />
     <CategoryAdd categoryStep="1" />
   </div>
-  <div class="w-full bg-body"></div>
 </template>
 
 <script setup lang="ts">
+import TitleBar from '@/components/TitleBar.vue'
 import CategoryAdd from '../components/task-management/CategoryAdd.vue'
 </script>
 

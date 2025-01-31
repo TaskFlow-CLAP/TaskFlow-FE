@@ -4,7 +4,7 @@
       v-for="division in divisionData"
       :key="division.divisionId"
       class="flex w-full flex-col">
-      <div class="category-management-line justify-between">
+      <div class="category-management-line justify-between bg-white">
         <div class="flex gap-7 items-center pl-3 relative">
           <div
             :style="{

@@ -37,6 +37,6 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const createNewMember = () => {
-  router.push('/new-member')
+  router.push('/user-registration')
 }
 </script>

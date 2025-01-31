@@ -1,14 +1,14 @@
 <template>
   <div class="form-view-container">
-    <div class="form-view-title">
-      <h1 class="text-2xl font-bold">내 정보 수정</h1>
-    </div>
+    <TitleBar title="내 정보 수정" />
+
     <EditInformation />
   </div>
   <div class="w-full bg-body"></div>
 </template>
 
 <script setup lang="ts">
+import TitleBar from '@/components/TitleBar.vue'
 import EditInformation from '../components/EditInformation.vue'
 </script>
 

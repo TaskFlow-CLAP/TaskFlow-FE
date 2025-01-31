@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[552px] flex flex-col gap-y-6">
+  <div class="w-full flex flex-col gap-y-6">
     <ModalView
       :isOpen="isModalVisible"
       :type="'successType'"
@@ -58,14 +58,17 @@ import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import DueDateInput from './DueDateInput.vue'
 import ProcessorDropdown from './ProcessorDropdown.vue'
+import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 
 const isModalVisible = ref(false)
 const approveForm = ref(INITIAL_REQUEST_APPROVE_FORM)
 
+const router = useRouter()
 const handleCancel = () => {
   approveForm.value = { ...INITIAL_REQUEST_APPROVE_FORM }
   isModalVisible.value = false
+  router.back()
 }
 
 const handleSubmit = () => {
