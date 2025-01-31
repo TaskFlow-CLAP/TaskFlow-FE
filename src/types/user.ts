@@ -46,26 +46,6 @@ export interface AttachmentResponse {
   fileSize: string
   fileName: string
 }
-
-export interface TaskDetailRightProps {
-  taskId: string
-  requestedAt: string
-  finishedAt: string
-  taskStatus: string
-  requesterNickName: string
-  requesterImageUrl: string
-  processorNickName: string
-  processorImageUrl: string
-}
-
-export interface TaskDetailLeftProps {
-  mainCategoryName: string
-  categoryName: string
-  title: string
-  description: string
-  attachmentResponse: AttachmentResponse[]
-}
-
 export interface TaskDetailDatas {
   taskId: number
   taskCode: string
