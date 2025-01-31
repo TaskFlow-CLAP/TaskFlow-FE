@@ -50,7 +50,7 @@
                 ? 'text-disabled w-[21px]'
                 : 'text-red-1 w-[21px]'
             ">
-            {{ isEdit&& editValue.divisionId === division.divisionId ? '취소' : '삭제' }}
+            {{ isEdit && editValue.divisionId === division.divisionId ? '취소' : '삭제' }}
           </button>
         </div>
       </div>
