@@ -1,5 +1,6 @@
 <template>
-  <div class="flex flex-col w-full min-h-[240px] overflow-y-auto border border-border-1 rounded-lg">
+  <div
+    class="flex flex-col w-full min-h-[240px] overflow-y-auto border border-border-1 rounded-lg bg-background-1">
     <div class="flex w-full">
       <div class="task-management-title rounded-tl-lg">
         <p>색상</p>
@@ -11,14 +12,14 @@
     </div>
     <div
       v-if="!isAdd"
-      class="text-xs text-disabled gap-1 category-management-line justify-center cursor-pointer"
+      class="text-xs text-disabled gap-1 category-management-line justify-center cursor-pointer bg-white"
       @click="isAdd = true">
       <CommonIcons :name="plusIcon" />
       <p>새 구분 추가</p>
     </div>
     <div
       v-else
-      class="category-management-line justify-between">
+      class="category-management-line justify-between bg-white">
       <div class="flex w-full gap-7 items-center pl-3 relative">
         <div
           :style="{
