@@ -4,15 +4,15 @@
       :isOpen="isAddModalVisible"
       :type="'successType'"
       @close="handleAddModal">
-      <template #header> 카테고리가 등록되었습니다 </template>
+      <template #header>카테고리가 등록되었습니다</template>
     </ModalView>
     <ModalView
       :isOpen="isCancelModalVisible"
       :type="'warningType'"
       @close="handleCancelModal"
       @click="handleGoBack">
-      <template #header> 생성을 취소 하시겠습니까? </template>
-      <template #body> 작성하신 내용은 사라집니다 </template>
+      <template #header>생성을 취소 하시겠습니까?</template>
+      <template #body>작성하신 내용은 사라집니다</template>
     </ModalView>
     <!-- 카테고리 목록 API 필요, 임시로 역할로 설정 -->
     <RequestTaskDropdown
