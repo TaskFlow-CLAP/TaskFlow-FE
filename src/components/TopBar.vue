@@ -15,7 +15,7 @@
       <div
         v-show="isLogined"
         class="w-[10%] h-full flex items-center gap-6">
-        <CommonIcons :name="notifiacationIcon" />
+        <CommonIcons :name="notificationIcon" />
         <!-- 프로필 사진 API 필요 -->
         <div class="rounded-[50%] bg-zinc-100 p-5" />
       </div>
@@ -30,7 +30,7 @@
 import { ref } from 'vue'
 import CommonIcons from './common/CommonIcons.vue'
 import SideBar from './SideBar.vue'
-import { hamburgerIcon, notifiacationIcon } from '../constants/iconPath'
+import { hamburgerIcon, notificationIcon } from '../constants/iconPath'
 
 // 로그인 정보 필요
 const isSideOpen = ref(false)
