@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-md mx-auto p-10">
+  <div class="max-w-400">
     <div class="py-16">
       <div class="text-4xl font-bold text-center">
         <p class="pb-2">비밀번호</p>
