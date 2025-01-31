@@ -2,8 +2,8 @@
   <div
     class="fixed inset-0 bg-black bg-opacity-15 flex items-center z-50"
     @click.self="$emit('close')">
-    <div class="w-80 bg-white h-screen shadow-lg shadow-black">
-      <div class="flex justify-center items-center gap-28 py-3 h-[10%]">
+    <div class="flex flex-col relative w-80 bg-white h-screen shadow-lg shadow-black">
+      <div class="flex justify-between items-center my-3 h-[48px] px-6">
         <div>
           <CommonIcons :name="hamburgerIcon" />
         </div>
@@ -11,7 +11,7 @@
           <img src="/MainLogo.svg" />
         </div>
       </div>
-      <div class="h-[80%]">
+      <div class="flex-1 min-h-0 overflow-y-auto">
         <div
           v-for="menuGroup in filteredMenu"
           :key="menuGroup.groupId">
@@ -23,33 +23,30 @@
             <RouterLink
               v-if="menuItem.link"
               :to="menuItem.link"
-              :class="[
-                'flex py-4 px-6 text-zinc-900',
-                { 'font-bold': menuItem.link === route.path }
-              ]">
+              :class="['flex py-4 px-6 text-black', { 'font-bold': menuItem.link === route.path }]">
               {{ menuItem.content }}
             </RouterLink>
             <span
               v-else
-              class="text-xs text-zinc-400 font-bold px-6 pt-8 pb-2">
+              class="text-xs text-disabled font-bold px-6 pt-8 pb-2">
               {{ menuItem.content }}
             </span>
           </div>
         </div>
       </div>
-      <div class="flex w-full h-[10%] py-4 px-6">
+      <div class="flex w-full px-6 bg-white py-6">
         <div class="flex items-center max-w-[140px]">
           <!-- 프로필 사진 API 필요 -->
           <div class="w-[40px] h-[40px] rounded-full bg-zinc-100" />
           <div class="px-3">
-            <p class="text-xs">{{ name }}</p>
-            <p class="text-sm">{{ nickname }}</p>
+            <p class="text-xs text-body font-bold">{{ name }}</p>
+            <p class="text-sm text-black">{{ nickname }}</p>
           </div>
         </div>
-        <div class="flex items-end justify-end w-full py-1">
+        <div class="flex items-end justify-end w-full">
           <RouterLink
             to="/"
-            class="text-primary1 text-sm"
+            class="text-primary1 text-sm font-bold"
             >내 정보 수정</RouterLink
           >
         </div>
