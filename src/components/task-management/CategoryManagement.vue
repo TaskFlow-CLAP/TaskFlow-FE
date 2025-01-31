@@ -39,6 +39,6 @@ import CategoryLineSub from './CategoryLineSub.vue'
 const router = useRouter()
 
 const MovetoAddCategory = () => {
-  router.push({ name: 'AddCategory' })
+  router.push('/category-first')
 }
 </script>

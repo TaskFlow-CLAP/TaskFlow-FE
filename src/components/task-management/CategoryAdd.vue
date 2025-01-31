@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[552px] flex flex-col gap-y-6">
+  <div class="w-full flex flex-col gap-y-6">
     <ModalView
       :isOpen="isAddModalVisible"
       :type="'successType'"
@@ -24,7 +24,7 @@
     <RequestTaskInput
       v-model="categoryForm.name"
       :placeholderText="'카테고리명을 입력해주세요'"
-      :labelName="'1차 카테고리명'" />
+      :labelName="`${props.categoryStep}차 카테고리명`" />
     <RequestTaskInput
       v-model="categoryForm.code"
       :placeholderText="'카테고리의 고유코드를 입력해주세요'"
@@ -60,6 +60,7 @@ const categoryForm = ref(props.categoryStep == '1' ? CATEGORY_FIRST_ADD : CATEGO
 
 const handleAddModal = () => {
   isAddModalVisible.value = false
+  handleGoBack()
 }
 const handleCancelModal = () => {
   isCancelModalVisible.value = !isCancelModalVisible.value

@@ -66,6 +66,6 @@ const handleDelete = () => {
 }
 
 const MovetoAddSubCategory = () => {
-  router.push({ name: 'AddSubCategory' })
+  router.push('/category-second')
 }
 </script>
