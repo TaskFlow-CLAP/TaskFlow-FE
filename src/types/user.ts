@@ -121,3 +121,22 @@ export interface TaskDetailLabelDropdownProps {
   options: LabelDataTypes[]
   modelValue: string
 }
+
+export interface TaskHistoryDatas {
+  taskId: number
+  taskCode: string
+  requestedAt: string
+  finishedAt: string
+  taskStatus: Status
+  requesterNickName: string
+  requesterImageUrl: string
+  processorNickName: string
+  processorImageUrl: string
+  mainCategoryName: string
+  categoryName: string
+  title: string
+  description: string
+  attachmentResponse: AttachmentResponse[]
+  dueDate?: string
+  labelName?: string
+}
