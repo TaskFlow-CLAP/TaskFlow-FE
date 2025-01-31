@@ -87,6 +87,11 @@ const router = createRouter({
       path: '/user-update',
       name: 'UserUpdate',
       component: () => import('../views/UserUpdateView.vue')
+    },
+    {
+      path: '/statistics',
+      name: 'Statistics',
+      component: () => import('../views/StatisticsView.vue')
     }
   ]
 })
