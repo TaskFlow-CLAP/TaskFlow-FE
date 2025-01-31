@@ -5,7 +5,6 @@
     </div>
     <RequestApprove />
   </div>
-  <div class="w-full bg-body"></div>
 </template>
 
 <script setup lang="ts">

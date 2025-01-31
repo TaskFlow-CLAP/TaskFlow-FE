@@ -65,3 +65,9 @@ export interface FormCheckboxProps {
   checkButtonName: string
   isChecked: boolean
 }
+
+export interface ColorSelectProps {
+  devisionId: number
+  selectedDivisionId: number | null
+  isOpen: boolean
+}

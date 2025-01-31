@@ -101,6 +101,11 @@ const router = createRouter({
       path: '/edit-information',
       name: 'EditInformation',
       component: () => import('../views/EditInformationView.vue')
+    },
+    {
+      path: '/task-management',
+      name: 'TaskManagement',
+      component: () => import('../views/TaskManagementView.vue')
     }
   ]
 })
