@@ -24,7 +24,7 @@
       <div class="mb-8">
         <button
           type="submit"
-          class="button-large-">
+          class="button-large-primary">
           확인
         </button>
       </div>
