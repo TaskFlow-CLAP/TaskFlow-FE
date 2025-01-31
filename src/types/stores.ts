@@ -39,3 +39,13 @@ export interface TeamBoardParams {
   mainCategoryId: number[]
   categoryId: number[]
 }
+
+export interface TaskBoardParams {
+  division: string | ''
+  mainCategoryId: number[]
+  categoryId: number[]
+  title: string
+  nickName: string
+  pageSize: number
+  page: number
+}
