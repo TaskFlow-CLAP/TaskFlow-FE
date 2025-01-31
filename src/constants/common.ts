@@ -25,3 +25,14 @@ export const ROLE_LIST = [
   { value: 'manager', content: '담당자' },
   { value: 'admin', content: '관리자' }
 ]
+
+export const COLOR_LIST = [
+  { borderColor: '#DC2626', fillColor: '#FEF2F2' },
+  { borderColor: '#FB923C', fillColor: '#FFF7ED' },
+  { borderColor: '#FACC15', fillColor: '#FEFCE8' },
+  { borderColor: '#22C55E', fillColor: '#F0FDF4' },
+  { borderColor: '#3B82F6', fillColor: '#EFF6FF' },
+  { borderColor: '#6366F1', fillColor: '#EEF2FF' },
+  { borderColor: '#8B5CF6', fillColor: '#F5F3FF' },
+  { borderColor: '#A1A1AA', fillColor: '#F4F4F5' }
+]
