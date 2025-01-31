@@ -67,3 +67,19 @@ export interface TeamBoardCardProps {
 }
 
 export type PeriodType = 'DAY' | 'WEEK' | 'MONTH'
+
+export interface DraggableEvent {
+  added?: {
+    element: TaskCardProps
+    newIndex: number
+  }
+  removed?: {
+    element: TaskCardProps
+    oldIndex: number
+  }
+  moved?: {
+    element: TaskCardProps
+    oldIndex: number
+    newIndex: number
+  }
+}

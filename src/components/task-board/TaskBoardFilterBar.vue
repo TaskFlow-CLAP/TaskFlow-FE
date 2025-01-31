@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-4 z-50">
+  <div class="flex gap-4 z-40">
     <FilterDropdown
       title="구분"
       :option-list="DUMMY_DIVISION_LIST"
