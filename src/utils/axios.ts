@@ -11,6 +11,7 @@ const setInterceptors = (instance: AxiosInstance) => {
         if (token) {
           config.headers.Authorization = `Bearer ${token}`
         }
+        console.log(token, '으로 요청 중')
       }
       return config
     },
