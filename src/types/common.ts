@@ -79,16 +79,23 @@ export interface LabelDataTypes {
   labelColor: string
 }
 
-export interface CategoryForm {
+export interface MainCategoryTypes {
+  id: number
   name: string
   code: string
-  mainCategoryId?: number
+}
+
+export interface SubCategoryTypes {
+  id: number
+  mainCategoryId: number
+  name: string
+  code: string
 }
 
 export interface CategoryDropdownProps {
-  options: CategoryForm
+  placeholderText: string
+  options: MainCategoryTypes[] | SubCategoryTypes[]
   labelName: string
-  modelValue?: CategoryForm
+  modelValue: string
   isLabel?: boolean
-  isDisabled?: boolean
 }
