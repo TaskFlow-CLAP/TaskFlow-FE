@@ -6,7 +6,7 @@
       :content="tab.content"
       :width="tab.width"
       :sortBy="tab.sortBy"
-      :current-order-request="params.orderRequest"
+      :current-order-request="orderRequest"
       :justify-center="tab.justifyCenter"
       @toggle-sort-by="toggleSortBy" />
   </div>
@@ -16,10 +16,15 @@
 import { MEMBER_MANAGEMENT_LIST_BAR_TAB } from '@/constants/admin'
 import ListBarTab from '../lists/ListBarTab.vue'
 import { useMemberManagementParamsStore } from '@/stores/params'
+import { computed } from 'vue'
 
 const { params } = useMemberManagementParamsStore()
+const orderRequest = computed(() => ({
+  sortBy: params.sortBy,
+  sortDirection: params.sortDirection
+}))
 
 const toggleSortBy = () => {
-  params.orderRequest.sortDirection = params.orderRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
+  params.sortDirection = params.sortDirection === 'DESC' ? 'ASC' : 'DESC'
 }
 </script>

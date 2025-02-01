@@ -19,7 +19,8 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
       title: '',
       nickName: '',
       taskStatus: [],
-      orderRequest: { sortBy: 'REQUESTED', sortDirection: 'DESC' }
+      sortBy: 'REQUESTED',
+      sortDirection: 'DESC'
     }
   })
 
@@ -33,7 +34,8 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
       title: '',
       nickName: '',
       taskStatus: [],
-      orderRequest: { sortBy: 'REQUESTED', sortDirection: 'DESC' }
+      sortBy: 'REQUESTED',
+      sortDirection: 'DESC'
     }
   }
 
@@ -49,7 +51,8 @@ export const useMemberManagementParamsStore = defineStore('userManagementParams'
     role: '',
     pageSize: 20,
     page: 1,
-    orderRequest: { sortBy: 'REGISTERED', sortDirection: 'DESC' }
+    sortBy: 'REGISTERED',
+    sortDirection: 'DESC'
   })
 
   return { params }
@@ -63,7 +66,8 @@ export const useLogsParamsStore = defineStore('logsParams', () => {
     ipAddress: '',
     pageSize: 20,
     page: 1,
-    orderRequest: { sortBy: 'CREATED', sortDirection: 'DESC' }
+    sortBy: 'CREATED',
+    sortDirection: 'DESC'
   })
 
   const $reset = () => {
@@ -73,7 +77,8 @@ export const useLogsParamsStore = defineStore('logsParams', () => {
     params.value.ipAddress = ''
     params.value.pageSize = 20
     params.value.page = 1
-    params.value.orderRequest = { sortBy: 'CREATED', sortDirection: 'DESC' }
+    params.value.sortBy = 'CREATED'
+    params.value.sortDirection = 'DESC'
   }
 
   return { params, $reset }
