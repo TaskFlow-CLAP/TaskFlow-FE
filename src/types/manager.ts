@@ -140,13 +140,3 @@ export interface RequestHistoryResponse {
   isFirst: boolean
   isLast: boolean
 }
-
-export interface MyTaskResponse {
-  content: MyTaskListData[]
-  totalElements: number
-  totalPages: number
-  pageNumber: number
-  pageSize: number
-  isFirst: boolean
-  isLast: boolean
-}
