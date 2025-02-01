@@ -37,12 +37,17 @@ const onPageChange = (value: number) => {
 }
 
 const fetchRequestList = async () => {
-  const response = await axiosInstance.get('/api/tasks/requests', { params })
+  const response = await axiosInstance.get('/api/tasks/requests', {
+    headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
+    },
+    params
+  })
   return response.data
 }
 
 const { data } = useQuery({
-  queryKey: ['myRequest'],
+  queryKey: ['myRequest', params],
   queryFn: fetchRequestList
 })
 
