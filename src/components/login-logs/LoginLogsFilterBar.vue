@@ -7,7 +7,7 @@
       @update:value="onParamsChange.onTermChange" />
     <FilterDropdownMulti
       title="구분"
-      :option-list="LOGIN_LOGS_DIVISION_LIST"
+      :option-list="API_LOGS_DIVISION_LIST"
       :value="store.params.logStatus"
       @update:value="onParamsChange.onLogStatusChange" />
     <FilterInput
@@ -29,10 +29,10 @@ import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterInput from '../filters/FilterInput.vue'
 import { useLogsParamsStore } from '@/stores/params'
 import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
-import { LOGIN_LOGS_DIVISION_LIST } from '@/constants/admin'
 import { useLogsParamsChange } from '../hooks/useLogsParamsChange'
 import FilterIpAddress from '../filters/FilterIpAddress.vue'
 import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
+import { API_LOGS_DIVISION_LIST } from '@/constants/admin'
 
 const store = useLogsParamsStore()
 store.$reset()

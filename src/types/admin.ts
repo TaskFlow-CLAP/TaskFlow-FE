@@ -26,7 +26,7 @@ export interface LoginLogsListData {
 export interface ApiLogsListData {
   logId: number
   logStatus: string
-  requestedAt: string
+  requestAt: string
   nickName: string
   clientIp: string
   statusCode: number
