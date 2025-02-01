@@ -6,7 +6,7 @@
 
     <template #listCards>
       <MyRequestListCard
-        v-for="info in DUMMY_MY_REQUEST_LIST_DATA"
+        v-for="info in data?.content"
         :key="info.taskId"
         :info="info" />
     </template>
@@ -25,10 +25,10 @@ import MyRequestListBar from './MyRequestListBar.vue'
 import MyRequestListCard from './MyRequestListCard.vue'
 import ListPagination from '../lists/ListPagination.vue'
 import ListContainer from '../lists/ListContainer.vue'
-import { DUMMY_MY_REQUEST_LIST_DATA } from '@/datas/dummy'
 import { useRequestParamsStore } from '@/stores/params'
 import axiosInstance from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
+import { useParseParams } from '../hooks/useParseParams'
 
 const { params } = useRequestParamsStore()
 const DUMMY_TOTAL_PAGE = 18
@@ -37,16 +37,13 @@ const onPageChange = (value: number) => {
 }
 
 const fetchRequestList = async () => {
+  const { parseRequestParams } = useParseParams()
+  const parsedParams = parseRequestParams(params)
   const response = await axiosInstance.get('/api/tasks/requests', {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
     },
-    params: {
-      ...params,
-      mainCategoryIds: params.mainCategoryIds.join(','),
-      categoryIds: params.categoryIds.join(','),
-      taskStatus: params.taskStatus?.join(',')
-    }
+    params: parsedParams
   })
   return response.data
 }
@@ -55,8 +52,4 @@ const { data } = useQuery({
   queryKey: ['myRequest', params],
   queryFn: fetchRequestList
 })
-
-console.log(data.value)
-
-console.log(data.value)
 </script>
