@@ -4,13 +4,13 @@
       v-model="category1"
       :options="mainCategoryArr"
       :label-name="'1차 카테고리'"
-      :isInvalidate="isInvalidate"
+      :placeholderText="'1차 카테고리를 선택해주세요'"
       :isDisabled="false" />
     <CategoryDropDown
       v-model="category2"
       :options="afterSubCategoryArr"
       :label-name="'2차 카테고리'"
-      :is-invalidate="isInvalidate"
+      :placeholderText="'2차 카테고리를 선택해주세요'"
       :isDisabled="!category1" />
     <RequestTaskInput
       v-model="title"
@@ -36,13 +36,13 @@
 </template>
 
 <script lang="ts" setup>
+import { getMainCategory, getSubCategory } from '@/api/common'
 import { postTaskRequest } from '@/api/user'
 import { EXPLANATION_PLACEHOLDER, TITLE_PLACEHOLDER } from '@/constants/user'
-import { DUMMY_REQUEST_TASK_CATEGORIES } from '@/datas/taskdetail'
-import { ref } from 'vue'
+import type { MainCategoryTypes, SubCategoryTypes } from '@/types/common'
+import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
-import ModalView from '../ModalView.vue'
 import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
@@ -56,6 +56,23 @@ const description = ref('')
 const file = ref(null as File[] | null)
 const isInvalidate = ref('')
 const isModalVisible = ref(false)
+
+const mainCategoryArr = ref<MainCategoryTypes[]>([])
+const subCategoryArr = ref<SubCategoryTypes[]>([])
+const afterSubCategoryArr = ref<SubCategoryTypes[]>([])
+
+onMounted(async () => {
+  mainCategoryArr.value = await getMainCategory()
+  subCategoryArr.value = await getSubCategory()
+  afterSubCategoryArr.value = await getSubCategory()
+})
+
+watch(category1, async newValue => {
+  category2.value = null
+  afterSubCategoryArr.value = subCategoryArr.value.filter(
+    subCategory => subCategory.mainCategoryId === newValue?.id
+  )
+})
 
 const mainCategoryArr = ref<MainCategoryTypes[]>([])
 const subCategoryArr = ref<SubCategoryTypes[]>([])
@@ -88,7 +105,7 @@ const handleCancel = () => {
 const handleSubmit = async () => {
   const formData = new FormData()
   const taskInfo = {
-    categoryId: 1,
+    categoryId: category2.value?.id,
     title: title.value,
     description: description.value
   }
@@ -97,15 +114,15 @@ const handleSubmit = async () => {
   const newBlob = new Blob([jsonTaskInfo], { type: 'application/json' })
 
   formData.append('taskInfo', newBlob)
+
   if (file.value && file.value.length > 0) {
     file.value.forEach(f => {
       formData.append('attachment', f)
     })
   }
-  console.log(Object.fromEntries(formData), '응답')
-  console.log(file.value, '파일 현황 응답')
   try {
     const res = await postTaskRequest(formData)
+    console.error('요청 성공:', res)
   } catch (error) {
     console.error('요청 실패:', error)
   }
