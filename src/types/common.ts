@@ -98,5 +98,4 @@ export interface CategoryDropdownProps {
   modelValue: MainCategoryTypes | SubCategoryTypes | null
   isLabel?: boolean
   isDisabled?: boolean
-  isInvalidate?: string
 }
