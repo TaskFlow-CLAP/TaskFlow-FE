@@ -39,7 +39,7 @@ const onPageChange = (value: number) => {
   params.page = value
 }
 
-const fetchRequestList = async () => {
+const fetchMyRequestList = async () => {
   const { parseRequestParams } = useParseParams()
   const parsedParams = parseRequestParams(params)
   const response = await axiosInstance.get('/api/tasks/requests', {
@@ -53,7 +53,7 @@ const fetchRequestList = async () => {
 
 const { data } = useQuery<MyRequestResponse>({
   queryKey: ['myRequest', params],
-  queryFn: fetchRequestList
+  queryFn: fetchMyRequestList
 })
 
 watch(
