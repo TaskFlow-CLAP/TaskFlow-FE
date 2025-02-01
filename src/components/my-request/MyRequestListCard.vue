@@ -15,16 +15,17 @@
 import type { ListCardProps } from '@/types/common'
 import ListCardTab from '../lists/ListCardTab.vue'
 import type { MyRequestListData } from '@/types/user'
+import { formatDate } from '@/utils/date'
 
 const { info } = defineProps<{ info: MyRequestListData }>()
 const myRequestTabList: ListCardProps[] = [
   { content: info.taskCode, width: 120, isTextXs: true },
-  { content: info.requestedAt, width: 80 },
+  { content: formatDate(info.requestedAt), width: 80 },
   { content: info.mainCategoryName, width: 80 },
   { content: info.categoryName, width: 80 },
   { content: info.title },
   { content: info.processorName, width: 120, profileImg: info.processorImg },
   { content: info.taskStatus, width: 64, isStatus: true },
-  { content: info.finishedAt, width: 80 }
+  { content: info.finishedAt ? formatDate(info.finishedAt) : '', width: 80 }
 ]
 </script>

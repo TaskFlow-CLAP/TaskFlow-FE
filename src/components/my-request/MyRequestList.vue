@@ -9,12 +9,13 @@
         v-for="info in data?.content"
         :key="info.taskId"
         :info="info" />
+      <NoContent v-if="data?.content.length === 0" />
     </template>
 
     <template #pagination>
       <ListPagination
-        :page-number="params.page"
-        :total-page="data?.totalPages || 0"
+        :page-number="params.page + 1"
+        :total-page="totalPage"
         @update:page-number="onPageChange" />
     </template>
   </ListContainer>
@@ -30,6 +31,8 @@ import axiosInstance from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import { useParseParams } from '../hooks/useParseParams'
 import type { MyRequestResponse } from '@/types/user'
+import { ref, watch } from 'vue'
+import NoContent from '../lists/NoContent.vue'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
@@ -43,7 +46,7 @@ const fetchRequestList = async () => {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
     },
-    params: parsedParams
+    params: { ...parsedParams, pageSize: 1 }
   })
   return response.data
 }
@@ -52,4 +55,13 @@ const { data } = useQuery<MyRequestResponse>({
   queryKey: ['myRequest', params],
   queryFn: fetchRequestList
 })
+
+watch(
+  data,
+  () => {
+    if (data.value?.totalPages) totalPage.value = data.value.totalPages
+  },
+  { once: true }
+)
+const totalPage = ref(0)
 </script>
