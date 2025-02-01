@@ -7,18 +7,13 @@
         class="text-red-1">
         *
       </p>
-      <p
-        v-if="isInvalidateState === 'category'"
-        class="text-red-1">
-        카테고리를 선택해주세요
-      </p>
     </div>
     <div class="relative flex text-base">
       <div
         class="flex w-full h-11 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-black"
         @click="toggleDropdown">
         <p :class="{ 'text-disabled': !modelValue?.name }">
-          {{ modelValue?.name ?? labelName + '를 선택해주세요' }}
+          {{ modelValue?.name ?? placeholderText }}
         </p>
         <CommonIcons
           :name="dropdownIcon"
@@ -41,15 +36,12 @@
 
 <script lang="ts" setup>
 import { dropdownIcon } from '@/constants/iconPath'
-import type { Category, CategoryDropdownProps } from '@/types/common'
-import { computed, ref } from 'vue'
+import type { CategoryDropdownProps, MainCategoryTypes, SubCategoryTypes } from '@/types/common'
+import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { options, labelName, modelValue, isLabel, isDisabled, isInvalidate } =
+const { placeholderText, options, labelName, modelValue, isLabel, isDisabled } =
   defineProps<CategoryDropdownProps>()
-
-const isInvalidateState = computed(() => isInvalidate)
-
 const emit = defineEmits(['update:modelValue'])
 const dropdownOpen = ref(false)
 
