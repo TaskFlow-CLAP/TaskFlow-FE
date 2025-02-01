@@ -14,10 +14,10 @@ export const useTeamBoardParamsChange = () => {
     params.title = value
   }
   const onMainChange = (value: number) => {
-    params.mainCategoryId = onArrayChange(params.mainCategoryId, value)
+    params.mainCategoryIds = onArrayChange(params.mainCategoryIds, value)
   }
   const onSubChange = (value: number) => {
-    params.categoryId = onArrayChange(params.categoryId, value)
+    params.categoryIds = onArrayChange(params.categoryIds, value)
   }
 
   return {

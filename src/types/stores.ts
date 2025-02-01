@@ -5,12 +5,13 @@ export interface RequestParams {
   pageSize: number
   filterTaskListRequest: {
     term: number | ''
-    mainCategoryId: number[]
-    categoryId: number[]
+    mainCategoryIds: number[]
+    categoryIds: number[]
     title: string
     nickName: string
     taskStatus?: string[]
-    orderRequest: { sortBy: 'REQUESTED' | 'FINISHED'; sortDirection: SortDirection }
+    sortBy: 'REQUESTED' | 'FINISHED'
+    sortDirection: SortDirection
   }
 }
 
@@ -22,7 +23,8 @@ export interface MemberManagementParams {
   role: Role | ''
   pageSize: number
   page: number
-  orderRequest: { sortBy: 'REGISTERED'; sortDirection: SortDirection }
+  sortBy: 'REGISTERED'
+  sortDirection: SortDirection
 }
 
 export interface LogsParams {
@@ -32,20 +34,21 @@ export interface LogsParams {
   ipAddress: string
   pageSize: number
   page: number
-  orderRequest: { sortBy: 'CREATED'; sortDirection: SortDirection }
+  sortBy: 'CREATED'
+  sortDirection: SortDirection
 }
 
 export interface TeamBoardParams {
   order: string
   title: string
-  mainCategoryId: number[]
-  categoryId: number[]
+  mainCategoryIds: number[]
+  categoryIds: number[]
 }
 
 export interface TaskBoardParams {
   division: string | ''
-  mainCategoryId: number[]
-  categoryId: number[]
+  mainCategoryIds: number[]
+  categoryIds: number[]
   title: string
   nickName: string
   pageSize: number

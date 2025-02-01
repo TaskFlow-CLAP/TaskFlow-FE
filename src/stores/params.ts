@@ -14,8 +14,8 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
     pageSize: 20,
     filterTaskListRequest: {
       term: '',
-      mainCategoryId: [],
-      categoryId: [],
+      mainCategoryIds: [],
+      categoryIds: [],
       title: '',
       nickName: '',
       taskStatus: [],
@@ -28,8 +28,8 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
     params.value.pageSize = 20
     params.value.filterTaskListRequest = {
       term: '',
-      mainCategoryId: [],
-      categoryId: [],
+      mainCategoryIds: [],
+      categoryIds: [],
       title: '',
       nickName: '',
       taskStatus: [],
@@ -83,8 +83,8 @@ export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
   const params = ref<TeamBoardParams>({
     order: 'CONTRIBUTION',
     title: '',
-    mainCategoryId: [],
-    categoryId: []
+    mainCategoryIds: [],
+    categoryIds: []
   })
 
   return { params }
@@ -93,8 +93,8 @@ export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
 export const useTaskBoardParamsStore = defineStore('taskBoardParams', () => {
   const params = ref<TaskBoardParams>({
     division: '',
-    mainCategoryId: [],
-    categoryId: [],
+    mainCategoryIds: [],
+    categoryIds: [],
     title: '',
     nickName: '',
     pageSize: 20,

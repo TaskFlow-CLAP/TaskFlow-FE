@@ -6,7 +6,7 @@
       :content="tab.content"
       :width="tab.width"
       :sort-by="tab.sortBy"
-      :current-order-request="params.orderRequest"
+      :current-order-request="orderRequest"
       @toggle-sort-by="toggleSortBy"
       :justify-center="tab.justifyCenter" />
   </div>
@@ -17,8 +17,13 @@ import { REQUESTED_LIST_BAR_TAB } from '@/constants/manager'
 import ListBarTab from '../lists/ListBarTab.vue'
 import { useRequestParamsStore } from '@/stores/params'
 import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
+import { computed } from 'vue'
 
 const { params } = useRequestParamsStore()
+const orderRequest = computed(() => ({
+  sortBy: params.filterTaskListRequest.sortBy,
+  sortDirection: params.filterTaskListRequest.sortDirection
+}))
 
 const { toggleSortBy } = useRequestParamsChange()
 </script>

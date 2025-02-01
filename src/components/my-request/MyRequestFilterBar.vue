@@ -7,8 +7,8 @@
       @update:value="onParamsChange.onTermChange" />
     <FilterCategory
       :category-list="data"
-      :main="store.params.filterTaskListRequest.mainCategoryId"
-      :sub="store.params.filterTaskListRequest.categoryId"
+      :main="store.params.filterTaskListRequest.mainCategoryIds"
+      :sub="store.params.filterTaskListRequest.categoryIds"
       @update:main="onParamsChange.onMainChange"
       @update:sub="onParamsChange.onSubChange" />
     <FilterInput
@@ -57,6 +57,4 @@ const { data } = useQuery({
   queryKey: ['category'],
   queryFn: fetchCategory
 })
-
-console.log(data.value)
 </script>

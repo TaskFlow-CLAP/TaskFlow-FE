@@ -21,14 +21,14 @@ export const useRequestParamsChange = () => {
     params.filterTaskListRequest.nickName = value
   }
   const onMainChange = (value: number) => {
-    params.filterTaskListRequest.mainCategoryId = onArrayChange(
-      params.filterTaskListRequest.mainCategoryId,
+    params.filterTaskListRequest.mainCategoryIds = onArrayChange(
+      params.filterTaskListRequest.mainCategoryIds,
       value
     )
   }
   const onSubChange = (value: number) => {
-    params.filterTaskListRequest.categoryId = onArrayChange(
-      params.filterTaskListRequest.categoryId,
+    params.filterTaskListRequest.categoryIds = onArrayChange(
+      params.filterTaskListRequest.categoryIds,
       value
     )
   }
@@ -43,11 +43,12 @@ export const useRequestParamsChange = () => {
   }
 
   const toggleSortBy = (sortBy: 'REQUESTED' | 'FINISHED') => {
-    if (sortBy === params.filterTaskListRequest.orderRequest.sortBy) {
-      params.filterTaskListRequest.orderRequest.sortDirection =
-        params.filterTaskListRequest.orderRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
+    if (sortBy === params.filterTaskListRequest.sortBy) {
+      params.filterTaskListRequest.sortDirection =
+        params.filterTaskListRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
     } else {
-      params.filterTaskListRequest.orderRequest = { sortBy, sortDirection: 'DESC' }
+      params.filterTaskListRequest.sortBy = sortBy
+      params.filterTaskListRequest.sortDirection = 'DESC'
     }
   }
 
