@@ -8,7 +8,7 @@ export const MEMBER_MANAGEMENT_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '이메일' },
   { content: '역할', width: 60 },
   { content: '승인 권한', width: 60 },
-  { content: '가입일', width: 80, sortBy: 'REGISTERED' },
+  { content: '가입일', width: 80, sortBy: 'REGISTERED_AT' },
   { content: '처리', width: 180, justifyCenter: true }
 ]
 
@@ -27,7 +27,7 @@ export const API_LOGS_DIVISION_LIST: Option[] = [
 
 export const LOGS_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '구분', width: 80 },
-  { content: '시각', width: 180, sortBy: 'CREATED' },
+  { content: '시각', width: 180, sortBy: 'CREATED_AT' },
   { content: '아이디', width: 80 },
   { content: 'IP 주소', width: 120 },
   { content: 'Status', width: 40 },

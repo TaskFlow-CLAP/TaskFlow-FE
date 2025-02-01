@@ -3,7 +3,7 @@
     <div class="w-full flex flex-col grow overflow-hidden">
       <slot name="listBar" />
 
-      <div class="overflow-y-auto">
+      <div class="grow overflow-y-auto">
         <slot name="listCards" />
       </div>
     </div>

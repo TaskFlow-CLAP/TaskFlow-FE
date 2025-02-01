@@ -1,15 +1,16 @@
 import type { Role, SortDirection } from './common'
 
 export interface RequestParams {
+  page: number
+  pageSize: number
   term: number | ''
-  mainCategoryId: number[]
-  categoryId: number[]
+  mainCategoryIds: number[]
+  categoryIds: number[]
   title: string
   nickName: string
   taskStatus?: string[]
-  pageSize: number
-  page: number
-  orderRequest: { sortBy: 'REQUESTED' | 'FINISHED'; sortDirection: SortDirection }
+  sortBy: 'REQUESTED_AT' | 'FINISHED_AT'
+  sortDirection: SortDirection
 }
 
 export interface MemberManagementParams {
@@ -20,7 +21,8 @@ export interface MemberManagementParams {
   role: Role | ''
   pageSize: number
   page: number
-  orderRequest: { sortBy: 'REGISTERED'; sortDirection: SortDirection }
+  sortBy: 'REGISTERED_AT'
+  sortDirection: SortDirection
 }
 
 export interface LogsParams {
@@ -30,20 +32,21 @@ export interface LogsParams {
   ipAddress: string
   pageSize: number
   page: number
-  orderRequest: { sortBy: 'CREATED'; sortDirection: SortDirection }
+  sortBy: 'CREATED_AT'
+  sortDirection: SortDirection
 }
 
 export interface TeamBoardParams {
   order: string
   title: string
-  mainCategoryId: number[]
-  categoryId: number[]
+  mainCategoryIds: number[]
+  categoryIds: number[]
 }
 
 export interface TaskBoardParams {
   division: string | ''
-  mainCategoryId: number[]
-  categoryId: number[]
+  mainCategoryIds: number[]
+  categoryIds: number[]
   title: string
   nickName: string
   pageSize: number
