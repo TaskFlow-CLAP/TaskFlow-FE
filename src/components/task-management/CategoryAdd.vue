@@ -53,9 +53,6 @@ import FormButtonContainer from '../common/FormButtonContainer.vue'
 import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
-import { axiosInstance } from '@/utils/axios'
-import { getMainCategory } from '@/api/common'
-import type { Category, CategoryForm } from '@/types/common'
 
 const router = useRouter()
 
