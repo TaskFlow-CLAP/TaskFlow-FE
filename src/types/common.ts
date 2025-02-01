@@ -136,6 +136,7 @@ export interface CategoryDropdownProps {
   placeholderText: string
   options: MainCategoryTypes[] | SubCategoryTypes[]
   labelName: string
-  modelValue: string
+  modelValue: MainCategoryTypes | SubCategoryTypes | null
   isLabel?: boolean
+  isDisabled?: boolean
 }
