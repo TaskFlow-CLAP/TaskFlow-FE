@@ -58,4 +58,4 @@ jobs:
           script: |
             docker rm -f taskflow-front
             docker image rm ${{ secrets.DOCKER_FRONT_REPO }} -f
-            docker run --name taskflow-front -d -p 80:80 ${{ secrets.DOCKER_FRONT_REPO }} --restart on-failure
+            docker run --name taskflow-front -d -p 80:80 --restart on-failure ${{ secrets.DOCKER_FRONT_REPO }}
