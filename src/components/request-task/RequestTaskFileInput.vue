@@ -9,7 +9,7 @@
       @change="handleFileUpload" />
     <RequestTaskFileInputAfter
       v-if="hasFiles"
-      :files="props.modelValue"
+      :files="modelValue"
       :removeFile="removeFile" />
     <div
       v-else
@@ -31,25 +31,25 @@ import { uploadIcon } from '@/constants/iconPath'
 import { computed } from 'vue'
 import RequestTaskFileInputAfter from './RequestTaskFileInputAfter.vue'
 
-const props = defineProps<{
+const { modelValue } = defineProps<{
   modelValue: File[] | null
 }>()
 const emit = defineEmits(['update:modelValue'])
 
-const hasFiles = computed(() => props.modelValue && props.modelValue.length > 0)
+const hasFiles = computed(() => modelValue && modelValue.length > 0)
 
 const handleFileUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
   if (target.files && target.files.length > 0) {
     const newFiles = Array.from(target.files)
-    const updatedFiles = props.modelValue ? [...props.modelValue, ...newFiles] : newFiles
+    const updatedFiles = modelValue ? [...modelValue, ...newFiles] : newFiles
     emit('update:modelValue', updatedFiles)
   }
 }
 
 const removeFile = (index: number) => {
-  if (props.modelValue) {
-    const updatedFiles = [...props.modelValue]
+  if (modelValue) {
+    const updatedFiles = [...modelValue]
     updatedFiles.splice(index, 1)
     emit('update:modelValue', updatedFiles)
   }

@@ -27,15 +27,16 @@
 </template>
 
 <script lang="ts" setup>
+import { postTaskRequest } from '@/api/user'
 import { EXPLANATION_PLACEHOLDER, TITLE_PLACEHOLDER } from '@/constants/user'
 import { DUMMY_REQUEST_TASK_CATEGORIES } from '@/datas/taskdetail'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import RequestTaskDropdown from './RequestTaskDropdown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
-import { useRouter } from 'vue-router'
 
 const category1 = ref('1차 카테고리를 선택해주세요')
 const category2 = ref('2차 카테고리를 선택해주세요')
@@ -49,21 +50,33 @@ const handleCancel = () => {
   category2.value = ''
   title.value = ''
   description.value = ''
-  file.value = null
+  file.value = []
   router.back()
 }
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   const formData = new FormData()
-  formData.append('category1', category1.value)
-  formData.append('category2', category2.value)
-  formData.append('title', title.value)
-  formData.append('description', description.value)
-  if (file.value) {
+  const taskInfo = {
+    categoryId: 1,
+    title: title.value,
+    description: description.value
+  }
+
+  const jsonTaskInfo = JSON.stringify(taskInfo)
+  const newBlob = new Blob([jsonTaskInfo], { type: 'application/json' })
+
+  formData.append('taskInfo', newBlob)
+  if (file.value && file.value.length > 0) {
     file.value.forEach(f => {
-      formData.append('file', f)
+      formData.append('attachment', f)
     })
   }
-  console.log(Object.fromEntries(formData))
+  console.log(Object.fromEntries(formData), '응답')
+  console.log(file.value, '파일 현황 응답')
+  try {
+    const res = await postTaskRequest(formData)
+  } catch (error) {
+    console.error('요청 실패:', error)
+  }
 }
 </script>
