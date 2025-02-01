@@ -75,61 +75,7 @@ export interface FormCheckboxProps {
 }
 
 export interface ColorSelectProps {
-  isOpen: boolean
-}
-
-export interface LabelDataTypes {
   labelId: number
-  labelName: string
-  labelColor: string
-}
-
-export interface CategoryForm {
-  name: string
-  code: string
-  mainCategoryId?: number
-}
-
-export interface CategoryForm {
-  name: string
-  code: string
-  mainCategoryId?: number
-}
-
-export interface CategoryDropdownProps {
-  options: CategoryForm
-  labelName: string
-  modelValue?: CategoryForm
-  isLabel?: boolean
-  isDisabled?: boolean
-  isInvalidate?: string
-}
-
-export interface LabelDataTypes {
-  labelId?: number
-  labelName: string
-  labelColor: string
-}
-
-export interface MainCategoryTypes {
-  id: number
-  name: string
-  code: string
-}
-
-export interface SubCategoryTypes {
-  id: number
-  mainCategoryId: number
-  name: string
-  code: string
-}
-
-export interface CategoryDropdownProps {
-  placeholderText: string
-  options: MainCategoryTypes[] | SubCategoryTypes[]
-  labelName: string
-  modelValue: MainCategoryTypes | SubCategoryTypes | null
-  isLabel?: boolean
-  isDisabled?: boolean
-  isInvalidate?: string
+  selectedLabelId: number | null
+  isOpen: boolean
 }

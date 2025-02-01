@@ -53,11 +53,6 @@ export interface LabelDataTypes {
 }
 
 export interface NewLabelTypes {
-  labelName: string
-  labelColor: string
-}
-
-export interface StatisticsData {
-  key: string
-  count: number
+  divisionName: string
+  divisionColor: string
 }

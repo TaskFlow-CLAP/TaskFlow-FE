@@ -15,19 +15,20 @@
             @click="isEdit && clickColor(label.labelId)"></div>
           <ColorSelectModal
             v-if="isColorModalVisible && editValue.labelId === label.labelId"
-            :is-open="isColorModalVisible && editValue.labelId === label.labelId"
-            :new-label="editValue"
-            @update-color="updateLabelColor"
-            @close="handleColorModal" />
+            :is-open="isColorModalVisible"
+            :label-id="label.labelId"
+            :selectedLabelId="selectedLabelId"
+            @close="closeColor" />
           <input
             v-if="isEdit && editValue.labelId === label.labelId"
             v-model="editValue.labelName"
+            type="text"
             placeholder="새로운 구분명을 입력"
             class="w-full flex focus:outline-none" />
           <p
             v-else
             class="text-black">
-            {{ label.labelName }}
+            {{ labelData[0].labelName }}
           </p>
         </div>
         <div class="flex gap-2 text-xs font-bold">
@@ -37,11 +38,15 @@
             {{ isEdit && editValue.labelId === label.labelId ? '확인' : '수정' }}
           </button>
           <button
+<<<<<<< HEAD
             @click="
               isEdit && editValue.labelId === label.labelId
                 ? handleEdit()
                 : handleDeleteModal(label.labelId)
             "
+=======
+            @click="isEdit && editValue.labelId === label.labelId ? cancelEdit() : handleDelete()"
+>>>>>>> f078305 (:recycle: [refactor] : division -> label로 변경)
             :class="
               isEdit && editValue.labelId === label.labelId
                 ? 'text-disabled w-[21px]'
@@ -51,6 +56,7 @@
           </button>
         </div>
       </div>
+<<<<<<< HEAD
     </div>
     <ModalView
       type="warningType"
@@ -60,13 +66,27 @@
       <template #header>구분을 삭제 하시겠습니까?</template>
       <template #body>삭제된 구분은 복구할 수 없습니다</template>
     </ModalView>
+=======
+      <ModalView
+        type="warningType"
+        :is-open="isModalVisible"
+        @close="handleCancel">
+        <template #header>구분을 삭제 하시겠습니까?</template>
+        <template #body>삭제된 구분은 복구할 수 없습니다</template>
+      </ModalView>
+    </div>
+>>>>>>> f078305 (:recycle: [refactor] : division -> label로 변경)
   </div>
 </template>
 
 <script setup lang="ts">
+<<<<<<< HEAD
 import { deleteLabelAdmin, patchLabelAdmin } from '@/api/admin'
 import type { LabelDataTypes } from '@/types/admin'
 import type { LabelColorTypes } from '@/types/common'
+=======
+import type { LabelDataTypes } from '@/types/admin'
+>>>>>>> f078305 (:recycle: [refactor] : division -> label로 변경)
 import { getColor } from '@/utils/color'
 import { defineProps, ref } from 'vue'
 import ModalView from '../ModalView.vue'
@@ -75,6 +95,7 @@ import ColorSelectModal from './ColorSelectModal.vue'
 const { labelData } = defineProps<{ labelData: LabelDataTypes[] }>()
 
 const isModalVisible = ref(false)
+<<<<<<< HEAD
 const isColorModalVisible = ref(false)
 const isEdit = ref(false)
 const selectedLabelId = ref<number | null>(null)
@@ -120,5 +141,44 @@ const finishEdit = async () => {
   handleEdit()
   await patchLabelAdmin(editValue.value)
   emit('updateLabels')
+=======
+const isEdit = ref(false)
+const isColorModalVisible = ref(false)
+const selectedLabelId = ref<number | null>(null)
+const editValue = ref<LabelDataTypes>({
+  labelName: '',
+  labelColor: '',
+  labelId: 9999
+})
+
+const handleCancel = () => {
+  isModalVisible.value = false
+}
+
+const handleDelete = () => {
+  isModalVisible.value = true
+}
+
+const clickColor = (labelId: number) => {
+  isColorModalVisible.value = true
+  selectedLabelId.value = labelId
+}
+
+const closeColor = () => {
+  isColorModalVisible.value = false
+}
+
+const startEdit = (label: LabelDataTypes) => {
+  isEdit.value = true
+  editValue.value = label
+}
+
+const finishEdit = () => {
+  isEdit.value = false
+}
+
+const cancelEdit = () => {
+  isEdit.value = false
+>>>>>>> f078305 (:recycle: [refactor] : division -> label로 변경)
 }
 </script>
