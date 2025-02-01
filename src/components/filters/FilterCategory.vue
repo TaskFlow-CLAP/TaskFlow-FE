@@ -78,7 +78,7 @@ import type { Category, FilterCategoryProps } from '@/types/common'
 import { computed, ref, watchEffect } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { categoryList, main, sub } = defineProps<FilterCategoryProps>()
+const { categoryList = [], main, sub } = defineProps<FilterCategoryProps>()
 const emit = defineEmits(['update:main', 'update:sub'])
 
 const isMainOpened = ref(false)
@@ -121,6 +121,4 @@ const onMainClick = (category: Category) => {
 const onSubClick = (value: number) => {
   emit('update:sub', value)
 }
-
-console.log(selectedCategoryList.value)
 </script>
