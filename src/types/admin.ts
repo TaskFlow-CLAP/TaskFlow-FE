@@ -1,4 +1,4 @@
-import type { Category, Role } from './common'
+import type { Role, SubCategoryTypes } from './common'
 
 export interface MemberManagementListData {
   memberId: number
@@ -40,6 +40,13 @@ export interface CategoryLineProps {
   name?: string
   code?: string
   mainCategoryId?: string
+}
+
+export interface categoriesTypes {
+  id: number
+  name: string
+  code: string
+  subCategory: SubCategoryTypes[]
 }
 
 export interface CategoryAllData {
