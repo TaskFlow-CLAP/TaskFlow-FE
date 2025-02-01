@@ -9,46 +9,36 @@ export const useRequestParamsChange = () => {
 
   const onTermChange = (value: string) => {
     if (value === '') {
-      params.filterTaskListRequest.term = ''
+      params.term = ''
     } else {
-      params.filterTaskListRequest.term = Number(value)
+      params.term = Number(value)
     }
   }
   const onTitleChange = (value: string) => {
-    params.filterTaskListRequest.title = value
+    params.title = value
   }
   const onNickNameChange = (value: string) => {
-    params.filterTaskListRequest.nickName = value
+    params.nickName = value
   }
   const onMainChange = (value: number) => {
-    params.filterTaskListRequest.mainCategoryIds = onArrayChange(
-      params.filterTaskListRequest.mainCategoryIds,
-      value
-    )
+    params.mainCategoryIds = onArrayChange(params.mainCategoryIds, value)
   }
   const onSubChange = (value: number) => {
-    params.filterTaskListRequest.categoryIds = onArrayChange(
-      params.filterTaskListRequest.categoryIds,
-      value
-    )
+    params.categoryIds = onArrayChange(params.categoryIds, value)
   }
   const onTaskStatusChange = (value: string) => {
-    params.filterTaskListRequest.taskStatus = onArrayChange(
-      params.filterTaskListRequest.taskStatus!,
-      value
-    )
+    params.taskStatus = onArrayChange(params.taskStatus!, value)
   }
   const onPageSizeChange = (value: string) => {
     params.pageSize = Number(value)
   }
 
-  const toggleSortBy = (sortBy: 'REQUESTED' | 'FINISHED') => {
-    if (sortBy === params.filterTaskListRequest.sortBy) {
-      params.filterTaskListRequest.sortDirection =
-        params.filterTaskListRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
+  const toggleSortBy = (sortBy: 'REQUESTED_AT' | 'FINISHED_AT') => {
+    if (sortBy === params.sortBy) {
+      params.sortDirection = params.sortDirection === 'DESC' ? 'ASC' : 'DESC'
     } else {
-      params.filterTaskListRequest.sortBy = sortBy
-      params.filterTaskListRequest.sortDirection = 'DESC'
+      params.sortBy = sortBy
+      params.sortDirection = 'DESC'
     }
   }
 

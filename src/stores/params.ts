@@ -12,31 +12,27 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
   const params = ref<RequestParams>({
     page: 0,
     pageSize: 20,
-    filterTaskListRequest: {
-      term: '',
-      mainCategoryIds: [],
-      categoryIds: [],
-      title: '',
-      nickName: '',
-      taskStatus: [],
-      sortBy: 'REQUESTED',
-      sortDirection: 'DESC'
-    }
+    term: '',
+    mainCategoryIds: [],
+    categoryIds: [],
+    title: '',
+    nickName: '',
+    taskStatus: [],
+    sortBy: 'REQUESTED_AT',
+    sortDirection: 'DESC'
   })
 
   const $reset = () => {
     params.value.page = 0
     params.value.pageSize = 20
-    params.value.filterTaskListRequest = {
-      term: '',
-      mainCategoryIds: [],
-      categoryIds: [],
-      title: '',
-      nickName: '',
-      taskStatus: [],
-      sortBy: 'REQUESTED',
-      sortDirection: 'DESC'
-    }
+    params.value.term = ''
+    params.value.mainCategoryIds = []
+    params.value.categoryIds = []
+    params.value.title = ''
+    params.value.nickName = ''
+    params.value.taskStatus = []
+    params.value.sortBy = 'REQUESTED_AT'
+    params.value.sortDirection = 'DESC'
   }
 
   return { params, $reset }
@@ -51,7 +47,7 @@ export const useMemberManagementParamsStore = defineStore('userManagementParams'
     role: '',
     pageSize: 20,
     page: 1,
-    sortBy: 'REGISTERED',
+    sortBy: 'REGISTERED_AT',
     sortDirection: 'DESC'
   })
 
@@ -66,7 +62,7 @@ export const useLogsParamsStore = defineStore('logsParams', () => {
     ipAddress: '',
     pageSize: 20,
     page: 1,
-    sortBy: 'CREATED',
+    sortBy: 'CREATED_AT',
     sortDirection: 'DESC'
   })
 
@@ -77,7 +73,7 @@ export const useLogsParamsStore = defineStore('logsParams', () => {
     params.value.ipAddress = ''
     params.value.pageSize = 20
     params.value.page = 1
-    params.value.sortBy = 'CREATED'
+    params.value.sortBy = 'CREATED_AT'
     params.value.sortDirection = 'DESC'
   }
 

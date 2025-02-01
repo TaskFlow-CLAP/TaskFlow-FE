@@ -3,16 +3,14 @@ import type { Role, SortDirection } from './common'
 export interface RequestParams {
   page: number
   pageSize: number
-  filterTaskListRequest: {
-    term: number | ''
-    mainCategoryIds: number[]
-    categoryIds: number[]
-    title: string
-    nickName: string
-    taskStatus?: string[]
-    sortBy: 'REQUESTED' | 'FINISHED'
-    sortDirection: SortDirection
-  }
+  term: number | ''
+  mainCategoryIds: number[]
+  categoryIds: number[]
+  title: string
+  nickName: string
+  taskStatus?: string[]
+  sortBy: 'REQUESTED_AT' | 'FINISHED_AT'
+  sortDirection: SortDirection
 }
 
 export interface MemberManagementParams {
@@ -23,7 +21,7 @@ export interface MemberManagementParams {
   role: Role | ''
   pageSize: number
   page: number
-  sortBy: 'REGISTERED'
+  sortBy: 'REGISTERED_AT'
   sortDirection: SortDirection
 }
 
@@ -34,7 +32,7 @@ export interface LogsParams {
   ipAddress: string
   pageSize: number
   page: number
-  sortBy: 'CREATED'
+  sortBy: 'CREATED_AT'
   sortDirection: SortDirection
 }
 

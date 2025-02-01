@@ -21,8 +21,8 @@ import { computed } from 'vue'
 
 const { params } = useRequestParamsStore()
 const orderRequest = computed(() => ({
-  sortBy: params.filterTaskListRequest.sortBy,
-  sortDirection: params.filterTaskListRequest.sortDirection
+  sortBy: params.sortBy,
+  sortDirection: params.sortDirection
 }))
 
 const { toggleSortBy } = useRequestParamsChange()

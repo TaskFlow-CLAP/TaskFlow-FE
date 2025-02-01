@@ -42,9 +42,10 @@ const fetchRequestList = async () => {
       Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
     },
     params: {
-      page: params.page,
-      pageSize: params.pageSize,
-      ...params.filterTaskListRequest
+      ...params,
+      mainCategoryIds: params.mainCategoryIds.join(','),
+      categoryIds: params.categoryIds.join(','),
+      taskStatus: params.taskStatus?.join(',')
     }
   })
   return response.data
@@ -54,6 +55,8 @@ const { data } = useQuery({
   queryKey: ['myRequest', params],
   queryFn: fetchRequestList
 })
+
+console.log(data.value)
 
 console.log(data.value)
 </script>
