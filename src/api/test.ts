@@ -1,4 +1,4 @@
-import axiosInstance from '../utils/axios'
+import { axiosInstance } from '../utils/axios'
 
 export const getNotifications = async () => {
   const response = await axiosInstance.get('/api/notifications?page=0&size=5')
