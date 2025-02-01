@@ -32,6 +32,7 @@ import axiosInstance from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
 import type { RequestHistoryResponse } from '@/types/manager'
+import NoContent from '../lists/NoContent.vue'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
