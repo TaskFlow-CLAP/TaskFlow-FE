@@ -36,10 +36,11 @@
 </template>
 
 <script lang="ts" setup>
+import { getMainCategory, getSubCategory } from '@/api/common'
 import { postTaskRequest } from '@/api/user'
 import { EXPLANATION_PLACEHOLDER, TITLE_PLACEHOLDER } from '@/constants/user'
-import { DUMMY_REQUEST_TASK_CATEGORIES } from '@/datas/taskdetail'
-import { ref } from 'vue'
+import type { MainCategoryTypes, SubCategoryTypes } from '@/types/common'
+import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import CategoryDropDown from './CategoryDropDown.vue'
@@ -86,7 +87,7 @@ const handleCancel = () => {
 const handleSubmit = async () => {
   const formData = new FormData()
   const taskInfo = {
-    categoryId: 1,
+    categoryId: category2.value?.id,
     title: title.value,
     description: description.value
   }
@@ -95,15 +96,15 @@ const handleSubmit = async () => {
   const newBlob = new Blob([jsonTaskInfo], { type: 'application/json' })
 
   formData.append('taskInfo', newBlob)
+
   if (file.value && file.value.length > 0) {
     file.value.forEach(f => {
       formData.append('attachment', f)
     })
   }
-  console.log(Object.fromEntries(formData), '응답')
-  console.log(file.value, '파일 현황 응답')
   try {
     const res = await postTaskRequest(formData)
+    console.error('요청 성공:', res)
   } catch (error) {
     console.error('요청 실패:', error)
   }
