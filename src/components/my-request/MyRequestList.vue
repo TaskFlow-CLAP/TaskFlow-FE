@@ -46,7 +46,7 @@ const fetchRequestList = async () => {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
     },
-    params: { ...parsedParams, pageSize: 1 }
+    params: parsedParams
   })
   return response.data
 }

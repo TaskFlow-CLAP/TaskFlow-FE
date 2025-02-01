@@ -5,7 +5,7 @@ export const useParseParams = () => {
     const newParams = {
       ...params,
       mainCategoryIds: params.mainCategoryIds.join(','),
-      categoryIds: params.categoryIds.join(''),
+      categoryIds: params.categoryIds.join(','),
       taskStatus: params.taskStatus?.join(',')
     }
     return newParams
@@ -15,7 +15,7 @@ export const useParseParams = () => {
     const newParams = {
       ...params,
       mainCategoryIds: params.mainCategoryIds.join(','),
-      categoryIds: params.categoryIds.join('')
+      categoryIds: params.categoryIds.join(',')
     }
     return newParams
   }
