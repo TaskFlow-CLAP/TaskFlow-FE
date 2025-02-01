@@ -15,7 +15,7 @@
     <template #pagination>
       <ListPagination
         :page-number="params.page + 1"
-        :total-page="totalPage"
+        :total-page="totalPage || 0"
         @update:page-number="onPageChange" />
     </template>
   </ListContainer>
@@ -31,7 +31,7 @@ import axiosInstance from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import { useParseParams } from '../hooks/useParseParams'
 import type { MyRequestResponse } from '@/types/user'
-import { ref, watch } from 'vue'
+import { computed } from 'vue'
 import NoContent from '../lists/NoContent.vue'
 
 const { params } = useRequestParamsStore()
@@ -56,12 +56,7 @@ const { data } = useQuery<MyRequestResponse>({
   queryFn: fetchRequestList
 })
 
-watch(
-  data,
-  () => {
-    if (data.value?.totalPages) totalPage.value = data.value.totalPages
-  },
-  { once: true }
-)
-const totalPage = ref(0)
+const totalPage = computed(() => {
+  return data.value?.totalPages
+})
 </script>

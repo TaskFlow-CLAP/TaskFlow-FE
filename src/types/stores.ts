@@ -26,14 +26,14 @@ export interface MemberManagementParams {
 }
 
 export interface LogsParams {
-  term: number | ''
-  division: string
-  nickName: string
-  ipAddress: string
-  pageSize: number
   page: number
-  sortBy: 'CREATED_AT'
-  sortDirection: SortDirection
+  pageSize: number
+  term: number | ''
+  logStatus: string[]
+  nickName: string
+  clientIp: string
+  // sortBy: 'CREATED_AT'
+  // sortDirection: SortDirection
 }
 
 export interface TeamBoardParams {

@@ -6,15 +6,16 @@
 
     <template #listCards>
       <MemberManagementListCard
-        v-for="info in DUMMY_MEMBER_MANAGEMENT_LIST_DATA"
+        v-for="info in data?.content"
         :key="info.memberId"
         :info="info" />
+      <NoContent v-if="data?.content.length === 0" />
     </template>
 
     <template #pagination>
       <ListPagination
-        :page-number="params.page"
-        :total-page="DUMMY_TOTAL_PAGE"
+        :page-number="params.page + 1"
+        :total-page="totalPage || 0"
         @update:page-number="onPageChange" />
     </template>
   </ListContainer>
@@ -26,13 +27,33 @@ import ListContainer from '../lists/ListContainer.vue'
 import { useMemberManagementParamsStore } from '@/stores/params'
 import MemberManagementListBar from './MemberManagementListBar.vue'
 import MemberManagementListCard from './MemberManagementListCard.vue'
-import { DUMMY_MEMBER_MANAGEMENT_LIST_DATA } from '@/datas/dummy'
+import NoContent from '../lists/NoContent.vue'
+import axiosInstance from '@/utils/axios'
+import { useQuery } from '@tanstack/vue-query'
+import { computed } from 'vue'
+import type { MemberManagementResponse } from '@/types/admin'
 
 const { params } = useMemberManagementParamsStore()
-const DUMMY_TOTAL_PAGE = 18
 const onPageChange = (value: number) => {
   params.page = value
 }
 
-// Data Handling
+const fetchMemberList = async () => {
+  const response = await axiosInstance.get('/api/members', {
+    headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
+    },
+    params
+  })
+  return response.data
+}
+
+const { data } = useQuery<MemberManagementResponse>({
+  queryKey: ['member', params],
+  queryFn: fetchMemberList
+})
+
+const totalPage = computed(() => {
+  return data.value?.totalPages
+})
 </script>

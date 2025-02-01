@@ -40,13 +40,13 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
 
 export const useMemberManagementParamsStore = defineStore('userManagementParams', () => {
   const params = ref<MemberManagementParams>({
+    page: 0,
+    pageSize: 20,
     name: '',
     nickName: '',
     department: '',
     email: '',
     role: '',
-    pageSize: 20,
-    page: 1,
     sortBy: 'REGISTERED_AT',
     sortDirection: 'DESC'
   })
@@ -56,25 +56,25 @@ export const useMemberManagementParamsStore = defineStore('userManagementParams'
 
 export const useLogsParamsStore = defineStore('logsParams', () => {
   const params = ref<LogsParams>({
-    term: '',
-    division: '',
-    nickName: '',
-    ipAddress: '',
+    page: 0,
     pageSize: 20,
-    page: 1,
-    sortBy: 'CREATED_AT',
-    sortDirection: 'DESC'
+    term: '',
+    logStatus: [],
+    nickName: '',
+    clientIp: ''
+    // sortBy: 'CREATED_AT',
+    // sortDirection: 'DESC'
   })
 
   const $reset = () => {
-    params.value.term = ''
-    params.value.division = ''
-    params.value.nickName = ''
-    params.value.ipAddress = ''
+    params.value.page = 0
     params.value.pageSize = 20
-    params.value.page = 1
-    params.value.sortBy = 'CREATED_AT'
-    params.value.sortDirection = 'DESC'
+    params.value.term = ''
+    params.value.logStatus = []
+    params.value.nickName = ''
+    params.value.clientIp = ''
+    // params.value.sortBy = 'CREATED_AT'
+    // params.value.sortDirection = 'DESC'
   }
 
   return { params, $reset }

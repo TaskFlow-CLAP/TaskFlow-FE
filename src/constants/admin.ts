@@ -13,8 +13,7 @@ export const MEMBER_MANAGEMENT_LIST_BAR_TAB: ListBarTabProps[] = [
 ]
 
 export const LOGIN_LOGS_DIVISION_LIST: Option[] = [
-  { content: '전체', value: '' },
-  { content: '로그인 시도', value: 'LOGIN_TRY' },
+  { content: '로그인 시도', value: 'LOGIN' },
   { content: '로그아웃', value: 'LOGOUT' }
 ]
 
