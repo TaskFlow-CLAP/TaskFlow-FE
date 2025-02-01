@@ -36,10 +36,10 @@
 </template>
 
 <script lang="ts" setup>
-import { getMainCategory, getSubCategory } from '@/api/common'
 import { postTaskRequest } from '@/api/user'
-import type { MainCategoryTypes, SubCategoryTypes } from '@/types/common'
-import { onMounted, ref, watch } from 'vue'
+import { EXPLANATION_PLACEHOLDER, TITLE_PLACEHOLDER } from '@/constants/user'
+import { DUMMY_REQUEST_TASK_CATEGORIES } from '@/datas/taskdetail'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import CategoryDropDown from './CategoryDropDown.vue'
@@ -86,7 +86,7 @@ const handleCancel = () => {
 const handleSubmit = async () => {
   const formData = new FormData()
   const taskInfo = {
-    categoryId: category2.value?.id,
+    categoryId: 1,
     title: title.value,
     description: description.value
   }
@@ -95,6 +95,7 @@ const handleSubmit = async () => {
   const newBlob = new Blob([jsonTaskInfo], { type: 'application/json' })
 
   formData.append('taskInfo', newBlob)
+<<<<<<< HEAD
 
   if (file.value && file.value.length > 0) {
     file.value.forEach(f => formData.append('attachment', f))
@@ -105,5 +106,19 @@ const handleSubmit = async () => {
   } catch (error) {
     console.error('요청 실패:', error)
   }
+=======
+  if (file.value && file.value.length > 0) {
+    file.value.forEach(f => {
+      formData.append('attachment', f)
+    })
+  }
+  console.log(Object.fromEntries(formData), '응답')
+  console.log(file.value, '파일 현황 응답')
+  try {
+    const res = await postTaskRequest(formData)
+  } catch (error) {
+    console.error('요청 실패:', error)
+  }
+>>>>>>> 61df8a1 (:recycle: [refactor] : prop대신 직접 가져오기, 파일 초기값 배열로)
 }
 </script>
