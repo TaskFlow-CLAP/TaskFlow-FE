@@ -133,10 +133,9 @@ export interface SubCategoryTypes {
 }
 
 export interface CategoryDropdownProps {
+  placeholderText: string
   options: MainCategoryTypes[] | SubCategoryTypes[]
   labelName: string
-  modelValue: MainCategoryTypes | SubCategoryTypes | null
+  modelValue: string
   isLabel?: boolean
-  isDisabled?: boolean
-  isInvalidate?: string
 }
