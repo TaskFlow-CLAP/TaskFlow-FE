@@ -7,11 +7,6 @@
         class="text-red-1">
         *
       </p>
-      <p
-        v-if="isInvalidateState === 'category'"
-        class="text-red-1">
-        카테고리를 선택해주세요
-      </p>
     </div>
     <div class="relative flex text-base">
       <div
@@ -42,14 +37,11 @@
 <script lang="ts" setup>
 import { dropdownIcon } from '@/constants/iconPath'
 import type { CategoryDropdownProps, MainCategoryTypes, SubCategoryTypes } from '@/types/common'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { placeholderText, options, labelName, modelValue, isLabel, isDisabled, isInvalidate } =
+const { placeholderText, options, labelName, modelValue, isLabel, isDisabled } =
   defineProps<CategoryDropdownProps>()
-
-const isInvalidateState = computed(() => isInvalidate)
-
 const emit = defineEmits(['update:modelValue'])
 const dropdownOpen = ref(false)
 
@@ -58,7 +50,7 @@ const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value
 }
 
-const selectOption = (option: Category) => {
+const selectOption = (option: MainCategoryTypes | SubCategoryTypes) => {
   emit('update:modelValue', option)
   dropdownOpen.value = false
 }
