@@ -1,4 +1,4 @@
-import type { ListBarTabProps, Option } from '@/types/common'
+import type { ListBarTabProps, MainCategoryTypes, Option, SubCategoryTypes } from '@/types/common'
 
 export const MEMBER_MANAGEMENT_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '이름', width: 60 },
@@ -34,21 +34,15 @@ export const LOGS_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '결과' }
 ]
 
-import type {
-  RoleTypes,
-  RoleTypesEnum,
-  UserRegistrationProps,
-  mainCategoryTypes,
-  subCategoryTypes
-} from '@/types/admin'
+import type { RoleTypes, RoleTypesEnum, UserRegistrationProps } from '@/types/admin'
 
-export const CATEGORY_FIRST_ADD: mainCategoryTypes = {
+export const CATEGORY_FIRST_ADD: MainCategoryTypes = {
   name: '',
   code: '',
   id: 0
 }
 
-export const CATEGORY_SECOND_ADD: subCategoryTypes = {
+export const CATEGORY_SECOND_ADD: SubCategoryTypes = {
   name: '',
   mainCategoryId: 0,
   code: '',
