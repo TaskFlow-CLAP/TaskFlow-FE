@@ -1,15 +1,17 @@
 <template>
   <div class="w-full flex flex-col gap-y-6">
-    <RequestTaskDropdown
+    <CategoryDropDown
       v-model="category1"
-      :options="DUMMY_REQUEST_TASK_CATEGORIES"
+      :options="mainCategoryArr"
       :label-name="'1차 카테고리'"
-      :placeholderText="'1차 카테고리를 선택해주세요'" />
-    <RequestTaskDropdown
+      :placeholderText="'1차 카테고리를 선택해주세요'"
+      :isDisabled="false" />
+    <CategoryDropDown
       v-model="category2"
-      :options="DUMMY_REQUEST_TASK_CATEGORIES"
+      :options="afterSubCategoryArr"
       :label-name="'2차 카테고리'"
-      :placeholderText="'2차 카테고리를 선택해주세요'" />
+      :placeholderText="'2차 카테고리를 선택해주세요'"
+      :isDisabled="!category1" />
     <RequestTaskInput
       v-model="title"
       :placeholderText="TITLE_PLACEHOLDER"
@@ -27,27 +29,46 @@
 </template>
 
 <script lang="ts" setup>
+import { getMainCategory, getSubCategory } from '@/api/common'
 import { postTaskRequest } from '@/api/user'
 import { EXPLANATION_PLACEHOLDER, TITLE_PLACEHOLDER } from '@/constants/user'
-import { DUMMY_REQUEST_TASK_CATEGORIES } from '@/datas/taskdetail'
-import { ref } from 'vue'
+import type { MainCategoryTypes, SubCategoryTypes } from '@/types/common'
+import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
-import RequestTaskDropdown from './RequestTaskDropdown.vue'
+import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
 
-const category1 = ref('1차 카테고리를 선택해주세요')
-const category2 = ref('2차 카테고리를 선택해주세요')
+const category1 = ref<MainCategoryTypes | null>(null)
+const category2 = ref<MainCategoryTypes | null>(null)
+
 const title = ref('')
 const description = ref('')
 const file = ref(null as File[] | null)
 
+const mainCategoryArr = ref<MainCategoryTypes[]>([])
+const subCategoryArr = ref<SubCategoryTypes[]>([])
+const afterSubCategoryArr = ref<SubCategoryTypes[]>([])
+
+onMounted(async () => {
+  mainCategoryArr.value = await getMainCategory()
+  subCategoryArr.value = await getSubCategory()
+  afterSubCategoryArr.value = await getSubCategory()
+})
+
+watch(category1, async newValue => {
+  category2.value = null
+  afterSubCategoryArr.value = subCategoryArr.value.filter(
+    subCategory => subCategory.mainCategoryId === newValue?.id
+  )
+})
+
 const router = useRouter()
 const handleCancel = () => {
-  category1.value = ''
-  category2.value = ''
+  category1.value = null
+  category2.value = null
   title.value = ''
   description.value = ''
   file.value = []
@@ -57,7 +78,7 @@ const handleCancel = () => {
 const handleSubmit = async () => {
   const formData = new FormData()
   const taskInfo = {
-    categoryId: 1,
+    categoryId: category2.value?.id,
     title: title.value,
     description: description.value
   }
@@ -66,15 +87,15 @@ const handleSubmit = async () => {
   const newBlob = new Blob([jsonTaskInfo], { type: 'application/json' })
 
   formData.append('taskInfo', newBlob)
+
   if (file.value && file.value.length > 0) {
     file.value.forEach(f => {
       formData.append('attachment', f)
     })
   }
-  console.log(Object.fromEntries(formData), '응답')
-  console.log(file.value, '파일 현황 응답')
   try {
     const res = await postTaskRequest(formData)
+    console.error('요청 성공:', res)
   } catch (error) {
     console.error('요청 실패:', error)
   }
