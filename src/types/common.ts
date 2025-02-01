@@ -117,7 +117,18 @@ export interface LabelColorTypes {
   colorEnum: string
 }
 
-export interface TaskStatusListTypes {
-  value: Status
-  content: string
+export interface SubCategoryTypes {
+  id: number
+  mainCategoryId: number
+  name: string
+  code: string
+}
+
+export interface CategoryDropdownProps {
+  placeholderText: string
+  options: MainCategoryTypes[] | SubCategoryTypes[]
+  labelName: string
+  modelValue: MainCategoryTypes | SubCategoryTypes | null
+  isLabel?: boolean
+  isDisabled?: boolean
 }
