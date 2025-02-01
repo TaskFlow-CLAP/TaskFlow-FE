@@ -67,7 +67,7 @@ export interface FormCheckboxProps {
 }
 
 export interface ColorSelectProps {
-  devisionId: number
-  selectedDivisionId: number | null
+  labelId: number
+  selectedLabelId: number | null
   isOpen: boolean
 }

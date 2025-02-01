@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="flex w-full">
-      <DivisionManagementLine :divisionData="divisionData" />
+      <LabelManagementLine :label-data="labelData" />
     </div>
     <div
       v-if="!isAdd"
@@ -31,8 +31,8 @@
         <ColorSelectModal
           v-if="isColorModalVisible"
           :is-open="isColorModalVisible"
-          :devisionId="0"
-          :selectedDivisionId="0"
+          :label-id="0"
+          :selected-label-id="0"
           @close="closeColor" />
         <input
           type="text"
@@ -59,17 +59,21 @@
 </template>
 
 <script setup lang="ts">
+import { getDivisionsAdmin } from '@/api/admin'
 import { plusIcon } from '@/constants/iconPath'
 import { mockDivisionData } from '@/datas/taskmanagement'
-import type { DivisionDataTypes, NewDevisonTypes } from '@/types/admin'
+import type { LabelDataTypes, NewLabelTypes } from '@/types/admin'
 import { getColor } from '@/utils/color'
 import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import ColorSelectModal from './ColorSelectModal.vue'
-import DivisionManagementLine from './DivisionManagementLine.vue' /* PartiallyEnd: #3632/scriptSetup.vue */
+import LabelManagementLine from './LabelManagementLine.vue'
 
-const divisionData = ref<DivisionDataTypes[]>(mockDivisionData)
-const newDivision = ref<NewDevisonTypes>({
+const Divisions = await getDivisionsAdmin()
+console.log(Divisions)
+
+const labelData = ref<LabelDataTypes[]>(mockDivisionData)
+const newDivision = ref<NewLabelTypes>({
   divisionName: '새로운 구분',
   divisionColor: 'red'
 })

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isOpen && devisionId === selectedDivisionId"
+    v-if="isOpen && labelId === selectedLabelId"
     class="absolute top-7 left-3 w-[176px] h-[120px] p-4 flex flex-col z-50 shadow-custom rounded-lg bg-white gap-4"
     @click.self="closeModal">
     <div class="flex w-full justify-between">
@@ -39,7 +39,7 @@ const closeModal = () => {
 }
 
 const updateColor = (color: string) => {
-  console.log(props.devisionId, '로 색상 변경 로직', color)
+  console.log(props.labelId, '로 색상 변경 로직', color)
   emit('close')
 }
 </script>

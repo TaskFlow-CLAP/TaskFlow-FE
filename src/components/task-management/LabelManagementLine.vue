@@ -1,56 +1,50 @@
 <template>
   <div class="w-full">
     <div
-      v-for="division in divisionData"
-      :key="division.divisionId"
+      v-for="label in labelData"
+      :key="label.labelId"
       class="flex w-full flex-col">
       <div class="category-management-line justify-between bg-white">
         <div class="flex gap-7 items-center pl-3 relative">
           <div
             :style="{
-              borderColor: getColor(division.divisionColor)?.borderColor,
-              backgroundColor: getColor(division.divisionColor)?.fillColor
+              borderColor: getColor(label.labelColor)?.borderColor,
+              backgroundColor: getColor(label.labelColor)?.fillColor
             }"
             class="w-4 h-4 rounded-full border-2 cursor-pointer pr-3"
-            @click="isEdit && clickColor(division.divisionId)"></div>
+            @click="isEdit && clickColor(label.labelId)"></div>
           <ColorSelectModal
-            v-if="isColorModalVisible && editValue.divisionId === division.divisionId"
+            v-if="isColorModalVisible && editValue.labelId === label.labelId"
             :is-open="isColorModalVisible"
-            :devisionId="division.divisionId"
-            :selectedDivisionId="selectedDivisionId"
+            :label-id="label.labelId"
+            :selectedLabelId="selectedLabelId"
             @close="closeColor" />
           <input
-            v-if="isEdit && editValue.divisionId === division.divisionId"
-            v-model="editValue.divisionName"
+            v-if="isEdit && editValue.labelId === label.labelId"
+            v-model="editValue.labelName"
             type="text"
             placeholder="새로운 구분명을 입력"
             class="w-full flex focus:outline-none" />
           <p
             v-else
             class="text-black">
-            {{ division.divisionName }}
+            {{ labelData[0].labelName }}
           </p>
         </div>
         <div class="flex gap-2 text-xs font-bold">
           <button
-            @click="
-              isEdit && editValue.divisionId === division.divisionId
-                ? finishEdit()
-                : startEdit(division)
-            "
+            @click="isEdit && editValue.labelId === label.labelId ? finishEdit() : startEdit(label)"
             class="text-primary1 w-[21px]">
-            {{ isEdit && editValue.divisionId === division.divisionId ? '확인' : '수정' }}
+            {{ isEdit && editValue.labelId === label.labelId ? '확인' : '수정' }}
           </button>
           <button
-            @click="
-              isEdit && editValue.divisionId === division.divisionId ? cancelEdit() : handleDelete()
-            "
+            @click="isEdit && editValue.labelId === label.labelId ? cancelEdit() : handleDelete()"
             :class="
-              isEdit && editValue.divisionId === division.divisionId
+              isEdit && editValue.labelId === label.labelId
                 ? 'text-disabled w-[21px]'
                 : 'text-red-1 w-[21px]'
             ">
-            {{ isEdit && editValue.divisionId === division.divisionId ? '취소' : '삭제' }}
+            {{ isEdit && editValue.labelId === label.labelId ? '취소' : '삭제' }}
           </button>
         </div>
       </div>
@@ -66,22 +60,22 @@
 </template>
 
 <script setup lang="ts">
-import type { DivisionDataTypes } from '@/types/admin'
+import type { LabelDataTypes } from '@/types/admin'
 import { getColor } from '@/utils/color'
 import { defineProps, ref } from 'vue'
 import ModalView from '../ModalView.vue'
 import ColorSelectModal from './ColorSelectModal.vue'
 
-const { divisionData } = defineProps<{ divisionData: DivisionDataTypes[] }>()
+const { labelData } = defineProps<{ labelData: LabelDataTypes[] }>()
 
 const isModalVisible = ref(false)
 const isEdit = ref(false)
 const isColorModalVisible = ref(false)
-const selectedDivisionId = ref<number | null>(null)
-const editValue = ref<DivisionDataTypes>({
-  divisionName: '',
-  divisionColor: '',
-  divisionId: 9999
+const selectedLabelId = ref<number | null>(null)
+const editValue = ref<LabelDataTypes>({
+  labelName: '',
+  labelColor: '',
+  labelId: 9999
 })
 
 const handleCancel = () => {
@@ -92,18 +86,18 @@ const handleDelete = () => {
   isModalVisible.value = true
 }
 
-const clickColor = (divisionId: number) => {
+const clickColor = (labelId: number) => {
   isColorModalVisible.value = true
-  selectedDivisionId.value = divisionId
+  selectedLabelId.value = labelId
 }
 
 const closeColor = () => {
   isColorModalVisible.value = false
 }
 
-const startEdit = (division: DivisionDataTypes) => {
+const startEdit = (label: LabelDataTypes) => {
   isEdit.value = true
-  editValue.value = division
+  editValue.value = label
 }
 
 const finishEdit = () => {
