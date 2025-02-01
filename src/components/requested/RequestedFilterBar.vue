@@ -16,7 +16,7 @@
       :value="store.params.title"
       @update:value="onParamsChange.onTitleChange" />
     <FilterInput
-      title="처리자"
+      title="요청자"
       :value="store.params.nickName"
       @update:value="onParamsChange.onNickNameChange" />
     <FilterDropdown
