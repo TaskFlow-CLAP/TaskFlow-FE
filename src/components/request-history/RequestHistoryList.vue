@@ -9,6 +9,7 @@
         v-for="info in data?.content"
         :key="info.taskId"
         :info="info" />
+      <NoContent v-if="data?.content.length === 0" />
     </template>
 
     <template #pagination>
@@ -31,6 +32,7 @@ import axiosInstance from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
 import type { RequestHistoryResponse } from '@/types/manager'
+import NoContent from '../lists/NoContent.vue'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
