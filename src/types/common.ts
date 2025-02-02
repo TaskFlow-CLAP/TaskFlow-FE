@@ -80,13 +80,11 @@ export interface LabelDataTypes {
 }
 
 export interface MainCategoryTypes {
-  id: number
   name: string
   code: string
 }
 
 export interface SubCategoryTypes {
-  id: number
   mainCategoryId: number
   name: string
   code: string
