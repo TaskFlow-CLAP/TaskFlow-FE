@@ -41,6 +41,12 @@ export const CATEGORY_FORM: CategoryForm = {
   code: ''
 }
 
+export const CATEGORY_SECOND_ADD: SubCategoryTypes = {
+  name: '',
+  mainCategoryId: 0,
+  code: ''
+}
+
 export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {
   name: '',
   email: '',

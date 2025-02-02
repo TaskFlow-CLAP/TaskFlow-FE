@@ -111,14 +111,12 @@ export interface LabelDataTypes {
   labelColor: string
 }
 
-export interface LabelColorTypes {
-  borderColor: string
-  fillColor: string
-  colorEnum: string
+export interface MainCategoryTypes {
+  name: string
+  code: string
 }
 
 export interface SubCategoryTypes {
-  id: number
   mainCategoryId: number
   name: string
   code: string
