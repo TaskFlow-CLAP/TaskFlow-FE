@@ -4,3 +4,16 @@ export interface UserTypes {
   created_at: string
   updated_at: string
 }
+
+export interface User {
+  memberName: string
+  nickname: string
+  imageUrl: string
+  memberRole: string
+  memberStatus: string
+}
+
+export interface loginDataTypes {
+  nickname: string
+  password: string
+}

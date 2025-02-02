@@ -49,6 +49,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from '../components/ModalView.vue'
+import { patchPassword } from '@/api/auth'
 
 const newPw = ref('')
 const checkPw = ref('')
@@ -61,9 +62,10 @@ const toggleModal = () => {
 
 const handleChange = () => {
   if (newPw.value === checkPw.value) {
+    const response = patchPassword(newPw.value)
+    console.log(response)
     console.log('비밀번호 변경 성공!')
     toggleModal()
-    // 비밀번호 재설정 API 호출 필요
   } else {
     alert('비밀번호가 일치하지 않습니다.')
   }
