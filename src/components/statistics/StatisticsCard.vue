@@ -10,15 +10,15 @@
     <div class="w-full h-[1px] bg-border-1" />
     <div class="h-60">
       <PieChart
-        :key="JSON.stringify(labels)"
+        :key="JSON.stringify(labels) + periodType"
         v-if="chartType === 'pie'"
-        :labels="labels || []"
-        :series="series || []" />
+        :labels="labels"
+        :series="series" />
       <LineChart
-        :key="JSON.stringify(labels)"
+        :key="JSON.stringify(labels) + periodType"
         v-if="chartType === 'line'"
-        :labels="labels || []"
-        :series="series || []"
+        :labels="labels"
+        :series="series"
         :data-label="title.slice(4)" />
     </div>
   </div>
@@ -32,6 +32,7 @@ import PeriodButtons from './PeriodButtons.vue'
 import type { PeriodType } from '@/types/manager'
 import axiosInstance from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
+import type { StatisticsData } from '@/types/admin'
 
 const { title, statisticsType, chartType } = defineProps<{
   title: string
@@ -64,16 +65,16 @@ const fetchStatistics = async () => {
   return response.data
 }
 
-const { data } = useQuery<{ key: string; count: number }[]>({
+const { data } = useQuery<StatisticsData[]>({
   queryKey: [statisticsType, periodType],
   queryFn: fetchStatistics
 })
 
 const labels = computed(() => {
-  return data.value?.map(el => el.key)
+  return data.value?.map(el => el.key) || []
 })
 
 const series = computed(() => {
-  return data.value?.map(el => el.count)
+  return data.value?.map(el => el.count) || []
 })
 </script>
