@@ -6,7 +6,6 @@ export interface UserTypes {
 }
 
 export interface User {
-  memberId: number
   memberName: string
   nickname: string
   imageUrl: string

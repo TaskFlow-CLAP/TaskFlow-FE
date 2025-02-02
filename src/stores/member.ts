@@ -6,7 +6,6 @@ import Cookies from 'js-cookie'
 
 export const useMemberStore = defineStore('memberInfo', () => {
   const info = ref<User>({
-    memberId: 0,
     memberName: '',
     nickname: '',
     imageUrl: '',
@@ -38,7 +37,6 @@ export const useMemberStore = defineStore('memberInfo', () => {
 
   function updateMemberInfo(responseData: any) {
     info.value = {
-      memberId: 0,
       memberName: responseData.name || '',
       nickname: responseData.nicknanme || '',
       imageUrl: responseData.profileImageUrl || '',
