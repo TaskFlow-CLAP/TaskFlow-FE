@@ -23,8 +23,8 @@
       <div class="flex w-full gap-7 items-center pl-3 relative">
         <div
           :style="{
-            borderColor: getColor(newDivision.divisionColor)?.borderColor,
-            backgroundColor: getColor(newDivision.divisionColor)?.fillColor
+            borderColor: getColor(newLabel.labelColor)?.borderColor,
+            backgroundColor: getColor(newLabel.labelColor)?.fillColor
           }"
           class="w-4 h-4 rounded-full border-2 cursor-pointer pr-3"
           @click="clickColor"></div>
@@ -41,12 +41,12 @@
       </div>
       <div class="flex gap-2 text-xs font-bold">
         <button
-          @click="addNewDivision"
+          @click="addNewLabel"
           class="text-primary1 w-[21px]">
           확인
         </button>
         <button
-          @click="cancelAddDivision"
+          @click="cancelAddLabel"
           class="text-disabled w-[21px]">
           취소
         </button>
@@ -59,33 +59,36 @@
 </template>
 
 <script setup lang="ts">
-import { getDivisionsAdmin } from '@/api/admin'
+import { getLabelsAdmin } from '@/api/admin'
 import { plusIcon } from '@/constants/iconPath'
-import { mockDivisionData } from '@/datas/taskmanagement'
 import type { LabelDataTypes, NewLabelTypes } from '@/types/admin'
 import { getColor } from '@/utils/color'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import ColorSelectModal from './ColorSelectModal.vue'
 import LabelManagementLine from './LabelManagementLine.vue'
 
-const Divisions = await getDivisionsAdmin()
-console.log(Divisions)
+onMounted(async () => {
+  const Labels = await getLabelsAdmin()
+  labelData.value = Labels
+  console.log(Labels)
+})
 
-const labelData = ref<LabelDataTypes[]>(mockDivisionData)
-const newDivision = ref<NewLabelTypes>({
-  divisionName: '새로운 구분',
-  divisionColor: 'red'
+const labelData = ref<LabelDataTypes[]>([])
+
+const newLabel = ref<NewLabelTypes>({
+  labelName: '새로운 구분',
+  labelColor: 'RED'
 })
 const isColorModalVisible = ref(false)
 const isAdd = ref(false)
 
-const addNewDivision = () => {
-  console.log(newDivision, '추가로직')
+const addNewLabel = () => {
+  console.log(newLabel, '추가로직')
   isAdd.value = false
 }
 
-const cancelAddDivision = () => {
+const cancelAddLabel = () => {
   isAdd.value = false
 }
 
