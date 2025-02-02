@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import axiosInstance from '@/utils/axios'
+import { axiosInstance } from '@/utils/axios'
 import { ref } from 'vue'
 import type { User } from '@/types/auth'
 import Cookies from 'js-cookie'
