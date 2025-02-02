@@ -73,7 +73,6 @@ export interface ColorSelectProps {
   isOpen: boolean
 }
 
-
 export interface MainCategoryTypes {
   id: number
   name: string
@@ -95,7 +94,6 @@ export interface CategoryDropdownProps {
   isDisabled?: boolean
   isInvalidate?: string
 }
-
 
 export interface LabelDataTypes {
   labelId: number

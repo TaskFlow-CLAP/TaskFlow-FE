@@ -1,7 +1,6 @@
 <template>
   <div class="task-management-view">
     <TitleBar title="작업 관리" />
-
     <div class="flex flex-col gap-8">
       <div class="flex flex-col gap-6">
         <p class="text-xl text-black">카테고리</p>

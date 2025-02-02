@@ -1,6 +1,6 @@
 import { axiosInstance } from '@/utils/axios'
 
-export const getDivisionsAdmin = async () => {
+export const getLabelsAdmin = async () => {
   const response = await axiosInstance.get('/api/managements/labels')
   return response.data
 }

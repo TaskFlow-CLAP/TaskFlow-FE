@@ -1,4 +1,4 @@
-import type { CategoryAllData, DivisionDataTypes } from '@/types/admin'
+import type { CategoryAllData } from '@/types/admin'
 
 export const mockCategoryAllData: CategoryAllData = {
   categories: [
@@ -48,21 +48,3 @@ export const mockCategoryAllData: CategoryAllData = {
     }
   ]
 }
-
-export const mockDivisionData: DivisionDataTypes[] = [
-  {
-    divisionId: 1,
-    divisionName: 'Development',
-    divisionColor: 'red'
-  },
-  {
-    divisionId: 2,
-    divisionName: 'Marketing',
-    divisionColor: 'orange'
-  },
-  {
-    divisionId: 3,
-    divisionName: 'Sales',
-    divisionColor: ''
-  }
-]
