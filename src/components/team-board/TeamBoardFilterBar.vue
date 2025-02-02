@@ -22,13 +22,13 @@
 </template>
 
 <script setup lang="ts">
+import { useTeamBoardParamsStore } from '@/stores/params'
+import { axiosInstance } from '@/utils/axios'
+import { useQuery } from '@tanstack/vue-query'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { useTeamBoardParamsStore } from '@/stores/params'
 import { useTeamBoardParamsChange } from '../hooks/useTeamBoardParamsChange'
-import axiosInstance from '@/utils/axios'
-import { useQuery } from '@tanstack/vue-query'
 
 const { params } = useTeamBoardParamsStore()
 
