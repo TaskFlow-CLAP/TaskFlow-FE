@@ -20,12 +20,20 @@
               수정
             </button>
             <button
-              @click="handleDelete"
+              @click="openModal(sub.id)"
               class="text-red-1">
               삭제
             </button>
           </div>
         </div>
+        <ModalView
+          type="warningType"
+          :is-open="isModalVisible && selectedId === sub.id"
+          @click="deleteCategory(sub.id)"
+          @close="closeModal">
+          <template #header>카테고리를 삭제 하시겠습니까?</template>
+          <template #body>삭제된 카테고리는 복구할 수 없습니다</template>
+        </ModalView>
       </div>
       <div
         class="category-management-line gap-1 justify-center cursor-pointer bg-white"
@@ -35,16 +43,10 @@
       </div>
     </div>
   </div>
-  <ModalView
-    type="warningType"
-    :is-open="isModalVisible"
-    @close="handleCancel()">
-    <template #header>카테고리를 삭제 하시겠습니까?</template>
-    <template #body>삭제된 카테고리는 복구할 수 없습니다</template>
-  </ModalView>
 </template>
 
 <script setup lang="ts">
+import { deleteCategoryAdmin } from '@/api/admin'
 import { plusIcon } from '@/constants/iconPath'
 import type { CategoryAllData } from '@/types/admin'
 import { defineProps, ref } from 'vue'
@@ -56,13 +58,21 @@ const { categories } = defineProps<CategoryAllData>()
 const router = useRouter()
 
 const isModalVisible = ref(false)
+const selectedId = ref<number | null>(null)
 
-const handleCancel = () => {
-  isModalVisible.value = false
+const openModal = (id: number) => {
+  selectedId.value = id
+  isModalVisible.value = true
 }
 
-const handleDelete = () => {
-  isModalVisible.value = true
+const closeModal = () => {
+  isModalVisible.value = false
+  selectedId.value = null
+}
+
+const deleteCategory = async (id: number) => {
+  await deleteCategoryAdmin(id)
+  closeModal()
 }
 
 const MovetoAddSubCategory = () => {
