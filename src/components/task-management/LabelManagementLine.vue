@@ -15,15 +15,12 @@
             @click="isEdit && clickColor(label.labelId)"></div>
           <ColorSelectModal
             v-if="isColorModalVisible && editValue.labelId === label.labelId"
-            :is-open="isColorModalVisible"
-            :label-id="label.labelId"
-            :selectedLabelId="selectedLabelId"
+            :is-open="isColorModalVisible && editValue.labelId === label.labelId"
             :new-label="editValue"
             @close="handleColorModal" />
           <input
             v-if="isEdit && editValue.labelId === label.labelId"
             v-model="editValue.labelName"
-            type="text"
             placeholder="새로운 구분명을 입력"
             class="w-full flex focus:outline-none" />
           <p
@@ -40,7 +37,9 @@
           </button>
           <button
             @click="
-              isEdit && editValue.labelId === label.labelId ? handleEdit() : handleDeleteModal()
+              isEdit && editValue.labelId === label.labelId
+                ? handleEdit()
+                : handleDeleteModal(label.labelId)
             "
             :class="
               isEdit && editValue.labelId === label.labelId
@@ -51,15 +50,15 @@
           </button>
         </div>
       </div>
-      <ModalView
-        type="warningType"
-        :is-open="isModalVisible"
-        @close="handleDeleteModal"
-        @click="deleteLabel(label.labelId)">
-        <template #header>구분을 삭제 하시겠습니까?</template>
-        <template #body>삭제된 구분은 복구할 수 없습니다</template>
-      </ModalView>
     </div>
+    <ModalView
+      type="warningType"
+      :is-open="isModalVisible"
+      @close="handleDeleteModal(null)"
+      @click="deleteLabel(selectedLabelId || 0)">
+      <template #header>{{ selectedLabelId }}구분을 삭제 하시겠습니까?</template>
+      <template #body>삭제된 구분은 복구할 수 없습니다</template>
+    </ModalView>
   </div>
 </template>
 
@@ -77,21 +76,25 @@ const isModalVisible = ref(false)
 const isColorModalVisible = ref(false)
 const isEdit = ref(false)
 const selectedLabelId = ref<number | null>(null)
+
 const editValue = ref<LabelDataTypes>({
   labelName: '',
   labelColor: '',
   labelId: 0
 })
 
-const handleDeleteModal = () => (isModalVisible.value = !isModalVisible.value)
+const handleDeleteModal = (labelId: number | null) => {
+  isModalVisible.value = !isModalVisible.value
+  selectedLabelId.value = labelId
+}
 
 const handleColorModal = () => (isColorModalVisible.value = !isColorModalVisible.value)
 
 const handleEdit = () => (isEdit.value = !isEdit.value)
 
-const deleteLabel = async (id: number) => {
-  deleteLabelAdmin(id)
-  handleDeleteModal()
+const deleteLabel = async (labelId: number) => {
+  deleteLabelAdmin(labelId)
+  handleDeleteModal(0)
 }
 
 const clickColor = (labelId: number) => {
