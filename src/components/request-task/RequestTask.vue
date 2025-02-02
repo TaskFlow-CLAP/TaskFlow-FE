@@ -5,16 +5,18 @@
       :options="mainCategoryArr"
       :label-name="'1차 카테고리'"
       :placeholderText="'1차 카테고리를 선택해주세요'"
+      :isInvalidate="isInvalidate"
       :isDisabled="false" />
     <CategoryDropDown
       v-model="category2"
       :options="afterSubCategoryArr"
       :label-name="'2차 카테고리'"
       :placeholderText="'2차 카테고리를 선택해주세요'"
+      :is-invalidate="isInvalidate"
       :isDisabled="!category1" />
     <RequestTaskInput
       v-model="title"
-      :placeholderText="'제목을 입력해주세요'"
+      :placeholderText="TITLE_PLACEHOLDER"
       :label-name="'제목'"
       :is-invalidate="isInvalidate" />
     <RequestTaskTextArea
@@ -55,7 +57,6 @@ const title = ref('')
 const description = ref('')
 const file = ref(null as File[] | null)
 const isInvalidate = ref('')
-const isModalVisible = ref(false)
 
 const mainCategoryArr = ref<MainCategoryTypes[]>([])
 const subCategoryArr = ref<SubCategoryTypes[]>([])
@@ -85,9 +86,17 @@ const handleCancel = () => {
 }
 
 const handleSubmit = async () => {
+  if (!category1.value || !category2.value) {
+    isInvalidate.value = 'category'
+    console.log(isInvalidate.value, '변경됨')
+    return
+  } else if (!title.value) {
+    isInvalidate.value = 'input'
+    return
+  }
   const formData = new FormData()
   const taskInfo = {
-    categoryId: category2.value?.id,
+    categoryId: category2.value.id,
     title: title.value,
     description: description.value
   }
