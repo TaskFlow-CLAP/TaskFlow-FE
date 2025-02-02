@@ -14,8 +14,9 @@ export interface Option {
 
 export interface Category {
   id: number
-  content: string
-  subCategoryList?: { id: number; content: string }[]
+  name: string
+  code: string
+  subCategory?: { id: number; mainCategoryId: number; name: string; code: string }[]
 }
 
 export interface FilterCategoryProps {
@@ -42,7 +43,7 @@ export interface ListBarTabProps {
   justifyCenter?: boolean
 }
 
-export type Status = '요청' | '진행 중' | '검토 중' | '완료' | '종료'
+export type Status = 'REQUESTED' | 'IN_PROGRESS' | 'PENDING_COMPLETED' | 'COMPLETED' | 'TERMINATED'
 
 export type SortDirection = 'DESC' | 'ASC'
 
@@ -71,6 +72,30 @@ export interface ColorSelectProps {
   selectedLabelId: number | null
   isOpen: boolean
 }
+
+
+export interface MainCategoryTypes {
+  id: number
+  name: string
+  code: string
+}
+
+export interface SubCategoryTypes {
+  id: number
+  mainCategoryId: number
+  name: string
+  code: string
+}
+
+export interface CategoryDropdownProps {
+  options: MainCategoryTypes[] | SubCategoryTypes[]
+  labelName: string
+  modelValue: MainCategoryTypes | SubCategoryTypes | null
+  isLabel?: boolean
+  isDisabled?: boolean
+  isInvalidate?: string
+}
+
 
 export interface LabelDataTypes {
   labelId: number

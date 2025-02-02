@@ -24,8 +24,7 @@ export const useLogsParamsChange = () => {
   }
 
   const toggleSortBy = () => {
-    params.orderRequest.sortDirection =
-      params.orderRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
+    params.sortDirection = params.sortDirection === 'DESC' ? 'ASC' : 'DESC'
   }
 
   return {

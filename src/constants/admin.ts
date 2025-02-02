@@ -1,4 +1,4 @@
-import type { ListBarTabProps, Option } from '@/types/common'
+import type { ListBarTabProps, MainCategoryTypes, Option, SubCategoryTypes } from '@/types/common'
 
 export const MEMBER_MANAGEMENT_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '이름', width: 60 },
@@ -8,7 +8,7 @@ export const MEMBER_MANAGEMENT_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '이메일' },
   { content: '역할', width: 60 },
   { content: '승인 권한', width: 60 },
-  { content: '가입일', width: 80, sortBy: 'REGISTERED' },
+  { content: '가입일', width: 80, sortBy: 'REGISTERED_AT' },
   { content: '처리', width: 180, justifyCenter: true }
 ]
 
@@ -27,28 +27,22 @@ export const API_LOGS_DIVISION_LIST: Option[] = [
 
 export const LOGS_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '구분', width: 80 },
-  { content: '시각', width: 180, sortBy: 'CREATED' },
+  { content: '시각', width: 180, sortBy: 'CREATED_AT' },
   { content: '아이디', width: 80 },
   { content: 'IP 주소', width: 120 },
   { content: 'Status', width: 40 },
   { content: '결과' }
 ]
 
-import type {
-  RoleTypes,
-  RoleTypesEnum,
-  UserRegistrationProps,
-  mainCategoryTypes,
-  subCategoryTypes
-} from '@/types/admin'
+import type { RoleTypes, RoleTypesEnum, UserRegistrationProps } from '@/types/admin'
 
-export const CATEGORY_FIRST_ADD: mainCategoryTypes = {
+export const CATEGORY_FIRST_ADD: MainCategoryTypes = {
   name: '',
   code: '',
   id: 0
 }
 
-export const CATEGORY_SECOND_ADD: subCategoryTypes = {
+export const CATEGORY_SECOND_ADD: SubCategoryTypes = {
   name: '',
   mainCategoryId: 0,
   code: '',
