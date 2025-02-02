@@ -56,7 +56,12 @@ const password = ref('')
 
 const handleLogin = async () => {
   try {
-    const res = await postLogin(nickname.value, password.value)
+    const loginData = {
+      nickname: nickname.value,
+      password: password.value
+    }
+    const sessionId = '000'
+    const res = await postLogin(loginData, sessionId)
 
     if (res) {
       switch (res.memberInfo.memberRole) {
