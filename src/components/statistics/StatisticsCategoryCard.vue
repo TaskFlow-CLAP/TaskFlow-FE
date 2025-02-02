@@ -86,7 +86,7 @@ const { data: subData } = useQuery<StatisticsData[]>({
   enabled: computed(() => mainCategory.value !== '')
 })
 const subLabels = computed(() => {
-  return subData.value?.map(el => el.key) || ['카테고리를 선택해주세요']
+  return subData.value?.map(el => el.key) || []
 })
 const subSeries = computed(() => {
   return subData.value?.map(el => el.count) || []
