@@ -101,4 +101,3 @@ export interface CategoryDropdownProps {
   isDisabled?: boolean
   isInvalidate?: string
 }
-
