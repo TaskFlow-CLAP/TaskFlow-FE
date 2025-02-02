@@ -4,13 +4,13 @@
       v-model="category1"
       :options="mainCategoryArr"
       :label-name="'1차 카테고리'"
-      :placeholderText="'1차 카테고리를 선택해주세요'"
+      :isInvalidate="isInvalidate"
       :isDisabled="false" />
     <CategoryDropDown
       v-model="category2"
       :options="afterSubCategoryArr"
       :label-name="'2차 카테고리'"
-      :placeholderText="'2차 카테고리를 선택해주세요'"
+      :is-invalidate="isInvalidate"
       :isDisabled="!category1" />
     <RequestTaskInput
       v-model="title"
@@ -38,7 +38,6 @@
 <script lang="ts" setup>
 import { getMainCategory, getSubCategory } from '@/api/common'
 import { postTaskRequest } from '@/api/user'
-import { EXPLANATION_PLACEHOLDER, TITLE_PLACEHOLDER } from '@/constants/user'
 import type { MainCategoryTypes, SubCategoryTypes } from '@/types/common'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -116,9 +115,7 @@ const handleSubmit = async () => {
   formData.append('taskInfo', newBlob)
 
   if (file.value && file.value.length > 0) {
-    file.value.forEach(f => {
-      formData.append('attachment', f)
-    })
+    file.value.forEach(f => formData.append('attachment', f))
   }
   try {
     const res = await postTaskRequest(formData)
