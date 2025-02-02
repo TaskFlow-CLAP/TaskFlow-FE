@@ -18,6 +18,7 @@
             :is-open="isColorModalVisible"
             :label-id="label.labelId"
             :selectedLabelId="selectedLabelId"
+            :new-label="editValue"
             @close="handleColorModal" />
           <input
             v-if="isEdit && editValue.labelId === label.labelId"
@@ -79,7 +80,7 @@ const selectedLabelId = ref<number | null>(null)
 const editValue = ref<LabelDataTypes>({
   labelName: '',
   labelColor: '',
-  labelId: 9999
+  labelId: 0
 })
 
 const handleDeleteModal = () => (isModalVisible.value = !isModalVisible.value)
@@ -89,9 +90,7 @@ const handleColorModal = () => (isColorModalVisible.value = !isColorModalVisible
 const handleEdit = () => (isEdit.value = !isEdit.value)
 
 const deleteLabel = async (id: number) => {
-  console.log('삭제중')
-  const res = await deleteLabelAdmin(id)
-  console.log(res)
+  deleteLabelAdmin(id)
   handleDeleteModal()
 }
 
