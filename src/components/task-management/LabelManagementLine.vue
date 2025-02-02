@@ -17,6 +17,7 @@
             v-if="isColorModalVisible && editValue.labelId === label.labelId"
             :is-open="isColorModalVisible && editValue.labelId === label.labelId"
             :new-label="editValue"
+            @update-color="updateLabelColor"
             @close="handleColorModal" />
           <input
             v-if="isEdit && editValue.labelId === label.labelId"
@@ -63,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import { deleteLabelAdmin } from '@/api/admin'
+import { deleteLabelAdmin, patchLabelAdmin } from '@/api/admin'
 import type { LabelDataTypes } from '@/types/admin'
 import type { LabelColorTypes } from '@/types/common'
 import { getColor } from '@/utils/color'
@@ -112,9 +113,8 @@ const updateLabelColor = (color: LabelColorTypes) => {
   editValue.value.labelColor = color.colorEnum
 }
 
-const finishEdit = async () => {
+const finishEdit = () => {
   handleEdit()
-  await patchLabelAdmin(editValue.value)
-  emit('updateLabels')
+  patchLabelAdmin(editValue.value)
 }
 </script>
