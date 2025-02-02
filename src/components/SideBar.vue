@@ -84,9 +84,9 @@ const name = computed(() => info.value.memberName)
 const nickname = computed(() => info.value.nickname)
 
 const filteredMenu = computed(() => {
-  return role.value === 'user'
+  return role.value === 'ROLE_USER'
     ? SIDE_USER_MENU
-    : role.value === 'manager'
+    : role.value === 'ROLE_MANAGER'
       ? SIDE_MANAGER_MENU
       : SIDE_ADMIN_MENU
 })
