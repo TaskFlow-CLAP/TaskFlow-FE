@@ -1,24 +1,15 @@
 import { axiosInstance } from '@/utils/axios'
 import Cookies from 'js-cookie'
+import type { loginDataTypes } from '@/types/auth'
 
-export const postLogin = async (nickname: string, password: string) => {
-  const body = {
-    nickname: nickname,
-    password: password
-  }
-  const sessionIdValue = '123'
-
-  const response = await axiosInstance.post('/api/auths/login', body, {
-    headers: {
-      sessionId: sessionIdValue
-    }
+export const postLogin = async (loginData: loginDataTypes, sessionId: string) => {
+  const response = await axiosInstance.post('/api/auths/login', loginData, {
+    headers: { sessionId: sessionId }
   })
-
   Cookies.set('accessToken', response.data.accessToken, {
     path: '/',
     sameSite: 'strict'
   })
-
   return response.data
 }
 

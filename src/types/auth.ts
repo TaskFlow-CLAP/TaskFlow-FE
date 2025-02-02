@@ -12,3 +12,8 @@ export interface User {
   memberRole: string
   memberStatus: string
 }
+
+export interface loginDataTypes {
+  nickname: string
+  password: string
+}
