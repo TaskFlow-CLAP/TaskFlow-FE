@@ -15,18 +15,7 @@ export const useMemberStore = defineStore('memberInfo', () => {
 
   async function updateMemberInfoWithToken() {
     try {
-      const accessToken = Cookies.get('accessToken')
-
-      if (!accessToken) {
-        console.error('Access token error')
-        return
-      }
-
-      const response = await axiosInstance.get('/api/members/info', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      })
+      const response = await axiosInstance.get('/api/members/info')
 
       console.log('API Response:', response.data)
       updateMemberInfo(response.data)
