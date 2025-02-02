@@ -27,14 +27,14 @@
             backgroundColor: getColor(newLabel.labelColor)?.fillColor
           }"
           class="w-4 h-4 rounded-full border-2 cursor-pointer pr-3"
-          @click="clickColor"></div>
+          @click="handleColor"></div>
         <ColorSelectModal
-          v-if="isColorModalVisible"
-          :is-open="isColorModalVisible"
-          :label-id="0"
-          :selected-label-id="0"
-          @close="closeColor" />
+          :is-open="isColorVisible"
+          :newLabel
+          @close="handleColor"
+          @updateColor="updateLabelColor" />
         <input
+          v-model="newLabel.labelName"
           type="text"
           placeholder="새로운 구분명을 입력"
           class="w-full flex focus:outline-none" />
@@ -46,22 +46,20 @@
           확인
         </button>
         <button
-          @click="cancelAddLabel"
+          @click="handleAdd"
           class="text-disabled w-[21px]">
           취소
         </button>
       </div>
     </div>
-    <div class="mt-4">
-      <CategoryList />
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { getLabelsAdmin } from '@/api/admin'
+import { getLabelsAdmin, postAddLabelAdmin } from '@/api/admin'
 import { plusIcon } from '@/constants/iconPath'
 import type { LabelDataTypes, NewLabelTypes } from '@/types/admin'
+import type { LabelColorTypes } from '@/types/common'
 import { getColor } from '@/utils/color'
 import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
@@ -71,32 +69,34 @@ import LabelManagementLine from './LabelManagementLine.vue'
 onMounted(async () => {
   const Labels = await getLabelsAdmin()
   labelData.value = Labels
-  console.log(Labels)
 })
 
 const labelData = ref<LabelDataTypes[]>([])
 
 const newLabel = ref<NewLabelTypes>({
-  labelName: '새로운 구분',
+  labelName: '',
   labelColor: 'RED'
 })
-const isColorModalVisible = ref(false)
+
+const isColorVisible = ref(false)
 const isAdd = ref(false)
 
+const handleAdd = () => {
+  isAdd.value = !isAdd.value
+}
+
+const handleColor = () => {
+  isColorVisible.value = !isColorVisible.value
+}
+
+const updateLabelColor = (color: LabelColorTypes) => {
+  newLabel.value.labelColor = color.colorEnum
+}
+
 const addNewLabel = () => {
-  console.log(newLabel, '추가로직')
-  isAdd.value = false
-}
-
-const cancelAddLabel = () => {
-  isAdd.value = false
-}
-
-const closeColor = () => {
-  isColorModalVisible.value = false
-}
-
-const clickColor = () => {
-  isColorModalVisible.value = true
+  if (newLabel.value.labelName !== '') {
+    postAddLabelAdmin(newLabel.value)
+    handleAdd()
+  }
 }
 </script>
