@@ -18,7 +18,7 @@
             :is-open="isColorModalVisible"
             :label-id="label.labelId"
             :selectedLabelId="selectedLabelId"
-            @close="closeColor" />
+            @close="handleColorModal" />
           <input
             v-if="isEdit && editValue.labelId === label.labelId"
             v-model="editValue.labelName"
@@ -38,7 +38,9 @@
             {{ isEdit && editValue.labelId === label.labelId ? '확인' : '수정' }}
           </button>
           <button
-            @click="isEdit && editValue.labelId === label.labelId ? cancelEdit() : handleDelete()"
+            @click="
+              isEdit && editValue.labelId === label.labelId ? handleEdit() : handleDeleteModal()
+            "
             :class="
               isEdit && editValue.labelId === label.labelId
                 ? 'text-disabled w-[21px]'
@@ -51,7 +53,7 @@
       <ModalView
         type="warningType"
         :is-open="isModalVisible"
-        @close="handleCancel">
+        @close="handleDeleteModal">
         <template #header>구분을 삭제 하시겠습니까?</template>
         <template #body>삭제된 구분은 복구할 수 없습니다</template>
       </ModalView>
@@ -69,8 +71,8 @@ import ColorSelectModal from './ColorSelectModal.vue'
 const { labelData } = defineProps<{ labelData: LabelDataTypes[] }>()
 
 const isModalVisible = ref(false)
-const isEdit = ref(false)
 const isColorModalVisible = ref(false)
+const isEdit = ref(false)
 const selectedLabelId = ref<number | null>(null)
 const editValue = ref<LabelDataTypes>({
   labelName: '',
@@ -78,33 +80,29 @@ const editValue = ref<LabelDataTypes>({
   labelId: 9999
 })
 
-const handleCancel = () => {
-  isModalVisible.value = false
+const handleDeleteModal = () => {
+  isModalVisible.value = !isModalVisible.value
 }
 
-const handleDelete = () => {
-  isModalVisible.value = true
+const handleColorModal = () => {
+  isColorModalVisible.value = !isColorModalVisible.value
+}
+
+const handleEdit = () => {
+  isEdit.value = !isEdit.value
 }
 
 const clickColor = (labelId: number) => {
-  isColorModalVisible.value = true
+  handleColorModal()
   selectedLabelId.value = labelId
 }
 
-const closeColor = () => {
-  isColorModalVisible.value = false
-}
-
 const startEdit = (label: LabelDataTypes) => {
-  isEdit.value = true
+  handleEdit()
   editValue.value = label
 }
 
 const finishEdit = () => {
-  isEdit.value = false
-}
-
-const cancelEdit = () => {
-  isEdit.value = false
+  handleEdit()
 }
 </script>
