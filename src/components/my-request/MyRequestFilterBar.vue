@@ -33,15 +33,15 @@
 </template>
 
 <script setup lang="ts">
-import FilterDropdown from '../filters/FilterDropdown.vue'
-import FilterCategory from '../filters/FilterCategory.vue'
-import FilterInput from '../filters/FilterInput.vue'
-import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
-import { useRequestParamsStore } from '@/stores/params'
 import { PAGE_SIZE_LIST, TASK_STATUS_LIST, TERM_LIST } from '@/constants/common'
-import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
-import axiosInstance from '@/utils/axios'
+import { useRequestParamsStore } from '@/stores/params'
+import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
+import FilterCategory from '../filters/FilterCategory.vue'
+import FilterDropdown from '../filters/FilterDropdown.vue'
+import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
+import FilterInput from '../filters/FilterInput.vue'
+import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 
 const store = useRequestParamsStore()
 store.$reset()

@@ -1,36 +1,29 @@
-import axios, { type InternalAxiosRequestConfig } from 'axios'
+import axios, { type AxiosInstance, type InternalAxiosRequestConfig } from 'axios'
 import Cookies from 'js-cookie'
+
 const baseURL = import.meta.env.VITE_API_BASE_URL
 
-const axiosInstance = axios.create({
-  baseURL: baseURL,
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json'
-  }
-})
-
-axiosInstance.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    if (typeof window !== 'undefined') {
-      const token = Cookies.get('accessToken')
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`
+const setInterceptors = (instance: AxiosInstance) => {
+  instance.interceptors.request.use(
+    (config: InternalAxiosRequestConfig) => {
+      if (typeof window !== 'undefined') {
+        const token = Cookies.get('accessToken')
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`
+        }
+        console.log(token, '으로 요청 중')
       }
-    }
-    return config
-  },
-  error => Promise.reject(error)
-)
+      return config
+    },
+    error => Promise.reject(error)
+  )
 
-axiosInstance.interceptors.response.use(
-  response => response,
-  error => {
-    if (axios.isCancel(error)) {
-      console.log('요청이 취소되었습니다:', error.message)
-    } else {
-      if (error.response) {
+  instance.interceptors.response.use(
+    response => response,
+    error => {
+      if (axios.isCancel(error)) {
+        console.log('요청이 취소되었습니다:', error.message)
+      } else if (error.response) {
         switch (error.response.status) {
           case 401:
             console.error('인증 오류: 다시 로그인하세요.')
@@ -50,9 +43,26 @@ axiosInstance.interceptors.response.use(
       } else {
         console.error('네트워크 오류: 서버에 연결할 수 없습니다.')
       }
+      return Promise.reject(error)
     }
-    return Promise.reject(error)
-  }
-)
+  )
+}
 
-export default axiosInstance
+const createAxiosInstance = (contentType: string) => {
+  const instance = axios.create({
+    baseURL: baseURL,
+    withCredentials: true,
+    headers: {
+      'Content-Type': contentType,
+      Accept: 'application/json'
+    }
+  })
+  setInterceptors(instance)
+  return instance
+}
+
+const axiosInstance = createAxiosInstance('application/json')
+
+const formDataAxiosInstance = createAxiosInstance('multipart/form-data')
+
+export { axiosInstance, formDataAxiosInstance }
