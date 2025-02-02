@@ -18,7 +18,7 @@
         class="flex w-full h-11 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-black"
         @click="toggleDropdown">
         <p :class="{ 'text-disabled': !modelValue?.name }">
-          {{ modelValue?.name ?? placeholderText }}
+          {{ modelValue?.name ?? labelName + '를 선택해주세요' }}
         </p>
         <CommonIcons
           :name="dropdownIcon"
@@ -45,7 +45,7 @@ import type { CategoryDropdownProps, MainCategoryTypes, SubCategoryTypes } from 
 import { computed, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { placeholderText, options, labelName, modelValue, isLabel, isDisabled, isInvalidate } =
+const { options, labelName, modelValue, isLabel, isDisabled, isInvalidate } =
   defineProps<CategoryDropdownProps>()
 
 const isInvalidateState = computed(() => isInvalidate)
