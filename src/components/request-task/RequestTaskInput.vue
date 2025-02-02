@@ -7,11 +7,6 @@
         class="text-red-1">
         *
       </p>
-      <p
-        v-if="isInvalidateState === 'input'"
-        class="text-red-1">
-        {{ labelName }}을 입력해주세요
-      </p>
     </div>
     <input
       class="w-full h-11 border border-border-1 px-4 focus:outline-none text-black"

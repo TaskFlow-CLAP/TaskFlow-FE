@@ -76,7 +76,23 @@ export interface FormCheckboxProps {
 
 export interface ColorSelectProps {
   isOpen: boolean
-  newLabel: LabelDataTypes
+}
+
+export interface LabelDataTypes {
+  labelId: number
+  labelName: string
+  labelColor: string
+}
+
+export interface MainCategoryTypes {
+  name: string
+  code: string
+}
+
+export interface SubCategoryTypes {
+  mainCategoryId: number
+  name: string
+  code: string
 }
 
 export interface CategoryDropdownProps {
