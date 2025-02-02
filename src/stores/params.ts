@@ -10,27 +10,29 @@ import { ref } from 'vue'
 
 export const useRequestParamsStore = defineStore('requestParams', () => {
   const params = ref<RequestParams>({
+    page: 0,
+    pageSize: 20,
     term: '',
-    mainCategoryId: [],
-    categoryId: [],
+    mainCategoryIds: [],
+    categoryIds: [],
     title: '',
     nickName: '',
     taskStatus: [],
-    pageSize: 20,
-    page: 1,
-    orderRequest: { sortBy: 'REQUESTED', sortDirection: 'DESC' }
+    sortBy: 'REQUESTED_AT',
+    sortDirection: 'DESC'
   })
 
   const $reset = () => {
+    params.value.page = 0
+    params.value.pageSize = 20
     params.value.term = ''
-    params.value.mainCategoryId = []
-    params.value.categoryId = []
+    params.value.mainCategoryIds = []
+    params.value.categoryIds = []
     params.value.title = ''
     params.value.nickName = ''
     params.value.taskStatus = []
-    params.value.pageSize = 20
-    params.value.page = 1
-    params.value.orderRequest = { sortBy: 'REQUESTED', sortDirection: 'DESC' }
+    params.value.sortBy = 'REQUESTED_AT'
+    params.value.sortDirection = 'DESC'
   }
 
   return { params, $reset }
@@ -45,7 +47,8 @@ export const useMemberManagementParamsStore = defineStore('userManagementParams'
     role: '',
     pageSize: 20,
     page: 1,
-    orderRequest: { sortBy: 'REGISTERED', sortDirection: 'DESC' }
+    sortBy: 'REGISTERED_AT',
+    sortDirection: 'DESC'
   })
 
   return { params }
@@ -59,7 +62,8 @@ export const useLogsParamsStore = defineStore('logsParams', () => {
     ipAddress: '',
     pageSize: 20,
     page: 1,
-    orderRequest: { sortBy: 'CREATED', sortDirection: 'DESC' }
+    sortBy: 'CREATED_AT',
+    sortDirection: 'DESC'
   })
 
   const $reset = () => {
@@ -69,7 +73,8 @@ export const useLogsParamsStore = defineStore('logsParams', () => {
     params.value.ipAddress = ''
     params.value.pageSize = 20
     params.value.page = 1
-    params.value.orderRequest = { sortBy: 'CREATED', sortDirection: 'DESC' }
+    params.value.sortBy = 'CREATED_AT'
+    params.value.sortDirection = 'DESC'
   }
 
   return { params, $reset }
@@ -79,8 +84,8 @@ export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
   const params = ref<TeamBoardParams>({
     order: 'CONTRIBUTION',
     title: '',
-    mainCategoryId: [],
-    categoryId: []
+    mainCategoryIds: [],
+    categoryIds: []
   })
 
   return { params }
@@ -89,8 +94,8 @@ export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
 export const useTaskBoardParamsStore = defineStore('taskBoardParams', () => {
   const params = ref<TaskBoardParams>({
     division: '',
-    mainCategoryId: [],
-    categoryId: [],
+    mainCategoryIds: [],
+    categoryIds: [],
     title: '',
     nickName: '',
     pageSize: 20,

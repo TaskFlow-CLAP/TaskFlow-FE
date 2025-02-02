@@ -1,5 +1,7 @@
 <template>
-  <div class="w-fit flex items-center gap-2 relative">
+  <div
+    v-if="totalPage"
+    class="w-fit h-6 flex items-center gap-2 relative">
     <div class="flex gap-1 absolute left-0 top-1/2 -translate-x-[calc(100%+8px)] -translate-y-1/2">
       <button
         v-if="pageSet[0] !== 1"
@@ -59,23 +61,21 @@ const pageSet = computed(() => {
 
 const onPrevSetClick = () => {
   const prevSetEnd = Math.floor((pageNumber - 1) / 5) * 5
-  emit('update:pageNumber', prevSetEnd)
+  emit('update:pageNumber', prevSetEnd - 1)
 }
 const onPrevClick = () => {
   const prev = Math.max(pageNumber - 1, 1)
-  emit('update:pageNumber', prev)
+  emit('update:pageNumber', prev - 1)
 }
 const onNextClick = () => {
   const next = Math.min(pageNumber + 1, totalPage)
-  emit('update:pageNumber', next)
+  emit('update:pageNumber', next - 1)
 }
 const onNextSetClick = () => {
   const nextSetStart = Math.floor((pageNumber - 1) / 5) * 5 + 6
-  emit('update:pageNumber', nextSetStart)
+  emit('update:pageNumber', nextSetStart - 1)
 }
 const onNumClick = (num: number) => {
-  emit('update:pageNumber', num)
+  emit('update:pageNumber', num - 1)
 }
 </script>
-
-<style scoped></style>

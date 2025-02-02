@@ -21,10 +21,10 @@ export const useRequestParamsChange = () => {
     params.nickName = value
   }
   const onMainChange = (value: number) => {
-    params.mainCategoryId = onArrayChange(params.mainCategoryId, value)
+    params.mainCategoryIds = onArrayChange(params.mainCategoryIds, value)
   }
   const onSubChange = (value: number) => {
-    params.categoryId = onArrayChange(params.categoryId, value)
+    params.categoryIds = onArrayChange(params.categoryIds, value)
   }
   const onTaskStatusChange = (value: string) => {
     params.taskStatus = onArrayChange(params.taskStatus!, value)
@@ -33,12 +33,12 @@ export const useRequestParamsChange = () => {
     params.pageSize = Number(value)
   }
 
-  const toggleSortBy = (sortBy: 'REQUESTED' | 'FINISHED') => {
-    if (sortBy === params.orderRequest.sortBy) {
-      params.orderRequest.sortDirection =
-        params.orderRequest.sortDirection === 'DESC' ? 'ASC' : 'DESC'
+  const toggleSortBy = (sortBy: 'REQUESTED_AT' | 'FINISHED_AT') => {
+    if (sortBy === params.sortBy) {
+      params.sortDirection = params.sortDirection === 'DESC' ? 'ASC' : 'DESC'
     } else {
-      params.orderRequest = { sortBy, sortDirection: 'DESC' }
+      params.sortBy = sortBy
+      params.sortDirection = 'DESC'
     }
   }
 

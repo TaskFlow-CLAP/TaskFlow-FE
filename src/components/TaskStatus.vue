@@ -5,7 +5,7 @@
     <span
       class="text-xs font-bold"
       :class="textColor">
-      {{ status }}
+      {{ statusAsText(status) }}
     </span>
   </div>
 </template>
@@ -13,6 +13,7 @@
 <script setup lang="ts">
 import type { Status } from '@/types/common'
 import { statusAsColor } from '@/utils/statusAsColor'
+import { statusAsText } from '@/utils/statusAsText'
 import { computed } from 'vue'
 
 const { status, isActive } = defineProps<{

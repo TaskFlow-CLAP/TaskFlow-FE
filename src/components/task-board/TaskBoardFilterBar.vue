@@ -6,9 +6,9 @@
       :value="params.division"
       @update:value="onDivisionChange" />
     <FilterCategory
-      :category-list="DUMMY_CATEGORY_LIST"
-      :main="params.mainCategoryId"
-      :sub="params.categoryId"
+      :category-list="data"
+      :main="params.mainCategoryIds"
+      :sub="params.categoryIds"
       @update:main="onMainChange"
       @update:sub="onSubChange" />
     <FilterInput
@@ -26,8 +26,10 @@
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { DUMMY_CATEGORY_LIST, DUMMY_DIVISION_LIST } from '@/datas/dummy'
+import { DUMMY_DIVISION_LIST } from '@/datas/dummy'
 import { useTaskBoardParamsStore } from '@/stores/params'
+import { useQuery } from '@tanstack/vue-query'
+import axiosInstance from '@/utils/axios'
 
 const { params } = useTaskBoardParamsStore()
 
@@ -39,10 +41,10 @@ const onDivisionChange = (value: string) => {
   params.division = value
 }
 const onMainChange = (value: number) => {
-  params.mainCategoryId = onArrayChange(params.mainCategoryId, value)
+  params.mainCategoryIds = onArrayChange(params.mainCategoryIds, value)
 }
 const onSubChange = (value: number) => {
-  params.categoryId = onArrayChange(params.categoryId, value)
+  params.categoryIds = onArrayChange(params.categoryIds, value)
 }
 const onNickNameChange = (value: string) => {
   params.nickName = value
@@ -50,4 +52,14 @@ const onNickNameChange = (value: string) => {
 const onTitleChange = (value: string) => {
   params.title = value
 }
+
+const fetchCategory = async () => {
+  const response = await axiosInstance.get('/api/category')
+  return response.data
+}
+
+const { data } = useQuery({
+  queryKey: ['category'],
+  queryFn: fetchCategory
+})
 </script>

@@ -141,3 +141,13 @@ export interface TaskHistoryDatas {
   dueDate?: string
   labelName?: string
 }
+
+export interface MyRequestResponse {
+  content: MyRequestListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
+}

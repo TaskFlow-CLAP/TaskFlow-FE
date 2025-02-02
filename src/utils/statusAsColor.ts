@@ -1,11 +1,11 @@
 import type { Status } from '@/types/common'
 
 const defaultColor = {
-  요청: 'gray',
-  '진행 중': 'blue',
-  '검토 중': 'orange',
-  완료: 'green',
-  종료: 'red'
+  REQUESTED: 'gray',
+  IN_PROGRESS: 'blue',
+  PENDING_COMPLETED: 'orange',
+  COMPLETED: 'green',
+  TERMINATED: 'red'
 }
 
 export const statusAsColor = (status: Status) => {
