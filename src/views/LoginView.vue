@@ -46,13 +46,36 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { postLogin } from '@/api/auth'
+
+const router = useRouter()
 
 const nickname = ref('')
 const password = ref('')
 
 const handleLogin = async () => {
-  const res = postLogin(nickname.value, password.value)
-  console.log('요청확인:', res)
+  try {
+    const res = await postLogin(nickname.value, password.value)
+
+    if (res) {
+      switch (res.memberInfo.memberRole) {
+        case 'ROLE_ADMIN':
+          router.push('/member-management')
+          break
+        case 'ROLE_MANAGER':
+          router.push('my-request')
+          break
+        case 'ROLE_USER':
+          router.push('/my-request')
+          break
+        default:
+          router.push('/')
+      }
+    }
+  } catch (error) {
+    // 로그인 실패 시 에러 처리
+    console.error('로그인 실패:', error)
+  }
 }
 </script>
