@@ -23,3 +23,8 @@ export const patchLabelAdmin = async (editLabel: LabelDataTypes) => {
   })
   return response.data
 }
+
+export const deleteCategoryAdmin = async (id: number) => {
+  const response = await axiosInstance.delete(`/api/managements/categories/${id}`)
+  return response.data
+}

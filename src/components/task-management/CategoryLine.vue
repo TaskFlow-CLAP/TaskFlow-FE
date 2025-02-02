@@ -22,7 +22,7 @@
               수정
             </button>
             <button
-              @click="handleDelete(main.id)"
+              @click="openModal(main.id)"
               class="text-red-1">
               삭제
             </button>
@@ -36,7 +36,8 @@
     <ModalView
       type="warningType"
       :is-open="isModalVisible"
-      @close="handleCancel()">
+      @click="handleDelete(selectedCategoryId)"
+      @close="handleModal">
       <template #header>카테고리를 삭제 하시겠습니까?</template>
       <template #body>삭제된 카테고리는 복구할 수 없습니다</template>
     </ModalView>
@@ -44,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+import { deleteCategoryAdmin } from '@/api/admin'
 import type { CategoryAllData } from '@/types/admin'
 import { defineProps, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -53,13 +55,21 @@ const { categories } = defineProps<CategoryAllData>()
 const router = useRouter()
 
 const isModalVisible = ref(false)
+const selectedCategoryId = ref<number | null>(null)
 
-const handleCancel = () => {
-  isModalVisible.value = false
+const handleModal = () => {
+  isModalVisible.value = !isModalVisible.value
 }
 
-const handleDelete = (id: number) => {
-  isModalVisible.value = true
-  console.log(id, '삭제로직')
+const openModal = (id: number) => {
+  selectedCategoryId.value = id
+  handleModal()
+}
+
+const handleDelete = async (id: number | null) => {
+  if (id !== null) {
+    await deleteCategoryAdmin(id)
+    handleModal()
+  }
 }
 </script>
