@@ -4,13 +4,13 @@
       v-model="category1"
       :options="mainCategoryArr"
       :label-name="'1차 카테고리'"
-      :placeholderText="'1차 카테고리를 선택해주세요'"
+      :isInvalidate="isInvalidate"
       :isDisabled="false" />
     <CategoryDropDown
       v-model="category2"
       :options="afterSubCategoryArr"
       :label-name="'2차 카테고리'"
-      :placeholderText="'2차 카테고리를 선택해주세요'"
+      :is-invalidate="isInvalidate"
       :isDisabled="!category1" />
     <RequestTaskInput
       v-model="title"
@@ -38,11 +38,11 @@
 <script lang="ts" setup>
 import { getMainCategory, getSubCategory } from '@/api/common'
 import { postTaskRequest } from '@/api/user'
-import { EXPLANATION_PLACEHOLDER, TITLE_PLACEHOLDER } from '@/constants/user'
 import type { MainCategoryTypes, SubCategoryTypes } from '@/types/common'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
+import ModalView from '../ModalView.vue'
 import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
@@ -56,23 +56,6 @@ const description = ref('')
 const file = ref(null as File[] | null)
 const isInvalidate = ref('')
 const isModalVisible = ref(false)
-
-const mainCategoryArr = ref<MainCategoryTypes[]>([])
-const subCategoryArr = ref<SubCategoryTypes[]>([])
-const afterSubCategoryArr = ref<SubCategoryTypes[]>([])
-
-onMounted(async () => {
-  mainCategoryArr.value = await getMainCategory()
-  subCategoryArr.value = await getSubCategory()
-  afterSubCategoryArr.value = await getSubCategory()
-})
-
-watch(category1, async newValue => {
-  category2.value = null
-  afterSubCategoryArr.value = subCategoryArr.value.filter(
-    subCategory => subCategory.mainCategoryId === newValue?.id
-  )
-})
 
 const mainCategoryArr = ref<MainCategoryTypes[]>([])
 const subCategoryArr = ref<SubCategoryTypes[]>([])
@@ -113,7 +96,8 @@ const handleSubmit = async () => {
   }
   const formData = new FormData()
   const taskInfo = {
-    categoryId: category2.value?.id,
+    categoryId: category2.value.id,
+
     title: title.value,
     description: description.value
   }
@@ -128,6 +112,7 @@ const handleSubmit = async () => {
   }
   try {
     const res = await postTaskRequest(formData)
+    isModalVisible.value = true
     console.error('요청 성공:', res)
   } catch (error) {
     console.error('요청 실패:', error)
