@@ -15,14 +15,14 @@ export interface RequestParams {
 
 export interface MemberManagementParams {
   name: string
-  nickName: string
-  department: string
+  nickname: string
+  departmentId: number
   email: string
   role: Role | ''
-  pageSize: number
+  size: number
   page: number
-  sortBy: 'REGISTERED_AT'
-  sortDirection: SortDirection
+  // sortBy: 'REGISTERED_AT'
+  // sortDirection: SortDirection
 }
 
 export interface LogsParams {

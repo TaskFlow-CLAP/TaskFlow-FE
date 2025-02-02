@@ -39,7 +39,7 @@ const onPageChange = (value: number) => {
 }
 
 const fetchMemberList = async () => {
-  const response = await axiosInstance.get('/api/members', {
+  const response = await axiosInstance.get('/api/managements/members', {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
     },

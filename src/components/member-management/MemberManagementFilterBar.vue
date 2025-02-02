@@ -6,12 +6,12 @@
       @update:value="value => (params.name = value)" />
     <FilterInput
       title="아이디"
-      :value="params.nickName"
-      @update:value="value => (params.nickName = value)" />
+      :value="params.nickname"
+      @update:value="value => (params.nickname = value)" />
     <FilterInput
       title="부서"
-      :value="params.department"
-      @update:value="value => (params.department = value)" />
+      :value="String(params.departmentId)"
+      @update:value="value => (params.departmentId = Number(value))" />
     <FilterInput
       title="이메일"
       width="full"
@@ -25,8 +25,8 @@
     <FilterDropdown
       title="페이지 당 개수"
       :option-list="PAGE_SIZE_LIST"
-      :value="String(params.pageSize)"
-      @update:value="value => (params.pageSize = Number(value))" />
+      :value="String(params.size)"
+      @update:value="value => (params.size = Number(value))" />
   </div>
 </template>
 

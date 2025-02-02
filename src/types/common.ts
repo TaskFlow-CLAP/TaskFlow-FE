@@ -47,7 +47,7 @@ export type Status = 'REQUESTED' | 'IN_PROGRESS' | 'PENDING_COMPLETED' | 'COMPLE
 
 export type SortDirection = 'DESC' | 'ASC'
 
-export type Role = 'USER' | 'MANAGER' | 'ADMIN'
+export type Role = 'ROLE_USER' | 'ROLE_MANAGER' | 'ROLE_ADMIN'
 
 export interface DueDateInputProps {
   modelValue: string

@@ -41,14 +41,14 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
 export const useMemberManagementParamsStore = defineStore('userManagementParams', () => {
   const params = ref<MemberManagementParams>({
     page: 0,
-    pageSize: 20,
-    name: '',
-    nickName: '',
-    department: '',
+    size: 20,
+    name: 'a',
+    nickname: '',
+    departmentId: 1,
     email: '',
-    role: '',
-    sortBy: 'REGISTERED_AT',
-    sortDirection: 'DESC'
+    role: ''
+    // sortBy: 'REGISTERED_AT',
+    // sortDirection: 'DESC'
   })
 
   return { params }
