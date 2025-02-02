@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import scrollbarHide from 'tailwind-scrollbar-hide'
+
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   safelist: [
@@ -77,5 +79,5 @@ export default {
       }
     }
   },
-  plugins: [import('tailwind-scrollbar-hide')]
+  plugins: [scrollbarHide]
 }
