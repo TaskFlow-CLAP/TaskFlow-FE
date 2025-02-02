@@ -5,7 +5,7 @@ export const getLabelsAdmin = async () => {
   return response.data
 }
 
-export const deleteLabelAdmin = async (id: string) => {
-  const response = await axiosInstance.delete(`/api/managements/labels/${id}`)
+export const deleteLabelAdmin = async (id: number) => {
+  const response = await axiosInstance.delete(`/api/management/labels/${id}`)
   return response.data
 }
