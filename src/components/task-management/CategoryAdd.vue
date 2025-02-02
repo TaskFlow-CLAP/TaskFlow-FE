@@ -22,15 +22,15 @@
     </ModalView>
     <!-- 카테고리 목록 API 필요, 임시로 역할로 설정 -->
     <RequestTaskDropdown
-      v-model="categoryForm.firstCategory"
-      :options="RoleKeys"
+      v-model="mainCategory"
+      :options="categoryOptions.map(el => el.name)"
       label-name="1차 카테고리"
       placeholder-text="1차 카테고리를 선택해주세요"
-      v-if="props.categoryStep == '2'" />
+      v-if="categoryStep == '2'" />
     <RequestTaskInput
       v-model="categoryForm.name"
       placeholder-text="카테고리명을 입력해주세요"
-      :label-name="`${props.categoryStep}차 카테고리명`" />
+      :label-name="`${categoryStep}차 카테고리명`" />
     <RequestTaskInput
       v-model="categoryForm.code"
       placeholder-text="카테고리의 고유코드를 입력해주세요"
@@ -46,24 +46,26 @@
 </template>
 
 <script lang="ts" setup>
-import { CATEGORY_FIRST_ADD, CATEGORY_SECOND_ADD, RoleKeys } from '@/constants/admin'
-import { computed, ref } from 'vue'
+import { CATEGORY_FORM } from '@/constants/admin'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
 import { axiosInstance } from '@/utils/axios'
+import { getMainCategory } from '@/api/common'
+import type { Category, CategoryForm } from '@/types/common'
 
 const router = useRouter()
 
-const props = defineProps<{
+const { categoryStep } = defineProps<{
   categoryStep: string
 }>()
 
 const isModalVisible = ref({ add: false, cancel: false, fail: false })
 
-const categoryForm = ref(props.categoryStep == '1' ? CATEGORY_FIRST_ADD : CATEGORY_SECOND_ADD)
+const categoryForm = ref<CategoryForm>(CATEGORY_FORM)
 
 const handleAddModal = () => {
   isModalVisible.value.add = false
@@ -88,20 +90,19 @@ const handleSubmit = async () => {
   if (
     isCodeInvalidate.value ||
     categoryForm.value.name.length === 0 ||
-    categoryForm.value.code.length === 0
+    categoryForm.value.code.length === 0 ||
+    (categoryStep === '2' && categoryForm.value.mainCategoryId === undefined)
   ) {
     handleFailModal()
     return
   }
 
   try {
-    const response = await axiosInstance.post(
-      '/api/managements/main-category',
-      categoryForm.value,
-      {
-        headers: { Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}` }
-      }
-    )
+    const requestUrl =
+      categoryStep === '1' ? '/api/managements/main-category' : '/api/managements/sub-category'
+    await axiosInstance.post(requestUrl, categoryForm.value, {
+      headers: { Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}` }
+    })
     isModalVisible.value.add = true
   } catch {
     handleFailModal()
@@ -114,5 +115,18 @@ const isCodeInvalidate = computed(() => {
 
   const isInvalidate = !/^[A-Z]{1,2}$/.test(code)
   return isInvalidate ? 'code' : ''
+})
+
+const mainCategory = ref('')
+const categoryOptions = ref<Category[]>([])
+onMounted(async () => {
+  categoryOptions.value = await getMainCategory()
+  if (categoryStep === '2')
+    categoryForm.value = { ...categoryForm.value, mainCategoryId: undefined }
+})
+watch(mainCategory, () => {
+  categoryForm.value.mainCategoryId = categoryOptions.value.find(
+    el => el.name === mainCategory.value
+  )?.id
 })
 </script>
