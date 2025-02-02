@@ -57,6 +57,7 @@ const title = ref('')
 const description = ref('')
 const file = ref(null as File[] | null)
 const isInvalidate = ref('')
+const isModalVisible = ref(false)
 
 const mainCategoryArr = ref<MainCategoryTypes[]>([])
 const subCategoryArr = ref<SubCategoryTypes[]>([])
@@ -113,6 +114,7 @@ const handleSubmit = async () => {
   }
   try {
     const res = await postTaskRequest(formData)
+    isModalVisible.value = true
     console.error('요청 성공:', res)
   } catch (error) {
     console.error('요청 실패:', error)
