@@ -37,7 +37,7 @@ const onPageChange = (value: number) => {
 }
 
 const fetchApiLogsList = async () => {
-  const response = await axiosInstance.get('/api/logs/login', {
+  const response = await axiosInstance.get('/api/managements/logs/login', {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
     },
