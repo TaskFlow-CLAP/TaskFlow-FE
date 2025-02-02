@@ -30,9 +30,8 @@ import PieChart from '../PieChart.vue'
 import LineChart from '../LineChart.vue'
 import PeriodButtons from './PeriodButtons.vue'
 import type { PeriodType } from '@/types/manager'
-import { axiosInstance } from '@/utils/axios'
+import axiosInstance from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
-import type { StatisticsData } from '@/types/admin'
 
 const { title, statisticsType, chartType } = defineProps<{
   title: string
@@ -65,16 +64,9 @@ const fetchStatistics = async () => {
   return response.data
 }
 
-const { data } = useQuery<StatisticsData[]>({
+const { data } = useQuery<{ key: string; value: number }[]>({
   queryKey: [statisticsType, periodType],
   queryFn: fetchStatistics
 })
-
-const labels = computed(() => {
-  return data.value?.map(el => el.key) || []
-})
-
-const series = computed(() => {
-  return data.value?.map(el => el.count) || []
-})
+console.log(data.value)
 </script>
