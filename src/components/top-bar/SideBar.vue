@@ -68,7 +68,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
-import CommonIcons from '../common/CommonIcons.vue'
+import CommonIcons from './common/CommonIcons.vue'
 import { hamburgerIcon } from '@/constants/iconPath'
 import { SIDE_USER_MENU, SIDE_MANAGER_MENU, SIDE_ADMIN_MENU } from '@/constants/menu'
 import { useMemberStore } from '@/stores/member'
@@ -79,10 +79,9 @@ const { info } = storeToRefs(memberStore)
 
 const route = useRoute()
 
-// 회원 역할, 닉네임 필요
-const role = ref('admin')
-const name = ref('백지연')
-const nickname = ref('Chloe.yeon')
+const role = computed(() => info.value.memberRole)
+const name = computed(() => info.value.memberName)
+const nickname = computed(() => info.value.nickname)
 
 const filteredMenu = computed(() => {
   return role.value === 'ROLE_USER'
