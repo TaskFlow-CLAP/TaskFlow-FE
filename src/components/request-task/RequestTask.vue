@@ -28,6 +28,12 @@
       :handleSubmit="handleSubmit"
       cancelText="취소"
       submitText="요청" />
+    <ModalView
+      :isOpen="isModalVisible"
+      :type="'successType'"
+      @close="handleCancel">
+      <template #header>작업이 요청되었습니다</template>
+    </ModalView>
   </div>
 </template>
 
@@ -39,6 +45,7 @@ import type { MainCategoryTypes, SubCategoryTypes } from '@/types/common'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
+import ModalView from '../ModalView.vue'
 import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
@@ -51,6 +58,7 @@ const title = ref('')
 const description = ref('')
 const file = ref(null as File[] | null)
 const isInvalidate = ref('')
+const isModalVisible = ref(false)
 
 const mainCategoryArr = ref<MainCategoryTypes[]>([])
 const subCategoryArr = ref<SubCategoryTypes[]>([])
@@ -70,6 +78,7 @@ watch(category1, async newValue => {
 })
 
 const router = useRouter()
+
 const handleCancel = () => {
   category1.value = null
   category2.value = null
@@ -107,6 +116,7 @@ const handleSubmit = async () => {
   }
   try {
     const res = await postTaskRequest(formData)
+    isModalVisible.value = true
     console.error('요청 성공:', res)
   } catch (error) {
     console.error('요청 실패:', error)
