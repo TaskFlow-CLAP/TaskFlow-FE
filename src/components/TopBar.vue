@@ -14,8 +14,14 @@
         v-show="isLogined"
         class="flex items-center gap-6">
         <NotificationIcon :new-notification="12" />
-        <!-- 프로필 사진 API 필요 -->
-        <div class="rounded-[50%] bg-zinc-100 p-5" />
+        <img
+          v-if="info?.imageUrl"
+          class="rounded-[50%] w-10 h-10"
+          :src="info.imageUrl"
+          alt="프로필 이미지" />
+        <div
+          v-else
+          class="rounded-[50%] bg-zinc-100 p-5" />
       </div>
     </div>
   </div>
@@ -25,13 +31,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import CommonIcons from './common/CommonIcons.vue'
 import SideBar from './SideBar.vue'
 import { hamburgerIcon } from '../constants/iconPath'
 import NotificationIcon from './icons/NotificationIcon.vue'
+import { storeToRefs } from 'pinia'
+import { useMemberStore } from '@/stores/member'
 
-// 로그인 정보 필요
+const memberStore = useMemberStore()
+const { info } = storeToRefs(memberStore)
+
+onMounted(async () => {
+  await memberStore.updateMemberInfoWithToken()
+})
+
 const isSideOpen = ref(false)
 const isLogined = ref(true)
 
