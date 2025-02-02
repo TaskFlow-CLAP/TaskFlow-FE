@@ -28,6 +28,8 @@ import PieChart from '../PieChart.vue'
 import LineChart from '../LineChart.vue'
 import PeriodButtons from './PeriodButtons.vue'
 import type { PeriodType } from '@/types/manager'
+import axiosInstance from '@/utils/axios'
+import { useQuery } from '@tanstack/vue-query'
 
 const { title, statisticsType, chartType } = defineProps<{
   title: string
@@ -45,4 +47,24 @@ const periodType = ref<PeriodType>('DAY')
 const changePeriod = (newPeriodType: PeriodType) => {
   periodType.value = newPeriodType
 }
+
+const fetchStatistics = async () => {
+  const response = await axiosInstance.get('/api/tasks/statistics', {
+    headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
+    },
+    params: {
+      periodType: periodType.value,
+      statisticsType
+    }
+  })
+
+  return response.data
+}
+
+const { data } = useQuery<{ key: string; value: number }[]>({
+  queryKey: [statisticsType, periodType],
+  queryFn: fetchStatistics
+})
+console.log(data.value)
 </script>
