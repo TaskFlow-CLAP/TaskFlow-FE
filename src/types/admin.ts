@@ -53,6 +53,6 @@ export interface LabelDataTypes {
 }
 
 export interface NewLabelTypes {
-  divisionName: string
-  divisionColor: string
+  labelName: string
+  labelColor: string
 }

@@ -28,7 +28,7 @@
           <p
             v-else
             class="text-black">
-            {{ labelData[0].labelName }}
+            {{ label.labelName }}
           </p>
         </div>
         <div class="flex gap-2 text-xs font-bold">
