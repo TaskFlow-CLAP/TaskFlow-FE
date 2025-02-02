@@ -1,4 +1,3 @@
-// stores/memberStore.ts
 import { defineStore } from 'pinia'
 import axiosInstance from '@/utils/axios'
 import { ref } from 'vue'
@@ -15,13 +14,12 @@ export const useMemberStore = defineStore('memberInfo', () => {
     memberStatus: ''
   })
 
-  // API 호출 후 회원 정보 업데이트
   async function updateMemberInfoWithToken() {
     try {
       const accessToken = Cookies.get('accessToken')
 
       if (!accessToken) {
-        console.error('Access token is missing')
+        console.error('Access token error')
         return
       }
 
@@ -31,15 +29,13 @@ export const useMemberStore = defineStore('memberInfo', () => {
         }
       })
 
-      // 받은 데이터로 상태 업데이트
       console.log('API Response:', response.data)
       updateMemberInfo(response.data)
     } catch (error) {
-      console.error('Error fetching member info:', error)
+      console.error('updata error:', error)
     }
   }
 
-  // 상태 업데이트 함수
   function updateMemberInfo(responseData: any) {
     info.value = {
       memberId: 0,
