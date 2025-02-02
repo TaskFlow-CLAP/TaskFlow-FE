@@ -25,3 +25,23 @@ export const postLogin = async (nickname: string, password: string) => {
     throw error
   }
 }
+
+export const patchPassword = async (password: string) => {
+  const accessToken = Cookies.get('accessToken')
+
+  if (!accessToken) {
+    console.error('Access token is missing')
+    return
+  }
+
+  try {
+    const response = await axiosInstance.patch('/api/members/password', password, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    })
+    return response.data
+  } catch (error) {
+    console.log('api error:', error)
+  }
+}
