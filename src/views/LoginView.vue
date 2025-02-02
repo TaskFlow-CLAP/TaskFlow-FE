@@ -46,11 +46,13 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { postLogin } from '@/api/auth'
 
 const nickname = ref('')
 const password = ref('')
 
 const handleLogin = async () => {
-  // 로그인 API 필요
+  const res = postLogin(nickname.value, password.value)
+  console.log('요청확인:', res)
 }
 </script>
