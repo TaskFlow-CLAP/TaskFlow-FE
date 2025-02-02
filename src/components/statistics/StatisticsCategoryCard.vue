@@ -31,7 +31,7 @@ import { computed, ref } from 'vue'
 import PieChart from '../PieChart.vue'
 import PeriodButtons from './PeriodButtons.vue'
 import type { PeriodType } from '@/types/manager'
-import { axiosInstance } from '@/utils/axios'
+import axiosInstance from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import type { StatisticsData } from '@/types/admin'
 
@@ -86,7 +86,7 @@ const { data: subData } = useQuery<StatisticsData[]>({
   enabled: computed(() => mainCategory.value !== '')
 })
 const subLabels = computed(() => {
-  return subData.value?.map(el => el.key) || []
+  return subData.value?.map(el => el.key) || ['카테고리를 선택해주세요']
 })
 const subSeries = computed(() => {
   return subData.value?.map(el => el.count) || []
