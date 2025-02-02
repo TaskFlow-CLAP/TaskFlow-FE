@@ -27,6 +27,7 @@ export interface RequestTaskInputProps {
   labelName: string
   isNotRequired?: boolean
   isEdit?: boolean
+  isInvalidate?: string
 }
 
 export interface RequestTaskFileInputProps {
