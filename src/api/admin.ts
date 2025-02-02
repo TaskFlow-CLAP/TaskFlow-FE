@@ -1,3 +1,4 @@
+import type { NewLabelTypes } from '@/types/admin'
 import { axiosInstance } from '@/utils/axios'
 
 export const getLabelsAdmin = async () => {
@@ -7,5 +8,10 @@ export const getLabelsAdmin = async () => {
 
 export const deleteLabelAdmin = async (id: number) => {
   const response = await axiosInstance.delete(`/api/management/labels/${id}`)
+  return response.data
+}
+
+export const postAddLabelAdmin = async (newLabel: NewLabelTypes) => {
+  const response = await axiosInstance.post('/api/management/labels', newLabel)
   return response.data
 }
