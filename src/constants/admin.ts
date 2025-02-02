@@ -38,15 +38,13 @@ import type { RoleTypes, RoleTypesEnum, UserRegistrationProps } from '@/types/ad
 
 export const CATEGORY_FIRST_ADD: Category = {
   name: '',
-  code: '',
-  id: 0
+  code: ''
 }
 
 export const CATEGORY_SECOND_ADD: SubCategory = {
   name: '',
   mainCategoryId: 0,
-  code: '',
-  id: 0
+  code: ''
 }
 
 export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {
