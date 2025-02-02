@@ -76,3 +76,8 @@ export interface NewDevisonTypes {
   divisionName: string
   divisionColor: string
 }
+
+export interface StatisticsData {
+  key: string
+  count: number
+}
