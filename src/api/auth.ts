@@ -1,4 +1,4 @@
-import axiosInstance from '@/utils/axios'
+import { axiosInstance } from '@/utils/axios'
 import Cookies from 'js-cookie'
 
 export const postLogin = async (nickname: string, password: string) => {
