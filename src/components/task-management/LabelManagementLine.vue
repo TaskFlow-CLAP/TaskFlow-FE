@@ -57,7 +57,7 @@
       :is-open="isModalVisible"
       @close="handleDeleteModal(null)"
       @click="deleteLabel(selectedLabelId || 0)">
-      <template #header>{{ selectedLabelId }}구분을 삭제 하시겠습니까?</template>
+      <template #header>구분을 삭제 하시겠습니까?</template>
       <template #body>삭제된 구분은 복구할 수 없습니다</template>
     </ModalView>
   </div>
@@ -85,6 +85,8 @@ const editValue = ref<LabelDataTypes>({
   labelId: 0
 })
 
+const emit = defineEmits(['updateLabels'])
+
 const handleDeleteModal = (labelId: number | null) => {
   isModalVisible.value = !isModalVisible.value
   selectedLabelId.value = labelId
@@ -95,7 +97,8 @@ const handleColorModal = () => (isColorModalVisible.value = !isColorModalVisible
 const handleEdit = () => (isEdit.value = !isEdit.value)
 
 const deleteLabel = async (labelId: number) => {
-  deleteLabelAdmin(labelId)
+  await deleteLabelAdmin(labelId)
+  emit('updateLabels')
   handleDeleteModal(0)
 }
 
@@ -116,5 +119,6 @@ const updateLabelColor = (color: LabelColorTypes) => {
 const finishEdit = () => {
   handleEdit()
   patchLabelAdmin(editValue.value)
+  emit('updateLabels')
 }
 </script>
