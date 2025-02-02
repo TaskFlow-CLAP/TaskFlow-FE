@@ -53,7 +53,8 @@
       <ModalView
         type="warningType"
         :is-open="isModalVisible"
-        @close="handleDeleteModal">
+        @close="handleDeleteModal"
+        @click="deleteLabel(label.labelId)">
         <template #header>구분을 삭제 하시겠습니까?</template>
         <template #body>삭제된 구분은 복구할 수 없습니다</template>
       </ModalView>
@@ -62,6 +63,7 @@
 </template>
 
 <script setup lang="ts">
+import { deleteLabelAdmin } from '@/api/admin'
 import type { LabelDataTypes } from '@/types/admin'
 import { getColor } from '@/utils/color'
 import { defineProps, ref } from 'vue'
@@ -80,16 +82,17 @@ const editValue = ref<LabelDataTypes>({
   labelId: 9999
 })
 
-const handleDeleteModal = () => {
-  isModalVisible.value = !isModalVisible.value
-}
+const handleDeleteModal = () => (isModalVisible.value = !isModalVisible.value)
 
-const handleColorModal = () => {
-  isColorModalVisible.value = !isColorModalVisible.value
-}
+const handleColorModal = () => (isColorModalVisible.value = !isColorModalVisible.value)
 
-const handleEdit = () => {
-  isEdit.value = !isEdit.value
+const handleEdit = () => (isEdit.value = !isEdit.value)
+
+const deleteLabel = async (id: number) => {
+  console.log('삭제중')
+  const res = await deleteLabelAdmin(id)
+  console.log(res)
+  handleDeleteModal()
 }
 
 const clickColor = (labelId: number) => {
