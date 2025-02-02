@@ -44,7 +44,6 @@ const { info } = storeToRefs(memberStore)
 
 onMounted(async () => {
   await memberStore.updateMemberInfoWithToken()
-  console.log('Updated info after API call:', info.value)
 })
 
 const isSideOpen = ref(false)
