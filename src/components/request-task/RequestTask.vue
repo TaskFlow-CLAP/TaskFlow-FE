@@ -86,9 +86,17 @@ const handleCancel = () => {
 }
 
 const handleSubmit = async () => {
+  if (!category1.value || !category2.value) {
+    isInvalidate.value = 'category'
+    console.log(isInvalidate.value, '변경됨')
+    return
+  } else if (!title.value) {
+    isInvalidate.value = 'input'
+    return
+  }
   const formData = new FormData()
   const taskInfo = {
-    categoryId: category2.value?.id,
+    categoryId: category2.value.id,
     title: title.value,
     description: description.value
   }
