@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isOpen && labelId === selectedLabelId"
+    v-if="isOpen"
     class="absolute top-7 left-3 w-[176px] h-[120px] p-4 flex flex-col z-50 shadow-custom rounded-lg bg-white gap-4"
     @click.self="closeModal">
     <div class="flex w-full justify-between">
@@ -39,8 +39,8 @@ const closeModal = () => {
   emit('close')
 }
 
-const updateColor = (color: string) => {
-  console.log(props.labelId, '로 색상 변경 로직', color)
+const updateColor = (color: LabelColorTypes) => {
+  emit('updateColor', color)
   emit('close')
 }
 </script>
