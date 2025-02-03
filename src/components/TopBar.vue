@@ -1,4 +1,7 @@
 <template>
+  <NotificationModal
+    :isOpen="isModalVisible"
+    @close="toggleModal" />
   <div class="fixed w-full bg-white text-black py-2 border-b border-border-1">
     <div
       class="max-w-[1200px] min-w-[1024px] mx-auto px-6 flex w-full justify-between items-center">
@@ -13,7 +16,9 @@
       <div
         v-show="isLogined"
         class="flex items-center gap-6">
-        <NotificationIcon :new-notification="12" />
+        <div @click="toggleModal">
+          <NotificationIcon :new-notification="12" />
+        </div>
         <img
           v-if="info?.imageUrl"
           class="rounded-[50%] w-10 h-10"
@@ -38,6 +43,7 @@ import { hamburgerIcon } from '../constants/iconPath'
 import NotificationIcon from './icons/NotificationIcon.vue'
 import { storeToRefs } from 'pinia'
 import { useMemberStore } from '@/stores/member'
+import NotificationModal from './NotificationModal.vue'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
@@ -48,6 +54,13 @@ onMounted(async () => {
 
 const isSideOpen = ref(false)
 const isLogined = ref(true)
+
+const isModalVisible = ref(false)
+
+const toggleModal = () => {
+  isModalVisible.value = !isModalVisible.value
+  console.log(isModalVisible.value)
+}
 
 const onCloseSide = () => {
   isSideOpen.value = false
