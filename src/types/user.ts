@@ -115,7 +115,6 @@ export interface TaskDetailDropdownProps {
 
 export interface TaskDetailRightProps {
   taskDetail: TaskDetailDatas
-  isManager: boolean
 }
 
 export interface TaskDetailLabelDropdownProps {
