@@ -18,3 +18,9 @@ export const formatDateWithDay = (dateString: string) => {
 
   return `${year}년 ${month}월 ${day}일 ${dayOfWeek}`
 }
+
+export const convertToISO = (dateStr: string, timeStr: string) => {
+  const date = new Date(`${dateStr}T${timeStr}:00`)
+
+  return date.toISOString()
+}
