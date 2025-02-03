@@ -17,7 +17,7 @@
         @click="ApproveTask"
         v-if="isManager && !isApproved"
         class="flex gap-1 items-center cursor-pointer">
-        <CommonIcons :name="modificationIcon" />
+        <CommonIcons :name="approveIcon" />
         <p class="text-primary1">요청 승인</p>
       </div>
       <div
@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { cancelIcon, closeIcon, modificationIcon, reRequestIcon } from '@/constants/iconPath'
+import { approveIcon, cancelIcon, closeIcon, modificationIcon, reRequestIcon } from '@/constants/iconPath'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailTopBarProps } from '@/types/manager'
 import { storeToRefs } from 'pinia'
