@@ -10,7 +10,9 @@
     </div>
     <div>
       <p class="task-detail">종료일</p>
-      <p class="text-sm text-black">{{ formatDate(data.finishedAt) || '-' }}</p>
+      <p class="text-sm text-black">
+        {{ formatDate(data.finishedAt) || '-' }}
+      </p>
     </div>
     <div>
       <p class="task-detail">상태</p>
@@ -22,7 +24,7 @@
       <p class="task-detail">요청자</p>
       <div class="flex gap-2">
         <img
-          :src="data.requesterImageUrl"
+          :src="data.requesterImageUrl || '/images/mockProfile.jpg'"
           class="rounded-full overflow-hidden w-5 h-5"
           alt="requesterImg" />
         <p class="text-sm text-black">{{ data.requesterNickName }}</p>
@@ -80,7 +82,6 @@ import TaskStatusList from './TaskStatusList.vue'
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 const isManager = computed(() => info.value.memberRole === 'ROLE_MANAGER')
-
 const { data } = defineProps<{ data: TaskDetailDatas }>()
 
 const processor = ref(DUMMY_PROCESSOR.nickName)
