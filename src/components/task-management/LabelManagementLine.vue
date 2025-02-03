@@ -116,9 +116,9 @@ const updateLabelColor = (color: LabelColorTypes) => {
   editValue.value.labelColor = color.colorEnum
 }
 
-const finishEdit = () => {
+const finishEdit = async () => {
   handleEdit()
-  patchLabelAdmin(editValue.value)
+  await patchLabelAdmin(editValue.value)
   emit('updateLabels')
 }
 </script>
