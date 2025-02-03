@@ -4,7 +4,8 @@
       class="flex flex-col overflow-y-auto rounded-lg w-full max-w-[1200px] min-w-[1024px] bg-white p-6">
       <TaskDetailTopBar
         :is-approved="isApproved"
-        :close-task-detail="closeTaskDetail" />
+        :close-task-detail="closeTaskDetail"
+        :id="data?.taskId || 0" />
       <div
         class="w-full flex gap-6"
         v-if="data">
@@ -23,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { getTaskDetailUser } from '@/api/user'
+import { getTaskDetailManager } from '@/api/user'
 import * as taskDetailData from '@/datas/taskdetail'
 import type { TaskDetailDatas, TaskDetailProps } from '@/types/user'
 import { useQuery } from '@tanstack/vue-query'
@@ -37,6 +38,6 @@ const { isApproved, closeTaskDetail, selectedId } = defineProps<TaskDetailProps>
 
 const { data } = useQuery<TaskDetailDatas>({
   queryKey: ['taskDetailUser', selectedId],
-  queryFn: () => getTaskDetailUser(selectedId)
+  queryFn: () => getTaskDetailManager(selectedId)
 })
 </script>
