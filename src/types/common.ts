@@ -79,6 +79,12 @@ export interface ColorSelectProps {
   newLabel: LabelDataTypes
 }
 
+export interface CategoryForm {
+  name: string
+  code: string
+  mainCategoryId?: number
+}
+
 export interface CategoryDropdownProps {
   options: Category[] | SubCategory[]
   labelName: string
