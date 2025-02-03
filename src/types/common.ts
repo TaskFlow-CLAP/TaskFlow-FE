@@ -90,6 +90,12 @@ export interface CategoryForm {
   mainCategoryId?: number
 }
 
+export interface CategoryForm {
+  name: string
+  code: string
+  mainCategoryId?: number
+}
+
 export interface CategoryDropdownProps {
   options: CategoryForm
   labelName: string
