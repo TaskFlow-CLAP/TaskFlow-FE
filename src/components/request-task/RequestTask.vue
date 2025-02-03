@@ -72,24 +72,6 @@ watch(category1, async newValue => {
     subCategory => subCategory.mainCategoryId === newValue?.id
   )
 })
-
-const mainCategoryArr = ref<MainCategoryTypes[]>([])
-const subCategoryArr = ref<SubCategoryTypes[]>([])
-const afterSubCategoryArr = ref<SubCategoryTypes[]>([])
-
-onMounted(async () => {
-  mainCategoryArr.value = await getMainCategory()
-  subCategoryArr.value = await getSubCategory()
-  afterSubCategoryArr.value = await getSubCategory()
-})
-
-watch(category1, async newValue => {
-  category2.value = null
-  afterSubCategoryArr.value = subCategoryArr.value.filter(
-    subCategory => subCategory.mainCategoryId === newValue?.id
-  )
-})
-
 const router = useRouter()
 
 const handleCancel = () => {
