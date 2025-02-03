@@ -32,7 +32,6 @@ export interface LogsParams {
   logStatus: string[]
   nickName: string
   clientIp: string
-  sortBy: 'REQUESTED_AT'
   sortDirection: SortDirection
 }
 

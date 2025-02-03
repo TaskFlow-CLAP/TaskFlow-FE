@@ -20,7 +20,7 @@ import { computed } from 'vue'
 
 const { params } = useLogsParamsStore()
 const orderRequest = computed(() => ({
-  sortBy: params.sortBy,
+  sortBy: 'REQUESTED_AT',
   sortDirection: params.sortDirection
 }))
 
