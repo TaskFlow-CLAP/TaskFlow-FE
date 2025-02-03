@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex justify-between items-center">
+  <div class="w-full flex justify-between items-center bg-white">
     <div class="flex gap-4 text-sm font-bold pb-6">
       <div
         v-if="!isManager && isApproved"

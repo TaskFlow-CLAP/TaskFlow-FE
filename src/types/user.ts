@@ -97,8 +97,8 @@ export interface TaskDetailHistoryProps {
 }
 
 export interface TaskDetailProps {
-  isManager: boolean
   isApproved: boolean
+  selectedId: number
   closeTaskDetail: () => void
 }
 export interface ManagerInfoTypes {
