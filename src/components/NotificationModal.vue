@@ -12,20 +12,22 @@
           <p class="text-body font-bold text-xs">알림</p>
           <div class="absolute right-4">
             <div class="flex items-center">
-              <CommonIcons
-                :name="smallCheckIcon"
-                class="w-2.5 h-1.5 mr-1 fill-primary1" />
-              <p class="font-bold text-primary1 text-xs">모두 읽음</p>
+              <button class="flex items-center">
+                <CommonIcons
+                  :name="smallCheckIcon"
+                  class="w-2.5 h-1.5 mr-1 fill-primary1" />
+                <p class="font-bold text-primary1 text-xs">모두 읽음</p>
+              </button>
               <CommonIcons
                 :name="closeIcon"
-                class="ml-2"
+                class="ml-2 cursor-pointer"
                 @click="closeModal" />
             </div>
           </div>
         </div>
         <div class="max-h-[186px] flex flex-col h-full overflow-y-auto">
           <div class="overflow-y-scroll flex"></div>
-          <div :class="['flex flex-col border-b py-3 px-4', { 'bg-primary2': isCheck }]">
+          <button :class="['flex flex-col border-b py-3 px-4', { 'bg-primary2': isCheck }]">
             <p class="text-xs text-body font-bold">{{ title }}</p>
             <div class="flex text-xs pt-2">
               <span class="text-black">
@@ -35,8 +37,8 @@
                 &nbsp;상태로 변경 되었습니다
               </span>
             </div>
-          </div>
-          <div :class="['flex flex-col border-b py-3 px-4', { 'bg-primary2': !isCheck }]">
+          </button>
+          <button :class="['flex flex-col border-b py-3 px-4', { 'bg-primary2': !isCheck }]">
             <p class="text-xs text-body font-bold">{{ title }}</p>
             <div class="flex text-xs pt-2">
               <span class="text-black">
@@ -46,7 +48,7 @@
                 &nbsp;상태로 변경 되었습니다
               </span>
             </div>
-          </div>
+          </button>
         </div>
       </div>
     </div>
@@ -68,7 +70,6 @@ const isCheck = ref(true)
 
 const emit = defineEmits<{
   (e: 'close'): void
-  (e: 'click'): void
 }>()
 
 const closeModal = () => {
