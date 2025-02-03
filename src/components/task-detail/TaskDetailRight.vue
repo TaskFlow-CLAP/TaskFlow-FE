@@ -10,7 +10,9 @@
     </div>
     <div>
       <p class="task-detail">종료일</p>
-      <p class="text-sm text-black">{{ formatDate(data.finishedAt) || '-' }}</p>
+      <p class="text-sm text-black">
+        {{ formatDate(data.finishedAt) || '-' }}
+      </p>
     </div>
     <div>
       <p class="task-detail">상태</p>
@@ -22,7 +24,7 @@
       <p class="task-detail">요청자</p>
       <div class="flex gap-2">
         <img
-          :src="data.requesterImageUrl"
+          :src="data.requesterImageUrl || '/images/mockProfile.jpg'"
           class="rounded-full overflow-hidden w-5 h-5"
           alt="requesterImg" />
         <p class="text-sm text-black">{{ data.requesterNickName }}</p>
@@ -30,7 +32,7 @@
     </div>
     <div>
       <p class="task-detail">처리자</p>
-      <div v-if="isManager">
+      <div v-if="isManager && data.processorNickName">
         <TaskDetailDropdown
           v-model="processor"
           :options="DUMMY_REQUEST_PROCESSORS"
@@ -47,7 +49,7 @@
         <p class="text-sm text-black">{{ data.processorNickName || '-' }}</p>
       </div>
     </div>
-    <div v-if="isManager">
+    <div v-if="isManager && data.dueDate">
       <p class="task-detail">마감기한</p>
       <div class="w-full flex justify-between items-center">
         <p class="text-sm text-black">{{ data.dueDate || '-' }}까지</p>
@@ -55,7 +57,7 @@
       </div>
       <p class="text-red-1 text-xs font-bold">3일 전</p>
     </div>
-    <div v-if="isManager">
+    <div v-if="isManager && data.labelName">
       <p class="task-detail">구분</p>
       <TaskDetailLabelDropdown
         v-model="labeling"
@@ -79,11 +81,9 @@ import TaskDetailLabelDropdown from './TaskDetailLabelDropdown.vue'
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 const isManager = computed(() => info.value.memberRole === 'ROLE_MANAGER')
-
 const { data } = defineProps<{ data: TaskDetailDatas }>()
 
 const processor = ref(DUMMY_PROCESSOR.nickName)
 const labeling = ref(DUMMY_TASK_LABELS[0].labelName)
 </script>
 
-<script setup lang="ts"></script>
