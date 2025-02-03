@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { cancelIcon, closeIcon, modificationIcon, reRequestIcon } from '@/constants/iconPath'
+import { approveIcon, cancelIcon, closeIcon, modificationIcon, reRequestIcon } from '@/constants/iconPath'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailTopBarProps } from '@/types/manager'
 import { storeToRefs } from 'pinia'
