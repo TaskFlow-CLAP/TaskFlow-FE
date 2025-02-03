@@ -38,7 +38,7 @@
 <script lang="ts" setup>
 import { getMainCategory, getSubCategory } from '@/api/common'
 import { postTaskRequest } from '@/api/user'
-import type { MainCategoryTypes, SubCategoryTypes } from '@/types/common'
+import type { Category, SubCategory } from '@/types/common'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
@@ -48,8 +48,8 @@ import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
 
-const category1 = ref<MainCategoryTypes | null>(null)
-const category2 = ref<MainCategoryTypes | null>(null)
+const category1 = ref<Category | null>(null)
+const category2 = ref<Category | null>(null)
 
 const title = ref('')
 const description = ref('')
@@ -57,9 +57,9 @@ const file = ref(null as File[] | null)
 const isInvalidate = ref('')
 const isModalVisible = ref(false)
 
-const mainCategoryArr = ref<MainCategoryTypes[]>([])
-const subCategoryArr = ref<SubCategoryTypes[]>([])
-const afterSubCategoryArr = ref<SubCategoryTypes[]>([])
+const mainCategoryArr = ref<Category[]>([])
+const subCategoryArr = ref<SubCategory[]>([])
+const afterSubCategoryArr = ref<SubCategory[]>([])
 
 onMounted(async () => {
   mainCategoryArr.value = await getMainCategory()

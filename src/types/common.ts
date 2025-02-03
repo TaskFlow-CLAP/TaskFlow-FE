@@ -16,7 +16,14 @@ export interface Category {
   id: number
   name: string
   code: string
-  subCategory?: { id: number; mainCategoryId: number; name: string; code: string }[]
+  subCategory?: SubCategory[]
+}
+
+export interface SubCategory {
+  id: number
+  mainCategoryId: number
+  name: string
+  code: string
 }
 
 export interface FilterCategoryProps {
@@ -72,23 +79,10 @@ export interface ColorSelectProps {
   newLabel: LabelDataTypes
 }
 
-export interface MainCategoryTypes {
-  id: number
-  name: string
-  code: string
-}
-
-export interface SubCategoryTypes {
-  id: number
-  mainCategoryId: number
-  name: string
-  code: string
-}
-
 export interface CategoryDropdownProps {
-  options: MainCategoryTypes[] | SubCategoryTypes[]
+  options: Category[] | SubCategory[]
   labelName: string
-  modelValue: MainCategoryTypes | SubCategoryTypes | null
+  modelValue: Category | SubCategory | null
   isLabel?: boolean
   isDisabled?: boolean
   isInvalidate?: string
