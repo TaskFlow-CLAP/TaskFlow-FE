@@ -100,3 +100,9 @@ export interface CategoryDropdownProps {
   isDisabled?: boolean
   isInvalidate?: string
 }
+
+export interface LabelResponse {
+  labelId: number
+  labelName: string
+  labelColor: string
+}

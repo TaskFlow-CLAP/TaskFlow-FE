@@ -2,11 +2,11 @@
   <div class="flex gap-4 z-40">
     <FilterDropdown
       title="구분"
-      :option-list="DUMMY_DIVISION_LIST"
+      :option-list="labelOptionList"
       :value="params.division"
       @update:value="onDivisionChange" />
     <FilterCategory
-      :category-list="data"
+      :category-list="categoryList"
       :main="params.mainCategoryIds"
       :sub="params.categoryIds"
       @update:main="onMainChange"
@@ -26,10 +26,11 @@
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { DUMMY_DIVISION_LIST } from '@/datas/dummy'
 import { useTaskBoardParamsStore } from '@/stores/params'
 import { useQuery } from '@tanstack/vue-query'
-import {axiosInstance} from '@/utils/axios'
+import { computed } from 'vue'
+import type { LabelResponse } from '@/types/common'
+import { getCategory, getLabels } from '@/api/common'
 
 const { params } = useTaskBoardParamsStore()
 
@@ -53,13 +54,18 @@ const onTitleChange = (value: string) => {
   params.title = value
 }
 
-const fetchCategory = async () => {
-  const response = await axiosInstance.get('/api/category')
-  return response.data
-}
-
-const { data } = useQuery({
+const { data: categoryList } = useQuery({
   queryKey: ['category'],
-  queryFn: fetchCategory
+  queryFn: getCategory
+})
+
+const { data: labelList } = useQuery<LabelResponse[]>({
+  queryKey: ['label'],
+  queryFn: getLabels
+})
+const labelOptionList = computed(() => {
+  const list = [{ value: '', content: '전체' }]
+  labelList.value?.forEach(el => list.push({ value: String(el.labelId), content: el.labelName }))
+  return list
 })
 </script>
