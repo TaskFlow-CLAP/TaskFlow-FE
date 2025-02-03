@@ -1,16 +1,11 @@
 <template>
-  <div>
+  <div class="relative">
     <div class="text-xs flex gap-x-1 mb-2">
       <p class="text-body font-bold">{{ labelName }}</p>
       <p
         v-if="!isNotRequired"
         class="text-red-1">
         *
-      </p>
-      <p
-        v-if="isInvalidateState === 'input'"
-        class="text-red-1">
-        {{ labelName }}을 입력해주세요
       </p>
     </div>
     <input
@@ -19,6 +14,16 @@
       :disabled="isEdit"
       @input="updateValue(($event.target as HTMLInputElement).value)"
       :placeholder="placeholderText" />
+    <p
+      v-if="isInvalidateState === 'input'"
+      class="text-red-1 text-xs absolute top-[calc(100%+4px)]">
+      {{ labelName }}을 입력해주세요
+    </p>
+    <p
+      v-if="isInvalidateState === 'code'"
+      class="text-red-1 text-xs absolute top-[calc(100%+4px)]">
+      사용할 수 없는 고유코드입니다.
+    </p>
   </div>
 </template>
 
