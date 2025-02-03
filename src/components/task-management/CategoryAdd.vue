@@ -26,7 +26,8 @@
       :options="categoryOptions.map(el => el.name)"
       label-name="1차 카테고리"
       placeholder-text="1차 카테고리를 선택해주세요"
-      v-if="categoryStep == '2'" />
+      v-if="categoryStep == '2'"
+      :disabled="route.params.id !== undefined" />
     <RequestTaskInput
       v-model="categoryForm.name"
       placeholder-text="카테고리명을 입력해주세요"
@@ -48,16 +49,17 @@
 <script lang="ts" setup>
 import { CATEGORY_FORM } from '@/constants/admin'
 import { computed, onMounted, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
 import { axiosInstance } from '@/utils/axios'
-import { getMainCategory } from '@/api/common'
-import type { Category, CategoryForm } from '@/types/common'
+import { getMainCategory, getSubCategory } from '@/api/common'
+import type { Category, CategoryForm, SubCategory } from '@/types/common'
 
 const router = useRouter()
+const route = useRoute()
 
 const { categoryStep } = defineProps<{
   categoryStep: string
@@ -98,11 +100,18 @@ const handleSubmit = async () => {
   }
 
   try {
-    const requestUrl =
-      categoryStep === '1' ? '/api/managements/main-category' : '/api/managements/sub-category'
-    await axiosInstance.post(requestUrl, categoryForm.value, {
-      headers: { Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}` }
-    })
+    const categoryId = route.params.id
+    if (categoryId) {
+      const patchUrl = `/api/managements/categories/${categoryId}`
+      await axiosInstance.patch(patchUrl, {
+        name: categoryForm.value.name,
+        code: categoryForm.value.code
+      })
+    } else {
+      const postUrl =
+        categoryStep === '1' ? '/api/managements/main-category' : '/api/managements/sub-category'
+      await axiosInstance.post(postUrl, categoryForm.value)
+    }
     isModalVisible.value.add = true
   } catch {
     handleFailModal()
@@ -120,9 +129,32 @@ const isCodeInvalidate = computed(() => {
 const mainCategory = ref('')
 const categoryOptions = ref<Category[]>([])
 onMounted(async () => {
-  categoryOptions.value = await getMainCategory()
-  if (categoryStep === '2')
-    categoryForm.value = { ...categoryForm.value, mainCategoryId: undefined }
+  const id = Number(route.params.id)
+  categoryForm.value = { ...CATEGORY_FORM }
+  if (categoryStep === '1') {
+    if (id) {
+      const mainCategories: Category[] = await getMainCategory()
+      const initailValue = mainCategories.find(el => el.id === id)
+      if (initailValue) {
+        categoryForm.value = { name: initailValue.name, code: initailValue.code }
+      }
+    }
+  } else if (categoryStep === '2') {
+    categoryOptions.value = await getMainCategory()
+    if (id) {
+      const subCategory: SubCategory[] = await getSubCategory()
+      const initailValue = subCategory.find(el => el.id === id)
+      if (initailValue) {
+        categoryForm.value = {
+          name: initailValue.name,
+          code: initailValue.code,
+          mainCategoryId: initailValue.mainCategoryId
+        }
+        mainCategory.value =
+          categoryOptions.value.find(el => el.id === initailValue.mainCategoryId)?.name || ''
+      }
+    }
+  }
 })
 watch(mainCategory, () => {
   categoryForm.value.mainCategoryId = categoryOptions.value.find(

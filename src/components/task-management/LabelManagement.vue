@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { getLabelsAdmin, postAddLabelAdmin } from '@/api/admin'
+import { postAddLabelAdmin } from '@/api/admin'
 import { plusIcon } from '@/constants/iconPath'
 import type { LabelDataTypes, NewLabelTypes } from '@/types/admin'
 import type { LabelColorTypes } from '@/types/common'
@@ -67,6 +67,7 @@ import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import ColorSelectModal from './ColorSelectModal.vue'
 import LabelManagementLine from './LabelManagementLine.vue'
+import { getLabels } from '@/api/common'
 
 const labelData = ref<LabelDataTypes[]>([])
 const newLabel = ref<NewLabelTypes>({
@@ -77,7 +78,7 @@ const isColorVisible = ref(false)
 const isAdd = ref(false)
 
 const fetchLabels = async () => {
-  labelData.value = await getLabelsAdmin()
+  labelData.value = await getLabels()
 }
 
 onMounted(async () => {
