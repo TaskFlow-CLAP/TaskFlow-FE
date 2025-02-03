@@ -28,5 +28,3 @@ const bgColor = computed(() => {
   return isActive ? `bg-${statusAsColor(status)}-1` : `bg-${statusAsColor(status)}-2`
 })
 </script>
-
-<style scoped></style>

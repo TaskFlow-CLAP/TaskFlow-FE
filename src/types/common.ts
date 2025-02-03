@@ -99,3 +99,8 @@ export interface LabelColorTypes {
   fillColor: string
   colorEnum: string
 }
+
+export interface TaskStatusListTypes{
+  value: Status
+  content: string
+}
