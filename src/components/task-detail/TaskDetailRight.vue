@@ -16,7 +16,9 @@
     </div>
     <div>
       <p class="task-detail">상태</p>
-      <div v-if="data.taskStatus === 'REQUESTED'" class="w-fit">
+      <div
+        v-if="data.taskStatus === 'REQUESTED'"
+        class="w-fit">
         <TaskStatus :status="data.taskStatus" />
       </div>
       <div v-else>

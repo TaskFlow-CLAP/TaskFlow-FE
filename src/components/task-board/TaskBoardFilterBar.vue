@@ -29,7 +29,7 @@ import FilterInput from '../filters/FilterInput.vue'
 import { DUMMY_DIVISION_LIST } from '@/datas/dummy'
 import { useTaskBoardParamsStore } from '@/stores/params'
 import { useQuery } from '@tanstack/vue-query'
-import {axiosInstance} from '@/utils/axios'
+import { axiosInstance } from '@/utils/axios'
 
 const { params } = useTaskBoardParamsStore()
 
