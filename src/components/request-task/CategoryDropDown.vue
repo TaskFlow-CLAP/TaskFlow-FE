@@ -41,7 +41,7 @@
 
 <script lang="ts" setup>
 import { dropdownIcon } from '@/constants/iconPath'
-import type { CategoryDropdownProps, MainCategoryTypes, SubCategoryTypes } from '@/types/common'
+import type { Category, CategoryDropdownProps } from '@/types/common'
 import { computed, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
@@ -58,7 +58,7 @@ const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value
 }
 
-const selectOption = (option: MainCategoryTypes | SubCategoryTypes) => {
+const selectOption = (option: Category) => {
   emit('update:modelValue', option)
   dropdownOpen.value = false
 }
