@@ -16,8 +16,11 @@
     </div>
     <div>
       <p class="task-detail">상태</p>
-      <div class="w-fit">
+      <div v-if="data.taskStatus === 'REQUESTED'" class="w-fit">
         <TaskStatus :status="data.taskStatus" />
+      </div>
+      <div v-else>
+        <TaskStatusList :status="data.taskStatus" />
       </div>
     </div>
     <div>
@@ -42,6 +45,7 @@
         v-else
         class="flex gap-2">
         <img
+          v-if="data.processorNickName"
           :src="data.processorImageUrl || '/images/mockProfile.jpg'"
           class="rounded-full overflow-hidden w-5 h-5"
           alt="processorImg" />

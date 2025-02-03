@@ -10,7 +10,7 @@
         v-if="data">
         <div class="w-full h-[718px] flex flex-col gap-y-8 overflow-y-auto scrollbar-hide">
           <TaskDetailLeft :data="data" />
-          <div class="w-full border-border-1 border"></div>
+          <div class="w-full border-[0.5px] border-border-1"></div>
           <TaskDetailHistory
             :history="DUMMY_TASK_DETAIL_HISTORY"
             :is-approved="false" />
