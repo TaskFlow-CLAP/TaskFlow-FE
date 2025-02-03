@@ -56,3 +56,8 @@ export interface NewLabelTypes {
   labelName: string
   labelColor: string
 }
+
+export interface StatisticsData {
+  key: string
+  count: number
+}
