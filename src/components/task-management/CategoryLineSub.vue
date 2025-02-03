@@ -49,6 +49,7 @@
 import { deleteCategoryAdmin } from '@/api/admin'
 import { plusIcon } from '@/constants/iconPath'
 import type { CategoryAllData } from '@/types/admin'
+import { useQueryClient } from '@tanstack/vue-query'
 import { defineProps, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from '../ModalView.vue'
@@ -59,6 +60,7 @@ const router = useRouter()
 
 const isModalVisible = ref(false)
 const selectedId = ref<number | null>(null)
+const queryClient = useQueryClient()
 
 const openModal = (id: number) => {
   selectedId.value = id
@@ -72,6 +74,7 @@ const closeModal = () => {
 
 const deleteCategory = async (id: number) => {
   await deleteCategoryAdmin(id)
+  queryClient.invalidateQueries({ queryKey: ['category'] })
   closeModal()
 }
 
