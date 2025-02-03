@@ -100,9 +100,9 @@ export interface MyTaskDetailDatas {
 }
 
 export interface TaskDetailTopBarProps {
-  isManager: boolean
   isApproved: boolean
   closeTaskDetail: () => void
+  id: number
 }
 
 export interface DraggableEvent {
