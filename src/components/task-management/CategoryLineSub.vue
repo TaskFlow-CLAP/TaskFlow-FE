@@ -15,7 +15,7 @@
           </div>
           <div class="flex gap-2 text-xs font-bold">
             <button
-              @click="router.push('수정경로')"
+              @click="router.push(`/category-second/${sub.id}`)"
               class="text-primary1">
               수정
             </button>

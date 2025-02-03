@@ -60,12 +60,26 @@ const router = createRouter({
     {
       path: '/category-first',
       name: 'CategoryFirst',
-      component: () => import('../views/CategoryFirstAdd.vue')
+      component: () => import('../views/CategoryFirstAdd.vue'),
+      children: [
+        {
+          path: ':id',
+          name: 'EditSubCategory',
+          component: () => import('../views/CategoryFirstAdd.vue')
+        }
+      ]
     },
     {
       path: '/category-second',
       name: 'CategorySecond',
-      component: () => import('../views/CategorySecondAdd.vue')
+      component: () => import('../views/CategorySecondAdd.vue'),
+      children: [
+        {
+          path: ':id',
+          name: 'EditMainCategory',
+          component: () => import('../views/CategorySecondAdd.vue')
+        }
+      ]
     },
     {
       path: '/login-logs',
