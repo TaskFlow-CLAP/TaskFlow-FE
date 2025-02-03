@@ -35,7 +35,7 @@ import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
 import { useRequestParamsStore } from '@/stores/params'
 import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 import { useQuery } from '@tanstack/vue-query'
-import {axiosInstance} from '@/utils/axios'
+import { axiosInstance } from '@/utils/axios'
 
 const store = useRequestParamsStore()
 store.$reset()

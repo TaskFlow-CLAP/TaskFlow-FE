@@ -18,7 +18,7 @@
         class="flex w-full justify-between items-center h-8 text-xs border-b border-b-border-2 text-black px-4 shrink-0">
         <p class="flex truncate mr-3">{{ file.fileName }}</p>
         <div class="flex gap-6">
-          <p class="w-[60px]">{{ formatFileSize(Number(file.fileSize)) }}</p>
+          <p class="w-[60px]">{{ file.fileSize }}</p>
           <p class="w-36">{{ new Date().toLocaleString() }}</p>
           <div class="w-10 flex items-center justify-center cursor-pointer">
             <CommonIcons
@@ -35,11 +35,16 @@
 <script lang="ts" setup>
 import { downloadIcon } from '@/constants/iconPath'
 import type { AttachmentResponse } from '@/types/user'
-import { formatFileSize } from '@/utils/unit'
 import CommonIcons from '../common/CommonIcons.vue'
 
 const { files } = defineProps<{ files: AttachmentResponse[] }>()
+
 const downloadFile = (file: AttachmentResponse) => {
-  console.log('향후 파일 다운 로직 추가', file)
+  const link = document.createElement('a')
+  link.href = file.fileUrl
+  link.download = file.fileName
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
 }
 </script>

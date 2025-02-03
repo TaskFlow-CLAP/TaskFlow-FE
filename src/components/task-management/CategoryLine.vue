@@ -5,7 +5,7 @@
       :key="main.id"
       class="flex w-full flex-col">
       <div
-        v-for="(sub, index) in main.subCategory.length + 1"
+        v-for="(sub, index) in (main.subCategory?.length || 0) + 1"
         :key="sub"
         class="category-management-line w-full justify-between bg-white">
         <template v-if="index === 0">

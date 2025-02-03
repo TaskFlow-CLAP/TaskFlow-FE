@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex justify-between items-center">
+  <div class="w-full flex justify-between items-center bg-white">
     <div class="flex gap-4 text-sm font-bold pb-6">
       <div
         v-if="!isManager && isApproved"
@@ -17,7 +17,7 @@
         @click="ApproveTask"
         v-if="isManager && !isApproved"
         class="flex gap-1 items-center cursor-pointer">
-        <CommonIcons :name="modificationIcon" />
+        <CommonIcons :name="approveIcon" />
         <p class="text-primary1">요청 승인</p>
       </div>
       <div
@@ -33,13 +33,6 @@
       @click="closeTaskDetail"
       class="cursor-pointer" />
     <ModalView
-      type="successType"
-      :is-open="isModalOpen.approve"
-      @click="ApproveTask"
-      @close="ApproveTask">
-      <template #header>작업이 승인되었습니다.</template>
-    </ModalView>
-    <ModalView
       type="inputType"
       :is-open="isModalOpen.cancel"
       @click="cancelTask"
@@ -50,11 +43,25 @@
 </template>
 
 <script setup lang="ts">
-import { cancelIcon, closeIcon, modificationIcon, reRequestIcon } from '@/constants/iconPath'
+import {
+  approveIcon,
+  cancelIcon,
+  closeIcon,
+  modificationIcon,
+  reRequestIcon
+} from '@/constants/iconPath'
+import { useMemberStore } from '@/stores/member'
 import type { TaskDetailTopBarProps } from '@/types/manager'
-import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import CommonIcons from '../common/CommonIcons.vue'
 import ModalView from '../ModalView.vue'
+
+const memberStore = useMemberStore()
+const router = useRouter()
+const { info } = storeToRefs(memberStore)
+const isManager = computed(() => info.value.memberRole === 'ROLE_MANAGER')
 
 const isModalOpen = ref({
   cancel: false,
@@ -71,9 +78,10 @@ const cancelTask = () => {
 
 const ApproveTask = () => {
   toggleModal('approve')
+  router.push(`/request-approve/${id}`)
 }
 
-const { isManager, isApproved, closeTaskDetail } = defineProps<TaskDetailTopBarProps>()
+const { isApproved, closeTaskDetail, id } = defineProps<TaskDetailTopBarProps>()
 </script>
 
 <style scoped></style>

@@ -1,3 +1,5 @@
+import type { TaskStatusListTypes } from '@/types/common'
+
 export const TERM_LIST = [
   { value: '', content: '전체' },
   { value: '1', content: '1시간 이내' },
@@ -6,8 +8,7 @@ export const TERM_LIST = [
   { value: '730', content: '1개월 이내' },
   { value: '2190', content: '3개월 이내' }
 ]
-export const TASK_STATUS_LIST = [
-  { value: 'REQUESTED', content: '요청' },
+export const TASK_STATUS_LIST: TaskStatusListTypes[] = [
   { value: 'IN_PROGRESS', content: '진행 중' },
   { value: 'PENDING_COMPLETED', content: '검토 중' },
   { value: 'COMPLETED', content: '완료' },
