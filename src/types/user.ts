@@ -61,7 +61,7 @@ export interface TaskDetailDatas {
   categoryName: string
   title: string
   description: string
-  attachmentResponse: AttachmentResponse[]
+  attachmentResponses: AttachmentResponse[]
   dueDate?: string
   labelName?: string
 }

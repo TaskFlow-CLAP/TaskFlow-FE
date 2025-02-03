@@ -2,7 +2,6 @@
   <div class="fixed inset-0 bg-black bg-opacity-15 flex justify-center items-center z-50">
     <div
       class="flex flex-col overflow-y-auto rounded-lg w-full max-w-[1200px] min-w-[1024px] bg-white p-6">
-      {{ selectedId }} 요청 번호
       <TaskDetailTopBar
         :is-approved="isApproved"
         :close-task-detail="closeTaskDetail" />
@@ -40,6 +39,4 @@ const { data } = useQuery<TaskDetailDatas>({
   queryKey: ['taskDetailUser', selectedId],
   queryFn: () => getTaskDetailUser(selectedId)
 })
-
-console.log(data, 'data')
 </script>

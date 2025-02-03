@@ -18,7 +18,7 @@
     </div>
     <div>
       <p class="task-detail">첨부 파일</p>
-      <TaskDetailFiles :files="data.attachmentResponse" />
+      <TaskDetailFiles :files="data.attachmentResponses" />
     </div>
   </div>
 </template>
