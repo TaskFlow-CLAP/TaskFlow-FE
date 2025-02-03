@@ -47,24 +47,34 @@
 </template>
 
 <script lang="ts" setup>
+import { getTaskDetailUser } from '@/api/user'
 import { INITIAL_REQUEST_APPROVE_FORM } from '@/constants/manager'
 import {
   DUMMY_REQUEST_PROCESSORS,
   DUMMY_REQUEST_TASK_CATEGORIES,
   DUMMY_REQUEST_TASK_LABELS
 } from '@/datas/taskdetail'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import FormButtonContainer from '../common/FormButtonContainer.vue'
 import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import DueDateInput from './DueDateInput.vue'
 import ProcessorDropdown from './ProcessorDropdown.vue'
-import { useRouter } from 'vue-router'
-import FormButtonContainer from '../common/FormButtonContainer.vue'
 
 const isModalVisible = ref(false)
 const approveForm = ref(INITIAL_REQUEST_APPROVE_FORM)
 
 const router = useRouter()
+const route = useRouter().currentRoute.value
+const requestId = route.query.requestId
+console.log(requestId)
+
+onMounted(() => {
+  const data = getTaskDetailUser(Number(requestId))
+  console.log(data, '응답')
+})
+
 const handleCancel = () => {
   approveForm.value = { ...INITIAL_REQUEST_APPROVE_FORM }
   isModalVisible.value = false

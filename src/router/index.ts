@@ -8,7 +8,6 @@ const router = createRouter({
       name: 'Login',
       component: () => import('../views/LoginView.vue')
     },
-
     {
       path: '/pw-change',
       name: 'PwChange',
