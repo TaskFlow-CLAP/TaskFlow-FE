@@ -3,15 +3,15 @@
     <FilterDropdown
       title="정렬"
       :option-list="[
-        { value: 'CONTRIBUTION', content: '기여도순' },
-        { value: 'NAME', content: '이름순' }
+        { value: '기여도순', content: '기여도순' },
+        { value: '이름순', content: '이름순' }
       ]"
-      :value="params.order"
-      @update:value="onParamsChange.onOrderChange" />
+      :value="params.sortBy"
+      @update:value="onParamsChange.onSortByChange" />
     <FilterInput
       title="제목"
       :value="''"
-      @update:value="onParamsChange.onTitleChange" />
+      @update:value="onParamsChange.onTaskTitleChange" />
     <FilterCategory
       :category-list="data"
       :main="params.mainCategoryIds"

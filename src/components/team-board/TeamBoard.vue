@@ -19,6 +19,12 @@
 import { DUMMY_TEAM_MEMBERS_LIST } from '@/datas/dummy'
 import TeamBoardCard from './TeamBoardCard.vue'
 import CurrentTaskRatio from './CurrentTaskRatio.vue'
+import { axiosInstance } from '@/utils/axios'
+import { useTeamBoardParamsStore } from '@/stores/params'
+import { useQuery } from '@tanstack/vue-query'
+import { useParseParams } from '../hooks/useParseParams'
+
+const { params } = useTeamBoardParamsStore()
 
 const getSummaryCount = (key: 'inProgress' | 'pendingCompletion' | 'totalTasks') => {
   let count = 0
@@ -35,4 +41,15 @@ const teamData = DUMMY_TEAM_MEMBERS_LIST.map(el => ({
   name: el.name,
   tasks: el.taskStatusSummary.totalTasks
 }))
+
+const fetchTeamStatus = async () => {
+  const { parseBoardParams } = useParseParams()
+  const parsedParams = parseBoardParams(params)
+  const response = await axiosInstance.get('/api/team-status/filter', { params: parsedParams })
+  return response.data
+}
+const { data } = useQuery({
+  queryKey: ['teamStatus', params],
+  queryFn: fetchTeamStatus
+})
 </script>
