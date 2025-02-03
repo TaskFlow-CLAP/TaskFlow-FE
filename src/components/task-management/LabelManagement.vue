@@ -7,7 +7,7 @@
         <p>구분명</p>
       </div>
     </div>
-    <div class="flex flex-col w-full max-h-44 overflow-y-auto">
+    <div class="flex flex-col w-full max-h-[210px] overflow-y-auto">
       <LabelManagementLine
         :label-data="labelData"
         @updateLabels="fetchLabels" />

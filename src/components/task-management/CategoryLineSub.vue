@@ -60,6 +60,7 @@ const router = useRouter()
 
 const isModalVisible = ref(false)
 const selectedId = ref<number | null>(null)
+const queryClient = useQueryClient()
 
 const openModal = (id: number) => {
   selectedId.value = id
@@ -73,6 +74,7 @@ const closeModal = () => {
 
 const deleteCategory = async (id: number) => {
   await deleteCategoryAdmin(id)
+  queryClient.invalidateQueries({ queryKey: ['category'] })
   closeModal()
 }
 
