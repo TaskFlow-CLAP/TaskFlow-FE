@@ -11,7 +11,7 @@
     <div>
       <p class="task-detail">종료일</p>
       <p class="text-sm text-black">
-        {{ formatDate(data.finishedAt) || '-' }}
+        {{ (data.finishedAt && formatDate(data.finishedAt)) || '-' }}
       </p>
     </div>
     <div>
@@ -42,8 +42,7 @@
         v-else
         class="flex gap-2">
         <img
-          v-if="data.processorImageUrl"
-          :src="data.processorImageUrl"
+          :src="data.processorImageUrl || '/images/mockProfile.jpg'"
           class="rounded-full overflow-hidden w-5 h-5"
           alt="processorImg" />
         <p class="text-sm text-black">{{ data.processorNickName || '-' }}</p>
@@ -80,10 +79,11 @@ import TaskDetailLabelDropdown from './TaskDetailLabelDropdown.vue'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
-const isManager = computed(() => info.value.memberRole === 'ROLE_MANAGER')
+const isManager = computed(() => info.value.memberName === data.processorNickName)
+
 const { data } = defineProps<{ data: TaskDetailDatas }>()
+console.log(data, '가져온 데이터')
 
 const processor = ref(DUMMY_PROCESSOR.nickName)
 const labeling = ref(DUMMY_TASK_LABELS[0].labelName)
 </script>
-
