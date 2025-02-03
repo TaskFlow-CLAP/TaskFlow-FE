@@ -120,3 +120,33 @@ export interface DraggableEvent {
     newIndex: number
   }
 }
+
+export interface RequestedResponse {
+  content: RequestedListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
+}
+
+export interface RequestHistoryResponse {
+  content: RequestHistoryListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
+}
+
+export interface MyTaskResponse {
+  content: MyTaskListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
+}

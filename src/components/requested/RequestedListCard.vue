@@ -24,10 +24,11 @@ import type { ListCardProps } from '@/types/common'
 import ListCardTab from '../lists/ListCardTab.vue'
 import type { RequestedListData } from '@/types/manager'
 import { useRouter } from 'vue-router'
+import { formatDate } from '@/utils/date'
 
 const { info } = defineProps<{ info: RequestedListData }>()
 const requestedTabList: ListCardProps[] = [
-  { content: info.requestedAt, width: 80 },
+  { content: formatDate(info.requestedAt), width: 80 },
   { content: info.mainCategoryName, width: 80 },
   { content: info.categoryName, width: 80 },
   { content: info.title },
