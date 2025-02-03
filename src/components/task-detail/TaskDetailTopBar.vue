@@ -51,10 +51,16 @@
 
 <script setup lang="ts">
 import { cancelIcon, closeIcon, modificationIcon, reRequestIcon } from '@/constants/iconPath'
+import { useMemberStore } from '@/stores/member'
 import type { TaskDetailTopBarProps } from '@/types/manager'
-import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { computed, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import ModalView from '../ModalView.vue'
+
+const memberStore = useMemberStore()
+const { info } = storeToRefs(memberStore)
+const isManager = computed(() => info.value.memberRole === 'ROLE_MANAGER')
 
 const isModalOpen = ref({
   cancel: false,
@@ -73,7 +79,7 @@ const ApproveTask = () => {
   toggleModal('approve')
 }
 
-const { isManager, isApproved, closeTaskDetail } = defineProps<TaskDetailTopBarProps>()
+const { isApproved, closeTaskDetail } = defineProps<TaskDetailTopBarProps>()
 </script>
 
 <style scoped></style>
