@@ -74,7 +74,6 @@ watch(category1, async newValue => {
     subCategory => subCategory.mainCategoryId === newValue?.id
   )
 })
-
 const router = useRouter()
 
 const handleCancel = () => {
