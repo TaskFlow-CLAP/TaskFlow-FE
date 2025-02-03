@@ -10,26 +10,19 @@
     </div>
     <div>
       <p class="task-detail">종료일</p>
-      <p class="text-sm text-black">
-        {{ (data.finishedAt && formatDate(data.finishedAt)) || '-' }}
-      </p>
+      <p class="text-sm text-black">{{ formatDate(data.finishedAt) || '-' }}</p>
     </div>
     <div>
       <p class="task-detail">상태</p>
-      <div
-        v-if="data.taskStatus === 'REQUESTED'"
-        class="w-fit">
+      <div class="w-fit">
         <TaskStatus :status="data.taskStatus" />
-      </div>
-      <div v-else>
-        <TaskStatusList :status="data.taskStatus" />
       </div>
     </div>
     <div>
       <p class="task-detail">요청자</p>
       <div class="flex gap-2">
         <img
-          :src="data.requesterImageUrl || '/images/mockProfile.jpg'"
+          :src="data.requesterImageUrl"
           class="rounded-full overflow-hidden w-5 h-5"
           alt="requesterImg" />
         <p class="text-sm text-black">{{ data.requesterNickName }}</p>
@@ -47,8 +40,8 @@
         v-else
         class="flex gap-2">
         <img
-          v-if="data.processorNickName"
-          :src="data.processorImageUrl || '/images/mockProfile.jpg'"
+          v-if="data.processorImageUrl"
+          :src="data.processorImageUrl"
           class="rounded-full overflow-hidden w-5 h-5"
           alt="processorImg" />
         <p class="text-sm text-black">{{ data.processorNickName || '-' }}</p>
@@ -86,10 +79,9 @@ import TaskStatusList from './TaskStatusList.vue'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
-const isManager = computed(() => info.value.memberName === data.processorNickName)
+const isManager = computed(() => info.value.memberRole === 'ROLE_MANAGER')
 
 const { data } = defineProps<{ data: TaskDetailDatas }>()
-console.log(data, '가져온 데이터')
 
 const processor = ref(DUMMY_PROCESSOR.nickName)
 const labeling = ref(DUMMY_TASK_LABELS[0].labelName)

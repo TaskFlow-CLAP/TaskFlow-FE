@@ -43,23 +43,15 @@
 </template>
 
 <script setup lang="ts">
-import {
-  approveIcon,
-  cancelIcon,
-  closeIcon,
-  modificationIcon,
-  reRequestIcon
-} from '@/constants/iconPath'
+import { cancelIcon, closeIcon, modificationIcon, reRequestIcon } from '@/constants/iconPath'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailTopBarProps } from '@/types/manager'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import CommonIcons from '../common/CommonIcons.vue'
 import ModalView from '../ModalView.vue'
 
 const memberStore = useMemberStore()
-const router = useRouter()
 const { info } = storeToRefs(memberStore)
 const isManager = computed(() => info.value.memberRole === 'ROLE_MANAGER')
 
@@ -81,7 +73,7 @@ const ApproveTask = () => {
   router.push(`/request-approve/${id}`)
 }
 
-const { isApproved, closeTaskDetail, id } = defineProps<TaskDetailTopBarProps>()
+const { isApproved, closeTaskDetail } = defineProps<TaskDetailTopBarProps>()
 </script>
 
 <style scoped></style>
