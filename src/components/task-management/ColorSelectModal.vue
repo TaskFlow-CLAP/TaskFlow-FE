@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="isOpen"
-    class="absolute top-7 left-3 w-[176px] h-[120px] p-4 flex flex-col z-50 shadow-custom rounded-lg bg-white gap-4"
+    class="absolute top-7 left-3 w-[176px] h-[120px] p-4 flex flex-col !z-50 shadow-custom rounded-lg bg-white gap-4 import"
     @click.self="closeModal">
     <div class="flex w-full justify-between">
       <p class="text-xs font-bold text-body">색상 선택</p>
