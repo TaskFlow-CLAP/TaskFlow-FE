@@ -53,13 +53,13 @@ export interface CategoryAllData {
   categories: categoriesTypes[]
 }
 
-export interface DivisionDataTypes {
-  divisionId: number
-  divisionName: string
-  divisionColor: string
+export interface LabelDataTypes {
+  labelId: number
+  labelName: string
+  labelColor: string
 }
 
-export interface NewDevisonTypes {
-  divisionName: string
-  divisionColor: string
+export interface NewLabelTypes {
+  labelName: string
+  labelColor: string
 }

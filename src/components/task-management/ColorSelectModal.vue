@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="isOpen && devisionId === selectedDivisionId"
+    v-if="isOpen"
     class="absolute top-7 left-3 w-[176px] h-[120px] p-4 flex flex-col z-50 shadow-custom rounded-lg bg-white gap-4"
     @click.self="closeModal">
     <div class="flex w-full justify-between">
@@ -16,7 +16,7 @@
         :key="color.fillColor"
         :style="{ borderColor: color.borderColor, backgroundColor: color.fillColor }"
         class="w-6 h-6 rounded-full border-[3px] cursor-pointer"
-        @click="updateColor(color.fillColor)"></div>
+        @click="updateColor(color)"></div>
     </div>
   </div>
 </template>
@@ -24,22 +24,23 @@
 <script setup lang="ts">
 import { COLOR_LIST } from '@/constants/common'
 import { closeIcon } from '@/constants/iconPath'
-import type { ColorSelectProps } from '@/types/common'
+import type { ColorSelectProps, LabelColorTypes } from '@/types/common'
 import { defineEmits, defineProps } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const props = defineProps<ColorSelectProps>()
+const { isOpen } = defineProps<ColorSelectProps>()
 
 const emit = defineEmits<{
   (e: 'close'): void
+  (e: 'updateColor', color: LabelColorTypes): void
 }>()
 
 const closeModal = () => {
   emit('close')
 }
 
-const updateColor = (color: string) => {
-  console.log(props.devisionId, '로 색상 변경 로직', color)
+const updateColor = (color: LabelColorTypes) => {
+  emit('updateColor', color)
   emit('close')
 }
 </script>
