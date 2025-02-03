@@ -14,13 +14,13 @@ export interface RequestParams {
 }
 
 export interface MemberManagementParams {
-  name: string
-  nickname: string
-  departmentId: number
-  email: string
-  role: Role | ''
-  size: number
   page: number
+  pageSize: number
+  name: string
+  email: string
+  nickName: string
+  departmentName: string
+  role: Role | ''
   // sortBy: 'REGISTERED_AT'
   // sortDirection: SortDirection
 }
