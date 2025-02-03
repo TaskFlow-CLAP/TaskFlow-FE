@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-4">
+  <div class="flex gap-4 z-30">
     <FilterDropdown
       title="조회 기간"
       :option-list="TERM_LIST"

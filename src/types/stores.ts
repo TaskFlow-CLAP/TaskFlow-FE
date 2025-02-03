@@ -32,8 +32,8 @@ export interface LogsParams {
   logStatus: string[]
   nickName: string
   clientIp: string
-  // sortBy: 'CREATED_AT'
-  // sortDirection: SortDirection
+  sortBy: 'REQUESTED_AT'
+  sortDirection: SortDirection
 }
 
 export interface TeamBoardParams {

@@ -27,16 +27,16 @@ export const useLogsParamsChange = () => {
     params.pageSize = Number(value)
   }
 
-  // const toggleSortBy = () => {
-  //   params.sortDirection = params.sortDirection === 'DESC' ? 'ASC' : 'DESC'
-  // }
+  const toggleSortBy = () => {
+    params.sortDirection = params.sortDirection === 'DESC' ? 'ASC' : 'DESC'
+  }
 
   return {
     onTermChange,
     onLogStatusChange,
     onNickNameChange,
     onClientIpChange,
-    onPageSizeChange
-    // toggleSortBy
+    onPageSizeChange,
+    toggleSortBy
   }
 }

@@ -33,7 +33,7 @@ export const API_LOGS_DIVISION_LIST: Option[] = [
 
 export const LOGS_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '구분', width: 80 },
-  { content: '시각', width: 180, sortBy: 'CREATED_AT' },
+  { content: '시각', width: 180, sortBy: 'REQUESTED_AT' },
   { content: '아이디', width: 80 },
   { content: 'IP 주소', width: 120 },
   { content: 'Status', width: 40 },

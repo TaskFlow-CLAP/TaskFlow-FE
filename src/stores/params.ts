@@ -61,9 +61,9 @@ export const useLogsParamsStore = defineStore('logsParams', () => {
     term: '',
     logStatus: [],
     nickName: '',
-    clientIp: ''
-    // sortBy: 'CREATED_AT',
-    // sortDirection: 'DESC'
+    clientIp: '',
+    sortBy: 'REQUESTED_AT',
+    sortDirection: 'DESC'
   })
 
   const $reset = () => {
@@ -73,8 +73,8 @@ export const useLogsParamsStore = defineStore('logsParams', () => {
     params.value.logStatus = []
     params.value.nickName = ''
     params.value.clientIp = ''
-    // params.value.sortBy = 'CREATED_AT'
-    // params.value.sortDirection = 'DESC'
+    params.value.sortBy = 'REQUESTED_AT'
+    params.value.sortDirection = 'DESC'
   }
 
   return { params, $reset }
