@@ -5,7 +5,8 @@
       <TaskDetailTopBar
         :is-approved="isApproved"
         :close-task-detail="closeTaskDetail"
-        :id="data?.taskId || 0" />
+        :id="data?.taskId || 0"
+        :isProcessor="data?.processorNickName === info.nickname" />
       <div
         class="w-full flex gap-6"
         v-if="data">
@@ -17,7 +18,9 @@
             :is-approved="false" />
         </div>
         <div class="w-[1px] bg-border-1"></div>
-        <TaskDetailRight :data />
+        <TaskDetailRight
+          :data
+          :isProcessor="data?.processorNickName === info.nickname" />
       </div>
     </div>
   </div>
@@ -26,8 +29,10 @@
 <script setup lang="ts">
 import { getTaskDetailManager } from '@/api/user'
 import * as taskDetailData from '@/datas/taskdetail'
+import { useMemberStore } from '@/stores/member'
 import type { TaskDetailDatas, TaskDetailProps } from '@/types/user'
 import { useQuery } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
 import TaskDetailHistory from './TaskDetailHistory.vue'
 import TaskDetailLeft from './TaskDetailLeft.vue'
 import TaskDetailRight from './TaskDetailRight.vue'
@@ -36,6 +41,8 @@ import TaskDetailTopBar from './TaskDetailTopBar.vue'
 const { DUMMY_TASK_DETAIL_HISTORY } = taskDetailData
 const { isApproved, closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
 
+const memberStore = useMemberStore()
+const { info } = storeToRefs(memberStore)
 const { data } = useQuery<TaskDetailDatas>({
   queryKey: ['taskDetailUser', selectedId],
   queryFn: () => getTaskDetailManager(selectedId)
