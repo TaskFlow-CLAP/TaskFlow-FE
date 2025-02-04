@@ -92,6 +92,7 @@ watch(textValue, newValue => {
 })
 
 const closeModal = () => {
+  textValue.value = ''
   emit('close')
 }
 

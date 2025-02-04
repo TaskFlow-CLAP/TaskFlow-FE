@@ -44,11 +44,9 @@ export interface TeamBoardParams {
 }
 
 export interface TaskBoardParams {
-  division: string | ''
+  labelId: number | ''
   mainCategoryIds: number[]
   categoryIds: number[]
   title: string
-  nickName: string
-  pageSize: number
-  page: number
+  requesterNickname: string
 }
