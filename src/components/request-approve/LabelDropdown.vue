@@ -16,7 +16,7 @@
         v-if="dropdownOpen"
         class="absolute w-full h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2 text-black">
         <div
-          v-for="option in options"
+          v-for="option in labelArr"
           :key="option.labelId"
           class="w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer"
           @click="selectOption(option)">
@@ -28,16 +28,22 @@
 </template>
 
 <script lang="ts" setup>
+import { getLabelsManager } from '@/api/user'
 import { dropdownIcon } from '@/constants/iconPath'
 import type { LabelDataTypes } from '@/types/common'
 import type { LabelDropdownProps } from '@/types/user'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { options, modelValue, placeholderText } = defineProps<LabelDropdownProps>()
+const { modelValue, placeholderText } = defineProps<LabelDropdownProps>()
 const emit = defineEmits(['update:modelValue'])
 const dropdownOpen = ref(false)
 
+const labelArr = ref<LabelDataTypes[]>([])
+
+onMounted(async () => {
+  labelArr.value = await getLabelsManager()
+})
 const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value
 }

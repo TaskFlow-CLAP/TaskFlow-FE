@@ -154,12 +154,10 @@ export interface MyRequestResponse {
 
 export interface LabelDropdownProps {
   modelValue: LabelDataTypes | null
-  options: LabelDataTypes[]
   placeholderText: string
 }
 
-export interface ProcessorDropdownProps {
+export interface ManagerDropdownProps {
   modelValue: ManagerTypes | null
-  options: ManagerTypes[]
   placeholderText: string
 }

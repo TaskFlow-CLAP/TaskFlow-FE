@@ -76,7 +76,6 @@ export interface FormCheckboxProps {
 
 export interface ColorSelectProps {
   isOpen: boolean
-  newLabel: LabelDataTypes
 }
 
 export interface CategoryForm {
