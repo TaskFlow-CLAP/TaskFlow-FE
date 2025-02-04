@@ -33,28 +33,23 @@
 </template>
 
 <script setup lang="ts">
-import FilterDropdown from '../filters/FilterDropdown.vue'
-import FilterCategory from '../filters/FilterCategory.vue'
-import FilterInput from '../filters/FilterInput.vue'
 import { PAGE_SIZE_LIST, TASK_STATUS_LIST, TERM_LIST } from '@/constants/common'
-import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
 import { useRequestParamsStore } from '@/stores/params'
-import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 import { useQuery } from '@tanstack/vue-query'
-import axiosInstance from '@/utils/axios'
+import FilterCategory from '../filters/FilterCategory.vue'
+import FilterDropdown from '../filters/FilterDropdown.vue'
+import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
+import FilterInput from '../filters/FilterInput.vue'
+import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
+import { getCategory } from '@/api/common'
 
 const store = useRequestParamsStore()
 store.$reset()
 
 const onParamsChange = useRequestParamsChange()
 
-const fetchCategory = async () => {
-  const response = await axiosInstance.get('/api/category')
-  return response.data
-}
-
 const { data } = useQuery({
   queryKey: ['category'],
-  queryFn: fetchCategory
+  queryFn: getCategory
 })
 </script>

@@ -22,10 +22,6 @@ export const REQUESTED_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '처리', width: 120, justifyCenter: true }
 ]
 
-export const TITLE_PLACEHOLDER = '제목을 입력해주세요'
-
-export const EXPLANATION_PLACEHOLDER = '부가 정보를 입력해주세요'
-
 export const HistoryMessageBefore: Record<TaskHistoryType, string> = {
   STATUS_SWITCHED: '요청이',
   PROCESSOR_CHANGED: '처리자가',

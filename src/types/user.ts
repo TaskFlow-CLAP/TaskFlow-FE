@@ -19,6 +19,7 @@ export interface RequestTaskDropdownProps {
   labelName: string
   modelValue: string
   isLabel?: boolean
+  disabled?: boolean
 }
 
 export interface RequestTaskInputProps {
@@ -27,6 +28,7 @@ export interface RequestTaskInputProps {
   labelName: string
   isNotRequired?: boolean
   isEdit?: boolean
+  isInvalidate?: string
 }
 
 export interface RequestTaskFileInputProps {
@@ -60,7 +62,7 @@ export interface TaskDetailDatas {
   categoryName: string
   title: string
   description: string
-  attachmentResponse: AttachmentResponse[]
+  attachmentResponses: AttachmentResponse[]
   dueDate?: string
   labelName?: string
 }
@@ -96,8 +98,8 @@ export interface TaskDetailHistoryProps {
 }
 
 export interface TaskDetailProps {
-  isManager: boolean
   isApproved: boolean
+  selectedId: number
   closeTaskDetail: () => void
 }
 export interface ManagerInfoTypes {
@@ -114,7 +116,6 @@ export interface TaskDetailDropdownProps {
 
 export interface TaskDetailRightProps {
   taskDetail: TaskDetailDatas
-  isManager: boolean
 }
 
 export interface TaskDetailLabelDropdownProps {

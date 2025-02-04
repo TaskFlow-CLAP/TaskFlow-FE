@@ -29,10 +29,14 @@ export interface RequestHistoryListData {
 export interface TaskCardProps {
   taskId: number
   taskCode: string
+  title: string
   mainCategoryName: string
   categoryName: string
-  title: string
-  requesterNickName: string
+  labelInfo: {
+    labelName: string
+    labelColor: string
+  }
+  requesterNickname: string
   requesterImageUrl: string
   requesterDepartment: string
   processorOrder: number
@@ -44,9 +48,6 @@ export interface TaskCardList {
   tasksInProgress: TaskCardProps[]
   tasksPendingComplete: TaskCardProps[]
   tasksCompleted: TaskCardProps[]
-  hasNext: boolean
-  isFirst: boolean
-  isLast: boolean
 }
 
 export interface MyTaskListData {
@@ -100,9 +101,9 @@ export interface MyTaskDetailDatas {
 }
 
 export interface TaskDetailTopBarProps {
-  isManager: boolean
   isApproved: boolean
   closeTaskDetail: () => void
+  id: number
 }
 
 export interface DraggableEvent {
@@ -119,4 +120,34 @@ export interface DraggableEvent {
     oldIndex: number
     newIndex: number
   }
+}
+
+export interface RequestedResponse {
+  content: RequestedListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
+}
+
+export interface RequestHistoryResponse {
+  content: RequestHistoryListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
+}
+
+export interface MyTaskResponse {
+  content: MyTaskListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
 }

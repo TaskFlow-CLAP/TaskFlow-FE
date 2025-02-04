@@ -8,7 +8,6 @@ const router = createRouter({
       name: 'Login',
       component: () => import('../views/LoginView.vue')
     },
-
     {
       path: '/pw-change',
       name: 'PwChange',
@@ -60,12 +59,26 @@ const router = createRouter({
     {
       path: '/category-first',
       name: 'CategoryFirst',
-      component: () => import('../views/CategoryFirstAdd.vue')
+      component: () => import('../views/CategoryFirstAdd.vue'),
+      children: [
+        {
+          path: ':id',
+          name: 'EditSubCategory',
+          component: () => import('../views/CategoryFirstAdd.vue')
+        }
+      ]
     },
     {
       path: '/category-second',
       name: 'CategorySecond',
-      component: () => import('../views/CategorySecondAdd.vue')
+      component: () => import('../views/CategorySecondAdd.vue'),
+      children: [
+        {
+          path: ':id',
+          name: 'EditMainCategory',
+          component: () => import('../views/CategorySecondAdd.vue')
+        }
+      ]
     },
     {
       path: '/login-logs',
@@ -113,9 +126,9 @@ const router = createRouter({
       component: () => import('../views/StatisticsView.vue')
     },
     {
-      path: '/task-detail',
-      name: 'TaskDetail',
-      component: () => import('../views/TaskDetailView.vue')
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../views/NotFoundView.vue')
     }
   ]
 })

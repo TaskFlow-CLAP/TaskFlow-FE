@@ -1,11 +1,9 @@
 <template>
   <div class="max-w-400">
     <div class="py-16">
-      <div class="text-4xl font-bold text-center">
-        <p class="pb-2">TaskFlow</p>
-        <p class="pb-2">로그인</p>
-      </div>
-      <p class="text-center font-bold text-body">아이디와 비밀번호를 입력해주세요</p>
+      <TitleContainer
+        :title="'TaskFlow\n로그인'"
+        content="아이디와 비밀번호를 입력해주세요" />
     </div>
     <form
       @submit.prevent="handleLogin"
@@ -46,11 +44,42 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { postLogin } from '@/api/auth'
+import TitleContainer from '@/components/common/TitleContainer.vue'
+
+const router = useRouter()
 
 const nickname = ref('')
 const password = ref('')
 
 const handleLogin = async () => {
-  // 로그인 API 필요
+  try {
+    const loginData = {
+      nickname: nickname.value,
+      password: password.value
+    }
+    const sessionId = '000'
+    const res = await postLogin(loginData, sessionId)
+
+    if (res) {
+      switch (res.memberInfo.memberRole) {
+        case 'ROLE_ADMIN':
+          router.push('/member-management')
+          break
+        case 'ROLE_MANAGER':
+          router.push('my-request')
+          break
+        case 'ROLE_USER':
+          router.push('/my-request')
+          break
+        default:
+          router.push('/')
+      }
+    }
+  } catch (error) {
+    // 로그인 실패 시 에러 처리
+    console.error('로그인 실패:', error)
+  }
 }
 </script>

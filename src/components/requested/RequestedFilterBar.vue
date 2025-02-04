@@ -16,7 +16,7 @@
       :value="store.params.title"
       @update:value="onParamsChange.onTitleChange" />
     <FilterInput
-      title="처리자"
+      title="요청자"
       :value="store.params.nickName"
       @update:value="onParamsChange.onNickNameChange" />
     <FilterDropdown
@@ -35,20 +35,15 @@ import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
 import { useRequestParamsStore } from '@/stores/params'
 import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 import { useQuery } from '@tanstack/vue-query'
-import axiosInstance from '@/utils/axios'
+import { getCategory } from '@/api/common'
 
 const store = useRequestParamsStore()
 store.$reset()
 
 const onParamsChange = useRequestParamsChange()
 
-const fetchCategory = async () => {
-  const response = await axiosInstance.get('/api/category')
-  return response.data
-}
-
 const { data } = useQuery({
   queryKey: ['category'],
-  queryFn: fetchCategory
+  queryFn: getCategory
 })
 </script>

@@ -8,11 +8,9 @@
       <template #body> 다시 로그인 해주세요 </template>
     </ModalView>
     <div class="py-16">
-      <div class="text-4xl font-bold text-center">
-        <p class="pb-2">비밀번호</p>
-        <p class="pb-2">재설정</p>
-      </div>
-      <p class="text-center font-bold text-body">초기 비밀번호를 변경해주세요</p>
+      <TitleContainer
+        :title="'비밀번호\n재설정'"
+        content="초기 비밀번호를 변경해주세요" />
     </div>
     <form
       @submit.prevent="handleChange"
@@ -49,6 +47,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from '../components/ModalView.vue'
+import { patchPassword } from '@/api/auth'
+import TitleContainer from '@/components/common/TitleContainer.vue'
 
 const newPw = ref('')
 const checkPw = ref('')
@@ -61,9 +61,10 @@ const toggleModal = () => {
 
 const handleChange = () => {
   if (newPw.value === checkPw.value) {
+    const response = patchPassword(newPw.value)
+    console.log(response)
     console.log('비밀번호 변경 성공!')
     toggleModal()
-    // 비밀번호 재설정 API 호출 필요
   } else {
     alert('비밀번호가 일치하지 않습니다.')
   }
