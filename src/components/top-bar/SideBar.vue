@@ -68,7 +68,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
-import CommonIcons from './common/CommonIcons.vue'
+import CommonIcons from '../common/CommonIcons.vue'
 import { hamburgerIcon } from '@/constants/iconPath'
 import { SIDE_USER_MENU, SIDE_MANAGER_MENU, SIDE_ADMIN_MENU } from '@/constants/menu'
 import { useMemberStore } from '@/stores/member'

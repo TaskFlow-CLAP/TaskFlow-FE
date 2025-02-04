@@ -1,7 +1,11 @@
 <template>
   <Line
+    v-if="labels.length !== 0"
     :data="teamData"
     :options="options" />
+  <NoContent
+    v-else
+    content="데이터가 없습니다" />
 </template>
 
 <script setup lang="ts">
@@ -17,6 +21,7 @@ import {
   LinearScale,
   Colors
 } from 'chart.js'
+import NoContent from './lists/NoContent.vue'
 
 ChartJS.register(
   Title,
@@ -41,14 +46,22 @@ const teamData = {
     {
       label: dataLabel,
       data: series,
-      fill: true,
-      tension: 0.4
+      fill: true
     }
   ]
 }
 
 const options = {
   responsive: true,
-  maintainAspectRatio: false
+  maintainAspectRatio: false,
+  scales: {
+    y: {
+      beginAtZero: true,
+      ticks: {
+        stepSize: 1
+      },
+      suggestedMax: Math.max(...series) + 1
+    }
+  }
 }
 </script>

@@ -29,7 +29,7 @@ import FilterInput from '../filters/FilterInput.vue'
 import { useTaskBoardParamsStore } from '@/stores/params'
 import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
-import type { LabelResponse } from '@/types/common'
+import type { LabelDataTypes } from '@/types/common'
 import { getCategory, getLabels } from '@/api/common'
 
 const { params } = useTaskBoardParamsStore()
@@ -60,7 +60,7 @@ const { data: categoryList } = useQuery({
   queryFn: getCategory
 })
 
-const { data: labelList } = useQuery<LabelResponse[]>({
+const { data: labelList } = useQuery<LabelDataTypes[]>({
   queryKey: ['label'],
   queryFn: getLabels
 })

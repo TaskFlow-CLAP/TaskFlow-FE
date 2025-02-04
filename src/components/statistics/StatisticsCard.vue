@@ -10,24 +10,29 @@
     <div class="w-full h-[1px] bg-border-1" />
     <div class="h-60">
       <PieChart
+        :key="JSON.stringify(labels) + periodType"
         v-if="chartType === 'pie'"
-        :labels="['a', 'b', 'c']"
-        :series="[1, 2, 3]" />
+        :labels="labels"
+        :series="series" />
       <LineChart
+        :key="JSON.stringify(labels) + periodType"
         v-if="chartType === 'line'"
-        :labels="['a', 'b', 'c']"
-        :series="[1, 2, 3]"
+        :labels="labels"
+        :series="series"
         :data-label="title.slice(4)" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import PieChart from '../PieChart.vue'
 import LineChart from '../LineChart.vue'
 import PeriodButtons from './PeriodButtons.vue'
 import type { PeriodType } from '@/types/manager'
+import { axiosInstance } from '@/utils/axios'
+import { useQuery } from '@tanstack/vue-query'
+import type { StatisticsData } from '@/types/admin'
 
 const { title, statisticsType, chartType } = defineProps<{
   title: string
@@ -45,4 +50,31 @@ const periodType = ref<PeriodType>('DAY')
 const changePeriod = (newPeriodType: PeriodType) => {
   periodType.value = newPeriodType
 }
+
+const fetchStatistics = async () => {
+  const response = await axiosInstance.get('/api/tasks/statistics', {
+    headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
+    },
+    params: {
+      periodType: periodType.value,
+      statisticsType
+    }
+  })
+
+  return response.data
+}
+
+const { data } = useQuery<StatisticsData[]>({
+  queryKey: [statisticsType, periodType],
+  queryFn: fetchStatistics
+})
+
+const labels = computed(() => {
+  return data.value?.map(el => el.key) || []
+})
+
+const series = computed(() => {
+  return data.value?.map(el => el.count) || []
+})
 </script>

@@ -16,7 +16,14 @@ export interface Category {
   id: number
   name: string
   code: string
-  subCategory?: { id: number; mainCategoryId: number; name: string; code: string }[]
+  subCategory?: SubCategory[]
+}
+
+export interface SubCategory {
+  id: number
+  mainCategoryId: number
+  name: string
+  code: string
 }
 
 export interface FilterCategoryProps {
@@ -68,41 +75,38 @@ export interface FormCheckboxProps {
 }
 
 export interface ColorSelectProps {
-  devisionId: number
-  selectedDivisionId: number | null
   isOpen: boolean
+  newLabel: LabelDataTypes
 }
 
-export interface LabelDataTypes {
-  labelId: number
-  labelName: string
-  labelColor: string
-}
-
-export interface MainCategoryTypes {
-  id: number
+export interface CategoryForm {
   name: string
   code: string
-}
-
-export interface SubCategoryTypes {
-  id: number
-  mainCategoryId: number
-  name: string
-  code: string
+  mainCategoryId?: number
 }
 
 export interface CategoryDropdownProps {
-  options: MainCategoryTypes[] | SubCategoryTypes[]
+  options: Category[] | SubCategory[]
   labelName: string
-  modelValue: MainCategoryTypes | SubCategoryTypes | null
+  modelValue: Category | SubCategory | null
   isLabel?: boolean
   isDisabled?: boolean
   isInvalidate?: string
 }
 
-export interface LabelResponse {
-  labelId: number
+export interface LabelDataTypes {
+  labelId?: number
   labelName: string
   labelColor: string
+}
+
+export interface LabelColorTypes {
+  borderColor: string
+  fillColor: string
+  colorEnum: string
+}
+
+export interface TaskStatusListTypes {
+  value: Status
+  content: string
 }
