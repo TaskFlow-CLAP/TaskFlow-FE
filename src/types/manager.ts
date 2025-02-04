@@ -73,7 +73,7 @@ export type PeriodType = 'DAY' | 'WEEK' | 'MONTH'
 
 export interface RequestApproveData {
   categoryId: number
-  processorId: string
+  processor: ManagerTypes | null
   label: LabelDataTypes | null
   dueDate: string
   dueTime: string
@@ -155,4 +155,11 @@ export interface RequestApprovePostTypes {
   processorId: number
   dueDate: string
   labelId: number
+}
+
+export interface ManagerTypes {
+  memberId: number
+  nickname: string
+  imageUrl: string
+  remainingTasks: number
 }

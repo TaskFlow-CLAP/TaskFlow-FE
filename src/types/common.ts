@@ -95,7 +95,7 @@ export interface CategoryDropdownProps {
 }
 
 export interface LabelDataTypes {
-  labelId?: number
+  labelId: number
   labelName: string
   labelColor: string
 }
