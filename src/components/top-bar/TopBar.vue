@@ -55,24 +55,39 @@ import { storeToRefs } from 'pinia'
 import { useMemberStore } from '@/stores/member'
 import NotificationModal from './NotificationModal.vue'
 import ProfileModal from './ProfileModal.vue'
-import Cookies from 'js-cookie'
 import { getNotifiCount } from '@/api/common'
+import { useRoute, useRouter } from 'vue-router'
+import { PERMITTED_URL } from '@/constants/common'
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)
-const accessToken = Cookies.get('accessToken')
+
+const route = useRoute()
+const router = useRouter()
+onMounted(async () => {
+  await fetchNotificationCount()
+
+  await memberStore.updateMemberInfoWithToken()
+
+  const originUrl = route.path.split('/')[1]
+  if (info.value.memberRole === 'ROLE_USER') {
+    if (!PERMITTED_URL.ROLE_USER.includes(originUrl)) router.push('/my-request')
+  } else if (info.value.memberRole === 'ROLE_MANAGER') {
+    if (!PERMITTED_URL.ROLE_MANAGER.includes(originUrl)) router.push('/my-task')
+  } else if (info.value.memberRole === 'ROLE_ADMIN') {
+    if (!PERMITTED_URL.ROLE_ADMIN.includes(originUrl)) router.push('/member-management')
+  } else {
+    if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) {
+      router.push('/login')
+    }
+  }
+})
+
 const isSideOpen = ref(false)
 const countNotifi = ref(0)
 
 const isNotifiVisible = ref(false)
 const isProfileVisible = ref(false)
-
-onMounted(async () => {
-  if (accessToken) {
-    await memberStore.updateMemberInfoWithToken()
-  }
-  await fetchNotificationCount()
-})
 
 const fetchNotificationCount = async () => {
   try {

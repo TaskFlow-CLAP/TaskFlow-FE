@@ -8,11 +8,9 @@
       <template #body> 이메일을 확인해주세요 </template>
     </ModalView>
     <div class="py-16">
-      <div class="text-4xl font-bold text-center">
-        <p class="pb-2">비밀번호</p>
-        <p class="pb-2">재설정</p>
-      </div>
-      <p class="text-center font-bold text-body">가입된 아이디와 이메일을 입력해주세요</p>
+      <TitleContainer
+        :title="'비밀번호\n재설정'"
+        content="가입된 아이디와 이메일을 입력해주세요" />
     </div>
     <form
       @submit.prevent="handleCheck"
@@ -67,6 +65,7 @@
 import { ref } from 'vue'
 import router from '../router/index'
 import ModalView from '../components/ModalView.vue'
+import TitleContainer from '@/components/common/TitleContainer.vue'
 
 const id = ref('')
 const email = ref('')
