@@ -1,34 +1,62 @@
 <template>
   <div class="flex flex-wrap items-center gap-2.5">
     <div
-      v-for="status in TASK_STATUS_LIST"
-      :key="status.content"
+      v-for="statusItem in TASK_STATUS_LIST"
+      :key="statusItem.content"
       class="flex px-3 py-1 rounded-[45px]"
-      :class="bgColor(status.value)">
+      :class="[bgColor(statusItem.value), isProcessor ? 'cursor-pointer' : '']"
+      @click="isProcessor ? changeStatus(statusItem.value) : null">
       <span
         class="text-[11px] font-bold"
-        :class="textColor(status.value)">
-        {{ status.content }}
+        :class="textColor(statusItem.value)">
+        {{ statusItem.content }}
       </span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { patchChangeStatus } from '@/api/user'
 import { TASK_STATUS_LIST } from '@/constants/common'
 import type { Status } from '@/types/common'
+import type { TaskStatusListProps } from '@/types/user'
 import { statusAsColor } from '@/utils/statusAsColor'
+import { ref, watch } from 'vue'
 
-const { status } = defineProps<{
-  status: Status
-}>()
+const { modelValue, isProcessor, taskId } = defineProps<TaskStatusListProps>()
+
+const emit = defineEmits(['update:status'])
+
+const currentStatus = ref(modelValue)
+
+watch(
+  () => modelValue,
+  newValue => {
+    currentStatus.value = newValue
+  }
+)
 
 const textColor = (taskStatus: Status) => {
-  return status === taskStatus ? 'text-white' : `text-${statusAsColor(taskStatus)}-1`
+  return currentStatus.value === taskStatus ? 'text-white' : `text-${statusAsColor(taskStatus)}-1`
 }
 const bgColor = (taskStatus: Status) => {
-  return status === taskStatus
+  return currentStatus.value === taskStatus
     ? `bg-${statusAsColor(taskStatus)}-1`
     : `bg-${statusAsColor(taskStatus)}-2`
+}
+
+const changeStatus = async (newStatus: Status) => {
+  if (currentStatus.value === newStatus) {
+    return
+  }
+  currentStatus.value = newStatus
+  emit('update:status', newStatus)
+
+  try {
+    const res = await patchChangeStatus(taskId || 0, newStatus)
+    console.log(res)
+  } catch (error) {
+    console.error('Failed to update status:', error)
+  }
 }
 </script>
