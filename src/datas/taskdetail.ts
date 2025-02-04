@@ -1,4 +1,3 @@
-import type { LabelDataTypes } from '@/types/common'
 import type { TaskDetailHistoryProps } from '@/types/user'
 
 export const DUMMY_REQUEST_TASK_CATEGORIES: string[] = [
@@ -64,38 +63,5 @@ export const DUMMY_TASK_DETAIL_HISTORY: TaskDetailHistoryProps[] = [
         fileName: 'file1.pdf'
       }
     }
-  }
-]
-
-export const DUMMY_REQUEST_TASK_LABELS: string[] = ['긴급', '정기', '오류', '점검']
-
-export const DUMMY_PROCESSOR = {
-  nickName: 'Tony',
-  profileUrl: 'images/mockProfile.jpg',
-  totalAssignedTasks: 5
-}
-
-export const DUMMY_TASK_DETAIL_LABELS: string[] = ['긴급', '정기', '오류', '점검']
-
-export const DUMMY_TASK_LABELS: LabelDataTypes[] = [
-  {
-    labelId: 1,
-    labelName: '긴급',
-    labelColor: 'red'
-  },
-  {
-    labelId: 2,
-    labelName: '정기',
-    labelColor: 'green'
-  },
-  {
-    labelId: 3,
-    labelName: '오류',
-    labelColor: 'blue'
-  },
-  {
-    labelId: 4,
-    labelName: '점검',
-    labelColor: 'gray'
   }
 ]
