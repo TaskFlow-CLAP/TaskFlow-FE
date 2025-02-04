@@ -53,7 +53,7 @@ import ModalView from '../ModalView.vue'
 import { ref } from 'vue'
 
 const roleContent = (role: Role) => {
-  return role === 'USER' ? '사용자' : role === 'MANAGER' ? '담당자' : '관리자'
+  return role === 'ROLE_USER' ? '사용자' : role === 'ROLE_MANAGER' ? '담당자' : '관리자'
 }
 
 const { info } = defineProps<{ info: MemberManagementListData }>()
