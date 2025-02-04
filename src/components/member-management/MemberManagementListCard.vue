@@ -65,6 +65,7 @@ import ModalView from '../ModalView.vue'
 import { ref } from 'vue'
 import axiosInstance from '@/utils/axios'
 import { useQueryClient } from '@tanstack/vue-query'
+import { formatDate } from '@/utils/date'
 
 const roleContent = (role: Role) => {
   return role === 'ROLE_USER' ? '사용자' : role === 'ROLE_MANAGER' ? '담당자' : '관리자'
@@ -79,7 +80,7 @@ const myRequestTabList: ListCardProps[] = [
   { content: info.email },
   { content: roleContent(info.role), width: 60 },
   { content: info.isReviewer ? '허용' : '', width: 60 },
-  { content: info.registeredAt, width: 80 }
+  { content: formatDate(info.createdAt), width: 80 }
 ]
 
 const router = useRouter()
@@ -104,7 +105,11 @@ const closeModal = () => {
 
 const onMemberDelete = async (memberId: number) => {
   try {
-    await axiosInstance.patch(`/api/managements/members/${memberId}`)
+    await axiosInstance.patch(
+      `/api/managements/members/delete`,
+      { memberId },
+      { headers: { Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}` } }
+    )
     toggleModal('success')
   } catch {
     toggleModal('fail')

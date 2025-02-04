@@ -9,7 +9,7 @@ export interface MemberManagementListData {
   email: string
   role: Role
   isReviewer: boolean
-  registeredAt: string
+  createdAt: string
 }
 
 export interface LoginLogsListData {
