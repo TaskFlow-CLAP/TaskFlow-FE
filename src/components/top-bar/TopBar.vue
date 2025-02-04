@@ -59,11 +59,9 @@ import Cookies from 'js-cookie'
 import { getNotifiCount } from '@/api/common'
 
 const memberStore = useMemberStore()
-const { info } = storeToRefs(memberStore)
+const { isLogined, info } = storeToRefs(memberStore)
 const accessToken = Cookies.get('accessToken')
-const refreshToken = Cookies.get('refreshToken')
 const isSideOpen = ref(false)
-const isLogined = ref(refreshToken ? true : false)
 const countNotifi = ref(0)
 
 const isNotifiVisible = ref(false)

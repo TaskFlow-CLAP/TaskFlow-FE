@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { axiosInstance } from '@/utils/axios'
 import { ref } from 'vue'
 import type { User } from '@/types/auth'
+import Cookies from 'js-cookie'
 
 export const useMemberStore = defineStore('memberInfo', () => {
   const info = ref<User>({
@@ -12,15 +13,14 @@ export const useMemberStore = defineStore('memberInfo', () => {
     memberStatus: ''
   })
 
-  async function updateMemberInfoWithToken() {
-    try {
-      const response = await axiosInstance.get('/api/members/info')
+  const refreshToken = ref(Cookies.get('refreshToken') || '')
+  const isLogined = ref(!!refreshToken.value)
 
-      console.log('API Response:', response.data)
-      updateMemberInfo(response.data)
-    } catch (error) {
-      console.error('updata error:', error)
-    }
+  async function updateMemberInfoWithToken() {
+    const response = await axiosInstance.get('/api/members/info')
+    console.log('API Response:', response.data)
+    updateMemberInfo(response.data)
+    isLogined.value = true
   }
 
   function updateMemberInfo(responseData: any) {
@@ -31,13 +31,27 @@ export const useMemberStore = defineStore('memberInfo', () => {
       memberRole: responseData.role || '',
       memberStatus: ''
     }
-
     console.log('Updated member info:', info.value)
+  }
+
+  function logout() {
+    info.value = {
+      memberName: '',
+      nickname: '',
+      imageUrl: '',
+      memberRole: '',
+      memberStatus: ''
+    }
+    isLogined.value = false
+    Cookies.remove('accessToken')
+    Cookies.remove('refreshToken')
   }
 
   return {
     info,
+    isLogined,
     updateMemberInfo,
-    updateMemberInfoWithToken
+    updateMemberInfoWithToken,
+    logout
   }
 })
