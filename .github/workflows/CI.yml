@@ -6,13 +6,13 @@ name: CI for front using github actions
 on:
   pull_request:
     types: [ opened, synchronize ]
-    branches: [ "develop" ]
+    branches: [ "CLAP-234" ]
 
 permissions:
   contents: read
 
 jobs:
-  front-cicd:
+  front-ci:
     runs-on: ubuntu-latest
     steps:
       # 저장소 코드를 체크아웃합니다. (PR 올린 코드를 가져오는 행위)
