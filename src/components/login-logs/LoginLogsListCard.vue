@@ -35,6 +35,11 @@ const myRequestTabList: ListCardProps[] = [
   { content: info.nickName, width: 80 },
   { content: info.clientIp, width: 120, isTextXs: true },
   { content: String(info.statusCode), width: 40, isTextXs: true, isStatusCode: true },
-  { content: info.failedAttempts !== 0 ? `failedAttempts = ${info.failedAttempts}` : '' }
+  {
+    content:
+      info.statusCode !== 200 && info.failedAttempts !== 0
+        ? `failedAttempts = ${info.failedAttempts}`
+        : ''
+  }
 ]
 </script>
