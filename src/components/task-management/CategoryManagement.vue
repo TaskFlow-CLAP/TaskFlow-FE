@@ -30,19 +30,19 @@
 </template>
 
 <script setup lang="ts">
-import { getAllCategory } from '@/api/common'
 import { plusIcon } from '@/constants/iconPath'
 import { useQuery } from '@tanstack/vue-query'
 import { useRouter } from 'vue-router'
 import CommonIcons from '../common/CommonIcons.vue'
 import CategoryLine from './CategoryLine.vue'
 import CategoryLineSub from './CategoryLineSub.vue'
+import { getCategory } from '@/api/common'
 
 const router = useRouter()
 
 const { data } = useQuery({
   queryKey: ['category'],
-  queryFn: getAllCategory
+  queryFn: getCategory
 })
 
 const MovetoAddCategory = () => {

@@ -10,12 +10,12 @@ export const getSubCategory = async () => {
   return response.data
 }
 
-export const getAllCategory = async () => {
-  const response = await axiosInstance.get('/api/category')
+export const getLabels = async () => {
+  const response = await axiosInstance.get('/api/labels')
   return response.data
 }
 
-export const getLabels = async () => {
-  const response = await axiosInstance.get('/api/labels')
+export const getCategory = async () => {
+  const response = await axiosInstance.get('/api/category')
   return response.data
 }
