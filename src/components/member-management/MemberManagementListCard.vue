@@ -63,7 +63,7 @@ import type { MemberManagementListData } from '@/types/admin'
 import { useRouter } from 'vue-router'
 import ModalView from '../ModalView.vue'
 import { ref } from 'vue'
-import axiosInstance from '@/utils/axios'
+import { axiosInstance } from '@/utils/axios'
 import { useQueryClient } from '@tanstack/vue-query'
 import { formatDate } from '@/utils/date'
 
@@ -105,11 +105,7 @@ const closeModal = () => {
 
 const onMemberDelete = async (memberId: number) => {
   try {
-    await axiosInstance.patch(
-      `/api/managements/members/delete`,
-      { memberId },
-      { headers: { Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}` } }
-    )
+    await axiosInstance.patch(`/api/managements/members/delete`, { memberId })
     toggleModal('success')
   } catch {
     toggleModal('fail')

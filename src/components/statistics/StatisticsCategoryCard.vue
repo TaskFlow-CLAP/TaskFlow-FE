@@ -45,9 +45,6 @@ const changeMainCategory = (value: string) => (mainCategory.value = value)
 
 const fetchMainStatistics = async () => {
   const response = await axiosInstance.get('/api/tasks/statistics', {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-    },
     params: {
       periodType: periodType.value,
       statisticsType: 'REQUEST_BY_CATEGORY'
@@ -69,9 +66,6 @@ const mainSeries = computed(() => {
 
 const fetchSubStatistics = async () => {
   const response = await axiosInstance.get('/api/tasks/statistics/subcategory', {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-    },
     params: {
       periodType: periodType.value,
       mainCategory: mainCategory.value

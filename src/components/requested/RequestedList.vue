@@ -42,12 +42,7 @@ const onPageChange = (value: number) => {
 const fetchRequestedList = async () => {
   const { parseRequestParams } = useParseParams()
   const parsedParams = parseRequestParams(params)
-  const response = await axiosInstance.get('/api/tasks/requests/pending', {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-    },
-    params: parsedParams
-  })
+  const response = await axiosInstance.get('/api/tasks/requests/pending', { params: parsedParams })
   return response.data
 }
 

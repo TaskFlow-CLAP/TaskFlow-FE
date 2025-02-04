@@ -27,7 +27,7 @@ import ListContainer from '../lists/ListContainer.vue'
 import { useLogsParamsStore } from '@/stores/params'
 import LoginLogsListBar from './LoginLogsListBar.vue'
 import LoginLogsListCard from './LoginLogsListCard.vue'
-import axiosInstance from '@/utils/axios'
+import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
 import type { LoginLogsResponse } from '@/types/admin'
@@ -40,9 +40,6 @@ const onPageChange = (value: number) => {
 
 const fetchLoginLogsList = async () => {
   const response = await axiosInstance.get('/api/managements/logs/login', {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-    },
     params: {
       ...params,
       logStatus: params.logStatus.join(',')

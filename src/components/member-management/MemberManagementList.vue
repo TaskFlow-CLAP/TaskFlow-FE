@@ -28,7 +28,7 @@ import { useMemberManagementParamsStore } from '@/stores/params'
 import MemberManagementListBar from './MemberManagementListBar.vue'
 import MemberManagementListCard from './MemberManagementListCard.vue'
 import NoContent from '../lists/NoContent.vue'
-import axiosInstance from '@/utils/axios'
+import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
 import type { MemberManagementResponse } from '@/types/admin'
@@ -39,12 +39,7 @@ const onPageChange = (value: number) => {
 }
 
 const fetchMemberList = async () => {
-  const response = await axiosInstance.get('/api/managements/members', {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-    },
-    params
-  })
+  const response = await axiosInstance.get('/api/managements/members', { params })
   return response.data
 }
 

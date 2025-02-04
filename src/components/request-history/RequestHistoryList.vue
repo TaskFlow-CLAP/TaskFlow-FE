@@ -42,12 +42,7 @@ const onPageChange = (value: number) => {
 const fetchRequestHistoryList = async () => {
   const { parseRequestParams } = useParseParams()
   const parsedParams = parseRequestParams(params)
-  const response = await axiosInstance.get('/api/tasks', {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-    },
-    params: parsedParams
-  })
+  const response = await axiosInstance.get('/api/tasks', { params: parsedParams })
   return response.data
 }
 
