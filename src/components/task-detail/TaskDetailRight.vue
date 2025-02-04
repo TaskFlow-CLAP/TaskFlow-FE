@@ -55,26 +55,31 @@
         <p class="text-sm text-black">{{ data.processorNickName || '-' }}</p>
       </div>
     </div>
-    <div v-if="isProcessor && data.dueDate">
+    <div v-if="data.dueDate">
       <p class="task-detail">마감기한</p>
       <div class="w-full flex justify-between items-center">
         <p class="text-sm text-black">{{ formatDueDate(data.dueDate) || '-' }}</p>
       </div>
       <p class="text-red-1 text-xs font-bold">{{ formatDaysBefore(data.dueDate) }}</p>
     </div>
-    <div v-if="isProcessor && data.labelName">
+    <div>
       <p class="task-detail">구분</p>
       <TaskDetailLabelDropdown
-        v-model="labeling"
-        :options="DUMMY_TASK_LABELS"
-        :processor="data.labelName" />
+        v-if="isProcessor && data.labelName"
+        v-model="taskLabel"
+        :placeholder-text="'라벨을 선택해주세요'"
+        :task-id="data.taskId" />
+      <div
+        v-else-if="data.labelName && !isProcessor"
+        class="flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 px-4 text-sm text-black">
+        {{ data.labelName }}
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { changeProcessor } from '@/api/user'
-import { DUMMY_TASK_LABELS } from '@/datas/taskdetail'
 import type { ManagerTypes } from '@/types/manager'
 import type { TaskDetailDatas } from '@/types/user'
 import { formatDate, formatDaysBefore, formatDueDate } from '@/utils/date'
@@ -85,9 +90,14 @@ import TaskDetailManagerDropdown from './TaskDetailManagerDropdown.vue'
 import TaskStatusList from './TaskStatusList.vue'
 
 const { data, isProcessor } = defineProps<{ data: TaskDetailDatas; isProcessor: boolean }>()
-console.log(data.dueDate)
 
 const taskStatus = ref(data.taskStatus)
+
+const taskLabel = ref({
+  labelId: -1,
+  labelName: data.labelName || '',
+  labelColor: ''
+})
 
 const selectedManager = ref({
   memberId: -1,
@@ -108,6 +118,4 @@ watch(newManager, async newValue => {
     }
   }
 })
-
-const labeling = ref(DUMMY_TASK_LABELS[0].labelName)
 </script>

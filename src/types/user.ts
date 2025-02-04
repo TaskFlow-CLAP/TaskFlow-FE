@@ -120,7 +120,7 @@ export interface TaskDetailRightProps {
 
 export interface TaskDetailLabelDropdownProps {
   options: LabelDataTypes[]
-  modelValue: string
+  modelValue: LabelDataTypes
 }
 
 export interface TaskHistoryDatas {
@@ -153,6 +153,7 @@ export interface MyRequestResponse {
 }
 
 export interface LabelDropdownProps {
+  taskId?:number
   modelValue: LabelDataTypes | null
   placeholderText: string
 }

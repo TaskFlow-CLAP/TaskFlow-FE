@@ -41,3 +41,8 @@ export const patchChangeStatus = async (taskID: number, status: Status) => {
   const response = await axiosInstance.patch(`/api/tasks/${taskID}/status`, status)
   return response.data
 }
+
+export const changeLabel = async (taskID: number, labelId: number) => {
+  const response = await axiosInstance.patch(`/api/tasks/${taskID}/label`, { labelId })
+  return response.data
+}
