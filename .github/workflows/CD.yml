@@ -39,7 +39,7 @@ jobs:
           key: ${{ secrets.FRONT_HOST_KEY }}
           port: ${{ secrets.FRONT_HOST_PORT }}
           source: "dist/*"
-          target: /
+          target: /home/${{ secrets.FRONT_HOST_USERNAME }}/
 #
 #      - name: Create nginx.conf
 #        run: touch ./nginx.conf
