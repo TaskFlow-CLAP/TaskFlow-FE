@@ -48,5 +48,5 @@ const onOptionClick = (option: string | number) => {
   emit('update:value', option)
 }
 
-const { htmlRef } = useOutsideClick(toggleDropdown)
+const { htmlRef } = useOutsideClick(() => isDropdownOpened.value && toggleDropdown())
 </script>
