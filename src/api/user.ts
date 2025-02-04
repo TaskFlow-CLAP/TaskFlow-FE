@@ -46,3 +46,8 @@ export const changeLabel = async (taskID: number, labelId: number) => {
   const response = await axiosInstance.patch(`/api/tasks/${taskID}/label`, { labelId })
   return response.data
 }
+
+export const getHistory = async (taskID: number) => {
+  const response = await axiosInstance.get(`/api/tasks/${taskID}/histories`)
+  return response.data
+}

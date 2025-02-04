@@ -12,7 +12,7 @@
     </div>
     <div
       v-if="dropdownOpen"
-      class="absolute w-full h-40 overflow-y-auto top-12 flex flex-col gap-2 p-2 bg-white rounded z-10 shadow text-black">
+      class="absolute w-full h-40 overflow-y-auto top-12 flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom text-black">
       <div
         v-for="option in labelArr"
         :key="option.labelId"

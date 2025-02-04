@@ -53,7 +53,7 @@ import type { ManagerTypes } from '@/types/manager'
 import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { modelValue } = defineProps<{ modelValue: ManagerTypes }>()
+const { modelValue } = defineProps<{ modelValue: ManagerTypes; taskId: number }>()
 const emit = defineEmits(['update:modelValue'])
 
 const dropdownOpen = ref(false)
