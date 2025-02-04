@@ -46,9 +46,8 @@ export const useMemberManagementParamsStore = defineStore('userManagementParams'
     email: '',
     nickName: '',
     departmentName: '',
-    role: ''
-    // sortBy: 'REGISTERED_AT',
-    // sortDirection: 'DESC'
+    role: 'ROLE_USER',
+    sortDirection: 'DESC'
   })
 
   return { params }

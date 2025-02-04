@@ -29,17 +29,29 @@
 
   <ModalView
     type="warningType"
-    :is-open="isModalOpen.delete"
+    :is-open="isModalVisible.delete"
     @click="onMemberDelete(info.memberId)"
-    @close="toggleModal('delete')">
+    @close="closeModal">
     <template #header>회원을 삭제 하시겠습니까?</template>
     <template #body>삭제된 회원은 복구할 수 없습니다</template>
+  </ModalView>
+  <ModalView
+    type="failType"
+    :is-open="isModalVisible.fail"
+    @close="closeModal">
+    <template #header>회원 삭제에 실패했습니다</template>
+  </ModalView>
+  <ModalView
+    type="successType"
+    :is-open="isModalVisible.success"
+    @close="closeModal">
+    <template #header>회원을 삭제했습니다</template>
   </ModalView>
 
   <ModalView
     type="successType"
-    :is-open="isModalOpen.invite"
-    @close="toggleModal('invite')">
+    :is-open="isModalVisible.invite"
+    @close="closeModal">
     <template #header>초대 메일을 발송하였습니다</template>
   </ModalView>
 </template>
@@ -51,6 +63,8 @@ import type { MemberManagementListData } from '@/types/admin'
 import { useRouter } from 'vue-router'
 import ModalView from '../ModalView.vue'
 import { ref } from 'vue'
+import axiosInstance from '@/utils/axios'
+import { useQueryClient } from '@tanstack/vue-query'
 
 const roleContent = (role: Role) => {
   return role === 'ROLE_USER' ? '사용자' : role === 'ROLE_MANAGER' ? '담당자' : '관리자'
@@ -59,28 +73,42 @@ const roleContent = (role: Role) => {
 const { info } = defineProps<{ info: MemberManagementListData }>()
 const myRequestTabList: ListCardProps[] = [
   { content: info.name, width: 60 },
-  { content: info.nickName, width: 80 },
-  { content: info.department, width: 80 },
+  { content: info.nickname, width: 80 },
+  { content: info.departmentName, width: 80 },
   { content: info.departmentRole, width: 80 },
   { content: info.email },
   { content: roleContent(info.role), width: 60 },
-  { content: info.permission ? '허용' : '', width: 60 },
+  { content: info.isReviewer ? '허용' : '', width: 60 },
   { content: info.registeredAt, width: 80 }
 ]
 
 const router = useRouter()
+const queryClient = useQueryClient()
 
-const isModalOpen = ref({
+const isModalVisible = ref({
   delete: false,
-  invite: false
+  invite: false,
+  fail: false,
+  success: false
 })
-const toggleModal = (key: keyof typeof isModalOpen.value) => {
-  isModalOpen.value[key] = !isModalOpen.value[key]
+const toggleModal = (key: keyof typeof isModalVisible.value) => {
+  isModalVisible.value = Object.fromEntries(
+    Object.keys(isModalVisible.value).map(k => [k, k === key])
+  ) as typeof isModalVisible.value
+}
+const closeModal = () => {
+  const prevSuccess = isModalVisible.value.success
+  isModalVisible.value = { delete: false, invite: false, fail: false, success: false }
+  if (prevSuccess) queryClient.invalidateQueries({ queryKey: ['member'] })
 }
 
-const onMemberDelete = (memberId: number) => {
-  console.log(memberId)
-  toggleModal('delete')
+const onMemberDelete = async (memberId: number) => {
+  try {
+    await axiosInstance.patch(`/api/managements/members/${memberId}`)
+    toggleModal('success')
+  } catch {
+    toggleModal('fail')
+  }
 }
 
 const onMemberInvite = (memberId: number) => {

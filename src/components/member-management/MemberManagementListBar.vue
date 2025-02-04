@@ -20,7 +20,7 @@ import { computed } from 'vue'
 
 const { params } = useMemberManagementParamsStore()
 const orderRequest = computed(() => ({
-  sortBy: params.sortBy,
+  sortBy: 'REGISTERED_AT',
   sortDirection: params.sortDirection
 }))
 

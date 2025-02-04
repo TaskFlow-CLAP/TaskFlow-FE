@@ -21,8 +21,7 @@ export interface MemberManagementParams {
   nickName: string
   departmentName: string
   role: Role | ''
-  // sortBy: 'REGISTERED_AT'
-  // sortDirection: SortDirection
+  sortDirection: SortDirection
 }
 
 export interface LogsParams {

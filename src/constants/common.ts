@@ -21,9 +21,9 @@ export const PAGE_SIZE_LIST = [
 
 export const ROLE_LIST = [
   { value: '', content: '전체' },
-  { value: 'user', content: '사용자' },
-  { value: 'manager', content: '담당자' },
-  { value: 'admin', content: '관리자' }
+  { value: 'ROLE_USER', content: '사용자' },
+  { value: 'ROLE_MANAGER', content: '담당자' },
+  { value: 'ROLE_ADMIN', content: '관리자' }
 ]
 
 export const COLOR_LIST = [

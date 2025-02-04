@@ -3,12 +3,12 @@ import type { Role } from './common'
 export interface MemberManagementListData {
   memberId: number
   name: string
-  nickName: string
-  department: string
+  nickname: string
+  departmentName: string
   departmentRole: string
   email: string
   role: Role
-  permission?: boolean
+  isReviewer: boolean
   registeredAt: string
 }
 
