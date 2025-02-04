@@ -36,12 +36,10 @@
       </div>
     </div>
     <div>
-      <p class="task-detail">처리자</p>
-      <div v-if="isManager && data.processorNickName">
-        <!-- <TaskDetailDropdown
-          v-model="processor"
-          :options="DUMMY_REQUEST_PROCESSORS"
-          :processor="DUMMY_PROCESSOR" /> -->
+      <div v-if="isProcessor && data.processorNickName">
+        <TaskDetailManagerDropdown
+          v-model="newManager"
+          :placeholderText="data.processorNickName" />
       </div>
       <div
         v-else
@@ -54,7 +52,7 @@
         <p class="text-sm text-black">{{ data.processorNickName || '-' }}</p>
       </div>
     </div>
-    <div v-if="isManager && data.dueDate">
+    <div v-if="isProcessor && data.dueDate">
       <p class="task-detail">마감기한</p>
       <div class="w-full flex justify-between items-center">
         <p class="text-sm text-black">{{ data.dueDate || '-' }}까지</p>
@@ -62,7 +60,7 @@
       </div>
       <p class="text-red-1 text-xs font-bold">3일 전</p>
     </div>
-    <div v-if="isManager && data.labelName">
+    <div v-if="isProcessor && data.labelName">
       <p class="task-detail">구분</p>
       <TaskDetailLabelDropdown
         v-model="labeling"
@@ -73,23 +71,39 @@
 </template>
 
 <script setup lang="ts">
+import { changeProcessor } from '@/api/user'
 import { DUMMY_TASK_LABELS } from '@/datas/taskdetail'
-import { useMemberStore } from '@/stores/member'
+import type { ManagerTypes } from '@/types/manager'
 import type { TaskDetailDatas } from '@/types/user'
 import { formatDate } from '@/utils/date'
-import { storeToRefs } from 'pinia'
-import { computed, defineProps, ref } from 'vue'
+import { defineProps, ref, watch } from 'vue'
 import TaskStatus from '../TaskStatus.vue'
 import TaskDetailLabelDropdown from './TaskDetailLabelDropdown.vue'
+import TaskDetailManagerDropdown from './TaskDetailManagerDropdown.vue'
 import TaskStatusList from './TaskStatusList.vue'
 
-const memberStore = useMemberStore()
-const { info } = storeToRefs(memberStore)
-const isManager = computed(() => info.value.memberName === data.processorNickName)
-
-const { data } = defineProps<{ data: TaskDetailDatas }>()
+const { data, isProcessor } = defineProps<{ data: TaskDetailDatas; isProcessor: boolean }>()
 console.log(data, '가져온 데이터')
 
-// const processor = ref(DUMMY_PROCESSOR.nickName)
+const selectedManager = ref({
+  memberId: -1,
+  nickname: data.processorNickName,
+  imageUrl: data.processorImageUrl,
+  remainingTasks: -1
+} as ManagerTypes)
+
+const newManager = ref(selectedManager.value)
+
+watch(newManager, async newValue => {
+  if (newValue?.nickname !== selectedManager.value.nickname && newValue) {
+    try {
+      await changeProcessor(data.taskId, newValue.memberId)
+      selectedManager.value = newValue
+    } catch (error) {
+      console.error('Error updating processor', error)
+    }
+  }
+})
+
 const labeling = ref(DUMMY_TASK_LABELS[0].labelName)
 </script>
