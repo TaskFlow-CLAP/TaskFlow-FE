@@ -8,7 +8,6 @@ const router = createRouter({
       name: 'Login',
       component: () => import('../views/LoginView.vue')
     },
-
     {
       path: '/pw-change',
       name: 'PwChange',
@@ -111,6 +110,11 @@ const router = createRouter({
       path: '/statistics',
       name: 'Statistics',
       component: () => import('../views/StatisticsView.vue')
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../views/NotFoundView.vue')
     }
   ]
 })
