@@ -14,3 +14,8 @@ export const getAllCategory = async () => {
   const response = await axiosInstance.get('/api/category')
   return response.data
 }
+
+export const getLabels = async () => {
+  const response = await axiosInstance.get('/api/labels')
+  return response.data
+}
