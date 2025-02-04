@@ -162,3 +162,7 @@ export interface ManagerDropdownProps {
   placeholderText: string
   isInvalidate: string
 }
+
+export interface DetailManagerDropdownProps {
+  modelValue: ManagerTypes
+}

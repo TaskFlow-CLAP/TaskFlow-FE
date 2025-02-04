@@ -30,3 +30,8 @@ export const getManager = async () => {
   const response = await axiosInstance.get('/api/managers')
   return response.data
 }
+
+export const changeProcessor = async (taskID: number, processorId: number) => {
+  const response = await axiosInstance.patch(`/api/tasks/${taskID}/processor`, { processorId })
+  return response.data
+}
