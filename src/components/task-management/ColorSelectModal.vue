@@ -24,11 +24,11 @@
 <script setup lang="ts">
 import { COLOR_LIST } from '@/constants/common'
 import { closeIcon } from '@/constants/iconPath'
-import type { ColorSelectProps, LabelColorTypes } from '@/types/common'
+import type { LabelColorTypes } from '@/types/common'
 import { defineEmits, defineProps } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { isOpen } = defineProps<ColorSelectProps>()
+const { isOpen } = defineProps<{ isOpen: boolean }>()
 
 const emit = defineEmits<{
   (e: 'close'): void

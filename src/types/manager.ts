@@ -1,4 +1,4 @@
-import type { Status } from './common'
+import type { LabelDataTypes, Status } from './common'
 import type { AttachmentResponse } from './user'
 
 export interface RequestedListData {
@@ -72,11 +72,10 @@ export interface TeamBoardCardProps {
 
 export type PeriodType = 'DAY' | 'WEEK' | 'MONTH'
 
-export interface RequestApproveFormData {
-  category1: string
-  category2: string
-  processor: string
-  labeling: string
+export interface RequestApproveData {
+  categoryId: number
+  processor: ManagerTypes | null
+  label: LabelDataTypes | null
   dueDate: string
   dueTime: string
 }
@@ -150,4 +149,18 @@ export interface MyTaskResponse {
   pageSize: number
   isFirst: boolean
   isLast: boolean
+}
+
+export interface RequestApprovePostTypes {
+  categoryId: number
+  processorId: number
+  dueDate: string | null
+  labelId: number | null
+}
+
+export interface ManagerTypes {
+  memberId: number
+  nickname: string
+  imageUrl: string
+  remainingTasks: number
 }

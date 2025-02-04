@@ -65,8 +65,7 @@
 
 <script setup lang="ts">
 import { deleteLabelAdmin, patchLabelAdmin } from '@/api/admin'
-import type { LabelDataTypes } from '@/types/admin'
-import type { LabelColorTypes } from '@/types/common'
+import type { LabelColorTypes, LabelDataTypes } from '@/types/common'
 import { getColor } from '@/utils/color'
 import { defineProps, ref } from 'vue'
 import ModalView from '../ModalView.vue'

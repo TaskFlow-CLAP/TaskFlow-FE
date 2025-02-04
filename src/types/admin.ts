@@ -46,12 +46,6 @@ export interface CategoryAllData {
   categories: Category[]
 }
 
-export interface LabelDataTypes {
-  labelId: number
-  labelName: string
-  labelColor: string
-}
-
 export interface NewLabelTypes {
   labelName: string
   labelColor: string

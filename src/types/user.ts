@@ -1,4 +1,5 @@
 import type { LabelDataTypes, Status } from './common'
+import type { ManagerTypes } from './manager'
 
 export interface MyRequestListData {
   taskId: number
@@ -150,4 +151,15 @@ export interface MyRequestResponse {
   pageSize: number
   isFirst: boolean
   isLast: boolean
+}
+
+export interface LabelDropdownProps {
+  modelValue: LabelDataTypes | null
+  placeholderText: string
+}
+
+export interface ManagerDropdownProps {
+  modelValue: ManagerTypes | null
+  placeholderText: string
+  isInvalidate: string
 }
