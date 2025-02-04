@@ -10,6 +10,10 @@ export const postLogin = async (loginData: loginDataTypes, sessionId: string) =>
     path: '/',
     sameSite: 'strict'
   })
+  Cookies.set('refreshToken', response.data.refreshToken, {
+    path: '/',
+    sameSite: 'strict'
+  })
   return response.data
 }
 
@@ -18,11 +22,20 @@ export const patchPassword = async (password: string) => {
 
   if (!accessToken) return
 
-  const response = await axiosInstance.patch('/api/members/password', password, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
-  })
+  const response = await axiosInstance.patch('/api/members/password', password)
 
   return response.data
+}
+
+export const deleteLogout = async () => {
+  const refreshToken = Cookies.get('refreshToken')
+
+  const response = await axiosInstance.delete('/api/auths/logout', {
+    headers: {
+      refreshToken: refreshToken
+    }
+  })
+  Cookies.remove('accessToken', { path: '/' })
+  Cookies.remove('refreshToken', { path: '/' })
+  return response
 }
