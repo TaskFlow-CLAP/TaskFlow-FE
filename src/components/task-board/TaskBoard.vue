@@ -30,15 +30,16 @@
           </div>
         </div>
         <draggableComponent
-          :list="data?.tasksInProgress"
+          :list="tasksInProgress"
           group="taskList"
           item-key="task"
           class="flex flex-col gap-4 h-full"
-          @change="event => onListChange(event, 'tasksInProgress')">
+          @change="event => onListChange(event, 'IN_PROGRESS')">
           <template #item="{ element }">
             <TaskCard
               :key="element.taskId"
-              :data="element" />
+              :data="element"
+              draggable />
           </template>
         </draggableComponent>
       </div>
@@ -54,15 +55,16 @@
           </div>
         </div>
         <draggableComponent
-          :list="data?.tasksPendingComplete"
+          :list="tasksPendingComplete"
           group="taskList"
           item-key="task"
           class="flex flex-col gap-4 h-full"
-          @change="event => onListChange(event, 'tasksPendingComplete')">
+          @change="event => onListChange(event, 'PENDING_COMPLETED')">
           <template #item="{ element }">
             <TaskCard
               :key="element.taskId"
-              :data="element" />
+              :data="element"
+              draggable />
           </template>
         </draggableComponent>
       </div>
@@ -78,15 +80,16 @@
           </div>
         </div>
         <draggableComponent
-          :list="data?.tasksCompleted"
+          :list="tasksCompleted"
           group="taskList"
           item-key="task"
           class="flex flex-col gap-4 h-full"
-          @change="event => onListChange(event, 'tasksCompleted')">
+          @change="event => onListChange(event, 'COMPLETED')">
           <template #item="{ element }">
             <TaskCard
               :key="element.taskId"
-              :data="element" />
+              :data="element"
+              draggable />
           </template>
         </draggableComponent>
       </div>
@@ -95,27 +98,66 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import draggableComponent from 'vuedraggable'
 import TaskCard from '../TaskCard.vue'
 import type { DraggableEvent, TaskCardList } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
 import { useParseParams } from '../hooks/useParseParams'
 import { useTaskBoardParamsStore } from '@/stores/params'
-import { useQuery } from '@tanstack/vue-query'
+import { useQuery, useQueryClient } from '@tanstack/vue-query'
+import type { Status } from '@/types/common'
+import { computed } from 'vue'
 
-const status = {
-  tasksInProgress: '진행 중',
-  tasksPendingComplete: '검토 중',
-  tasksCompleted: '완료'
+const queryClient = useQueryClient()
+
+const statusToKey = (status: Status): keyof TaskCardList | undefined => {
+  if (status === 'IN_PROGRESS') {
+    return 'tasksInProgress'
+  } else if (status === 'PENDING_COMPLETED') {
+    return 'tasksPendingComplete'
+  } else if (status === 'COMPLETED') {
+    return 'tasksCompleted'
+  }
 }
 
-// const onListChange = (event: DraggableEvent, key: keyof typeof status) => {
-//   const { added } = event
-//   if (added) {
-//     cardList.value[key][added.newIndex].taskStatus = status[key]
-//   }
-// }
+const onListChange = async (event: DraggableEvent, status: Status) => {
+  if (event.added) {
+    const key = statusToKey(status)
+    const targetIndex = event.added.newIndex
+    const prevTaskId = (data.value && data.value[key!][targetIndex - 1]?.taskId) || 0
+    const targetTaskId = event.added.element.taskId
+    const nextTaskId = (data.value && data.value[key!][targetIndex])?.taskId || 0
+    const body = {
+      prevTaskId,
+      targetTaskId,
+      nextTaskId
+    }
+    console.log(prevTaskId, targetTaskId, nextTaskId)
+    await axiosInstance.patch('/api/task-board', body, { params: { status } })
+    queryClient.invalidateQueries({ queryKey: ['taskBoard'] })
+  }
+  if (event.moved) {
+    const key = statusToKey(status)
+    const [oldIndex, newIndex] = [event.moved.oldIndex, event.moved.newIndex]
+    const targetTaskId = event.moved.element.taskId
+    let [prevTaskId, nextTaskId] = [0, 0]
+    if (oldIndex < newIndex) {
+      prevTaskId = (data.value && data.value[key!][newIndex]?.taskId) || 0
+      nextTaskId = (data.value && data.value[key!][newIndex + 1]?.taskId) || 0
+    } else {
+      prevTaskId = (data.value && data.value[key!][newIndex - 1]?.taskId) || 0
+      nextTaskId = (data.value && data.value[key!][newIndex]?.taskId) || 0
+    }
+    const body = {
+      prevTaskId,
+      targetTaskId,
+      nextTaskId
+    }
+    console.log(prevTaskId, targetTaskId, nextTaskId)
+    await axiosInstance.patch('/api/task-board', body)
+    queryClient.invalidateQueries({ queryKey: ['taskBoard'] })
+  }
+}
 
 const { params } = useTaskBoardParamsStore()
 const fetchTaskBoard = async () => {
@@ -128,4 +170,8 @@ const { data } = useQuery<TaskCardList>({
   queryKey: ['taskBoard', params],
   queryFn: fetchTaskBoard
 })
+
+const tasksInProgress = computed(() => [...(data.value?.tasksInProgress || [])])
+const tasksPendingComplete = computed(() => [...(data.value?.tasksPendingComplete || [])])
+const tasksCompleted = computed(() => [...(data.value?.tasksCompleted || [])])
 </script>

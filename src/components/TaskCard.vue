@@ -16,11 +16,11 @@
       <span class="text-xs font-bold text-black">{{ data.taskCode }}</span>
       <div class="flex flex-col gap-1 items-end">
         <span class="text-xs font-bold text-body">{{ data.requesterDepartment }}</span>
-        <div class="flex items-center gap-1">
+        <div class="flex items-center gap-1.5">
           <div class="w-4 h-4 rounded-full bg-background-1 overflow-hidden">
             <img :src="data.requesterImageUrl" />
           </div>
-          <span class="text-xs font-bold text-black">{{ data.requesterNickName }}</span>
+          <span class="text-xs font-bold text-black">{{ data.requesterNickname }}</span>
         </div>
       </div>
     </div>

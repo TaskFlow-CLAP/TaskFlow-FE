@@ -36,7 +36,7 @@ export interface TaskCardProps {
     labelName: string
     labelColor: string
   }
-  requesterNickName: string
+  requesterNickname: string
   requesterImageUrl: string
   requesterDepartment: string
   processorOrder: number
