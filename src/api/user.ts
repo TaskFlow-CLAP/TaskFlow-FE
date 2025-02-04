@@ -25,3 +25,8 @@ export const postTaskApprove = async (id: number, data: RequestApprovePostTypes)
   const response = await axiosInstance.post(`/api/tasks/${id}/approval`, data)
   return response.data
 }
+
+export const getManager = async () => {
+  const response = await axiosInstance.get('/api/managers')
+  return response.data
+}

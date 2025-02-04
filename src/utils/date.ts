@@ -20,7 +20,7 @@ export const formatDateWithDay = (dateString: string) => {
 }
 
 export const convertToISO = (dateStr: string, timeStr: string) => {
+  if (dateStr === '' || timeStr === '') return null
   const date = new Date(`${dateStr}T${timeStr}:00`)
-
   return date.toISOString()
 }

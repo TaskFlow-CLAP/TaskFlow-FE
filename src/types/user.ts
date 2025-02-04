@@ -160,4 +160,5 @@ export interface LabelDropdownProps {
 export interface ManagerDropdownProps {
   modelValue: ManagerTypes | null
   placeholderText: string
+  isInvalidate: string
 }

@@ -153,8 +153,8 @@ export interface MyTaskResponse {
 export interface RequestApprovePostTypes {
   categoryId: number
   processorId: number
-  dueDate: string
-  labelId: number
+  dueDate: string | null
+  labelId: number | null
 }
 
 export interface ManagerTypes {
