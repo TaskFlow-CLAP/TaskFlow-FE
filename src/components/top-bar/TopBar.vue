@@ -23,7 +23,7 @@
         <button
           type="button"
           @click="toggleNotifi">
-          <NotificationIcon :new-notification="12" />
+          <NotificationIcon :new-notification="countNotifi" />
         </button>
         <button
           type="button"
@@ -56,23 +56,34 @@ import { useMemberStore } from '@/stores/member'
 import NotificationModal from './NotificationModal.vue'
 import ProfileModal from './ProfileModal.vue'
 import Cookies from 'js-cookie'
+import { getNotifiCount } from '@/api/common'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 const accessToken = Cookies.get('accessToken')
 const refreshToken = Cookies.get('refreshToken')
+const isSideOpen = ref(false)
+const isLogined = ref(refreshToken ? true : false)
+const countNotifi = ref(0)
+
+const isNotifiVisible = ref(false)
+const isProfileVisible = ref(false)
 
 onMounted(async () => {
   if (accessToken) {
     await memberStore.updateMemberInfoWithToken()
   }
+  await fetchNotificationCount()
 })
 
-const isSideOpen = ref(false)
-const isLogined = ref(refreshToken ? true : false)
-
-const isNotifiVisible = ref(false)
-const isProfileVisible = ref(false)
+const fetchNotificationCount = async () => {
+  try {
+    const data = await getNotifiCount()
+    countNotifi.value = data.count // 🔹 count 값만 저장
+  } catch (error) {
+    console.error('알림 개수 불러오기 실패:', error)
+  }
+}
 
 const toggleNotifi = () => {
   isNotifiVisible.value = !isNotifiVisible.value
