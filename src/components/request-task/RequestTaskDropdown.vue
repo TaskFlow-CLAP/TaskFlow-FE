@@ -8,7 +8,7 @@
         *
       </p>
     </div>
-    <div class="relative flex text-base">
+    <div class="relative flex">
       <div
         class="flex w-full h-11 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-black"
         @click="toggleDropdown">
