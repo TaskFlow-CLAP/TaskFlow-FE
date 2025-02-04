@@ -69,6 +69,7 @@ const managerArr = ref<ManagerTypes[]>([])
 const isInvalidateState = computed(() => isInvalidate)
 
 onMounted(async () => {
+  emit('update:modelValue', null)
   managerArr.value = await getManager()
 })
 

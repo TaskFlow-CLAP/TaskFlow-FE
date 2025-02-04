@@ -9,12 +9,15 @@
 
 <script lang="ts" setup>
 import type { DueDateInputProps } from '@/types/common'
-import { defineEmits, defineProps } from 'vue'
+import { defineEmits, defineProps, onMounted } from 'vue'
 
 const { modelValue, inputType } = defineProps<DueDateInputProps>()
 const emit = defineEmits(['update:modelValue'])
-
 const updateValue = (value: string) => {
   emit('update:modelValue', value)
 }
+
+onMounted(() => {
+  emit('update:modelValue', null)
+})
 </script>

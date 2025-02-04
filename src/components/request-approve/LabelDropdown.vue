@@ -42,6 +42,7 @@ const dropdownOpen = ref(false)
 const labelArr = ref<LabelDataTypes[]>([])
 
 onMounted(async () => {
+  emit('update:modelValue', null)
   labelArr.value = await getLabelsManager()
 })
 const toggleDropdown = () => {

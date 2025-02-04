@@ -51,7 +51,7 @@ import { INITIAL_REQUEST_APPROVE_DATA } from '@/constants/manager'
 import type { Category, SubCategory } from '@/types/common'
 import { convertToISO } from '@/utils/date'
 import { onMounted, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import ModalView from '../ModalView.vue'
 import CategoryDropDown from '../request-task/CategoryDropDown.vue'
@@ -75,6 +75,11 @@ const route = useRouter().currentRoute.value
 const requestId = Array.isArray(route.query.requestId)
   ? Number(route.query.requestId[0])
   : Number(route.query.requestId)
+
+onBeforeRouteLeave((to, from, next) => {
+  approveData.value = INITIAL_REQUEST_APPROVE_DATA
+  next()
+})
 
 onMounted(async () => {
   mainCategoryArr.value = await getMainCategory()
@@ -124,7 +129,6 @@ const handleSubmit = async () => {
   try {
     await postTaskApprove(requestId, requestData)
     isModalVisible.value = true
-    approveData.value = INITIAL_REQUEST_APPROVE_DATA
   } catch (error) {
     console.error('API 요청 실패:', error)
   }
