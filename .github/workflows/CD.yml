@@ -31,16 +31,26 @@ jobs:
       - name: Build with npm
         run: npm run build-only
 
-      - name: Create nginx.conf
-        run: touch ./nginx.conf
-      - run: echo "${{ secrets.NGINX_CONF }}" > ./nginx.conf
+      - name: send file via ssh
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.FRONT_HOST }}
+          username: ${{ secrets.FRONT_HOST_USERNAME }}
+          key: ${{ secrets.FRONT_HOST_KEY }}
+          port: ${{ secrets.FRONT_HOST_PORT }}
+          source: "dist/*"
+          target: /home/${{ secrets.FRONT_HOST_USERNAME }}/
+#
+#      - name: Create nginx.conf
+#        run: touch ./nginx.conf
+#      - run: echo "${{ secrets.NGINX_CONF }}" > ./nginx.conf
 
       ## docker build & push to production
-      - name: Docker build & push
-        run: |
-          docker login clap.kr-central-2.kcr.dev -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -t ${{ secrets.DOCKER_FRONT_REPO }} .
-          docker push ${{ secrets.DOCKER_FRONT_REPO }}
+#      - name: Docker build & push
+#        run: |
+#          docker login clap.kr-central-2.kcr.dev -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+#          docker build -t ${{ secrets.DOCKER_FRONT_REPO }} .
+#          docker push ${{ secrets.DOCKER_FRONT_REPO }}
 
       ## deploy
       - name: Deploy
@@ -52,6 +62,9 @@ jobs:
           key: ${{ secrets.FRONT_HOST_KEY }}
           port: ${{ secrets.FRONT_HOST_PORT }}
           script: |
-            docker rm -f taskflow-front
-            docker image rm ${{ secrets.DOCKER_FRONT_REPO }} -f
-            docker run --name taskflow-front -d -p 80:80 --restart on-failure ${{ secrets.DOCKER_FRONT_REPO }}
+            sudo rm -rf /var/www/html/*
+            sudo cp -r dist/* /var/www/html/
+            sudo systemctl restart nginx
+#            docker rm -f taskflow-front
+#            docker image rm ${{ secrets.DOCKER_FRONT_REPO }} -f
+#            docker run --name taskflow-front -d -p 80:80 --restart on-failure ${{ secrets.DOCKER_FRONT_REPO }}
