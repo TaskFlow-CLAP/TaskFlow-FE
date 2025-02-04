@@ -3,8 +3,8 @@
     <FilterDropdown
       title="구분"
       :option-list="labelOptionList"
-      :value="params.division"
-      @update:value="onDivisionChange" />
+      :value="String(params.labelId)"
+      @update:value="onLabelIdChange" />
     <FilterCategory
       :category-list="categoryList"
       :main="params.mainCategoryIds"
@@ -17,8 +17,8 @@
       @update:value="onTitleChange" />
     <FilterInput
       title="요청자"
-      :value="params.nickName"
-      @update:value="onNickNameChange" />
+      :value="params.requesterNickname"
+      @update:value="onRequesterNicknameChange" />
   </div>
 </template>
 
@@ -38,8 +38,9 @@ const onArrayChange = <Value extends number | string>(array: Value[], value: Val
   return array.includes(value) ? array.filter(el => el !== value) : [...array, value]
 }
 
-const onDivisionChange = (value: string) => {
-  params.division = value
+const onLabelIdChange = (value: string) => {
+  if (value === '') params.labelId = ''
+  else params.labelId = Number(value)
 }
 const onMainChange = (value: number) => {
   params.mainCategoryIds = onArrayChange(params.mainCategoryIds, value)
@@ -47,8 +48,8 @@ const onMainChange = (value: number) => {
 const onSubChange = (value: number) => {
   params.categoryIds = onArrayChange(params.categoryIds, value)
 }
-const onNickNameChange = (value: string) => {
-  params.nickName = value
+const onRequesterNicknameChange = (value: string) => {
+  params.requesterNickname = value
 }
 const onTitleChange = (value: string) => {
   params.title = value
