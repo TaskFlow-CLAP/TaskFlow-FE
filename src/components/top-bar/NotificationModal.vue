@@ -30,6 +30,7 @@
             <button
               v-for="notification in notifications"
               :key="notification.notificationId"
+              @click="readNotifi(notification.notificationId)"
               :class="['flex flex-col border-b py-3 px-4', { 'bg-primary2': notification.isRead }]">
               <p class="text-xs text-body font-bold">
                 {{ notification.notificationType }}
@@ -65,7 +66,7 @@ import InfiniteLoading from 'v3-infinite-loading'
 import 'v3-infinite-loading/lib/style.css'
 import CommonIcons from '../common/CommonIcons.vue'
 import { smallCheckIcon, closeIcon } from '@/constants/iconPath'
-import { getNotification } from '@/api/common'
+import { getNotification, patchNotificationRead } from '@/api/common'
 
 const props = defineProps<{
   isOpen: boolean
@@ -98,6 +99,10 @@ const loadMoreNotifications = async ($state: any) => {
     console.error('알림을 불러오는 중 오류 발생:', error)
     $state.error()
   }
+}
+
+const readNotifi = (id: number) => {
+  patchNotificationRead(id)
 }
 
 const emit = defineEmits<{
