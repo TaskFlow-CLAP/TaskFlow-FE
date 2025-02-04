@@ -55,12 +55,29 @@ import { storeToRefs } from 'pinia'
 import { useMemberStore } from '@/stores/member'
 import NotificationModal from './NotificationModal.vue'
 import ProfileModal from './ProfileModal.vue'
+import { useRoute, useRouter } from 'vue-router'
+import { PERMITTED_URL } from '@/constants/common'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 
+const route = useRoute()
+const router = useRouter()
 onMounted(async () => {
   await memberStore.updateMemberInfoWithToken()
+
+  const originUrl = route.path.split('/')[1]
+  if (info.value.memberRole === 'ROLE_USER') {
+    if (!PERMITTED_URL.ROLE_USER.includes(originUrl)) router.push('/my-request')
+  } else if (info.value.memberRole === 'ROLE_MANAGER') {
+    if (!PERMITTED_URL.ROLE_MANAGER.includes(originUrl)) router.push('/my-task')
+  } else if (info.value.memberRole === 'ROLE_ADMIN') {
+    if (!PERMITTED_URL.ROLE_ADMIN.includes(originUrl)) router.push('/member-management')
+  } else {
+    if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) {
+      router.push('/login')
+    }
+  }
 })
 
 const isSideOpen = ref(false)
