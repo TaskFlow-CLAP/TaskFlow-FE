@@ -22,7 +22,10 @@
         <TaskStatus :status="data.taskStatus" />
       </div>
       <div v-else>
-        <TaskStatusList :status="data.taskStatus" />
+        <TaskStatusList
+          v-model="taskStatus"
+          :isProcessor="isProcessor"
+          :taskId="data.taskId" />
       </div>
     </div>
     <div>
@@ -55,10 +58,9 @@
     <div v-if="isProcessor && data.dueDate">
       <p class="task-detail">마감기한</p>
       <div class="w-full flex justify-between items-center">
-        <p class="text-sm text-black">{{ data.dueDate || '-' }}까지</p>
-        <p class="text-primary1 text-xs font-bold">변경</p>
+        <p class="text-sm text-black">{{ formatDueDate(data.dueDate) || '-' }}</p>
       </div>
-      <p class="text-red-1 text-xs font-bold">3일 전</p>
+      <p class="text-red-1 text-xs font-bold">{{ formatDaysBefore(data.dueDate) }}</p>
     </div>
     <div v-if="isProcessor && data.labelName">
       <p class="task-detail">구분</p>
@@ -75,7 +77,7 @@ import { changeProcessor } from '@/api/user'
 import { DUMMY_TASK_LABELS } from '@/datas/taskdetail'
 import type { ManagerTypes } from '@/types/manager'
 import type { TaskDetailDatas } from '@/types/user'
-import { formatDate } from '@/utils/date'
+import { formatDate, formatDaysBefore, formatDueDate } from '@/utils/date'
 import { defineProps, ref, watch } from 'vue'
 import TaskStatus from '../TaskStatus.vue'
 import TaskDetailLabelDropdown from './TaskDetailLabelDropdown.vue'
@@ -83,7 +85,9 @@ import TaskDetailManagerDropdown from './TaskDetailManagerDropdown.vue'
 import TaskStatusList from './TaskStatusList.vue'
 
 const { data, isProcessor } = defineProps<{ data: TaskDetailDatas; isProcessor: boolean }>()
-console.log(data, '가져온 데이터')
+console.log(data.dueDate)
+
+const taskStatus = ref(data.taskStatus)
 
 const selectedManager = ref({
   memberId: -1,

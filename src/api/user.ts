@@ -1,3 +1,4 @@
+import type { Status } from '@/types/common'
 import type { RequestApprovePostTypes } from '@/types/manager'
 import { axiosInstance, formDataAxiosInstance } from '@/utils/axios'
 
@@ -33,5 +34,10 @@ export const getManager = async () => {
 
 export const changeProcessor = async (taskID: number, processorId: number) => {
   const response = await axiosInstance.patch(`/api/tasks/${taskID}/processor`, { processorId })
+  return response.data
+}
+
+export const patchChangeStatus = async (taskID: number, status: Status) => {
+  const response = await axiosInstance.patch(`/api/tasks/${taskID}/status`, status)
   return response.data
 }

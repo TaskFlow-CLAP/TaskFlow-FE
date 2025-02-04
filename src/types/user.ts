@@ -166,3 +166,9 @@ export interface ManagerDropdownProps {
 export interface DetailManagerDropdownProps {
   modelValue: ManagerTypes
 }
+
+export interface TaskStatusListProps {
+  modelValue: Status
+  isProcessor: boolean
+  taskId?: number
+}
