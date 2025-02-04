@@ -55,16 +55,21 @@ import { storeToRefs } from 'pinia'
 import { useMemberStore } from '@/stores/member'
 import NotificationModal from './NotificationModal.vue'
 import ProfileModal from './ProfileModal.vue'
+import Cookies from 'js-cookie'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
+const accessToken = Cookies.get('accessToken')
+const refreshToken = Cookies.get('refreshToken')
 
 onMounted(async () => {
-  await memberStore.updateMemberInfoWithToken()
+  if (accessToken) {
+    await memberStore.updateMemberInfoWithToken()
+  }
 })
 
 const isSideOpen = ref(false)
-const isLogined = ref(true)
+const isLogined = ref(refreshToken ? true : false)
 
 const isNotifiVisible = ref(false)
 const isProfileVisible = ref(false)
