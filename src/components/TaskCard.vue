@@ -5,7 +5,12 @@
     @click="onTaskClick">
     <div class="flex flex-col gap-1">
       <div class="flex justify-between items-center gap-4">
-        <span class="text-black">{{ data.title }}</span>
+        <div class="flex items-center gap-2">
+          <TaskLabel
+            :color="data.labelInfo.labelColor"
+            :content="data.labelInfo.labelName" />
+          <span class="text-black">{{ data.title }}</span>
+        </div>
         <CommonIcons
           v-if="draggable"
           :name="bentoIcon" />
@@ -34,6 +39,7 @@ import { computed } from 'vue'
 import type { TaskCardProps } from '@/types/manager'
 import CommonIcons from './common/CommonIcons.vue'
 import { statusAsColor } from '@/utils/statusAsColor'
+import TaskLabel from './common/TaskLabel.vue'
 
 const { data } = defineProps<{ data: TaskCardProps; draggable?: boolean }>()
 
