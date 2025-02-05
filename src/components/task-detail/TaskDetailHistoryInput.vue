@@ -18,7 +18,6 @@
       type="file"
       id="file"
       :disabled="!isPossible"
-      multiple
       @change="handleFileUpload" />
     <label
       for="file"
@@ -34,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { postComment } from '@/api/user'
+import { postComment, postCommentAttachment } from '@/api/user'
 import { clipIcon, sendIcon } from '@/constants/iconPath'
 import { useMemberStore } from '@/stores/member'
 import type { TaskHistory } from '@/types/user'
@@ -71,10 +70,14 @@ const handleEnterKey = () => {
   }
 }
 
-const handleFileUpload = (event: Event) => {
+const handleFileUpload = async (event: Event) => {
   const target = event.target as HTMLInputElement
-  if (target.files && target.files.length > 0) {
-    console.log('향후 파일 전송로직 추가')
-  }
+  const file = target.files?.[0]
+  if (!file) return
+  const formData = new FormData()
+  formData.append('attachment', file)
+  await postCommentAttachment(taskId, formData)
+  queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
+  target.value = ''
 }
 </script>
