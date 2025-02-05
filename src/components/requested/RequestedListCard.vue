@@ -2,6 +2,7 @@
   <div class="list-card">
     <ListCardTab
       v-for="tab in requestedTabList"
+      @click="handleModal(info.taskId)"
       :key="tab.content"
       :content="tab.content"
       :width="tab.width"
@@ -19,13 +20,13 @@
         class="button-medium-default">
         거부
       </button>
-      <button
-        @click="toggleModal('reject')"
-        class="button-medium-default">
-        거부
-      </button>
     </div>
   </div>
+  <TaskDetail
+    v-if="selectedID"
+    :is-approved="true"
+    :selected-id="selectedID"
+    :close-task-detail="() => handleModal(null)" />
 
   <ModalView
     :is-open="isModalVisible.reject"
@@ -59,6 +60,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ListCardTab from '../lists/ListCardTab.vue'
 import ModalView from '../ModalView.vue'
+import TaskDetail from '../task-detail/TaskDetail.vue'
 
 const { info } = defineProps<{ info: RequestedListData }>()
 const requestedTabList: ListCardProps[] = [
@@ -68,6 +70,12 @@ const requestedTabList: ListCardProps[] = [
   { content: info.title },
   { content: info.requesterName, width: 120, profileImg: info.requesterImg }
 ]
+
+const selectedID = ref<number | null>(null)
+
+const handleModal = (id: number | null) => {
+  selectedID.value = id
+}
 
 const router = useRouter()
 const queryClient = useQueryClient()
