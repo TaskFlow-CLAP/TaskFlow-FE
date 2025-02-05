@@ -27,7 +27,7 @@ export interface UserRegistrationProps {
   email: string
   nickname: string
   isReviewer: boolean
-  departmentId: string
+  departmentId: number
   role: string
   departmentRole: string
 }
@@ -44,12 +44,6 @@ export interface CategoryLineProps {
 
 export interface CategoryAllData {
   categories: Category[]
-}
-
-export interface LabelDataTypes {
-  labelId: number
-  labelName: string
-  labelColor: string
 }
 
 export interface NewLabelTypes {

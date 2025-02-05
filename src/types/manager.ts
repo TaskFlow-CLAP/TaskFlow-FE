@@ -1,4 +1,4 @@
-import type { Status } from './common'
+import type { LabelDataTypes, Status } from './common'
 import type { AttachmentResponse } from './user'
 
 export interface RequestedListData {
@@ -29,10 +29,14 @@ export interface RequestHistoryListData {
 export interface TaskCardProps {
   taskId: number
   taskCode: string
+  title: string
   mainCategoryName: string
   categoryName: string
-  title: string
-  requesterNickName: string
+  labelInfo: {
+    labelName: string
+    labelColor: string
+  }
+  requesterNickname: string
   requesterImageUrl: string
   requesterDepartment: string
   processorOrder: number
@@ -44,9 +48,6 @@ export interface TaskCardList {
   tasksInProgress: TaskCardProps[]
   tasksPendingComplete: TaskCardProps[]
   tasksCompleted: TaskCardProps[]
-  hasNext: boolean
-  isFirst: boolean
-  isLast: boolean
 }
 
 export interface MyTaskListData {
@@ -71,11 +72,10 @@ export interface TeamBoardCardProps {
 
 export type PeriodType = 'DAY' | 'WEEK' | 'MONTH'
 
-export interface RequestApproveFormData {
-  category1: string
-  category2: string
-  processor: string
-  labeling: string
+export interface RequestApproveData {
+  categoryId: number
+  processor: ManagerTypes | null
+  label: LabelDataTypes | null
   dueDate: string
   dueTime: string
 }
@@ -103,6 +103,7 @@ export interface TaskDetailTopBarProps {
   isApproved: boolean
   closeTaskDetail: () => void
   id: number
+  isProcessor: boolean
 }
 
 export interface DraggableEvent {
@@ -149,4 +150,18 @@ export interface MyTaskResponse {
   pageSize: number
   isFirst: boolean
   isLast: boolean
+}
+
+export interface RequestApprovePostTypes {
+  categoryId: number
+  processorId: number
+  dueDate: string | null
+  labelId: number | null
+}
+
+export interface ManagerTypes {
+  memberId: number
+  nickname: string
+  imageUrl: string
+  remainingTasks: number
 }
