@@ -3,23 +3,33 @@ import type { Category, Role } from './common'
 export interface MemberManagementListData {
   memberId: number
   name: string
-  nickName: string
-  department: string
+  nickname: string
+  departmentName: string
   departmentRole: string
   email: string
   role: Role
-  permission?: boolean
-  registeredAt: string
+  isReviewer: boolean
+  createdAt: string
 }
 
-export interface LogsListData {
+export interface LoginLogsListData {
   logId: number
-  division: string
-  createdAt: string
+  logStatus: string
+  requestAt: string
   nickName: string
-  ipAddress: string
-  status: number
-  result?: string
+  clientIp: string
+  statusCode: number
+  customStatusCode: string
+  failedAttempts: number
+}
+
+export interface ApiLogsListData {
+  logId: number
+  logStatus: string
+  requestAt: string
+  nickName: string
+  clientIp: string
+  statusCode: number
 }
 
 export interface UserRegistrationProps {
@@ -54,4 +64,34 @@ export interface NewLabelTypes {
 export interface StatisticsData {
   key: string
   count: number
+}
+
+export interface MemberManagementResponse {
+  content: MemberManagementListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
+}
+
+export interface LoginLogsResponse {
+  content: LoginLogsListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
+}
+
+export interface ApiLogsResponse {
+  content: ApiLogsListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
 }

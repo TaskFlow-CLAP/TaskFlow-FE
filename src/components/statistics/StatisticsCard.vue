@@ -53,9 +53,6 @@ const changePeriod = (newPeriodType: PeriodType) => {
 
 const fetchStatistics = async () => {
   const response = await axiosInstance.get('/api/tasks/statistics', {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-    },
     params: {
       periodType: periodType.value,
       statisticsType
