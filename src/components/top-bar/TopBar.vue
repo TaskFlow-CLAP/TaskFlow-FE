@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import SideBar from './SideBar.vue'
 import { hamburgerIcon } from '../../constants/iconPath'
@@ -92,7 +92,7 @@ const isProfileVisible = ref(false)
 const fetchNotificationCount = async () => {
   try {
     const data = await getNotifiCount()
-    countNotifi.value = data.count // 🔹 count 값만 저장
+    countNotifi.value = data.count
   } catch (error) {
     console.error('알림 개수 불러오기 실패:', error)
   }
@@ -108,4 +108,14 @@ const toggleProfile = () => {
 const onCloseSide = () => {
   isSideOpen.value = false
 }
+
+watch(
+  () => info.value,
+  async newInfo => {
+    if (newInfo.memberName) {
+      await fetchNotificationCount()
+    }
+  },
+  { deep: true }
+)
 </script>

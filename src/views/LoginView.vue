@@ -1,9 +1,11 @@
 <template>
   <div class="max-w-400">
     <div class="py-16">
-      <TitleContainer
-        :title="'TaskFlow\n로그인'"
-        content="아이디와 비밀번호를 입력해주세요" />
+      <div class="text-4xl font-bold text-center">
+        <p class="pb-2">TaskFlow</p>
+        <p class="pb-2">로그인</p>
+      </div>
+      <p class="text-center font-bold text-body">아이디와 비밀번호를 입력해주세요</p>
     </div>
     <form
       @submit.prevent="handleLogin"
@@ -46,7 +48,6 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { postLogin } from '@/api/auth'
-import TitleContainer from '@/components/common/TitleContainer.vue'
 
 const router = useRouter()
 
