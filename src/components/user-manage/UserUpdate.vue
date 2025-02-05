@@ -29,11 +29,7 @@
       :labelName="'요청 승인 권한'"
       :checkButtonName="'허용'"
       :isChecked="userRegistrationForm.isReviewer" />
-    <RequestTaskInput
-      v-model="userRegistrationForm.departmentId"
-      :placeholderText="'회원의 부서를 입력해주세요'"
-      :is-not-required="true"
-      :labelName="'부서'" />
+    <DepartmentDropDown v-model="userRegistrationForm.departmentId" />
     <RequestTaskInput
       v-model="userRegistrationForm.departmentRole"
       :placeholderText="'회원의 직무를 입력해주세요'"
@@ -50,12 +46,13 @@
 <script lang="ts" setup>
 import { INITIAL_USER_REGISTRATION, RoleKeys } from '@/constants/admin'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import FormButtonContainer from '../common/FormButtonContainer.vue'
+import FormCheckbox from '../common/FormCheckbox.vue'
 import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
-import FormButtonContainer from '../common/FormButtonContainer.vue'
-import FormCheckbox from '../common/FormCheckbox.vue'
-import { useRouter } from 'vue-router'
+import DepartmentDropDown from './DepartmentDropDown.vue'
 
 const isModalVisible = ref(false)
 const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)

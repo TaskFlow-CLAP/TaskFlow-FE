@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative w-full">
     <div class="text-xs flex gap-x-1 mb-2">
       <p class="text-body font-bold">{{ labelName }}</p>
       <p
@@ -11,7 +11,7 @@
     <input
       class="w-full h-11 border border-border-1 px-4 focus:outline-none text-black rounded"
       :value="modelValue"
-      :disabled="isEdit"
+      :disabled="isEdit || isDisbled"
       @input="updateValue(($event.target as HTMLInputElement).value)"
       :placeholder="placeholderText" />
     <p

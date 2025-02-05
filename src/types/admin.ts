@@ -38,7 +38,7 @@ export interface UserRegistrationProps {
   nickname: string
   isReviewer: boolean
   departmentId: number
-  role: string
+  role: RoleTypes
   departmentRole: string
 }
 
@@ -94,4 +94,19 @@ export interface ApiLogsResponse {
   pageSize: number
   isFirst: boolean
   isLast: boolean
+}
+
+export interface DepartmentType {
+  departmentId: number
+  name: string
+}
+
+export interface UserRegistrationApiProps {
+  name: string
+  email: string
+  nickname: string
+  isReviewer: boolean
+  departmentId: number
+  role: RoleTypesEnum
+  departmentRole: string
 }
