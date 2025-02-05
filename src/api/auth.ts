@@ -14,15 +14,6 @@ export const postLogin = async (loginData: loginDataTypes, sessionId: string) =>
 }
 
 export const patchPassword = async (password: string) => {
-  const accessToken = Cookies.get('accessToken')
-
-  if (!accessToken) return
-
-  const response = await axiosInstance.patch('/api/members/password', password, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
-  })
-
+  const response = await axiosInstance.patch('/api/members/password', password)
   return response.data
 }
