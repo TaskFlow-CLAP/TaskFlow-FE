@@ -23,7 +23,7 @@
         <button
           type="button"
           @click="toggleNotifi">
-          <NotificationIcon :new-notification="12" />
+          <NotificationIcon :new-notification="countNotifi" />
         </button>
         <button
           type="button"
@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import SideBar from './SideBar.vue'
 import { hamburgerIcon } from '../../constants/iconPath'
@@ -55,15 +55,18 @@ import { storeToRefs } from 'pinia'
 import { useMemberStore } from '@/stores/member'
 import NotificationModal from './NotificationModal.vue'
 import ProfileModal from './ProfileModal.vue'
+import { getNotifiCount } from '@/api/common'
 import { useRoute, useRouter } from 'vue-router'
 import { PERMITTED_URL } from '@/constants/common'
 
 const memberStore = useMemberStore()
-const { info } = storeToRefs(memberStore)
+const { isLogined, info } = storeToRefs(memberStore)
 
 const route = useRoute()
 const router = useRouter()
 onMounted(async () => {
+  await fetchNotificationCount()
+
   await memberStore.updateMemberInfoWithToken()
 
   const originUrl = route.path.split('/')[1]
@@ -81,10 +84,19 @@ onMounted(async () => {
 })
 
 const isSideOpen = ref(false)
-const isLogined = ref(true)
+const countNotifi = ref(0)
 
 const isNotifiVisible = ref(false)
 const isProfileVisible = ref(false)
+
+const fetchNotificationCount = async () => {
+  try {
+    const data = await getNotifiCount()
+    countNotifi.value = data.count
+  } catch (error) {
+    console.error('알림 개수 불러오기 실패:', error)
+  }
+}
 
 const toggleNotifi = () => {
   isNotifiVisible.value = !isNotifiVisible.value
@@ -96,4 +108,14 @@ const toggleProfile = () => {
 const onCloseSide = () => {
   isSideOpen.value = false
 }
+
+watch(
+  () => info.value,
+  async newInfo => {
+    if (newInfo.memberName) {
+      await fetchNotificationCount()
+    }
+  },
+  { deep: true }
+)
 </script>

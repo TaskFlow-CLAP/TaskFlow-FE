@@ -16,7 +16,7 @@
         class="w-24 h-24 rounded-full object-cover border mt-3" />
       <div
         v-else
-        class="w-24 h-24 rounded-full bg-background-1 flex items-center justify-center"></div>
+        class="w-24 h-24 rounded-full bg-background-1 flex items-center justify-center mt-3"></div>
       <!-- 파일 업로드 필요 -->
       <p class="mt-3 text-xs text-primary1 font-bold cursor-pointer">변경</p>
     </div>
@@ -91,7 +91,7 @@ const memberId = ref('Chole.yeon')
 const memberEmail = ref('taskflow123@gachon.ac.kr')
 const memberDepartment = ref('인프라팀')
 const memberJob = ref('인프라 아키텍처')
-const imageUrl = ref('../../public/images/mockProfile.jpg')
+const imageUrl = ref('')
 const isModalVisible = ref(false)
 
 const memberForm = ref({

@@ -1,57 +1,53 @@
 <template>
-  <div>
-    <div class="relative flex">
+  <div class="relative flex text-base">
+    <div
+      class="flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-sm text-black"
+      @click="toggleDropdown">
+      <p :class="{ 'text-disabled': !modelValue?.labelName }">
+        {{ modelValue?.labelName || placeholderText }}
+      </p>
+      <CommonIcons
+        :name="dropdownIcon"
+        :class="['ml-auto', { 'rotate-180': dropdownOpen }]" />
+    </div>
+    <div
+      v-if="dropdownOpen"
+      class="absolute w-full h-40 overflow-y-auto top-12 flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom text-black">
       <div
-        class="task-detail-dropdown"
-        @click="toggleDropdown">
-        <div class="flex gap-2">
-          <div class="w-6 h-6 rounded-full border-red-1 border-2 bg-red-2"></div>
-          <p class="text-black">
-            {{ modelValue }}
-          </p>
-        </div>
-        <CommonIcons
-          :name="dropdownIcon"
-          :class="['ml-auto', { 'rotate-180': dropdownOpen }]" />
-      </div>
-      <div
-        v-if="dropdownOpen"
-        class="task-detail-dropdown-option-list">
-        <div
-          v-for="option in options"
-          :key="option.labelId"
-          class="task-detail-dropdown-option justify-between"
-          @click="selectOption(option.labelName)">
-          <div class="flex gap-2 items-center">
-            <div
-              class="w-6 h-6 rounded-full overflow-hidden"
-              :style="{ border: `2px solid ${option.labelColor}` }"></div>
-            <p class="text-sm">
-              {{ option.labelName }}
-            </p>
-          </div>
-        </div>
+        v-for="option in labelArr"
+        :key="option.labelId"
+        class="w-full flex text-sm items-center h-10 p-1.5 rounded hover:bg-background-2 cursor-pointer"
+        @click="selectOption(option)">
+        {{ option.labelName }}
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { changeLabel, getLabelsManager } from '@/api/user'
 import { dropdownIcon } from '@/constants/iconPath'
-import type { TaskDetailLabelDropdownProps } from '@/types/user'
-import { ref } from 'vue'
+import type { LabelDataTypes } from '@/types/common'
+import type { LabelDropdownProps } from '@/types/user'
+import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { options, modelValue } = defineProps<TaskDetailLabelDropdownProps>()
+const { modelValue, placeholderText, taskId } = defineProps<LabelDropdownProps>()
 const emit = defineEmits(['update:modelValue'])
 const dropdownOpen = ref(false)
 
+const labelArr = ref<LabelDataTypes[]>([])
+
+onMounted(async () => {
+  labelArr.value = await getLabelsManager()
+})
 const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value
 }
 
-const selectOption = (option: string) => {
+const selectOption = async (option: LabelDataTypes) => {
   emit('update:modelValue', option)
+  await changeLabel(taskId || 0, option.labelId || 0)
   dropdownOpen.value = false
 }
 </script>

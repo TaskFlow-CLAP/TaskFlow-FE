@@ -31,13 +31,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import CommonIcons from './common/CommonIcons.vue'
-import SideBar from './SideBar.vue'
-import { hamburgerIcon } from '../constants/iconPath'
-import NotificationIcon from './icons/NotificationIcon.vue'
-import { storeToRefs } from 'pinia'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+import { onMounted, ref } from 'vue'
+import { hamburgerIcon } from '../constants/iconPath'
+import CommonIcons from './common/CommonIcons.vue'
+import NotificationIcon from './icons/NotificationIcon.vue'
+import SideBar from './top-bar/SideBar.vue'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)

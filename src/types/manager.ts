@@ -103,6 +103,7 @@ export interface TaskDetailTopBarProps {
   isApproved: boolean
   closeTaskDetail: () => void
   id: number
+  isProcessor: boolean
 }
 
 export interface DraggableEvent {
