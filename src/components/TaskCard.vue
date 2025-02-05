@@ -7,6 +7,7 @@
       <div class="flex justify-between items-center gap-4">
         <div class="flex items-center gap-2">
           <TaskLabel
+            v-if="data.labelInfo"
             :color="data.labelInfo.labelColor"
             :content="data.labelInfo.labelName" />
           <span class="text-black">{{ data.title }}</span>
