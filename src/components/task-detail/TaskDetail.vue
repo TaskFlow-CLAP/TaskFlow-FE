@@ -1,6 +1,5 @@
 <template>
-  <div
-    class="fixed inset-0 bg-black bg-opacity-15 flex justify-center items-center z-50 p-12">
+  <div class="fixed inset-0 bg-black bg-opacity-15 flex justify-center items-center z-50 p-12">
     <div
       class="flex flex-col overflow-y-auto rounded-lg w-full max-w-[1200px] min-w-[1024px] bg-white p-6">
       <TaskDetailTopBar
