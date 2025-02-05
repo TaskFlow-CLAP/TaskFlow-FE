@@ -3,6 +3,10 @@ import { useLogsParamsStore } from '@/stores/params'
 export const useLogsParamsChange = () => {
   const { params } = useLogsParamsStore()
 
+  const onArrayChange = <Value extends number | string>(array: Value[], value: Value) => {
+    return array.includes(value) ? array.filter(el => el !== value) : [...array, value]
+  }
+
   const onTermChange = (value: string) => {
     if (value === '') {
       params.term = ''
@@ -10,14 +14,14 @@ export const useLogsParamsChange = () => {
       params.term = Number(value)
     }
   }
-  const onDivisionChange = (value: string) => {
-    params.division = value
+  const onLogStatusChange = (value: string) => {
+    params.logStatus = onArrayChange(params.logStatus!, value)
   }
   const onNickNameChange = (value: string) => {
     params.nickName = value
   }
-  const onIpAddressChange = (value: string) => {
-    params.ipAddress = value
+  const onClientIpChange = (value: string) => {
+    params.clientIp = value
   }
   const onPageSizeChange = (value: string) => {
     params.pageSize = Number(value)
@@ -29,9 +33,9 @@ export const useLogsParamsChange = () => {
 
   return {
     onTermChange,
-    onDivisionChange,
+    onLogStatusChange,
     onNickNameChange,
-    onIpAddressChange,
+    onClientIpChange,
     onPageSizeChange,
     toggleSortBy
   }

@@ -3,7 +3,7 @@ import type { Status } from '@/types/common'
 const defaultColor = {
   REQUESTED: 'gray',
   IN_PROGRESS: 'blue',
-  PENDING_COMPLETED: 'orange',
+  IN_REVIEWING: 'orange',
   COMPLETED: 'green',
   TERMINATED: 'red'
 }
