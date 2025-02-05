@@ -17,16 +17,12 @@ import type { ListCardProps } from '@/types/common'
 import ListCardTab from '../lists/ListCardTab.vue'
 import type { ApiLogsListData } from '@/types/admin'
 import { formatDate } from '@/utils/date'
-
-const logStatus = {
-  LOGIN: '로그인 시도',
-  LOGOUT: '로그아웃'
-}
+import { API_LOGS_DIVISION_LIST } from '@/constants/admin'
 
 const { info } = defineProps<{ info: ApiLogsListData }>()
 const myRequestTabList: ListCardProps[] = [
   {
-    content: logStatus[info.logStatus as keyof typeof logStatus],
+    content: API_LOGS_DIVISION_LIST.find(el => el.value === info.logStatus)?.content,
     width: 80,
     isTextXs: true,
     isTextBody: true

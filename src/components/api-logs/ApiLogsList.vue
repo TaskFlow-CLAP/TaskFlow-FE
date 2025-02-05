@@ -37,7 +37,7 @@ const onPageChange = (value: number) => {
 }
 
 const fetchApiLogsList = async () => {
-  const response = await axiosInstance.get('/api/managements/logs/login', {
+  const response = await axiosInstance.get('/api/managements/logs/general', {
     params: {
       ...params,
       logStatus: params.logStatus.join(',')
