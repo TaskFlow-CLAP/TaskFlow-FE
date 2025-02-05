@@ -2,6 +2,7 @@
   <div class="list-card">
     <ListCardTab
       v-for="tab in myRequestTabList"
+      @click="handleModal(info.taskId)"
       :key="tab.content"
       :content="tab.content"
       :width="tab.width"
@@ -9,15 +10,27 @@
       :profile-img="tab.profileImg"
       :is-status="tab.isStatus" />
   </div>
+  <TaskDetail
+    v-if="selectedID"
+    :is-approved="info.taskStatus !== 'REQUESTED'"
+    :selected-id="selectedID"
+    :close-task-detail="() => handleModal(null)" />
 </template>
 
 <script setup lang="ts">
 import type { ListCardProps } from '@/types/common'
-import ListCardTab from '../lists/ListCardTab.vue'
 import type { MyTaskListData } from '@/types/manager'
 import { formatDate } from '@/utils/date'
+import { ref } from 'vue'
+import ListCardTab from '../lists/ListCardTab.vue'
+import TaskDetail from '../task-detail/TaskDetail.vue'
 
 const { info } = defineProps<{ info: MyTaskListData }>()
+const selectedID = ref<number | null>(null)
+
+const handleModal = (id: number | null) => {
+  selectedID.value = id
+}
 const myRequestTabList: ListCardProps[] = [
   { content: info.taskCode, width: 120, isTextXs: true },
   { content: formatDate(info.requestedAt), width: 80 },

@@ -19,6 +19,11 @@
         class="button-medium-default">
         거부
       </button>
+      <button
+        @click="toggleModal('reject')"
+        class="button-medium-default">
+        거부
+      </button>
     </div>
   </div>
 
@@ -47,13 +52,13 @@
 <script setup lang="ts">
 import type { ListCardProps } from '@/types/common'
 import type { RequestedListData } from '@/types/manager'
-import { formatDate } from '@/utils/date'
-import ModalView from '../ModalView.vue'
-import { ref } from 'vue'
 import { axiosInstance } from '@/utils/axios'
+import { formatDate } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ListCardTab from '../lists/ListCardTab.vue'
+import ModalView from '../ModalView.vue'
 
 const { info } = defineProps<{ info: RequestedListData }>()
 const requestedTabList: ListCardProps[] = [

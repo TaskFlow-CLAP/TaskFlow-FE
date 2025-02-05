@@ -24,3 +24,29 @@ export const convertToISO = (dateStr: string, timeStr: string) => {
   const date = new Date(`${dateStr}T${timeStr}:00`)
   return date.toISOString()
 }
+
+export const formatDueDate = (dateString: string) => {
+  const date = new Date(dateString)
+
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hours = date.getHours()
+  const minutes = date.getMinutes()
+
+  return `${year}년 ${month}월 ${day}일, ${hours}시 ${minutes}분까지`
+}
+
+export const formatDaysBefore = (dateString: string) => {
+  const date = new Date(dateString)
+  const today = new Date()
+
+  const koreaOffset = 9 * 60 * 60 * 1000
+  const koreaDate = new Date(date.getTime() + koreaOffset)
+  const koreaToday = new Date(today.getTime() + koreaOffset)
+
+  const diffTime = koreaDate.getTime() - koreaToday.getTime()
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+
+  return `${diffDays}일 남음`
+}

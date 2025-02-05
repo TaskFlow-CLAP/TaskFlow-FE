@@ -27,7 +27,7 @@ export interface UserRegistrationProps {
   email: string
   nickname: string
   isReviewer: boolean
-  departmentId: string
+  departmentId: number
   role: string
   departmentRole: string
 }

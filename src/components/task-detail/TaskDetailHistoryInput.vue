@@ -2,18 +2,18 @@
   <div
     :class="[
       'w-full flex gap-3 px-6 py-4 border border-border-1 items-center',
-      { 'bg-background-2': !isPossible }
+      { 'bg-background-2': isPossible }
     ]">
     <input
       class="w-full h-8 focus:outline-none"
       type="text"
       :placeholder="placeHolderText"
-      :disabled="!isPossible" />
+      :disabled="isPossible" />
     <input
       class="hidden"
       type="file"
       id="file"
-      :disabled="!isPossible"
+      :disabled="isPossible"
       multiple
       @change="handleFileUpload" />
     <label
@@ -30,11 +30,11 @@
 
 <script setup lang="ts">
 import { clipIcon, sendIcon } from '@/constants/iconPath'
-import type { TaskDetailHistoryProps } from '@/types/user'
+import type { TaskHistory } from '@/types/user'
 import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { history } = defineProps<{ history: TaskDetailHistoryProps[] }>()
+const { history } = defineProps<{ history: TaskHistory[] }>()
 const isPossible = ref(history.length === 0)
 const placeHolderText = ref(isPossible?.value ? '텍스트를 입력' : '요청 승인 후 작성할 수 있습니다')
 

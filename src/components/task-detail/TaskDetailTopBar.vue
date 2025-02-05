@@ -2,20 +2,20 @@
   <div class="w-full flex justify-between items-center bg-white">
     <div class="flex gap-4 text-sm font-bold pb-6">
       <div
-        v-if="!isManager && isApproved"
+        v-if="!isProcessor && isApproved"
         class="flex gap-1 items-center cursor-pointer">
         <CommonIcons :name="reRequestIcon" />
         <p class="text-body">재요청</p>
       </div>
       <div
-        v-if="!isManager && !isApproved"
+        v-if="!isProcessor && !isApproved"
         class="flex gap-1 items-center cursor-pointer">
         <CommonIcons :name="modificationIcon" />
         <p class="text-primary1">요청 수정</p>
       </div>
       <div
         @click="ApproveTask"
-        v-if="isManager && !isApproved"
+        v-if="isProcessor && !isApproved"
         class="flex gap-1 items-center cursor-pointer">
         <CommonIcons :name="approveIcon" />
         <p class="text-primary1">요청 승인</p>
@@ -50,18 +50,14 @@ import {
   modificationIcon,
   reRequestIcon
 } from '@/constants/iconPath'
-import { useMemberStore } from '@/stores/member'
 import type { TaskDetailTopBarProps } from '@/types/manager'
-import { storeToRefs } from 'pinia'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import CommonIcons from '../common/CommonIcons.vue'
 import ModalView from '../ModalView.vue'
 
-const memberStore = useMemberStore()
 const router = useRouter()
-const { info } = storeToRefs(memberStore)
-const isManager = computed(() => info.value.memberRole === 'ROLE_MANAGER')
+const { isApproved, closeTaskDetail, id, isProcessor } = defineProps<TaskDetailTopBarProps>()
 
 const isModalOpen = ref({
   cancel: false,
@@ -81,7 +77,5 @@ const ApproveTask = () => {
   router.push(`/request-approve/${id}`)
 }
 
-const { isApproved, closeTaskDetail, id } = defineProps<TaskDetailTopBarProps>()
+console.log(isProcessor, '이즈 프로세서 값')
 </script>
-
-<style scoped></style>
