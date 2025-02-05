@@ -5,6 +5,7 @@
     :class="width === 'full' && 'grow'">
     <span class="filter-title">{{ title }}</span>
     <div
+      ref="htmlRef"
       class="filter-dropdown"
       @click="toggleDropdown">
       <span class="grow text-center">{{
@@ -32,6 +33,7 @@ import type { Filter } from '@/types/common'
 import { ref } from 'vue'
 import { dropdownIcon } from '@/constants/iconPath'
 import CommonIcons from '../common/CommonIcons.vue'
+import { useOutsideClick } from '../hooks/useOutsideClick'
 
 const { title, value, width = '120', optionList } = defineProps<Filter>()
 const emit = defineEmits(['update:value'])
@@ -43,4 +45,6 @@ const onOptionClick = (option: string) => {
   emit('update:value', option)
   toggleDropdown()
 }
+
+const { htmlRef } = useOutsideClick(() => isDropdownOpened.value && toggleDropdown())
 </script>

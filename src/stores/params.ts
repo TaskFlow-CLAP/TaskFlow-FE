@@ -93,13 +93,11 @@ export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
 
 export const useTaskBoardParamsStore = defineStore('taskBoardParams', () => {
   const params = ref<TaskBoardParams>({
-    division: '',
+    labelId: '',
     mainCategoryIds: [],
     categoryIds: [],
     title: '',
-    nickName: '',
-    pageSize: 20,
-    page: 1
+    requesterNickname: ''
   })
 
   return { params }

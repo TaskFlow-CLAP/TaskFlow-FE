@@ -2,11 +2,6 @@ import type { NewLabelTypes, UserRegistrationProps } from '@/types/admin'
 import type { LabelDataTypes } from '@/types/common'
 import { axiosInstance } from '@/utils/axios'
 
-export const getLabelsAdmin = async () => {
-  const response = await axiosInstance.get('/api/managements/labels')
-  return response.data
-}
-
 export const deleteLabelAdmin = async (id: number) => {
   const response = await axiosInstance.delete(`/api/managements/labels/${id}`)
   return response.data

@@ -9,7 +9,7 @@
         담당자를 선택해주세요
       </p>
     </div>
-    <div class="relative flex text-base">
+    <div class="relative flex">
       <div
         class="request-task-dropdown"
         @click="toggleDropdown">
