@@ -6,13 +6,14 @@
         :is-approved="isApproved"
         :close-task-detail="closeTaskDetail"
         :id="data?.taskId || 0"
-        :isProcessor="data?.processorNickName === info.nickname" />
+        :isProcessor="data?.processorNickName === info.nickname"
+        :isRequestor="data?.requesterNickName === info.nickname" />
       <div
         class="w-full flex gap-6"
         v-if="data">
         <div class="w-full h-[718px] flex flex-col gap-y-8 overflow-y-auto scrollbar-hide">
           <TaskDetailLeft :data="data" />
-          <div class="w-full border-[0.5px] border-border-1"></div>
+          <div class="w-full h-[1px] bg-border-1 shrink-0"></div>
           <TaskDetailHistory
             :historyData="historyData?.histories || []"
             :is-approved="isApproved" />
