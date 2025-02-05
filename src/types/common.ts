@@ -109,3 +109,21 @@ export interface TaskStatusListTypes {
   value: Status
   content: string
 }
+
+export type NotificationType =
+  | 'COMMENT'
+  | 'TASK_REQUESTED'
+  | 'STATUS_SWITCHED'
+  | 'PROCESSOR_ASSIGNED'
+  | 'PROCESSOR_CHANGED'
+
+export interface NotificationContent {
+  notificationId: number
+  taskId: number
+  notificationType: NotificationType
+  receiverId: number
+  taskTitle: string
+  message: string
+  isRead: boolean
+  createdAt: string
+}

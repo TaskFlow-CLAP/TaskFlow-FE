@@ -1,91 +1,74 @@
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 flex z-50 justify-center"
-    @click.self="closeModal">
-    <div
-      class="flex relative w-[1200px] h-[72px] bg-opacity-15"
-      @click.self="closeModal">
-      <div
-        class="absolute right-6 top-[72px] h-60 w-80 bg-white rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] overflow-hidden">
-        <div class="flex relative px-4 pt-3 pb-2 border-b border-border-2">
-          <p class="text-body font-bold text-xs">알림</p>
-          <div class="absolute right-4">
-            <div class="flex items-center">
-              <button class="flex items-center">
-                <CommonIcons
-                  :name="smallCheckIcon"
-                  class="w-2.5 h-1.5 mr-1 fill-primary1" />
-                <p class="font-bold text-primary1 text-xs">모두 읽음</p>
-              </button>
-              <CommonIcons
-                :name="closeIcon"
-                class="ml-2 cursor-pointer"
-                @click="closeModal" />
-            </div>
-          </div>
-        </div>
-        <div class="max-h-[185px] flex flex-col h-full overflow-y-auto">
-          <div class="overflow-y-scroll flex flex-col">
-            <button
-              v-for="notification in notifications"
-              :key="notification.notificationId"
-              @click="readNotifi(notification.notificationId)"
-              :class="[
-                'flex flex-col border-b py-3 px-4',
-                { 'bg-primary2': !notification.isRead }
-              ]">
-              <p class="text-xs text-body font-bold">
-                {{ notification.notificationType }}
-              </p>
-              <div class="flex text-xs pt-2">
-                <span class="text-black">
-                  <span class="text-primary1 font-bold"> "{{ notification.taskTitle }}" </span>
-                  &nbsp;요청이&nbsp;
-                  <span class="text-primary1 font-bold">
-                    {{ notification.message }}
-                  </span>
-                  &nbsp;상태로 변경되었습니다.
-                </span>
-              </div>
-            </button>
-            <InfiniteLoading
-              @infinite="loadMoreNotifications"
-              class="flex items-center justify-center"
-              ><template v-slot:complete>
-                <span class="flex py-2 items-center justify-center text-xs text-primary1"
-                  >더 이상 없음</span
-                >
-              </template></InfiniteLoading
-            >
-          </div>
-        </div>
+    @click.stop
+    class="absolute right-6 top-[calc(100%+16px)] h-60 w-80 bg-white rounded-lg shadow-custom overflow-hidden flex flex-col">
+    <div class="flex justify-between px-4 pt-3 pb-2 border-b border-border-2">
+      <p class="text-body font-bold text-xs">알림</p>
+      <div class="flex items-center gap-2">
+        <button
+          @click="readAllNotifi"
+          class="flex items-center gap-1">
+          <CommonIcons :name="smallCheckIcon" />
+          <p class="font-bold text-primary1 text-xs">모두 읽음</p>
+        </button>
+        <button @click="closeModal">
+          <CommonIcons :name="closeIcon" />
+        </button>
       </div>
+    </div>
+    <div class="grow h-full flex flex-col overflow-y-auto">
+      <NotificationMessage
+        v-for="notification in notifications"
+        :key="notification.notificationId"
+        @click="readNotifi(notification.notificationId)"
+        :type="notification.notificationType"
+        :title="notification.taskTitle"
+        :message="notification.message"
+        :is-read="notification.isRead">
+      </NotificationMessage>
+      <InfiniteLoading
+        @infinite="loadMoreNotifications"
+        class="flex items-center justify-center">
+        <template v-slot:complete>
+          <span class="flex py-4 items-center justify-center text-xs text-primary1">
+            알림을 전부 확인하였습니다
+          </span>
+        </template>
+      </InfiniteLoading>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import InfiniteLoading from 'v3-infinite-loading'
 import 'v3-infinite-loading/lib/style.css'
 import CommonIcons from '../common/CommonIcons.vue'
 import { smallCheckIcon, closeIcon } from '@/constants/iconPath'
 import { getNotification, patchNotificationRead } from '@/api/common'
+import { axiosInstance } from '@/utils/axios'
+import type { NotificationContent } from '@/types/common'
+import NotificationMessage from './NotificationMessage.vue'
 
-const props = defineProps<{
+const { isOpen } = defineProps<{
   isOpen: boolean
 }>()
 
-const notifications = ref<any[]>([])
+const notifications = ref<NotificationContent[]>([])
 const page = ref(0)
 const pageSize = 5
 const hasNext = ref(true)
 
-const loadMoreNotifications = async ($state: any) => {
+interface InfiniteLoadingState {
+  loaded: () => void
+  complete: () => void
+  error: () => void
+}
+
+const loadMoreNotifications = async ($state: InfiniteLoadingState) => {
   try {
     const response = await getNotification(page.value, pageSize)
-    console.log(response)
 
     if (response.isFirst) {
       notifications.value = response.content
@@ -107,8 +90,9 @@ const loadMoreNotifications = async ($state: any) => {
   }
 }
 
-const readNotifi = (id: number) => {
-  patchNotificationRead(id)
+const readNotifi = async (id: number) => {
+  await patchNotificationRead(id)
+  emit('close')
 }
 
 const emit = defineEmits<{
@@ -116,6 +100,11 @@ const emit = defineEmits<{
 }>()
 
 const closeModal = () => {
+  emit('close')
+}
+
+const readAllNotifi = async () => {
+  await axiosInstance.patch('/api/notification')
   emit('close')
 }
 </script>
