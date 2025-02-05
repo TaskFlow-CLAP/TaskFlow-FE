@@ -63,7 +63,7 @@ const fetchStatistics = async () => {
 }
 
 const { data } = useQuery<StatisticsData[]>({
-  queryKey: [statisticsType, periodType],
+  queryKey: computed(() => [statisticsType, periodType]),
   queryFn: fetchStatistics
 })
 

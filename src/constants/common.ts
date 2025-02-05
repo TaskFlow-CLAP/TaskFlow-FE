@@ -10,7 +10,7 @@ export const TERM_LIST = [
 ]
 export const TASK_STATUS_LIST: TaskStatusListTypes[] = [
   { value: 'IN_PROGRESS', content: '진행 중' },
-  { value: 'PENDING_COMPLETED', content: '검토 중' },
+  { value: 'IN_REVIEWING', content: '검토 중' },
   { value: 'COMPLETED', content: '완료' },
   { value: 'TERMINATED', content: '종료' }
 ]

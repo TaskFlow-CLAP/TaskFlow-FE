@@ -50,7 +50,7 @@ export interface ListBarTabProps {
   justifyCenter?: boolean
 }
 
-export type Status = 'REQUESTED' | 'IN_PROGRESS' | 'PENDING_COMPLETED' | 'COMPLETED' | 'TERMINATED'
+export type Status = 'REQUESTED' | 'IN_PROGRESS' | 'IN_REVIEWING' | 'COMPLETED' | 'TERMINATED'
 
 export type SortDirection = 'DESC' | 'ASC'
 

@@ -54,7 +54,7 @@ const fetchMainStatistics = async () => {
   return response.data
 }
 const { data: mainData } = useQuery<StatisticsData[]>({
-  queryKey: ['REQUEST_BY_CATEGORY', periodType],
+  queryKey: computed(() => ['REQUEST_BY_CATEGORY', periodType]),
   queryFn: fetchMainStatistics
 })
 const mainLabels = computed(() => {
@@ -75,7 +75,7 @@ const fetchSubStatistics = async () => {
   return response.data
 }
 const { data: subData } = useQuery<StatisticsData[]>({
-  queryKey: [mainCategory.value, periodType],
+  queryKey: computed(() => [mainCategory.value, periodType]),
   queryFn: fetchSubStatistics,
   enabled: computed(() => mainCategory.value !== '')
 })
