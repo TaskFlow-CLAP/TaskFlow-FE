@@ -5,7 +5,11 @@
         :src="history.details.commentDetails?.profileImageUrl || '/images/mockProfile.jpg'"
         class="rounded-full" />
     </div>
-    <div :class="['flex flex-col gap-2 px-4 order-2', isProcessor ? 'items-end' : 'items-start']">
+    <div
+      :class="[
+        'flex flex-col gap-2 order-2',
+        isProcessor ? 'items-end pr-4 pl-1' : 'items-start pl-4 pr-1'
+      ]">
       <p>{{ history.details.commentDetails?.nickName }}</p>
       <p
         :class="[
@@ -17,11 +21,26 @@
     </div>
     <div
       :class="[
-        'flex flex-col h-full justify-end text-xs font-bold text-body gap-1',
+        'flex flex-col h-full justify-end text-xs font-bold text-body gap-1 relative',
         isProcessor ? 'order-1 items-end' : 'order-3 items-start'
       ]">
-      <CommonIcons :name="menuDotIcon" />
-      <div>
+      <div
+        v-if="history.details.commentDetails?.nickName === info.nickname"
+        class="relative cursor-pointer">
+        <CommonIcons
+          :name="menuDotIcon"
+          @click="clickMenuDot" />
+        <div
+          v-if="isClicked"
+          @click="deleteCommentText"
+            :class="[
+            'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
+            isProcessor ? 'right-6' : 'left-6'
+            ]">
+          삭제
+        </div>
+      </div>
+      <div class="flex flex-col gap-1">
         {{ history.details.commentDetails?.isModified ? '(수정됨)' : '' }}
         {{ formatTodayOrNot(history.date, history.time) }}
       </div>
@@ -30,15 +49,31 @@
 </template>
 
 <script setup lang="ts">
+import { deleteComment } from '@/api/user'
 import { menuDotIcon } from '@/constants/iconPath'
-import type { TaskHistory } from '@/types/user'
+import { useMemberStore } from '@/stores/member'
+import type { TaskDetailHistoryChatProps } from '@/types/common'
 import { formatTodayOrNot } from '@/utils/date'
-import { computed, defineProps } from 'vue'
+import { useQueryClient } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
+import { computed, defineProps, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
-const { history, requestorName } = defineProps<{
-  history: TaskHistory
-  requestorName: string
-}>()
 
+const memberStore = useMemberStore()
+const { info } = storeToRefs(memberStore)
+const isClicked = ref(false)
 const isProcessor = computed(() => history.details.commentDetails?.nickName !== requestorName)
+const queryClient = useQueryClient()
+
+const { taskId, history, requestorName } = defineProps<TaskDetailHistoryChatProps>()
+
+const clickMenuDot = async () => {
+  isClicked.value = !isClicked.value
+}
+
+const deleteCommentText = async () => {
+  isClicked.value = !isClicked.value
+  await deleteComment(history.historyId)
+  queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
+}
 </script>

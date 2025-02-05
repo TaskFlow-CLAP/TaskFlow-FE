@@ -116,3 +116,9 @@ export interface TaskDetailHistoryProps {
   taskId: number
   requestorName: string
 }
+
+export interface TaskDetailHistoryChatProps {
+  history: TaskHistory
+  taskId: number
+  requestorName: string
+}
