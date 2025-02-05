@@ -76,7 +76,7 @@ export type TaskHistoryType =
   | 'PROCESSOR_CHANGED'
   | 'TASK_TERMINATED'
 
-export interface TaskDetailHistoryProps {
+export interface TaskDetailHistoryData {
   histories: TaskHistory[]
 }
 

@@ -31,19 +31,19 @@
 </template>
 
 <script setup lang="ts">
+import { postComment } from '@/api/user'
 import { clipIcon, sendIcon } from '@/constants/iconPath'
 import { useMemberStore } from '@/stores/member'
 import type { TaskHistory } from '@/types/user'
+import { useQueryClient } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
 const { history, taskId } = defineProps<{ history: TaskHistory[]; taskId: number }>()
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
-
-import { postComment } from '@/api/user'
-import { computed } from 'vue'
+const queryClient = useQueryClient()
 
 const isPossible = computed(() => history.length !== 0 && info.value.memberRole !== 'ROLE_USER')
 const isSendable = computed(() => isPossible.value && messageText.value.trim() !== '')
@@ -59,6 +59,7 @@ const sendMessage = async () => {
   }
   console.log(taskId, 'taskId', messageText.value)
   await postComment(taskId, messageText.value)
+  queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   messageText.value = ''
 }
 const handleFileUpload = (event: Event) => {

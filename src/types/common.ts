@@ -1,4 +1,5 @@
 import type { Ref } from 'vue'
+import type { TaskHistory } from './user'
 
 export interface Filter {
   title: string
@@ -108,4 +109,10 @@ export interface LabelColorTypes {
 export interface TaskStatusListTypes {
   value: Status
   content: string
+}
+
+export interface TaskDetailHistoryProps {
+  historyData: TaskHistory[]
+  taskId: number
+  requestorName: string
 }

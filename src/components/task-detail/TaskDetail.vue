@@ -16,7 +16,8 @@
           <div class="w-full h-[1px] bg-border-1 shrink-0"></div>
           <TaskDetailHistory
             :historyData="historyData?.histories || []"
-            :task-id="selectedId" />
+            :task-id="selectedId"
+            :requestor-name="data.requesterNickName" />
         </div>
         <div class="w-[1px] bg-border-1"></div>
         <TaskDetailRight
@@ -30,7 +31,7 @@
 <script setup lang="ts">
 import { getHistory, getTaskDetailManager } from '@/api/user'
 import { useMemberStore } from '@/stores/member'
-import type { TaskDetailDatas, TaskDetailHistoryProps, TaskDetailProps } from '@/types/user'
+import type { TaskDetailDatas, TaskDetailHistoryData, TaskDetailProps } from '@/types/user'
 import { useQuery } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import TaskDetailHistory from './TaskDetailHistory.vue'
@@ -48,7 +49,7 @@ const { data } = useQuery<TaskDetailDatas>({
   queryFn: () => getTaskDetailManager(selectedId)
 })
 
-const { data: historyData } = useQuery<TaskDetailHistoryProps>({
+const { data: historyData } = useQuery<TaskDetailHistoryData>({
   queryKey: ['historyData', selectedId],
   queryFn: () => getHistory(selectedId)
 })
