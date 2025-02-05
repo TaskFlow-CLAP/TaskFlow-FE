@@ -33,6 +33,10 @@
             v-else-if="item.taskHistoryType === 'COMMENT'"
             :history="item"
             :requestor-name="requestorName" />
+          <TaskDetailHistoryFile
+            v-else-if="item.taskHistoryType === 'COMMENT_FILE'"
+            :history="item"
+            :requestor-name="requestorName" />
           <p>{{ HistoryMessageAfter[item.taskHistoryType] }}</p>
         </div>
       </div>
@@ -46,6 +50,7 @@ import type { TaskDetailHistoryProps } from '@/types/common'
 import { formatDateWithDay } from '@/utils/date'
 import { watch } from 'vue'
 import TaskDetailHistoryChat from './TaskDetailHistoryChat.vue'
+import TaskDetailHistoryFile from './TaskDetailHistoryFile.vue'
 import TaskDetailHistoryInput from './TaskDetailHistoryInput.vue'
 
 const { historyData, taskId, requestorName } = defineProps<TaskDetailHistoryProps>()
