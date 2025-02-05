@@ -1,6 +1,6 @@
 import type { NewLabelTypes, UserRegistrationApiProps } from '@/types/admin'
 import type { LabelDataTypes } from '@/types/common'
-import { axiosInstance } from '@/utils/axios'
+import { axiosInstance, formDataAxiosInstance } from '@/utils/axios'
 
 export const deleteLabelAdmin = async (id: number) => {
   const response = await axiosInstance.delete(`/api/managements/labels/${id}`)
@@ -32,5 +32,10 @@ export const addMemberAdmin = async (memberData: UserRegistrationApiProps) => {
 
 export const getDepartmentsAdmin = async () => {
   const response = await axiosInstance.get('/api/managements/departments')
+  return response.data
+}
+
+export const addMemberAdminByCsv = async (formdata: FormData) => {
+  const response = await formDataAxiosInstance.post('/api/managements/members/upload', formdata)
   return response.data
 }
