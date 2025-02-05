@@ -54,4 +54,4 @@ jobs:
           script: |
             docker rm -f taskflow-front
             docker image rm ${{ secrets.DOCKER_FRONT_REPO }} -f
-            docker run --name taskflow-front -d -p 80:80 --restart on-failure ${{ secrets.DOCKER_FRONT_REPO }}
+            docker run --name taskflow-front -d -p 80:80 -p 443:443 -v /etc/letsencrypt/:/etc/letsencrypt/ -v /etc/ssl/:/etc/ssl/  --restart on-failure ${{ secrets.DOCKER_FRONT_REPO }}
