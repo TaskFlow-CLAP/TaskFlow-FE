@@ -1,4 +1,4 @@
-import type { NewLabelTypes, UserRegistrationProps } from '@/types/admin'
+import type { NewLabelTypes, UserRegistrationApiProps } from '@/types/admin'
 import type { LabelDataTypes } from '@/types/common'
 import { axiosInstance } from '@/utils/axios'
 
@@ -25,8 +25,12 @@ export const deleteCategoryAdmin = async (id: number) => {
   return response.data
 }
 
-export const addMemberAdmin = async (memberData: UserRegistrationProps) => {
-  console.log(memberData, '요청 데이터')
+export const addMemberAdmin = async (memberData: UserRegistrationApiProps) => {
   const response = await axiosInstance.post('/api/managements/members', memberData)
+  return response.data
+}
+
+export const getDepartmentsAdmin = async () => {
+  const response = await axiosInstance.get('/api/managements/departments')
   return response.data
 }
