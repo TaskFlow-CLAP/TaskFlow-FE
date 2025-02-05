@@ -5,7 +5,7 @@ name: CD for front using github actions
 # develop 브랜치에 pull_request가 닫히거나 푸시했을때 실행
 on:
   push:
-    branches: [ "CLAP-234" ]
+    branches: [ "develop" ]
 
 permissions:
   contents: read
