@@ -28,11 +28,11 @@
       :labelName="'요청 승인 권한'"
       :checkButtonName="'허용'"
       :isChecked="userRegistrationForm.isReviewer" />
-    <RequestTaskInput
+    <!-- <RequestTaskInput
       v-model="userRegistrationForm.departmentId"
       :placeholderText="'회원의 부서를 입력해주세요'"
       :is-not-required="true"
-      :labelName="'부서'" />
+      :labelName="'부서'" /> -->
     <RequestTaskInput
       v-model="userRegistrationForm.departmentRole"
       :placeholderText="'회원의 직무를 입력해주세요'"
@@ -70,7 +70,8 @@ const handleCancel = () => {
 
 const handleSubmit = async () => {
   console.log(userRegistrationForm.value)
-  const formData = { ...userRegistrationForm.value, role: 'ROLE_USER' }
+  const formData = { ...userRegistrationForm.value, role: 'ROLE_USER', departmentId: 1 }
+  console.log(formData, '요청정보')
   await addMemberAdmin(formData)
   isModalVisible.value = true
 }

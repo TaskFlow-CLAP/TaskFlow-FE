@@ -42,13 +42,13 @@ export const CATEGORY_FORM: CategoryForm = {
 }
 
 export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {
-  name: '',
-  email: '',
-  nickname: '',
+  name: '조철득',
+  email: 'choiron@gmail.com',
+  nickname: 'iron.ch',
   isReviewer: false,
-  departmentId: '',
-  role: '회원의 역할을 선택해주세요',
-  departmentRole: ''
+  departmentId: 1,
+  role: 'ROLE_USER',
+  departmentRole: 'FE'
 }
 
 export const RoleTypeMapping: { [key in RoleTypes]: RoleTypesEnum } = {

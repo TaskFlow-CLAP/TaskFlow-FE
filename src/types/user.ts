@@ -24,7 +24,7 @@ export interface RequestTaskDropdownProps {
 }
 
 export interface RequestTaskInputProps {
-  modelValue: string | number
+  modelValue: string
   placeholderText: string
   labelName: string
   isNotRequired?: boolean
