@@ -39,6 +39,7 @@
       </div>
     </div>
     <div>
+      <p class="task-detail">담당자</p>
       <div v-if="isProcessor && data.processorNickName">
         <TaskDetailManagerDropdown
           v-model="newManager"
@@ -62,16 +63,16 @@
       </div>
       <p class="text-red-1 text-xs font-bold">{{ formatDaysBefore(data.dueDate) }}</p>
     </div>
-    <div>
+    <div v-if="data.labelName">
       <p class="task-detail">구분</p>
       <TaskDetailLabelDropdown
-        v-if="isProcessor && data.labelName"
+        v-if="isProcessor"
         v-model="taskLabel"
         :placeholder-text="'라벨을 선택해주세요'"
         :task-id="data.taskId" />
       <div
-        v-else-if="data.labelName && !isProcessor"
-        class="flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 px-4 text-sm text-black">
+        v-else-if="!isProcessor"
+        class="flex w-full items-center bg-white text-sm text-black">
         {{ data.labelName }}
       </div>
     </div>

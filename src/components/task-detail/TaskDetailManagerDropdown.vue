@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p class="task-detail">담당자</p>
     <div class="relative flex text-base">
       <div
         class="task-detail-manager-dropdown"

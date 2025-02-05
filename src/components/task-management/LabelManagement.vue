@@ -57,7 +57,8 @@
 </template>
 
 <script setup lang="ts">
-import { getLabelsAdmin, postAddLabelAdmin } from '@/api/admin'
+import { postAddLabelAdmin } from '@/api/admin'
+import { getLabelsManager } from '@/api/user'
 import { plusIcon } from '@/constants/iconPath'
 import type { NewLabelTypes } from '@/types/admin'
 import type { LabelColorTypes, LabelDataTypes } from '@/types/common'
@@ -76,7 +77,7 @@ const isColorVisible = ref(false)
 const isAdd = ref(false)
 
 const fetchLabels = async () => {
-  labelData.value = await getLabelsAdmin()
+  labelData.value = await getLabelsManager()
 }
 
 onMounted(async () => {
