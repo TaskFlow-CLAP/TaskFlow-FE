@@ -17,19 +17,24 @@
     </div>
     <div
       :class="[
-        'flex h-full items-end text-xs font-bold text-body',
-        isProcessor ? 'ml-4 order-1' : 'ml-2 order-3'
+        'flex flex-col h-full justify-end text-xs font-bold text-body gap-1',
+        isProcessor ? 'order-1 items-end' : 'order-3 items-start'
       ]">
-      {{ history.details.commentDetails?.isModified ? '(수정됨)' : '' }}
-      {{ formatTodayOrNot(history.date, history.time) }}
+      <CommonIcons :name="menuDotIcon" />
+      <div>
+        {{ history.details.commentDetails?.isModified ? '(수정됨)' : '' }}
+        {{ formatTodayOrNot(history.date, history.time) }}
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { menuDotIcon } from '@/constants/iconPath'
 import type { TaskHistory } from '@/types/user'
 import { formatTodayOrNot } from '@/utils/date'
 import { computed, defineProps } from 'vue'
+import CommonIcons from '../common/CommonIcons.vue'
 const { history, requestorName } = defineProps<{
   history: TaskHistory
   requestorName: string

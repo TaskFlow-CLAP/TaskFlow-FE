@@ -51,3 +51,23 @@ export const getHistory = async (taskID: number) => {
   const response = await axiosInstance.get(`/api/tasks/${taskID}/histories`)
   return response.data
 }
+
+export const postComment = async (taskID: number, content: string) => {
+  const response = await axiosInstance.post(`/api/comment/${taskID}`, { content })
+  return response.data
+}
+
+export const postCommentAttachment = async (taskID: number, formdata: FormData) => {
+  const response = await formDataAxiosInstance.post(`/api/comment/attachment/${taskID}`, formdata)
+  return response.data
+}
+
+export const patchComment = async (commentId: number, content: string) => {
+  const response = await axiosInstance.patch(`/api/comment/${commentId}`, { content })
+  return response.data
+}
+
+export const deleteComment = async (commentId: number) => {
+  const response = await axiosInstance.delete(`/api/comment/${commentId}`)
+  return response.data
+}
