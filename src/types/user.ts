@@ -74,28 +74,44 @@ export type TaskHistoryType =
   | 'STATUS_SWITCHED'
   | 'PROCESSOR_ASSIGNED'
   | 'PROCESSOR_CHANGED'
-
-interface TaskDetailHistoryFileTypes {
-  fileId: number
-  fileUrl: string
-  fileName: string
-}
+  | 'TASK_TERMINATED'
 
 export interface TaskDetailHistoryProps {
+  histories: TaskHistory[]
+}
+
+export interface TaskHistory {
+  historyId: number
   date: string
   time: string
-  name: string
+  taskHistoryType: TaskHistoryType
+  details: TaskHistoryDetails
+}
+
+export interface TaskHistoryDetails {
+  taskDetails?: TaskDetails | null
+  commentDetails?: CommentDetails | null
+  commentFileDetails?: CommentFileDetails | null
+}
+
+export interface TaskDetails {
+  value: string
+}
+
+export interface CommentDetails {
+  nickName: string
   profileImageUrl: string
-  TaskHistoryType: TaskHistoryType
   isModified: boolean
-  details: {
-    previousProcessor: string
-    currentProcessor: string
-    comment?: string
-    updateDetails?: string
-    taskStatus?: string
-    file?: TaskDetailHistoryFileTypes
-  }
+  comment: string
+}
+
+export interface CommentFileDetails {
+  nickName: string
+  profileImageUrl: string
+  isModified: boolean
+  fileName: string
+  url: string
+  size: string
 }
 
 export interface TaskDetailProps {
@@ -121,7 +137,7 @@ export interface TaskDetailRightProps {
 
 export interface TaskDetailLabelDropdownProps {
   options: LabelDataTypes[]
-  modelValue: string
+  modelValue: LabelDataTypes
 }
 
 export interface TaskHistoryDatas {
@@ -154,6 +170,7 @@ export interface MyRequestResponse {
 }
 
 export interface LabelDropdownProps {
+  taskId?: number
   modelValue: LabelDataTypes | null
   placeholderText: string
 }
@@ -162,4 +179,14 @@ export interface ManagerDropdownProps {
   modelValue: ManagerTypes | null
   placeholderText: string
   isInvalidate: string
+}
+
+export interface DetailManagerDropdownProps {
+  modelValue: ManagerTypes
+}
+
+export interface TaskStatusListProps {
+  modelValue: Status
+  isProcessor: boolean
+  taskId?: number
 }

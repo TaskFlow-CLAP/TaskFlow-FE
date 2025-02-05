@@ -42,6 +42,7 @@ import type { Category, SubCategory } from '@/types/common'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
+import ModalView from '../ModalView.vue'
 import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
@@ -87,7 +88,6 @@ const handleCancel = () => {
 const handleSubmit = async () => {
   if (!category1.value || !category2.value) {
     isInvalidate.value = 'category'
-    console.log(isInvalidate.value, '변경됨')
     return
   } else if (!title.value) {
     isInvalidate.value = 'input'
@@ -110,8 +110,8 @@ const handleSubmit = async () => {
     file.value.forEach(f => formData.append('attachment', f))
   }
   try {
-    const res = await postTaskRequest(formData)
-    console.error('요청 성공:', res)
+    await postTaskRequest(formData)
+    isModalVisible.value = true
   } catch (error) {
     console.error('요청 실패:', error)
   }

@@ -27,7 +27,8 @@ export const HistoryMessageBefore: Record<TaskHistoryType, string> = {
   PROCESSOR_CHANGED: '처리자가',
   COMMENT: '',
   COMMENT_FILE: '',
-  PROCESSOR_ASSIGNED: '처리자가'
+  PROCESSOR_ASSIGNED: '처리자가',
+  TASK_TERMINATED: '작업이'
 }
 
 export const HistoryMessageAfter: Record<TaskHistoryType, string> = {
@@ -35,5 +36,6 @@ export const HistoryMessageAfter: Record<TaskHistoryType, string> = {
   PROCESSOR_CHANGED: '님으로 변경되었습니다.',
   COMMENT: '',
   COMMENT_FILE: '',
-  PROCESSOR_ASSIGNED: '님으로 할당되었습니다.'
+  PROCESSOR_ASSIGNED: '님으로 할당되었습니다.',
+  TASK_TERMINATED: '종료되었습니다.'
 }

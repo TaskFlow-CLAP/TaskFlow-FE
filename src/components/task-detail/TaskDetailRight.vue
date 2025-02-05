@@ -22,7 +22,10 @@
         <TaskStatus :status="data.taskStatus" />
       </div>
       <div v-else>
-        <TaskStatusList :status="data.taskStatus" />
+        <TaskStatusList
+          v-model="taskStatus"
+          :isProcessor="isProcessor"
+          :taskId="data.taskId" />
       </div>
     </div>
     <div>
@@ -36,12 +39,11 @@
       </div>
     </div>
     <div>
-      <p class="task-detail">처리자</p>
-      <div v-if="isManager && data.processorNickName">
-        <!-- <TaskDetailDropdown
-          v-model="processor"
-          :options="DUMMY_REQUEST_PROCESSORS"
-          :processor="DUMMY_PROCESSOR" /> -->
+      <p class="task-detail">담당자</p>
+      <div v-if="isProcessor && data.processorNickName">
+        <TaskDetailManagerDropdown
+          v-model="newManager"
+          :task-id="data.taskId" />
       </div>
       <div
         v-else
@@ -54,42 +56,70 @@
         <p class="text-sm text-black">{{ data.processorNickName || '-' }}</p>
       </div>
     </div>
-    <div v-if="isManager && data.dueDate">
+    <div v-if="data.dueDate">
       <p class="task-detail">마감기한</p>
       <div class="w-full flex justify-between items-center">
-        <p class="text-sm text-black">{{ data.dueDate || '-' }}까지</p>
-        <p class="text-primary1 text-xs font-bold">변경</p>
+        <p class="text-sm text-black">{{ formatDueDate(data.dueDate) || '-' }}</p>
       </div>
-      <p class="text-red-1 text-xs font-bold">3일 전</p>
+      <p class="text-red-1 text-xs font-bold">{{ formatDaysBefore(data.dueDate) }}</p>
     </div>
-    <div v-if="isManager && data.labelName">
+    <div v-if="data.labelName">
       <p class="task-detail">구분</p>
       <TaskDetailLabelDropdown
-        v-model="labeling"
-        :options="DUMMY_TASK_LABELS"
-        :processor="data.labelName" />
+        v-if="isProcessor"
+        v-model="taskLabel"
+        :placeholder-text="'라벨을 선택해주세요'"
+        :task-id="data.taskId" />
+      <div
+        v-else-if="!isProcessor"
+        class="flex w-full items-center bg-white text-sm text-black">
+        {{ data.labelName }}
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { DUMMY_TASK_LABELS } from '@/datas/taskdetail'
-import { useMemberStore } from '@/stores/member'
+import { changeProcessor } from '@/api/user'
+import type { ManagerTypes } from '@/types/manager'
 import type { TaskDetailDatas } from '@/types/user'
-import { formatDate } from '@/utils/date'
-import { storeToRefs } from 'pinia'
-import { computed, defineProps, ref } from 'vue'
+import { formatDate, formatDaysBefore, formatDueDate } from '@/utils/date'
+import { useQueryClient } from '@tanstack/vue-query'
+import { defineProps, ref, watch } from 'vue'
 import TaskStatus from '../TaskStatus.vue'
 import TaskDetailLabelDropdown from './TaskDetailLabelDropdown.vue'
+import TaskDetailManagerDropdown from './TaskDetailManagerDropdown.vue'
 import TaskStatusList from './TaskStatusList.vue'
 
-const memberStore = useMemberStore()
-const { info } = storeToRefs(memberStore)
-const isManager = computed(() => info.value.memberName === data.processorNickName)
+const { data, isProcessor } = defineProps<{ data: TaskDetailDatas; isProcessor: boolean }>()
 
-const { data } = defineProps<{ data: TaskDetailDatas }>()
-console.log(data, '가져온 데이터')
+const taskStatus = ref(data.taskStatus)
+const queryClient = useQueryClient()
 
-// const processor = ref(DUMMY_PROCESSOR.nickName)
-const labeling = ref(DUMMY_TASK_LABELS[0].labelName)
+const taskLabel = ref({
+  labelId: -1,
+  labelName: data.labelName || '',
+  labelColor: ''
+})
+
+const selectedManager = ref({
+  memberId: -1,
+  nickname: data.processorNickName,
+  imageUrl: data.processorImageUrl,
+  remainingTasks: -1
+} as ManagerTypes)
+
+const newManager = ref(selectedManager.value)
+
+watch(newManager, async newValue => {
+  if (newValue?.nickname !== selectedManager.value.nickname && newValue) {
+    try {
+      await changeProcessor(data.taskId, newValue.memberId)
+      selectedManager.value = newValue
+      queryClient.invalidateQueries({ queryKey: ['historyData', data.taskId] })
+    } catch (error) {
+      console.error('Error updating processor', error)
+    }
+  }
+})
 </script>
