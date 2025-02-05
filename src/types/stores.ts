@@ -14,25 +14,23 @@ export interface RequestParams {
 }
 
 export interface MemberManagementParams {
-  name: string
-  nickName: string
-  department: string
-  email: string
-  role: Role | ''
-  pageSize: number
   page: number
-  sortBy: 'REGISTERED_AT'
+  pageSize: number
+  name: string
+  email: string
+  nickName: string
+  departmentName: string
+  role: Role | ''
   sortDirection: SortDirection
 }
 
 export interface LogsParams {
-  term: number | ''
-  division: string
-  nickName: string
-  ipAddress: string
-  pageSize: number
   page: number
-  sortBy: 'CREATED_AT'
+  pageSize: number
+  term: number | ''
+  logStatus: string[]
+  nickName: string
+  clientIp: string
   sortDirection: SortDirection
 }
 

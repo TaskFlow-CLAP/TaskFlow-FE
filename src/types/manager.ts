@@ -46,7 +46,7 @@ export interface TaskCardProps {
 
 export interface TaskCardList {
   tasksInProgress: TaskCardProps[]
-  tasksPendingComplete: TaskCardProps[]
+  tasksInReviewing: TaskCardProps[]
   tasksCompleted: TaskCardProps[]
 }
 

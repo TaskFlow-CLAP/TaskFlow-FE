@@ -50,11 +50,11 @@ export interface ListBarTabProps {
   justifyCenter?: boolean
 }
 
-export type Status = 'REQUESTED' | 'IN_PROGRESS' | 'PENDING_COMPLETED' | 'COMPLETED' | 'TERMINATED'
+export type Status = 'REQUESTED' | 'IN_PROGRESS' | 'IN_REVIEWING' | 'COMPLETED' | 'TERMINATED'
 
 export type SortDirection = 'DESC' | 'ASC'
 
-export type Role = 'USER' | 'MANAGER' | 'ADMIN'
+export type Role = 'ROLE_USER' | 'ROLE_MANAGER' | 'ROLE_ADMIN'
 
 export interface DueDateInputProps {
   modelValue: string

@@ -10,7 +10,7 @@ export const TERM_LIST = [
 ]
 export const TASK_STATUS_LIST: TaskStatusListTypes[] = [
   { value: 'IN_PROGRESS', content: '진행 중' },
-  { value: 'PENDING_COMPLETED', content: '검토 중' },
+  { value: 'IN_REVIEWING', content: '검토 중' },
   { value: 'COMPLETED', content: '완료' },
   { value: 'TERMINATED', content: '종료' }
 ]
@@ -22,9 +22,9 @@ export const PAGE_SIZE_LIST = [
 
 export const ROLE_LIST = [
   { value: '', content: '전체' },
-  { value: 'user', content: '사용자' },
-  { value: 'manager', content: '담당자' },
-  { value: 'admin', content: '관리자' }
+  { value: 'ROLE_USER', content: '사용자' },
+  { value: 'ROLE_MANAGER', content: '담당자' },
+  { value: 'ROLE_ADMIN', content: '관리자' }
 ]
 
 export const COLOR_LIST = [

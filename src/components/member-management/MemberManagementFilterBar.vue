@@ -10,8 +10,8 @@
       @update:value="value => (params.nickName = value)" />
     <FilterInput
       title="부서"
-      :value="params.department"
-      @update:value="value => (params.department = value)" />
+      :value="String(params.departmentName)"
+      @update:value="value => (params.departmentName = value)" />
     <FilterInput
       title="이메일"
       width="full"
