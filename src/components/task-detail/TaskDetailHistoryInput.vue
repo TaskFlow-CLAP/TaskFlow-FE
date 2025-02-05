@@ -9,7 +9,10 @@
       type="text"
       :placeholder="placeHolderText"
       v-model="messageText"
-      :disabled="!isPossible"></textarea>
+      :disabled="!isPossible"
+      @compositionstart="isComposing = true"
+      @compositionend="isComposing = false"
+      @keyup.enter.prevent="handleEnterKey"></textarea>
     <input
       class="hidden"
       type="file"
@@ -45,23 +48,29 @@ const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 const queryClient = useQueryClient()
 
+const messageText = ref('')
+const isComposing = ref(false)
+
 const isPossible = computed(() => history.length !== 0 && info.value.memberRole !== 'ROLE_USER')
 const isSendable = computed(() => isPossible.value && messageText.value.trim() !== '')
-
 const placeHolderText = computed(() =>
   isPossible.value ? '텍스트를 입력' : '요청 승인 후 작성할 수 있습니다'
 )
-const messageText = ref('')
 
 const sendMessage = async () => {
-  if (!isPossible.value || !messageText.value.trim()) {
-    return
-  }
-  console.log(taskId, 'taskId', messageText.value)
+  if (!isPossible.value || !messageText.value.trim()) return
+
   await postComment(taskId, messageText.value)
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   messageText.value = ''
 }
+
+const handleEnterKey = () => {
+  if (!isComposing.value) {
+    sendMessage()
+  }
+}
+
 const handleFileUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
   if (target.files && target.files.length > 0) {
