@@ -38,10 +38,10 @@
     <div>
       <p class="task-detail">처리자</p>
       <div v-if="isManager && data.processorNickName">
-        <TaskDetailDropdown
+        <!-- <TaskDetailDropdown
           v-model="processor"
           :options="DUMMY_REQUEST_PROCESSORS"
-          :processor="DUMMY_PROCESSOR" />
+          :processor="DUMMY_PROCESSOR" /> -->
       </div>
       <div
         v-else
@@ -73,14 +73,13 @@
 </template>
 
 <script setup lang="ts">
-import { DUMMY_PROCESSOR, DUMMY_REQUEST_PROCESSORS, DUMMY_TASK_LABELS } from '@/datas/taskdetail'
+import { DUMMY_TASK_LABELS } from '@/datas/taskdetail'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailDatas } from '@/types/user'
 import { formatDate } from '@/utils/date'
 import { storeToRefs } from 'pinia'
 import { computed, defineProps, ref } from 'vue'
 import TaskStatus from '../TaskStatus.vue'
-import TaskDetailDropdown from './TaskDetailDropdown.vue'
 import TaskDetailLabelDropdown from './TaskDetailLabelDropdown.vue'
 import TaskStatusList from './TaskStatusList.vue'
 
@@ -91,6 +90,6 @@ const isManager = computed(() => info.value.memberName === data.processorNickNam
 const { data } = defineProps<{ data: TaskDetailDatas }>()
 console.log(data, '가져온 데이터')
 
-const processor = ref(DUMMY_PROCESSOR.nickName)
+// const processor = ref(DUMMY_PROCESSOR.nickName)
 const labeling = ref(DUMMY_TASK_LABELS[0].labelName)
 </script>

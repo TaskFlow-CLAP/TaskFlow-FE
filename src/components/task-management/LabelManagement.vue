@@ -31,7 +31,6 @@
             @click="handleColor"></div>
           <ColorSelectModal
             :is-open="isColorVisible"
-            :newLabel
             @close="handleColor"
             @updateColor="updateLabelColor" />
           <input
@@ -60,8 +59,8 @@
 <script setup lang="ts">
 import { postAddLabelAdmin } from '@/api/admin'
 import { plusIcon } from '@/constants/iconPath'
-import type { LabelDataTypes, NewLabelTypes } from '@/types/admin'
-import type { LabelColorTypes } from '@/types/common'
+import type { NewLabelTypes } from '@/types/admin'
+import type { LabelColorTypes, LabelDataTypes } from '@/types/common'
 import { getColor } from '@/utils/color'
 import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'

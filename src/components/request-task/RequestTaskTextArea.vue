@@ -2,7 +2,7 @@
   <div>
     <p class="text-body text-xs font-bold">부가설명</p>
     <textarea
-      class="w-full h-24 mt-2 border border-border-1 px-4 py-2 resize-none focus:outline-none"
+      class="w-full h-24 mt-2 border border-border-1 px-4 py-2 resize-none focus:outline-none rounded"
       :value="modelValue"
       :placeholder="placeholderText"
       @input="updateValue(($event.target as HTMLInputElement).value)">

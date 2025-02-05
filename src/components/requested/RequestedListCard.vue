@@ -10,7 +10,7 @@
       :is-status="tab.isStatus" />
     <div class="w-[120px] flex gap-2 justify-center items-center shrink-0">
       <button
-        @click="router.push(`/assign/${info.taskId}`)"
+        @click="router.push(`/request-approve?requestId=${info.taskId}`)"
         class="button-medium-primary">
         승인
       </button>
@@ -46,14 +46,14 @@
 
 <script setup lang="ts">
 import type { ListCardProps } from '@/types/common'
-import ListCardTab from '../lists/ListCardTab.vue'
 import type { RequestedListData } from '@/types/manager'
-import { useRouter } from 'vue-router'
 import { formatDate } from '@/utils/date'
 import ModalView from '../ModalView.vue'
 import { ref } from 'vue'
 import { axiosInstance } from '@/utils/axios'
 import { useQueryClient } from '@tanstack/vue-query'
+import { useRouter } from 'vue-router'
+import ListCardTab from '../lists/ListCardTab.vue'
 
 const { info } = defineProps<{ info: RequestedListData }>()
 const requestedTabList: ListCardProps[] = [

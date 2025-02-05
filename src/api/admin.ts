@@ -1,4 +1,5 @@
-import type { LabelDataTypes, NewLabelTypes } from '@/types/admin'
+import type { NewLabelTypes } from '@/types/admin'
+import type { LabelDataTypes } from '@/types/common'
 import { axiosInstance } from '@/utils/axios'
 
 export const deleteLabelAdmin = async (id: number) => {
