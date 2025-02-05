@@ -47,27 +47,31 @@
 </template>
 
 <script lang="ts" setup>
+import { addMemberAdmin } from '@/api/admin'
 import { INITIAL_USER_REGISTRATION, RoleKeys } from '@/constants/admin'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import FormButtonContainer from '../common/FormButtonContainer.vue'
+import FormCheckbox from '../common/FormCheckbox.vue'
 import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
-import { useRouter } from 'vue-router'
-import FormCheckbox from '../common/FormCheckbox.vue'
-import FormButtonContainer from '../common/FormButtonContainer.vue'
 
 const isModalVisible = ref(false)
 const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
 
 const router = useRouter()
+
 const handleCancel = () => {
   userRegistrationForm.value = { ...INITIAL_USER_REGISTRATION }
   isModalVisible.value = false
   router.back()
 }
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   console.log(userRegistrationForm.value)
+  const formData = { ...userRegistrationForm.value, role: 'ROLE_USER' }
+  await addMemberAdmin(formData)
   isModalVisible.value = true
 }
 </script>
