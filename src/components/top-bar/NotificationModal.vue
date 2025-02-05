@@ -25,13 +25,16 @@
             </div>
           </div>
         </div>
-        <div class="max-h-[205px] flex flex-col h-full overflow-y-auto">
+        <div class="max-h-[185px] flex flex-col h-full overflow-y-auto">
           <div class="overflow-y-scroll flex flex-col">
             <button
               v-for="notification in notifications"
               :key="notification.notificationId"
               @click="readNotifi(notification.notificationId)"
-              :class="['flex flex-col border-b py-3 px-4', { 'bg-primary2': notification.isRead }]">
+              :class="[
+                'flex flex-col border-b py-3 px-4',
+                { 'bg-primary2': !notification.isRead }
+              ]">
               <p class="text-xs text-body font-bold">
                 {{ notification.notificationType }}
               </p>
@@ -46,7 +49,9 @@
                 </span>
               </div>
             </button>
-            <InfiniteLoading @infinite="loadMoreNotifications"
+            <InfiniteLoading
+              @infinite="loadMoreNotifications"
+              class="flex items-center justify-center"
               ><template v-slot:complete>
                 <span class="flex py-2 items-center justify-center text-xs text-primary1"
                   >더 이상 없음</span
@@ -80,6 +85,7 @@ const hasNext = ref(true)
 const loadMoreNotifications = async ($state: any) => {
   try {
     const response = await getNotification(page.value, pageSize)
+    console.log(response)
 
     if (response.isFirst) {
       notifications.value = response.content
