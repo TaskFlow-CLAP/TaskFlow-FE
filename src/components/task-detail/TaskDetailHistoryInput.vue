@@ -8,6 +8,7 @@
       class="w-full h-20 focus:outline-none resize-none"
       type="text"
       :placeholder="placeHolderText"
+      v-model="messageText"
       :disabled="!isPossible"></textarea>
     <input
       class="hidden"
@@ -24,7 +25,8 @@
     <CommonIcons
       :name="sendIcon"
       class="cursor-pointer"
-      :style="{ fill: isPossible ? '#7879EB' : '#A1A1AA' }" />
+      :style="{ fill: isSendable ? '#7879EB' : '#A1A1AA' }"
+      @click="sendMessage" />
   </div>
 </template>
 
@@ -36,13 +38,29 @@ import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { history } = defineProps<{ history: TaskHistory[] }>()
+const { history, taskId } = defineProps<{ history: TaskHistory[]; taskId: number }>()
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 
-const isPossible = ref(history.length !== 0 && info.value.memberRole !== 'ROLE_USER')
-const placeHolderText = ref(isPossible?.value ? '텍스트를 입력' : '요청 승인 후 작성할 수 있습니다')
+import { postComment } from '@/api/user'
+import { computed } from 'vue'
 
+const isPossible = computed(() => history.length !== 0 && info.value.memberRole !== 'ROLE_USER')
+const isSendable = computed(() => isPossible.value && messageText.value.trim() !== '')
+
+const placeHolderText = computed(() =>
+  isPossible.value ? '텍스트를 입력' : '요청 승인 후 작성할 수 있습니다'
+)
+const messageText = ref('')
+
+const sendMessage = async () => {
+  if (!isPossible.value || !messageText.value.trim()) {
+    return
+  }
+  console.log(taskId, 'taskId', messageText.value)
+  await postComment(taskId, messageText.value)
+  messageText.value = ''
+}
 const handleFileUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
   if (target.files && target.files.length > 0) {

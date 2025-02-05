@@ -16,7 +16,7 @@
           <div class="w-full h-[1px] bg-border-1 shrink-0"></div>
           <TaskDetailHistory
             :historyData="historyData?.histories || []"
-            :is-approved="isApproved" />
+            :task-id="selectedId" />
         </div>
         <div class="w-[1px] bg-border-1"></div>
         <TaskDetailRight

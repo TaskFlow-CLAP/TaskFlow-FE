@@ -1,7 +1,9 @@
 <template>
   <div>
     <p class="task-detail">히스토리</p>
-    <TaskDetailHistoryInput :history="historyData" />
+    <TaskDetailHistoryInput
+      :history="historyData"
+      :taskId="taskId" />
     <div class="flex flex-col w-full items-center gap-6 mt-8">
       <div
         class="flex w-full flex-col items-center gap-6"
@@ -26,7 +28,9 @@
             class="text-primary1">
             {{ item.details.taskDetails?.value }}
           </p>
-          <TaskDetailHistoryChat v-else-if="item.taskHistoryType === 'COMMENT'" />
+          <TaskDetailHistoryChat
+            v-else-if="item.taskHistoryType === 'COMMENT'"
+            :history="item" />
           <p>{{ HistoryMessageAfter[item.taskHistoryType] }}</p>
         </div>
       </div>
@@ -41,6 +45,6 @@ import { formatDateWithDay } from '@/utils/date'
 import TaskDetailHistoryChat from './TaskDetailHistoryChat.vue'
 import TaskDetailHistoryInput from './TaskDetailHistoryInput.vue'
 
-const { historyData } = defineProps<{ historyData: TaskHistory[] }>()
+const { historyData, taskId } = defineProps<{ historyData: TaskHistory[]; taskId: number }>()
 console.log(historyData, '가져온 히스토리')
 </script>
