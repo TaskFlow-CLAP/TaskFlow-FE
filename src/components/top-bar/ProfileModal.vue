@@ -20,7 +20,7 @@
             <img
               v-if="imgUrl"
               class="rounded-full mb-6 w-24 h-24"
-              :src="info.imageUrl"
+              :src="info.profileImageUrl"
               alt="프로필 이미지" />
             <div
               v-else
@@ -65,8 +65,8 @@ const isModalVisible = ref(false)
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)
 
-const imgUrl = computed(() => info.value.imageUrl)
-const name = computed(() => info.value.memberName)
+const imgUrl = computed(() => info.value.profileImageUrl)
+const name = computed(() => info.value.name)
 const nickname = computed(() => info.value.nickname)
 
 const router = useRouter()
