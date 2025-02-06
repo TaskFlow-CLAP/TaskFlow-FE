@@ -62,7 +62,7 @@ const handleLogin = async () => {
     const sessionId = '000'
     const res = await postLogin(loginData, sessionId)
     if (res) {
-      switch (res.memberInfo.memberRole) {
+      switch (res.memberInfo.role) {
         case 'ROLE_ADMIN':
           router.push('/member-management')
           break

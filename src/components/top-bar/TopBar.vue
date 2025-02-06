@@ -29,9 +29,9 @@
           type="button"
           @click="toggleProfile">
           <img
-            v-if="info?.imageUrl"
+            v-if="info?.profileImageUrl"
             class="rounded-[50%] w-10 h-10"
-            :src="info.imageUrl"
+            :src="info.profileImageUrl"
             alt="프로필 이미지" />
           <div
             v-else
@@ -71,11 +71,11 @@ onMounted(async () => {
   }
 
   const originUrl = route.path.split('/')[1]
-  if (info.value.memberRole === 'ROLE_USER') {
+  if (info.value.role === 'ROLE_USER') {
     if (!PERMITTED_URL.ROLE_USER.includes(originUrl)) router.push('/my-request')
-  } else if (info.value.memberRole === 'ROLE_MANAGER') {
+  } else if (info.value.role === 'ROLE_MANAGER') {
     if (!PERMITTED_URL.ROLE_MANAGER.includes(originUrl)) router.push('/my-task')
-  } else if (info.value.memberRole === 'ROLE_ADMIN') {
+  } else if (info.value.role === 'ROLE_ADMIN') {
     if (!PERMITTED_URL.ROLE_ADMIN.includes(originUrl)) router.push('/member-management')
   } else {
     if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) {
@@ -121,7 +121,7 @@ watch(isLogined, newValue => {
 watch(
   () => info.value,
   async newInfo => {
-    if (newInfo.memberName && isLogined) {
+    if (newInfo.name && isLogined) {
       await fetchNotificationCount()
     }
   },
