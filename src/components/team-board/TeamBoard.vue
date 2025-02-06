@@ -8,6 +8,9 @@
         v-for="member in data?.members"
         :key="member.processorId"
         :info="member" />
+      <NoContent
+        v-if="data?.members.length === 0"
+        content="검색된 담당자가 없습니다" />
     </div>
   </div>
 </template>
@@ -21,6 +24,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { useParseParams } from '../hooks/useParseParams'
 import type { TeamBoardResponse } from '@/types/manager'
 import { computed } from 'vue'
+import NoContent from '../lists/NoContent.vue'
 
 const { params } = useTeamBoardParamsStore()
 
