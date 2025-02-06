@@ -4,7 +4,7 @@ import type { loginDataTypes } from '@/types/auth'
 import { useMemberStore } from '@/stores/member'
 
 export const postLogin = async (loginData: loginDataTypes) => {
-  const response = await axiosInstance.post('/api/auths/login', loginData, {})
+  const response = await axiosInstance.post('/api/auths/login', loginData)
   Cookies.set('accessToken', response.data.accessToken, {
     path: '/',
     sameSite: 'strict'

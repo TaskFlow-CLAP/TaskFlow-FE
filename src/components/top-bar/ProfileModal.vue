@@ -78,11 +78,10 @@ const handleEdit = () => {
 }
 const openLogoutModal = () => {
   isModalVisible.value = true
-  isLogined.value = false
 }
 const closeLogoutModal = () => {
   isModalVisible.value = false
-  memberStore.isLogined = false
+  isLogined.value = false
   router.push('/login')
 }
 
