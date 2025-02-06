@@ -7,11 +7,11 @@ export const useTeamBoardParamsChange = () => {
     return array.includes(value) ? array.filter(el => el !== value) : [...array, value]
   }
 
-  const onOrderChange = (value: string) => {
-    params.order = value
+  const onSortByChange = (value: string) => {
+    params.sortBy = value
   }
-  const onTitleChange = (value: string) => {
-    params.title = value
+  const onTaskTitleChange = (value: string) => {
+    params.taskTitle = value
   }
   const onMainChange = (value: number) => {
     params.mainCategoryIds = onArrayChange(params.mainCategoryIds, value)
@@ -21,8 +21,8 @@ export const useTeamBoardParamsChange = () => {
   }
 
   return {
-    onOrderChange,
-    onTitleChange,
+    onSortByChange,
+    onTaskTitleChange,
     onMainChange,
     onSubChange
   }

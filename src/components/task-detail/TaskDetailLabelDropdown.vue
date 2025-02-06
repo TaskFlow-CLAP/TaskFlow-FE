@@ -1,5 +1,7 @@
 <template>
-  <div class="relative flex text-base">
+  <div
+    ref="htmlRef"
+    class="relative flex text-base">
     <div
       class="flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-sm text-black"
       @click="toggleDropdown">
@@ -12,7 +14,7 @@
     </div>
     <div
       v-if="dropdownOpen"
-      class="absolute w-full h-40 overflow-y-auto top-12 flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom text-black">
+      class="absolute w-full h-32 overflow-y-auto top-12 flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom text-black">
       <div
         v-for="option in labelArr"
         :key="option.labelId"
@@ -31,6 +33,7 @@ import type { LabelDataTypes } from '@/types/common'
 import type { LabelDropdownProps } from '@/types/user'
 import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
+import { useOutsideClick } from '../hooks/useOutsideClick'
 
 const { modelValue, placeholderText, taskId } = defineProps<LabelDropdownProps>()
 const emit = defineEmits(['update:modelValue'])
@@ -50,4 +53,6 @@ const selectOption = async (option: LabelDataTypes) => {
   await changeLabel(taskId || 0, option.labelId || 0)
   dropdownOpen.value = false
 }
+
+const { htmlRef } = useOutsideClick(() => dropdownOpen.value && toggleDropdown())
 </script>

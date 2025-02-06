@@ -1,11 +1,9 @@
 <template>
   <div class="max-w-400">
     <div class="py-16">
-      <div class="text-4xl font-bold text-center">
-        <p class="pb-2">TaskFlow</p>
-        <p class="pb-2">로그인</p>
-      </div>
-      <p class="text-center font-bold text-body">아이디와 비밀번호를 입력해주세요</p>
+      <TitleContainer
+        :title="'TaskFlow\n로그인'"
+        content="아이디와 비밀번호를 입력해주세요" />
     </div>
     <form
       @submit.prevent="handleLogin"
@@ -48,11 +46,14 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { postLogin } from '@/api/auth'
+import { useMemberStore } from '@/stores/member'
+import TitleContainer from '@/components/common/TitleContainer.vue'
 
 const router = useRouter()
 
 const nickname = ref('')
 const password = ref('')
+const memberStore = useMemberStore()
 
 const handleLogin = async () => {
   try {
@@ -60,11 +61,11 @@ const handleLogin = async () => {
       nickname: nickname.value,
       password: password.value
     }
-    const sessionId = '000'
-    const res = await postLogin(loginData, sessionId)
+    const res = await postLogin(loginData)
+    const role = await memberStore.updateMemberInfoWithToken()
 
-    if (res) {
-      switch (res.memberInfo.memberRole) {
+    if (res && role) {
+      switch (role) {
         case 'ROLE_ADMIN':
           router.push('/member-management')
           break

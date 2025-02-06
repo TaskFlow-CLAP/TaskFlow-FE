@@ -10,15 +10,22 @@
     <div class="profile">
       <p class="text-body text-xs font-bold">프로필 사진</p>
       <img
-        v-if="imageUrl"
-        :src="imageUrl"
+        v-if="previewUrl || info.profileImageUrl"
+        :src="previewUrl || info.profileImageUrl"
         alt="프로필 이미지"
         class="w-24 h-24 rounded-full object-cover border mt-3" />
-      <div
-        v-else
-        class="w-24 h-24 rounded-full bg-background-1 flex items-center justify-center mt-3"></div>
-      <!-- 파일 업로드 필요 -->
-      <p class="mt-3 text-xs text-primary1 font-bold cursor-pointer">변경</p>
+
+      <label
+        for="fileInput"
+        class="mt-3 text-xs text-primary1 font-bold cursor-pointer"
+        >변경</label
+      >
+      <input
+        id="fileInput"
+        type="file"
+        @change="handleFileUpload"
+        accept="image/*"
+        class="hidden" />
     </div>
 
     <div class="flex flex-col">
@@ -26,39 +33,39 @@
       <input
         class="input-box h-11 mt-2 text-black"
         placeholder="이름을 입력해주세요"
-        v-model="memberName" />
+        v-model="info.name" />
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">아이디</p>
-      <p class="mt-2 text-black">{{ memberId }}</p>
+      <p class="mt-2 text-black">{{ info.nickname }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">이메일</p>
-      <p class="mt-2 text-black">{{ memberEmail }}</p>
+      <p class="mt-2 text-black">{{ info.email }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">부서</p>
-      <p class="mt-2 text-black">{{ memberDepartment }}</p>
+      <p class="mt-2 text-black">{{ info.departmentName }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">직무</p>
-      <p class="mt-2 text-black">{{ memberJob }}</p>
+      <p class="mt-2 text-black">{{ info.departmentRole }}</p>
     </div>
     <div>
       <p class="text-body text-xs font-bold">알림 수신 여부</p>
       <div class="flex flex-col mt-2 gap-2">
         <FormCheckbox
-          v-model="memberForm.isAgitChecked"
+          v-model="info.notificationSettingInfo.agit"
           :checkButtonName="'아지트'"
-          :isChecked="memberForm.isAgitChecked" />
+          :isChecked="info.notificationSettingInfo.agit" />
         <FormCheckbox
-          v-model="memberForm.isKakaoWorkChecked"
+          v-model="info.notificationSettingInfo.kakaoWork"
           :checkButtonName="'카카오워크'"
-          :isChecked="memberForm.isKakaoWorkChecked" />
+          :isChecked="info.notificationSettingInfo.kakaoWork" />
         <FormCheckbox
-          v-model="memberForm.isEmailChecked"
+          v-model="info.notificationSettingInfo.email"
           :checkButtonName="'이메일'"
-          :isChecked="memberForm.isEmailChecked" />
+          :isChecked="info.notificationSettingInfo.email" />
       </div>
     </div>
     <div>
@@ -85,30 +92,59 @@ import ModalView from './ModalView.vue'
 import FormButtonContainer from './common/FormButtonContainer.vue'
 import FormCheckbox from './common/FormCheckbox.vue'
 const router = useRouter()
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+import { patchEditInfo } from '@/api/common'
 
-const memberName = ref('백지연')
-const memberId = ref('Chole.yeon')
-const memberEmail = ref('taskflow123@gachon.ac.kr')
-const memberDepartment = ref('인프라팀')
-const memberJob = ref('인프라 아키텍처')
-const imageUrl = ref('')
+const memberStore = useMemberStore()
+const { info } = storeToRefs(memberStore)
+
+const selectedFile = ref<File | null>(null)
+const previewUrl = ref<string | null>(null)
+
 const isModalVisible = ref(false)
-
-const memberForm = ref({
-  isAgitChecked: false,
-  isKakaoWorkChecked: false,
-  isEmailChecked: false
-})
 
 const handleCancel = () => {
   router.back()
 }
 
-const handleSubmit = () => {
-  isModalVisible.value = true
-}
-
 const handlePwChange = () => {
   router.push('/pw-check')
+}
+
+const handleFileUpload = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  if (target.files && target.files[0]) {
+    selectedFile.value = target.files[0]
+
+    previewUrl.value = URL.createObjectURL(selectedFile.value)
+  }
+}
+
+const handleSubmit = async () => {
+  const formData = new FormData()
+  const memberInfo = {
+    name: info.value.name,
+    agitNotification: info.value.notificationSettingInfo.agit,
+    emailNotification: info.value.notificationSettingInfo.email,
+    kakaoWorkNotification: info.value.notificationSettingInfo.kakaoWork
+  }
+
+  const jsonMemberInfo = JSON.stringify(memberInfo)
+  const newBlob = new Blob([jsonMemberInfo], { type: 'application/json' })
+
+  formData.append('memberInfo', newBlob)
+
+  if (selectedFile.value) {
+    formData.append('profileImage', selectedFile.value)
+  }
+
+  try {
+    await patchEditInfo(formData)
+    isModalVisible.value = true
+    await memberStore.updateMemberInfoWithToken()
+  } catch (error) {
+    console.error('요청 실패:', error)
+  }
 }
 </script>

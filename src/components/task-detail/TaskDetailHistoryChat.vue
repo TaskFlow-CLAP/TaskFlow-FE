@@ -1,9 +1,13 @@
 <template>
   <div :class="['flex w-full', isProcessor ? 'justify-end' : 'justify-start']">
-    <div :class="['w-10 h-10 rounded-full pt-1.5', isProcessor ? 'order-3' : 'order-1']">
+    <div
+      :class="[
+        'flex justify-center items-center w-10 h-10 shrink-0 rounded-full overflow-hidden mt-1.5',
+        isProcessor ? 'order-3' : 'order-1'
+      ]">
       <img
         :src="history.details.commentDetails?.profileImageUrl || '/images/mockProfile.jpg'"
-        class="rounded-full" />
+        class="center" />
     </div>
     <div
       :class="[
@@ -13,7 +17,7 @@
       <p>{{ history.details.commentDetails?.nickName }}</p>
       <p
         :class="[
-          'flex max-w-[400px] flex-wrap px-6 py-4  text-black rounded-lg',
+          'flex max-w-[400px] flex-wrap px-4 py-3  text-black rounded-lg',
           isProcessor ? 'bg-primary2' : 'bg-background-2'
         ]">
         {{ history.details.commentDetails?.comment }}
@@ -33,10 +37,10 @@
         <div
           v-if="isClicked"
           @click="deleteCommentText"
-            :class="[
+          :class="[
             'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
             isProcessor ? 'right-6' : 'left-6'
-            ]">
+          ]">
           삭제
         </div>
       </div>
@@ -73,7 +77,9 @@ const clickMenuDot = async () => {
 
 const deleteCommentText = async () => {
   isClicked.value = !isClicked.value
-  await deleteComment(history.historyId)
+  if (history.details.commentDetails?.commentId !== undefined) {
+    await deleteComment(history.details.commentDetails.commentId)
+  }
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
 }
 </script>

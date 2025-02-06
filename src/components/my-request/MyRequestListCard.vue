@@ -1,8 +1,9 @@
 <template>
-  <div class="list-card">
+  <div
+    class="list-card"
+    @click="handleModal(info.taskId)">
     <ListCardTab
       v-for="tab in myRequestTabList"
-      @click="handleModal(info.taskId)"
       :key="tab.content"
       :content="tab.content"
       :width="tab.width"
@@ -29,6 +30,8 @@ const { info } = defineProps<{ info: MyRequestListData }>()
 const selectedID = ref<number | null>(null)
 
 const handleModal = (id: number | null) => {
+  if (id) document.body.style.overflow = 'hidden'
+  else document.body.style.overflow = ''
   selectedID.value = id
 }
 

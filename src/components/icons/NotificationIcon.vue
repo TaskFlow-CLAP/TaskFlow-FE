@@ -19,7 +19,7 @@
     <div
       v-if="newNotification"
       class="absolute top-0 right-0 w-5 h-5 rounded-full bg-red-1 text-white font-bold text-xs flex justify-center items-center">
-      {{ newNotification }}
+      {{ newNotification < 100 ? newNotification : 99 }}
     </div>
   </div>
 </template>

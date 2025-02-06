@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="relative flex text-base">
+    <div
+      ref="htmlRef"
+      class="relative flex">
       <div
         class="task-detail-manager-dropdown"
         @click="toggleDropdown">
@@ -51,6 +53,7 @@ import { dropdownIcon } from '@/constants/iconPath'
 import type { ManagerTypes } from '@/types/manager'
 import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
+import { useOutsideClick } from '../hooks/useOutsideClick'
 
 const { modelValue } = defineProps<{ modelValue: ManagerTypes; taskId: number }>()
 const emit = defineEmits(['update:modelValue'])
@@ -70,4 +73,6 @@ const selectOption = (option: ManagerTypes) => {
   emit('update:modelValue', option)
   dropdownOpen.value = false
 }
+
+const { htmlRef } = useOutsideClick(() => dropdownOpen.value && toggleDropdown())
 </script>

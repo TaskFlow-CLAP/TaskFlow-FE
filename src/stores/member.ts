@@ -3,55 +3,61 @@ import { axiosInstance } from '@/utils/axios'
 import { ref } from 'vue'
 import type { User } from '@/types/auth'
 import Cookies from 'js-cookie'
+import { useRouter } from 'vue-router'
 
 export const useMemberStore = defineStore('memberInfo', () => {
-  const info = ref<User>({
-    memberName: '',
+  const INITIAL_INFO: User = {
+    profileImageUrl: '',
+    name: '',
     nickname: '',
-    imageUrl: '',
-    memberRole: '',
-    memberStatus: ''
-  })
-
-  const refreshToken = ref(Cookies.get('refreshToken') || '')
-  const isLogined = ref(!!refreshToken.value)
-
-  async function updateMemberInfoWithToken() {
-    const response = await axiosInstance.get('/api/members/info')
-    console.log('API Response:', response.data)
-    updateMemberInfo(response.data)
-    isLogined.value = true
+    email: '',
+    isReviewer: false,
+    role: '',
+    departmentName: '',
+    departmentRole: '',
+    notificationSettingInfo: {
+      agit: false,
+      email: false,
+      kakaoWork: false
+    }
   }
 
-  function updateMemberInfo(responseData: any) {
-    info.value = {
-      memberName: responseData.name || '',
-      nickname: responseData.nicknanme || '',
-      imageUrl: responseData.profileImageUrl || '',
-      memberRole: responseData.role || '',
-      memberStatus: ''
+  const info = ref<User>(INITIAL_INFO)
+  const refreshToken = ref(Cookies.get('refreshToken') || '')
+  const isLogined = ref(!!refreshToken.value)
+  const router = useRouter()
+
+  async function updateMemberInfoWithToken() {
+    if (!Cookies.get('accessToken')) {
+      router.push('/login')
+      return
     }
-    console.log('Updated member info:', info.value)
+    try {
+      const { data }: { data: User } = await axiosInstance.get('/api/members/info')
+      info.value = data
+      isLogined.value = true
+      return data.role
+    } catch {
+      router.push('/login')
+    }
   }
 
   function logout() {
-    info.value = {
-      memberName: '',
-      nickname: '',
-      imageUrl: '',
-      memberRole: '',
-      memberStatus: ''
-    }
+    $reset()
     isLogined.value = false
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
   }
 
+  function $reset() {
+    info.value = INITIAL_INFO
+  }
+
   return {
     info,
     isLogined,
-    updateMemberInfo,
     updateMemberInfoWithToken,
-    logout
+    logout,
+    $reset
   }
 })
