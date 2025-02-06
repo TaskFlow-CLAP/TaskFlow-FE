@@ -1,9 +1,14 @@
+import type { Role } from './common'
+
 export interface User {
-  memberName: string
-  nickname: string
-  imageUrl: string
-  memberRole: string
-  memberStatus: string
+  profileImageUrl: string
+  name: string
+  nicknanme: string
+  email: string
+  isReviewer: boolean
+  role: Role | ''
+  departmentName: string
+  departmentRole: string
 }
 
 export interface loginDataTypes {

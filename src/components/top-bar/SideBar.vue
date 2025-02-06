@@ -40,9 +40,9 @@
       <div class="flex w-full justify-between px-6 py-4 bg-white">
         <div class="flex w-full items-center gap-3">
           <img
-            v-if="info?.imageUrl"
+            v-if="info?.profileImageUrl"
             class="rounded-[50%] w-10 h-10"
-            :src="info.imageUrl"
+            :src="info.profileImageUrl"
             alt="프로필 이미지" />
           <div
             v-else
@@ -79,9 +79,9 @@ const { info } = storeToRefs(memberStore)
 
 const route = useRoute()
 
-const role = computed(() => info.value.memberRole)
-const name = computed(() => info.value.memberName)
-const nickname = computed(() => info.value.nickname)
+const role = computed(() => info.value.role)
+const name = computed(() => info.value.name)
+const nickname = computed(() => info.value.nicknanme)
 
 const filteredMenu = computed(() => {
   return role.value === 'ROLE_USER'

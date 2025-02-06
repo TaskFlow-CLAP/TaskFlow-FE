@@ -9,7 +9,7 @@
         <img
           v-if="imgUrl"
           class="rounded-full mb-6 w-24 h-24"
-          :src="info.imageUrl"
+          :src="info.profileImageUrl"
           alt="프로필 이미지" />
         <div
           v-else
@@ -58,9 +58,9 @@ const isModalVisible = ref(false)
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 
-const imgUrl = computed(() => info.value.imageUrl)
-const name = computed(() => info.value.memberName)
-const nickname = computed(() => info.value.nickname)
+const imgUrl = computed(() => info.value.profileImageUrl)
+const name = computed(() => info.value.name)
+const nickname = computed(() => info.value.nicknanme)
 
 const router = useRouter()
 
@@ -85,8 +85,9 @@ const closeLogoutModal = () => {
   router.push('/login')
 }
 
-const handleLogout = () => {
+const handleLogout = async () => {
   deleteLogout()
   openLogoutModal()
+  emit('close')
 }
 </script>

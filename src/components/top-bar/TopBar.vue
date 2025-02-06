@@ -4,14 +4,14 @@
       <div class="flex justify-center items-center gap-6 h-full">
         <button
           type="button"
-          v-show="isLogined"
+          v-if="isLogined"
           @click="isSideOpen = true">
           <CommonIcons :name="hamburgerIcon" />
         </button>
         <img src="/MainLogo.svg" />
       </div>
       <div
-        v-show="isLogined"
+        v-if="isLogined"
         class="flex items-center gap-6">
         <div
           :key="isNotifiVisible + ''"
@@ -33,9 +33,9 @@
             type="button"
             @click="toggleProfile">
             <img
-              v-if="info?.imageUrl"
+              v-if="info?.profileImageUrl"
               class="rounded-[50%] w-10 h-10"
-              :src="info.imageUrl"
+              :src="info.profileImageUrl"
               alt="프로필 이미지" />
             <div
               v-else
@@ -79,16 +79,12 @@ onMounted(async () => {
   await memberStore.updateMemberInfoWithToken()
 
   const originUrl = route.path.split('/')[1]
-  if (info.value.memberRole === 'ROLE_USER') {
+  if (info.value.role === 'ROLE_USER') {
     if (!PERMITTED_URL.ROLE_USER.includes(originUrl)) router.push('/my-request')
-  } else if (info.value.memberRole === 'ROLE_MANAGER') {
+  } else if (info.value.role === 'ROLE_MANAGER') {
     if (!PERMITTED_URL.ROLE_MANAGER.includes(originUrl)) router.push('/my-task')
-  } else if (info.value.memberRole === 'ROLE_ADMIN') {
+  } else if (info.value.role === 'ROLE_ADMIN') {
     if (!PERMITTED_URL.ROLE_ADMIN.includes(originUrl)) router.push('/member-management')
-  } else {
-    if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) {
-      router.push('/login')
-    }
   }
 })
 
@@ -99,6 +95,7 @@ const isNotifiVisible = ref(false)
 const isProfileVisible = ref(false)
 
 const fetchNotificationCount = async () => {
+  if (!isLogined.value) return
   try {
     const data = await getNotifiCount()
     countNotifi.value = data.count
@@ -122,7 +119,7 @@ const onCloseSide = () => {
 watch(
   () => info.value,
   async newInfo => {
-    if (newInfo.memberName) {
+    if (newInfo.name) {
       await fetchNotificationCount()
     }
   },
