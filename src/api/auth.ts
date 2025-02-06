@@ -18,7 +18,6 @@ export const postLogin = async (loginData: loginDataTypes) => {
 
 export const patchPassword = async (password: string) => {
   const response = await axiosInstance.patch('/api/members/password', password)
-
   return response.data
 }
 

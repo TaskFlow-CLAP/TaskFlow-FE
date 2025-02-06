@@ -74,9 +74,10 @@ const { isLogined, info } = storeToRefs(memberStore)
 const route = useRoute()
 const router = useRouter()
 onMounted(async () => {
-  await fetchNotificationCount()
-
-  await memberStore.updateMemberInfoWithToken()
+  if (isLogined.value) {
+    await fetchNotificationCount()
+    await memberStore.updateMemberInfoWithToken()
+  }
 
   const originUrl = route.path.split('/')[1]
   if (info.value.role === 'ROLE_USER') {
@@ -115,6 +116,12 @@ const toggleProfile = () => {
 const onCloseSide = () => {
   isSideOpen.value = false
 }
+
+watch(isLogined, newValue => {
+  if (newValue) {
+    location.reload() // 페이지 새로고침
+  }
+})
 
 watch(
   () => info.value,

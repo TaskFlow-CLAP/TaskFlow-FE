@@ -56,7 +56,7 @@ import { computed } from 'vue'
 const isModalVisible = ref(false)
 
 const memberStore = useMemberStore()
-const { info } = storeToRefs(memberStore)
+const { isLogined, info } = storeToRefs(memberStore)
 
 const imgUrl = computed(() => info.value.profileImageUrl)
 const name = computed(() => info.value.name)
@@ -78,6 +78,7 @@ const handleEdit = () => {
 }
 const openLogoutModal = () => {
   isModalVisible.value = true
+  isLogined.value = false
 }
 const closeLogoutModal = () => {
   isModalVisible.value = false
