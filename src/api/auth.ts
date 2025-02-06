@@ -8,11 +8,8 @@ export const postPasswordCheck = async (password: string) => {
   return response.data
 }
 
-export const postLogin = async (loginData: loginDataTypes, sessionId: string) => {
-  const memberStore = useMemberStore()
-  const response = await axiosInstance.post('/api/auths/login', loginData, {
-    headers: { sessionId: sessionId }
-  })
+export const postLogin = async (loginData: loginDataTypes) => {
+  const response = await axiosInstance.post('/api/auths/login', loginData)
   Cookies.set('accessToken', response.data.accessToken, {
     path: '/',
     sameSite: 'strict'
@@ -21,7 +18,6 @@ export const postLogin = async (loginData: loginDataTypes, sessionId: string) =>
     path: '/',
     sameSite: 'strict'
   })
-  await memberStore.updateMemberInfoWithToken()
   return response.data
 }
 
@@ -31,16 +27,8 @@ export const patchPassword = async (password: string) => {
 }
 
 export const deleteLogout = async () => {
-  const refreshToken = Cookies.get('refreshToken')
-  const accessToken = Cookies.get('accessToken')
-
-  const response = await axiosInstance.delete('/api/auths/logout', {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      refreshToken: refreshToken
-    }
-  })
-  Cookies.remove('accessToken', { path: '/' })
-  Cookies.remove('refreshToken', { path: '/' })
-  return response
+  const memberStore = useMemberStore()
+  memberStore.$reset()
+  Cookies.remove('accessToken')
+  Cookies.remove('refreshToken')
 }

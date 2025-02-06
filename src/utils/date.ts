@@ -62,3 +62,20 @@ export const formatTodayOrNot = (dateStr: string, timeStr: string) => {
     return `${inputDate.getMonth() + 1}월 ${inputDate.getDate()}일`
   }
 }
+
+export const formatFullDateTime = (dateString: string) => {
+  const date = new Date(dateString)
+
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+
+  let hours = date.getHours()
+  const minutes = String(date.getMinutes()).padStart(2, '0')
+  const seconds = String(date.getSeconds()).padStart(2, '0')
+
+  const period = hours < 12 ? '오전' : '오후'
+  hours = hours % 12 || 12
+
+  return `${year}.${month}.${day} ${period} ${hours}:${minutes}:${seconds}`
+}

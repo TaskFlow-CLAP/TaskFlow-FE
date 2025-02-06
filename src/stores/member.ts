@@ -3,15 +3,16 @@ import { axiosInstance } from '@/utils/axios'
 import { ref } from 'vue'
 import type { User } from '@/types/auth'
 import Cookies from 'js-cookie'
+import { useRouter } from 'vue-router'
 
 export const useMemberStore = defineStore('memberInfo', () => {
-  const info = ref<User>({
+  const INITIAL_INFO: User = {
+    profileImageUrl: '',
     name: '',
     nickname: '',
-    profileImageUrl: '',
-    role: '',
-    memberStatus: '',
     email: '',
+    isReviewer: false,
+    role: '',
     departmentName: '',
     departmentRole: '',
     notificationSettingInfo: {
@@ -19,46 +20,44 @@ export const useMemberStore = defineStore('memberInfo', () => {
       email: false,
       kakaoWork: false
     }
-  })
-
-  const refreshToken = ref(Cookies.get('refreshToken') || '')
-  const isLogined = ref(!!refreshToken.value)
-
-  async function updateMemberInfoWithToken() {
-    const response = await axiosInstance.get('/api/members/info')
-    updateMemberInfo(response.data)
-    isLogined.value = true
   }
 
-  function updateMemberInfo(responseData: User) {
-    info.value = {
-      name: responseData.name || '',
-      nickname: responseData.nickname || '',
-      email: responseData.email || '',
-      profileImageUrl: responseData.profileImageUrl || '',
-      role: responseData.role || '',
-      memberStatus: responseData.memberStatus || '',
-      departmentName: responseData.departmentName || '',
-      departmentRole: responseData.departmentRole || '',
-      notificationSettingInfo: {
-        agit: responseData.notificationSettingInfo.agit,
-        email: responseData.notificationSettingInfo.email,
-        kakaoWork: responseData.notificationSettingInfo.kakaoWork
-      }
+  const info = ref<User>(INITIAL_INFO)
+  const refreshToken = ref(Cookies.get('refreshToken') || '')
+  const isLogined = ref(!!refreshToken.value)
+  const router = useRouter()
+
+  async function updateMemberInfoWithToken() {
+    if (!Cookies.get('accessToken')) {
+      router.push('/login')
+      return
+    }
+    try {
+      const { data }: { data: User } = await axiosInstance.get('/api/members/info')
+      info.value = data
+      isLogined.value = true
+      return data.role
+    } catch {
+      router.push('/login')
     }
   }
 
   function logout() {
+    $reset()
     isLogined.value = false
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
   }
 
+  function $reset() {
+    info.value = INITIAL_INFO
+  }
+
   return {
     info,
     isLogined,
-    updateMemberInfo,
     updateMemberInfoWithToken,
-    logout
+    logout,
+    $reset
   }
 })

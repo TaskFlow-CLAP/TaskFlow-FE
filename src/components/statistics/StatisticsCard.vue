@@ -13,13 +13,15 @@
         :key="JSON.stringify(labels) + periodType"
         v-if="chartType === 'pie'"
         :labels="labels"
-        :series="series" />
+        :series="series"
+        :period-type="periodType" />
       <LineChart
         :key="JSON.stringify(labels) + periodType"
         v-if="chartType === 'line'"
         :labels="labels"
         :series="series"
-        :data-label="title.slice(4)" />
+        :data-label="title.slice(4)"
+        :period-type="periodType" />
     </div>
   </div>
 </template>

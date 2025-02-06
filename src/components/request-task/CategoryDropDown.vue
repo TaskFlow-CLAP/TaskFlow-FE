@@ -13,9 +13,12 @@
         카테고리를 선택해주세요
       </p>
     </div>
-    <div class="relative flex">
+    <div
+      ref="htmlRef"
+      class="relative flex">
       <div
-        class="flex w-full h-11 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-black"
+        class="flex w-full h-11 items-center rounded p-4 border border-border-1 cursor-pointer text-black"
+        :class="isDisabled ? 'bg-background-1' : 'bg-white'"
         @click="toggleDropdown">
         <p :class="{ 'text-disabled': !modelValue?.name }">
           {{ modelValue?.name ?? labelName + '를 선택해주세요' }}
@@ -26,7 +29,7 @@
       </div>
       <div
         v-if="dropdownOpen"
-        class="absolute w-full h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2 text-black">
+        class="absolute w-full max-h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2 text-black">
         <div
           v-for="option in options"
           :key="option.id"
@@ -44,6 +47,7 @@ import { dropdownIcon } from '@/constants/iconPath'
 import type { Category, CategoryDropdownProps } from '@/types/common'
 import { computed, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
+import { useOutsideClick } from '../hooks/useOutsideClick'
 
 const { options, labelName, modelValue, isLabel, isDisabled, isInvalidate } =
   defineProps<CategoryDropdownProps>()
@@ -62,4 +66,6 @@ const selectOption = (option: Category) => {
   emit('update:modelValue', option)
   dropdownOpen.value = false
 }
+
+const { htmlRef } = useOutsideClick(() => dropdownOpen.value && toggleDropdown())
 </script>

@@ -10,27 +10,22 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 import TaskDetail from '@/components/task-detail/TaskDetail.vue'
-import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const selectedID = ref(route.query.taskId || null)
-const handleModal = (id: string | null) => {
-  selectedID.value = id
-}
 
 watch(
   () => route.query.taskId,
-  newTaskID => {
-    selectedID.value = newTaskID || null
+  newTaskId => {
+    selectedID.value = newTaskId
   }
 )
 
-onMounted(() => {
-  if (route.query.taskId) {
-    selectedID.value = route.query.taskId
-  }
-})
+const handleModal = (id: string | null) => {
+  selectedID.value = id
+}
 </script>

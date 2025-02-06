@@ -1,17 +1,21 @@
 <template>
-  <div class="fixed inset-0 bg-black bg-opacity-15 flex justify-center items-center z-50 p-12">
+  <div
+    :onClick="closeTaskDetail"
+    class="fixed inset-0 bg-black bg-opacity-15 flex justify-center items-center z-50 p-12">
     <div
-      class="flex flex-col overflow-y-auto rounded-lg w-full max-w-[1200px] min-w-[1024px] bg-white p-6">
+      @click.stop
+      class="flex flex-col overflow-y-auto rounded-lg w-full max-w-[1200px] min-w-[768px] h-full bg-white p-6">
       <TaskDetailTopBar
+        v-if="data"
         :is-approved="data?.taskStatus !== 'REQUESTED'"
         :close-task-detail="closeTaskDetail"
         :id="data?.taskId || 0"
-        :isProcessor="data?.processorNickName === info.nickname || info.memberRole === 'ROLE_'"
+        :isProcessor="data?.processorNickName === info.nickname || info.role === 'ROLE_MANAGER'"
         :isRequestor="data?.requesterNickName === info.nickname" />
       <div
-        class="w-full flex gap-6"
-        v-if="data">
-        <div class="w-full h-[718px] flex flex-col gap-y-8 overflow-y-auto scrollbar-hide">
+        v-if="data"
+        class="w-full flex gap-6 relative overflow-y-auto">
+        <div class="w-full flex flex-col gap-y-8 overflow-y-auto scrollbar-hide">
           <TaskDetailLeft :data="data" />
           <div class="w-full h-[1px] bg-border-1 shrink-0"></div>
           <TaskDetailHistory
@@ -32,31 +36,54 @@
 import { getHistory, getTaskDetailManager, getTaskDetailUser } from '@/api/user'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailDatas, TaskDetailHistoryData, TaskDetailProps } from '@/types/user'
-import { useQuery } from '@tanstack/vue-query'
+import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
+import { computed, watch, ref } from 'vue'
 import TaskDetailHistory from './TaskDetailHistory.vue'
 import TaskDetailLeft from './TaskDetailLeft.vue'
 import TaskDetailRight from './TaskDetailRight.vue'
 import TaskDetailTopBar from './TaskDetailTopBar.vue'
 
 const { closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
+const queryClient = useQueryClient()
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
-console.log(info, '인포')
 
-const { data } = useQuery<TaskDetailDatas>({
+const userRole = computed(() => info.value.role)
+const isDataFetched = ref(false)
+
+const fetchData = async () => {
+  if (!userRole.value) return
+  const result =
+    userRole.value === 'ROLE_USER'
+      ? await getTaskDetailUser(selectedId)
+      : await getTaskDetailManager(selectedId)
+  isDataFetched.value = true
+  return result
+}
+
+const { data, refetch } = useQuery<TaskDetailDatas>({
   queryKey: ['taskDetailUser', selectedId],
-  queryFn:
-    info.value.memberRole === 'ROLE_USER'
-      ? () => getTaskDetailUser(selectedId)
-      : () => getTaskDetailManager(selectedId)
+  queryFn: fetchData,
+  enabled: false // Initially disabled
 })
 
 const { data: historyData } = useQuery<TaskDetailHistoryData>({
   queryKey: ['historyData', selectedId],
-  queryFn: () => getHistory(selectedId)
+  queryFn: () => getHistory(selectedId),
+  enabled: isDataFetched.value
 })
 
-console.log(historyData.value, '가져온 히스ㅇ토리', selectedId, '선택된 id')
+// Watch for role changes and trigger refetch
+watch(
+  userRole,
+  async newRole => {
+    if (newRole) {
+      await queryClient.invalidateQueries({ queryKey: ['taskDetailUser', selectedId] })
+      await refetch()
+    }
+  },
+  { immediate: true }
+)
 </script>

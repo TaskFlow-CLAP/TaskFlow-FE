@@ -114,8 +114,7 @@ const changeStatus = async (newStatus: Status) => {
     return
   }
   try {
-    const res = await patchChangeStatus(taskId || 0, newStatus)
-    console.log(res, '상태 바꾸기')
+    await patchChangeStatus(taskId || 0, newStatus)
     queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   } catch (error) {
     console.error('Failed to update status:', error)
