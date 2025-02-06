@@ -106,6 +106,7 @@ export interface TaskDetails {
 }
 
 export interface CommentDetails {
+  commentId: number
   nickName: string
   profileImageUrl: string
   isModified: boolean
@@ -113,6 +114,7 @@ export interface CommentDetails {
 }
 
 export interface CommentFileDetails {
+  commentId: number
   nickName: string
   profileImageUrl: string
   isModified: boolean
