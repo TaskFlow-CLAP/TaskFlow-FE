@@ -118,7 +118,7 @@ export interface UserRegistrationApiProps {
 
 export interface UserUpdateValue {
   name: string
-  email: null
+  email: string
   isReviewer: boolean
   departmentId: number
   role: RoleTypesEnum

@@ -89,12 +89,10 @@ onMounted(async () => {
   if (typeof userId.value === 'string') {
     userData.value = await getMemberDetailAdmin(userId.value)
   }
-  if (userData.value) {
-    if (userData.value.role in RoleMapping) {
-      userRegistrationForm.value = {
-        ...userData.value,
-        role: RoleMapping[userData.value.role as keyof typeof RoleMapping]
-      }
+  if (userData.value && userData.value.role in RoleMapping) {
+    userRegistrationForm.value = {
+      ...userData.value,
+      role: RoleMapping[userData.value.role as keyof typeof RoleMapping]
     }
   }
 })
@@ -109,7 +107,7 @@ const handleSubmit = async () => {
   if (typeof userId.value === 'string') {
     const userData = {
       role: RoleTypeMapping[userRegistrationForm.value.role],
-      email: null,
+      email: userRegistrationForm.value.email,
       name: userRegistrationForm.value.name,
       isReviewer: userRegistrationForm.value.isReviewer,
       departmentId: userRegistrationForm.value.departmentId,
@@ -118,7 +116,7 @@ const handleSubmit = async () => {
     console.log(userData, '수정할 데이터')
     console.log(userId.value, '수정할 아이디')
     await updateMemberAdmin(userId.value, userData)
+    isModalVisible.value = true
   }
-  isModalVisible.value = true
 }
 </script>
