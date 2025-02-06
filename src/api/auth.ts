@@ -3,6 +3,11 @@ import Cookies from 'js-cookie'
 import type { loginDataTypes } from '@/types/auth'
 import { useMemberStore } from '@/stores/member'
 
+export const postPasswordCheck = async (password: string) => {
+  const response = await axiosInstance.post('/api/members/password', password)
+  return response.data
+}
+
 export const postLogin = async (loginData: loginDataTypes, sessionId: string) => {
   const memberStore = useMemberStore()
   const response = await axiosInstance.post('/api/auths/login', loginData, {
