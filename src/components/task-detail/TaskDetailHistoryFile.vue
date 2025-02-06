@@ -31,6 +31,22 @@
         'flex h-full items-end text-xs font-bold text-body',
         isProcessor ? 'ml-4 order-1' : 'ml-2 order-3'
       ]">
+      <div
+        v-if="history.details.commentDetails?.nickName === info.nickname"
+        class="relative cursor-pointer">
+        <CommonIcons
+          :name="menuDotIcon"
+          @click="clickMenuDot" />
+        <div
+          v-if="isClicked"
+          @click="deleteCommentText"
+          :class="[
+            'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
+            isProcessor ? 'right-6' : 'left-6'
+          ]">
+          삭제
+        </div>
+      </div>
       {{ history.details.commentFileDetails?.isModified ? '(수정됨)' : '' }}
       {{ formatTodayOrNot(history.date, history.time) }}
     </div>
@@ -38,15 +54,31 @@
 </template>
 
 <script setup lang="ts">
-import { fileIcon } from '@/constants/iconPath'
-import type { TaskHistory } from '@/types/user'
+import { deleteComment } from '@/api/user'
+import { fileIcon, menuDotIcon } from '@/constants/iconPath'
+import { useMemberStore } from '@/stores/member'
+import type { TaskDetailHistoryChatProps } from '@/types/common'
 import { formatTodayOrNot } from '@/utils/date'
-import { computed, defineProps } from 'vue'
+import { useQueryClient } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
+import { computed, defineProps, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
-const { history, requestorName } = defineProps<{
-  history: TaskHistory
-  requestorName: string
-}>()
+
+const { history, requestorName, taskId } = defineProps<TaskDetailHistoryChatProps>()
+
+const memberStore = useMemberStore()
+const { info } = storeToRefs(memberStore)
+const isClicked = ref(false)
+const queryClient = useQueryClient()
+const clickMenuDot = async () => {
+  isClicked.value = !isClicked.value
+}
+
+const deleteCommentText = async () => {
+  isClicked.value = !isClicked.value
+  await deleteComment(history.historyId)
+  queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
+}
 
 const isProcessor = computed(() => history.details.commentFileDetails?.nickName !== requestorName)
 </script>

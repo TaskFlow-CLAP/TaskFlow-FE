@@ -38,7 +38,8 @@
           <TaskDetailHistoryFile
             v-else-if="item.taskHistoryType === 'COMMENT_FILE'"
             :history="item"
-            :requestor-name="requestorName" />
+            :requestor-name="requestorName"
+            :task-id="taskId" />
           <p>{{ HistoryMessageAfter[item.taskHistoryType] }}</p>
         </div>
       </div>
