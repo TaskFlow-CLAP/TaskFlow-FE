@@ -3,10 +3,10 @@
     <div
       class="flex flex-col overflow-y-auto rounded-lg w-full max-w-[1200px] min-w-[1024px] bg-white p-6">
       <TaskDetailTopBar
-        :is-approved="isApproved"
+        :is-approved="data?.taskStatus !== 'REQUESTED'"
         :close-task-detail="closeTaskDetail"
         :id="data?.taskId || 0"
-        :isProcessor="data?.processorNickName === info.nickname"
+        :isProcessor="data?.processorNickName === info.nickname || info.memberRole === 'ROLE_'"
         :isRequestor="data?.requesterNickName === info.nickname" />
       <div
         class="w-full flex gap-6"
@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { getHistory, getTaskDetailManager } from '@/api/user'
+import { getHistory, getTaskDetailManager, getTaskDetailUser } from '@/api/user'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailDatas, TaskDetailHistoryData, TaskDetailProps } from '@/types/user'
 import { useQuery } from '@tanstack/vue-query'
@@ -39,14 +39,18 @@ import TaskDetailLeft from './TaskDetailLeft.vue'
 import TaskDetailRight from './TaskDetailRight.vue'
 import TaskDetailTopBar from './TaskDetailTopBar.vue'
 
-const { isApproved, closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
+const { closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
+console.log(info, '인포')
 
 const { data } = useQuery<TaskDetailDatas>({
   queryKey: ['taskDetailUser', selectedId],
-  queryFn: () => getTaskDetailManager(selectedId)
+  queryFn:
+    info.value.memberRole === 'ROLE_USER'
+      ? () => getTaskDetailUser(selectedId)
+      : () => getTaskDetailManager(selectedId)
 })
 
 const { data: historyData } = useQuery<TaskDetailHistoryData>({

@@ -3,7 +3,8 @@
     <p class="task-detail">히스토리</p>
     <TaskDetailHistoryInput
       :history="historyData"
-      :taskId="taskId" />
+      :taskId="taskId"
+      :requestor-name="requestorName" />
     <div class="flex flex-col w-full items-center gap-6 mt-8">
       <div
         class="flex w-full flex-col items-center gap-6"

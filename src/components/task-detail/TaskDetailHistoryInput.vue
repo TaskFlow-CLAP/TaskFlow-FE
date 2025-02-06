@@ -42,7 +42,11 @@ import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { history, taskId } = defineProps<{ history: TaskHistory[]; taskId: number }>()
+const { history, taskId, requestorName } = defineProps<{
+  history: TaskHistory[]
+  taskId: number
+  requestorName: string
+}>()
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 const queryClient = useQueryClient()
@@ -50,7 +54,12 @@ const queryClient = useQueryClient()
 const messageText = ref('')
 const isComposing = ref(false)
 
-const isPossible = computed(() => history.length !== 0 && info.value.memberRole !== 'ROLE_USER')
+const isPossible = computed(
+  () =>
+    history.length !== 0 &&
+    (info.value.memberRole !== 'ROLE_USER' || info.value.nickname === requestorName)
+)
+
 const isSendable = computed(() => isPossible.value && messageText.value.trim() !== '')
 const placeHolderText = computed(() =>
   isPossible.value ? '텍스트를 입력' : '요청 승인 후 작성할 수 있습니다'

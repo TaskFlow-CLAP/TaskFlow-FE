@@ -115,7 +115,6 @@ export interface CommentFileDetails {
 }
 
 export interface TaskDetailProps {
-  isApproved: boolean
   selectedId: number
   closeTaskDetail: () => void
 }
