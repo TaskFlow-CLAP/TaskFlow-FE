@@ -5,7 +5,7 @@
         <button
           type="button"
           v-if="isLogined"
-          @click="toggleSidebar">
+          @click="onOpenSide">
           <CommonIcons :name="hamburgerIcon" />
         </button>
         <img src="/MainLogo.svg" />
@@ -67,7 +67,6 @@ import { getNotifiCount } from '@/api/common'
 import { useRoute, useRouter } from 'vue-router'
 import { PERMITTED_URL } from '@/constants/common'
 import { useOutsideClick } from '../hooks/useOutsideClick'
-import { useScrollLockStore } from '@/stores/scrollLock'
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)
@@ -116,6 +115,7 @@ const toggleProfile = () => {
 
 const onCloseSide = () => {
   isSideOpen.value = false
+  document.body.style.overflow = ''
 }
 
 watch(isLogined, newValue => {
@@ -137,10 +137,8 @@ watch(
 const { htmlRef: notifiRef } = useOutsideClick(() => isNotifiVisible.value && toggleNotifi())
 const { htmlRef: profileRef } = useOutsideClick(() => isProfileVisible.value && toggleProfile())
 
-const store = useScrollLockStore()
-const { scrollLock } = storeToRefs(store)
-const toggleSidebar = () => {
+const onOpenSide = () => {
+  document.body.style.overflow = 'hidden'
   isSideOpen.value = !isSideOpen.value
-  scrollLock.value = !scrollLock.value
 }
 </script>

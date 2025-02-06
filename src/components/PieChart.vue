@@ -5,7 +5,9 @@
     :options="options" />
   <NoContent
     v-else
-    :content="!content ? `집계된 ${periodText[periodType]} 데이터가 없습니다` : content" />
+    :content="
+      !content && periodType ? `집계된 ${periodText[periodType]} 데이터가 없습니다` : content
+    " />
 </template>
 
 <script setup lang="ts">
@@ -27,7 +29,7 @@ ChartJS.register(Title, Tooltip, Legend, ArcElement, Colors)
 const { labels, series, periodType, content } = defineProps<{
   labels: string[]
   series: number[]
-  periodType: PeriodType
+  periodType?: PeriodType
   content?: string
 }>()
 const emit = defineEmits(['onClick'])

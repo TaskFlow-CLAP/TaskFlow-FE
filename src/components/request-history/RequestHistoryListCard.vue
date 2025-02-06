@@ -30,6 +30,8 @@ const { info } = defineProps<{ info: RequestHistoryListData }>()
 const selectedID = ref<number | null>(null)
 
 const handleModal = (id: number | null) => {
+  if (id) document.body.style.overflow = 'hidden'
+  else document.body.style.overflow = ''
   selectedID.value = id
 }
 const myRequestTabList: ListCardProps[] = [

@@ -17,7 +17,7 @@
         승인
       </button>
       <button
-        @click="toggleModal('reject')"
+        @click.stop="toggleModal('reject')"
         class="button-medium-default">
         거부
       </button>
@@ -75,6 +75,8 @@ const requestedTabList: ListCardProps[] = [
 const selectedID = ref<number | null>(null)
 
 const handleModal = (id: number | null) => {
+  if (id) document.body.style.overflow = 'hidden'
+  else document.body.style.overflow = ''
   selectedID.value = id
 }
 
@@ -89,11 +91,13 @@ const isModalVisible = ref({
 const modalError = ref('')
 const rejectReason = ref('')
 const toggleModal = (key: keyof typeof isModalVisible.value) => {
+  document.body.style.overflow = 'hidden'
   isModalVisible.value = Object.fromEntries(
     Object.keys(isModalVisible.value).map(k => [k, k === key])
   ) as typeof isModalVisible.value
 }
 const closeModal = () => {
+  document.body.style.overflow = ''
   const prevSuccess = isModalVisible.value.success
   isModalVisible.value = { reject: false, fail: false, success: false }
   if (prevSuccess) queryClient.invalidateQueries({ queryKey: ['requested'] })
