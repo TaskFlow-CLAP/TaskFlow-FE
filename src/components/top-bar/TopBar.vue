@@ -65,9 +65,10 @@ const { isLogined, info } = storeToRefs(memberStore)
 const route = useRoute()
 const router = useRouter()
 onMounted(async () => {
-  await fetchNotificationCount()
-
-  await memberStore.updateMemberInfoWithToken()
+  if (isLogined.value) {
+    await fetchNotificationCount()
+    await memberStore.updateMemberInfoWithToken()
+  }
 
   const originUrl = route.path.split('/')[1]
   if (info.value.memberRole === 'ROLE_USER') {
@@ -90,11 +91,13 @@ const isNotifiVisible = ref(false)
 const isProfileVisible = ref(false)
 
 const fetchNotificationCount = async () => {
-  try {
-    const data = await getNotifiCount()
-    countNotifi.value = data.count
-  } catch (error) {
-    console.error('알림 개수 불러오기 실패:', error)
+  if (isLogined.value) {
+    try {
+      const data = await getNotifiCount()
+      countNotifi.value = data.count
+    } catch (error) {
+      console.error('알림 개수 불러오기 실패:', error)
+    }
   }
 }
 
@@ -109,10 +112,16 @@ const onCloseSide = () => {
   isSideOpen.value = false
 }
 
+watch(isLogined, newValue => {
+  if (newValue) {
+    location.reload() // 페이지 새로고침
+  }
+})
+
 watch(
   () => info.value,
   async newInfo => {
-    if (newInfo.memberName) {
+    if (newInfo.memberName && isLogined) {
       await fetchNotificationCount()
     }
   },
