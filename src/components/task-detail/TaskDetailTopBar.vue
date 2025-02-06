@@ -21,7 +21,7 @@
         <p class="text-primary1">요청 승인</p>
       </div>
       <div
-        @click="cancelTask"
+        @click="toggleModal('cancel')"
         v-if="!isApproved && (isRequestor || isProcessor)"
         class="flex gap-1 items-center cursor-pointer">
         <CommonIcons :name="cancelIcon" />
@@ -33,16 +33,24 @@
       @click="closeTaskDetail"
       class="cursor-pointer" />
     <ModalView
-      type="inputType"
       :is-open="isModalOpen.cancel"
-      @click="cancelTask"
-      @close="cancelTask">
-      <template #header>거부 사유를 입력해주세요</template>
+      type="warningType"
+      @close="closeCancelModal()"
+      @click="cancelTask">
+      <template #header>요청을 취소 하시겠습니까?</template>
+      <template #body>요청하신 내용은 사라집니다</template>
+    </ModalView>
+    <ModalView
+      :is-open="isModalOpen.success"
+      type="successType"
+      @close="toggleModal('success')">
+      <template #header>요청이 취소되었습니다</template>
     </ModalView>
   </div>
 </template>
 
 <script setup lang="ts">
+import { cancelTaskUser } from '@/api/user'
 import {
   approveIcon,
   cancelIcon,
@@ -62,19 +70,24 @@ const { isApproved, closeTaskDetail, id, isProcessor, isRequestor } =
 
 const isModalOpen = ref({
   cancel: false,
-  approve: false
+  success: false
 })
 
 const toggleModal = (key: keyof typeof isModalOpen.value) => {
   isModalOpen.value[key] = !isModalOpen.value[key]
 }
 
-const cancelTask = () => {
+const closeCancelModal = () => {
+  isModalOpen.value.cancel = false
+}
+
+const cancelTask = async () => {
+  await cancelTaskUser(id)
   toggleModal('cancel')
+  toggleModal('success')
 }
 
 const ApproveTask = () => {
-  toggleModal('approve')
   router.push(`/request-approve/${id}`)
 }
 

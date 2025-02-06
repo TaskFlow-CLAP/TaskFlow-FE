@@ -71,3 +71,8 @@ export const deleteComment = async (commentId: number) => {
   const response = await axiosInstance.delete(`/api/comment/${commentId}`)
   return response.data
 }
+
+export const cancelTaskUser = async (taskId: number) => {
+  const response = await axiosInstance.patch(`/api/tasks/${taskId}/cancel`)
+  return response.data
+}
