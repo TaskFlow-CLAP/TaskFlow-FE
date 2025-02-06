@@ -6,9 +6,7 @@
         <div class="flex items-center gap-3">
           <span class="text-xs font-bold text-body">진행 중 {{ teamSummary.inProgress }}건</span>
           <div class="w-[1px] h-[10px] bg-body" />
-          <span class="text-xs font-bold text-body"
-            >완료 대기 {{ teamSummary.pendingCompletion }}건</span
-          >
+          <span class="text-xs font-bold text-body">완료 대기 {{ teamSummary.inReviewing }}건</span>
         </div>
         <span class="text-xs font-bold text-primary1">총 {{ teamSummary.totalTasks }}건</span>
       </div>
@@ -28,7 +26,7 @@ import PieChart from '../PieChart.vue'
 const { teamSummary, teamData } = defineProps<{
   teamSummary: {
     inProgress: number
-    pendingCompletion: number
+    inReviewing: number
     totalTasks: number
   }
   teamData: { name: string; tasks: number }[]

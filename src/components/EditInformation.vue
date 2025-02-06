@@ -10,8 +10,8 @@
     <div class="profile">
       <p class="text-body text-xs font-bold">프로필 사진</p>
       <img
-        v-if="previewUrl || info.imageUrl"
-        :src="previewUrl || info.imageUrl"
+        v-if="previewUrl || info.profileImageUrl"
+        :src="previewUrl || info.profileImageUrl"
         alt="프로필 이미지"
         class="w-24 h-24 rounded-full object-cover border mt-3" />
 
@@ -33,7 +33,7 @@
       <input
         class="input-box h-11 mt-2 text-black"
         placeholder="이름을 입력해주세요"
-        v-model="info.memberName" />
+        v-model="info.name" />
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">아이디</p>
@@ -55,17 +55,17 @@
       <p class="text-body text-xs font-bold">알림 수신 여부</p>
       <div class="flex flex-col mt-2 gap-2">
         <FormCheckbox
-          v-model="memberForm.isAgitChecked"
+          v-model="info.notificationSettingInfo.agit"
           :checkButtonName="'아지트'"
-          :isChecked="memberForm.isAgitChecked" />
+          :isChecked="info.notificationSettingInfo.agit" />
         <FormCheckbox
-          v-model="memberForm.isKakaoWorkChecked"
+          v-model="info.notificationSettingInfo.kakaoWork"
           :checkButtonName="'카카오워크'"
-          :isChecked="memberForm.isKakaoWorkChecked" />
+          :isChecked="info.notificationSettingInfo.kakaoWork" />
         <FormCheckbox
-          v-model="memberForm.isEmailChecked"
+          v-model="info.notificationSettingInfo.email"
           :checkButtonName="'이메일'"
-          :isChecked="memberForm.isEmailChecked" />
+          :isChecked="info.notificationSettingInfo.email" />
       </div>
     </div>
     <div>
@@ -94,8 +94,7 @@ import FormCheckbox from './common/FormCheckbox.vue'
 const router = useRouter()
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
-import { patchEditInfo } from '@/api/user'
-import
+import { patchEditInfo } from '@/api/common'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
@@ -105,20 +104,6 @@ const previewUrl = ref<string | null>(null)
 
 const isModalVisible = ref(false)
 
-const memberForm = ref({
-  isAgitChecked: false,
-  isKakaoWorkChecked: false,
-  isEmailChecked: false
-})
-
-const formData = new FormData()
-
-const requestData: any = {
-  name: info.value.memberName,
-  agitNotification: memberForm.value.isAgitChecked,
-  emailNotification: memberForm.value.isEmailChecked,
-  kakaoWorkNotification: memberForm.value.isKakaoWorkChecked
-}
 const handleCancel = () => {
   router.back()
 }
@@ -136,9 +121,30 @@ const handleFileUpload = (event: Event) => {
   }
 }
 
-const handleSubmit = () => {
-  isModalVisible.value = true
-  console.log(requestData)
-  patchEditInfo(requestData, selectedFile.value)
+const handleSubmit = async () => {
+  const formData = new FormData()
+  const memberInfo = {
+    name: info.value.name,
+    agitNotification: info.value.notificationSettingInfo.agit,
+    emailNotification: info.value.notificationSettingInfo.email,
+    kakaoWorkNotification: info.value.notificationSettingInfo.kakaoWork
+  }
+
+  const jsonMemberInfo = JSON.stringify(memberInfo)
+  const newBlob = new Blob([jsonMemberInfo], { type: 'application/json' })
+
+  formData.append('memberInfo', newBlob)
+
+  if (selectedFile.value) {
+    formData.append('profileImage', selectedFile.value)
+  }
+
+  try {
+    await patchEditInfo(formData)
+    isModalVisible.value = true
+    await memberStore.updateMemberInfoWithToken()
+  } catch (error) {
+    console.error('요청 실패:', error)
+  }
 }
 </script>

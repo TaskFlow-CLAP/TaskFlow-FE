@@ -6,14 +6,19 @@ import Cookies from 'js-cookie'
 
 export const useMemberStore = defineStore('memberInfo', () => {
   const info = ref<User>({
-    memberName: '',
+    name: '',
     nickname: '',
-    imageUrl: '',
-    memberRole: '',
+    profileImageUrl: '',
+    role: '',
     memberStatus: '',
     email: '',
     departmentName: '',
-    departmentRole: ''
+    departmentRole: '',
+    notificationSettingInfo: {
+      agit: false,
+      email: false,
+      kakaoWork: false
+    }
   })
 
   const refreshToken = ref(Cookies.get('refreshToken') || '')
@@ -21,36 +26,29 @@ export const useMemberStore = defineStore('memberInfo', () => {
 
   async function updateMemberInfoWithToken() {
     const response = await axiosInstance.get('/api/members/info')
-    console.log('API Response:', response.data)
     updateMemberInfo(response.data)
     isLogined.value = true
   }
 
-  function updateMemberInfo(responseData: any) {
+  function updateMemberInfo(responseData: User) {
     info.value = {
-      memberName: responseData.name || '',
-      nickname: responseData.nicknanme || '',
+      name: responseData.name || '',
+      nickname: responseData.nickname || '',
       email: responseData.email || '',
-      imageUrl: responseData.profileImageUrl || '',
-      memberRole: responseData.role || '',
+      profileImageUrl: responseData.profileImageUrl || '',
+      role: responseData.role || '',
       memberStatus: responseData.memberStatus || '',
       departmentName: responseData.departmentName || '',
-      departmentRole: responseData.departmentRole || ''
+      departmentRole: responseData.departmentRole || '',
+      notificationSettingInfo: {
+        agit: responseData.notificationSettingInfo.agit,
+        email: responseData.notificationSettingInfo.email,
+        kakaoWork: responseData.notificationSettingInfo.kakaoWork
+      }
     }
-    console.log('Updated member info:', info.value)
   }
 
   function logout() {
-    info.value = {
-      memberName: '',
-      nickname: '',
-      imageUrl: '',
-      memberRole: '',
-      memberStatus: '',
-      email: '',
-      departmentName: '',
-      departmentRole: ''
-    }
     isLogined.value = false
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
