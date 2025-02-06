@@ -29,7 +29,7 @@
         isProcessor ? 'order-1 items-end' : 'order-3 items-start'
       ]">
       <div
-        v-if="history.details.commentDetails?.nickName === info.nicknanme"
+        v-if="history.details.commentDetails?.nickName === info.nickname"
         class="relative cursor-pointer">
         <CommonIcons
           :name="menuDotIcon"

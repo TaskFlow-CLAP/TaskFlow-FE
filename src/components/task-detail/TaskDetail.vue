@@ -10,8 +10,8 @@
         :is-approved="data?.taskStatus !== 'REQUESTED'"
         :close-task-detail="closeTaskDetail"
         :id="data?.taskId || 0"
-        :isProcessor="data?.processorNickName === info.nicknanme || info.role === 'ROLE_MANAGER'"
-        :isRequestor="data?.requesterNickName === info.nicknanme" />
+        :isProcessor="data?.processorNickName === info.nickname || info.role === 'ROLE_MANAGER'"
+        :isRequestor="data?.requesterNickName === info.nickname" />
       <div
         v-if="data"
         class="w-full flex gap-6 relative overflow-y-auto">
@@ -26,7 +26,7 @@
         <div class="w-[1px] bg-border-1"></div>
         <TaskDetailRight
           :data
-          :isProcessor="data?.processorNickName === info.nicknanme" />
+          :isProcessor="data?.processorNickName === info.nickname" />
       </div>
     </div>
   </div>

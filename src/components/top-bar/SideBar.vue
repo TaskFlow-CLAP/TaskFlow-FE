@@ -81,7 +81,7 @@ const route = useRoute()
 
 const role = computed(() => info.value.role)
 const name = computed(() => info.value.name)
-const nickname = computed(() => info.value.nicknanme)
+const nickname = computed(() => info.value.nickname)
 
 const filteredMenu = computed(() => {
   return role.value === 'ROLE_USER'

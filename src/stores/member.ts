@@ -9,7 +9,7 @@ export const useMemberStore = defineStore('memberInfo', () => {
   const INITIAL_INFO: User = {
     profileImageUrl: '',
     name: '',
-    nicknanme: '',
+    nickname: '',
     email: '',
     isReviewer: false,
     role: '',

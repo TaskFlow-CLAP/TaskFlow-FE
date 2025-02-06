@@ -60,7 +60,7 @@ const { isLogined, info } = storeToRefs(memberStore)
 
 const imgUrl = computed(() => info.value.profileImageUrl)
 const name = computed(() => info.value.name)
-const nickname = computed(() => info.value.nicknanme)
+const nickname = computed(() => info.value.nickname)
 
 const router = useRouter()
 
