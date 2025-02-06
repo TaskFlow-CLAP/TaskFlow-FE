@@ -1,4 +1,9 @@
-import { axiosInstance } from '../utils/axios'
+import { axiosInstance, formDataAxiosInstance } from '../utils/axios'
+
+export const patchEditInfo = async (formdata: FormData) => {
+  const response = await formDataAxiosInstance.patch('/api/members/info', formdata)
+  return response.data
+}
 
 export const getNotification = async (pageNum: number, sizeNum: number) => {
   const response = await axiosInstance.get(`/api/notifications?page=${pageNum}&size=${sizeNum}`)
