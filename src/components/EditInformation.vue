@@ -10,15 +10,22 @@
     <div class="profile">
       <p class="text-body text-xs font-bold">프로필 사진</p>
       <img
-        v-if="imageUrl"
-        :src="imageUrl"
+        v-if="previewUrl || info.imageUrl"
+        :src="previewUrl || info.imageUrl"
         alt="프로필 이미지"
         class="w-24 h-24 rounded-full object-cover border mt-3" />
-      <div
-        v-else
-        class="w-24 h-24 rounded-full bg-background-1 flex items-center justify-center mt-3"></div>
-      <!-- 파일 업로드 필요 -->
-      <p class="mt-3 text-xs text-primary1 font-bold cursor-pointer">변경</p>
+
+      <label
+        for="fileInput"
+        class="mt-3 text-xs text-primary1 font-bold cursor-pointer"
+        >변경</label
+      >
+      <input
+        id="fileInput"
+        type="file"
+        @change="handleFileUpload"
+        accept="image/*"
+        class="hidden" />
     </div>
 
     <div class="flex flex-col">
@@ -26,23 +33,23 @@
       <input
         class="input-box h-11 mt-2 text-black"
         placeholder="이름을 입력해주세요"
-        v-model="memberName" />
+        v-model="info.memberName" />
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">아이디</p>
-      <p class="mt-2 text-black">{{ memberId }}</p>
+      <p class="mt-2 text-black">{{ info.nickname }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">이메일</p>
-      <p class="mt-2 text-black">{{ memberEmail }}</p>
+      <p class="mt-2 text-black">{{ info.email }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">부서</p>
-      <p class="mt-2 text-black">{{ memberDepartment }}</p>
+      <p class="mt-2 text-black">{{ info.departmentName }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">직무</p>
-      <p class="mt-2 text-black">{{ memberJob }}</p>
+      <p class="mt-2 text-black">{{ info.departmentRole }}</p>
     </div>
     <div>
       <p class="text-body text-xs font-bold">알림 수신 여부</p>
@@ -85,13 +92,17 @@ import ModalView from './ModalView.vue'
 import FormButtonContainer from './common/FormButtonContainer.vue'
 import FormCheckbox from './common/FormCheckbox.vue'
 const router = useRouter()
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+import { patchEditInfo } from '@/api/user'
+import
 
-const memberName = ref('백지연')
-const memberId = ref('Chole.yeon')
-const memberEmail = ref('taskflow123@gachon.ac.kr')
-const memberDepartment = ref('인프라팀')
-const memberJob = ref('인프라 아키텍처')
-const imageUrl = ref('')
+const memberStore = useMemberStore()
+const { info } = storeToRefs(memberStore)
+
+const selectedFile = ref<File | null>(null)
+const previewUrl = ref<string | null>(null)
+
 const isModalVisible = ref(false)
 
 const memberForm = ref({
@@ -100,15 +111,34 @@ const memberForm = ref({
   isEmailChecked: false
 })
 
+const formData = new FormData()
+
+const requestData: any = {
+  name: info.value.memberName,
+  agitNotification: memberForm.value.isAgitChecked,
+  emailNotification: memberForm.value.isEmailChecked,
+  kakaoWorkNotification: memberForm.value.isKakaoWorkChecked
+}
 const handleCancel = () => {
   router.back()
 }
 
-const handleSubmit = () => {
-  isModalVisible.value = true
-}
-
 const handlePwChange = () => {
   router.push('/pw-check')
+}
+
+const handleFileUpload = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  if (target.files && target.files[0]) {
+    selectedFile.value = target.files[0]
+
+    previewUrl.value = URL.createObjectURL(selectedFile.value)
+  }
+}
+
+const handleSubmit = () => {
+  isModalVisible.value = true
+  console.log(requestData)
+  patchEditInfo(requestData, selectedFile.value)
 }
 </script>

@@ -10,7 +10,10 @@ export const useMemberStore = defineStore('memberInfo', () => {
     nickname: '',
     imageUrl: '',
     memberRole: '',
-    memberStatus: ''
+    memberStatus: '',
+    email: '',
+    departmentName: '',
+    departmentRole: ''
   })
 
   const refreshToken = ref(Cookies.get('refreshToken') || '')
@@ -27,9 +30,12 @@ export const useMemberStore = defineStore('memberInfo', () => {
     info.value = {
       memberName: responseData.name || '',
       nickname: responseData.nicknanme || '',
+      email: responseData.email || '',
       imageUrl: responseData.profileImageUrl || '',
       memberRole: responseData.role || '',
-      memberStatus: ''
+      memberStatus: responseData.memberStatus || '',
+      departmentName: responseData.departmentName || '',
+      departmentRole: responseData.departmentRole || ''
     }
     console.log('Updated member info:', info.value)
   }
@@ -40,7 +46,10 @@ export const useMemberStore = defineStore('memberInfo', () => {
       nickname: '',
       imageUrl: '',
       memberRole: '',
-      memberStatus: ''
+      memberStatus: '',
+      email: '',
+      departmentName: '',
+      departmentRole: ''
     }
     isLogined.value = false
     Cookies.remove('accessToken')
