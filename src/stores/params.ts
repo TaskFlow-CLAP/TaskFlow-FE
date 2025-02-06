@@ -79,10 +79,11 @@ export const useLogsParamsStore = defineStore('logsParams', () => {
 
 export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
   const params = ref<TeamBoardParams>({
-    order: 'CONTRIBUTION',
-    title: '',
+    sortBy: 'CONTRIBUTE',
     mainCategoryIds: [],
-    categoryIds: []
+    categoryIds: [],
+    taskTitle: '',
+    valid: true
   })
 
   return { params }

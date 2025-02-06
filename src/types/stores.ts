@@ -35,10 +35,11 @@ export interface LogsParams {
 }
 
 export interface TeamBoardParams {
-  order: string
-  title: string
+  sortBy: string
   mainCategoryIds: number[]
   categoryIds: number[]
+  taskTitle: string
+  valid?: boolean
 }
 
 export interface TaskBoardParams {

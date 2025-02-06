@@ -50,3 +50,15 @@ export const formatDaysBefore = (dateString: string) => {
 
   return `${diffDays}일 남음`
 }
+export const formatTodayOrNot = (dateStr: string, timeStr: string) => {
+  const inputDate = new Date(`${dateStr}T${timeStr}`)
+  const today = new Date()
+
+  const isSameDay = inputDate.toDateString() === today.toDateString()
+
+  if (isSameDay) {
+    return inputDate.toTimeString().slice(0, 5)
+  } else {
+    return `${inputDate.getMonth() + 1}월 ${inputDate.getDate()}일`
+  }
+}

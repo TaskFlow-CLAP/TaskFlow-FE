@@ -1,8 +1,8 @@
 <template>
   <div class="min-w-60 flex flex-col gap-y-6 pb-6 text-black">
     <div>
-      <p class="task-detail">ID</p>
-      <p class="text-sm text-black">{{ data.taskId || '-' }}</p>
+      <p class="task-detail">고유코드</p>
+      <p class="text-sm text-black">{{ data.taskCode || '-' }}</p>
     </div>
     <div>
       <p class="task-detail">요청일</p>
@@ -56,25 +56,31 @@
         <p class="text-sm text-black">{{ data.processorNickName || '-' }}</p>
       </div>
     </div>
-    <div v-if="data.dueDate">
+    <div>
       <p class="task-detail">마감기한</p>
-      <div class="w-full flex justify-between items-center">
-        <p class="text-sm text-black">{{ formatDueDate(data.dueDate) || '-' }}</p>
+      <div v-if="data.dueDate">
+        <div class="w-full flex justify-between items-center">
+          <p class="text-sm text-black">{{ formatDueDate(data.dueDate) || '-' }}</p>
+        </div>
+        <p class="text-red-1 text-xs font-bold">{{ formatDaysBefore(data.dueDate) }}</p>
       </div>
-      <p class="text-red-1 text-xs font-bold">{{ formatDaysBefore(data.dueDate) }}</p>
+      <div v-else>-</div>
     </div>
-    <div v-if="data.labelName">
+    <div>
       <p class="task-detail">구분</p>
-      <TaskDetailLabelDropdown
-        v-if="isProcessor"
-        v-model="taskLabel"
-        :placeholder-text="'라벨을 선택해주세요'"
-        :task-id="data.taskId" />
-      <div
-        v-else-if="!isProcessor"
-        class="flex w-full items-center bg-white text-sm text-black">
-        {{ data.labelName }}
+      <div v-if="data.labelName">
+        <TaskDetailLabelDropdown
+          v-if="isProcessor"
+          v-model="taskLabel"
+          :placeholder-text="'라벨을 선택해주세요'"
+          :task-id="data.taskId" />
+        <div
+          v-else-if="!isProcessor"
+          class="flex w-full items-center bg-white text-sm text-black">
+          {{ data.labelName }}
+        </div>
       </div>
+      <div v-else>-</div>
     </div>
   </div>
 </template>
