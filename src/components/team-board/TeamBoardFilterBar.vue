@@ -3,8 +3,8 @@
     <FilterDropdown
       title="정렬"
       :option-list="[
-        { value: '기여도순', content: '기여도순' },
-        { value: '이름순', content: '이름순' }
+        { value: 'CONTRIBUTE', content: '기여도순' },
+        { value: 'DEFAULT', content: '이름순' }
       ]"
       :value="params.sortBy"
       @update:value="onParamsChange.onSortByChange" />

@@ -79,7 +79,7 @@ export const useLogsParamsStore = defineStore('logsParams', () => {
 
 export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
   const params = ref<TeamBoardParams>({
-    sortBy: '기여도순',
+    sortBy: 'CONTRIBUTE',
     mainCategoryIds: [],
     categoryIds: [],
     taskTitle: '',
