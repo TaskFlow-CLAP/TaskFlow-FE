@@ -14,10 +14,15 @@ export const useMemberStore = defineStore('memberInfo', () => {
     isReviewer: false,
     role: '',
     departmentName: '',
-    departmentRole: ''
+    departmentRole: '',
+    notificationSettingInfo: {
+      agit: false,
+      email: false,
+      kakaoWork: false
+    }
   }
-  const info = ref<User>(INITIAL_INFO)
 
+  const info = ref<User>(INITIAL_INFO)
   const refreshToken = ref(Cookies.get('refreshToken') || '')
   const isLogined = ref(!!refreshToken.value)
   const router = useRouter()

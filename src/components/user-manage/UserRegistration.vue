@@ -69,9 +69,7 @@ const handleCancel = () => {
 }
 
 const handleSubmit = async () => {
-  console.log(userRegistrationForm.value)
   const formData = { ...userRegistrationForm.value, role: 'ROLE_USER', departmentId: 1 }
-  console.log(formData, '요청정보')
   await addMemberAdmin(formData)
   isModalVisible.value = true
 }

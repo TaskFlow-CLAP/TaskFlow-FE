@@ -1,13 +1,6 @@
 import type { LabelDataTypes, Status } from './common'
 import type { ManagerTypes } from './manager'
 
-export interface userInfo {
-  name: string
-  agitNotification: boolean
-  emailNotification: boolean
-  kakaoWorkNotification: boolean
-}
-
 export interface MyRequestListData {
   taskId: number
   taskCode: string
@@ -106,6 +99,7 @@ export interface TaskDetails {
 }
 
 export interface CommentDetails {
+  commentId: number
   nickName: string
   profileImageUrl: string
   isModified: boolean
@@ -113,6 +107,7 @@ export interface CommentDetails {
 }
 
 export interface CommentFileDetails {
+  commentId: number
   nickName: string
   profileImageUrl: string
   isModified: boolean

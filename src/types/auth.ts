@@ -9,6 +9,11 @@ export interface User {
   role: Role | ''
   departmentName: string
   departmentRole: string
+  notificationSettingInfo: {
+    agit: boolean
+    email: boolean
+    kakaoWork: boolean
+  }
 }
 
 export interface loginDataTypes {

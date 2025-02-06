@@ -77,7 +77,9 @@ const clickMenuDot = async () => {
 
 const deleteCommentText = async () => {
   isClicked.value = !isClicked.value
-  await deleteComment(history.historyId)
+  if (history.details.commentDetails?.commentId !== undefined) {
+    await deleteComment(history.details.commentDetails.commentId)
+  }
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
 }
 </script>
