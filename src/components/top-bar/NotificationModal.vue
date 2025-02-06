@@ -85,7 +85,6 @@ const hasNext = ref(true)
 const loadMoreNotifications = async ($state: any) => {
   try {
     const response = await getNotification(page.value, pageSize)
-    console.log(response)
 
     if (response.isFirst) {
       notifications.value = response.content
