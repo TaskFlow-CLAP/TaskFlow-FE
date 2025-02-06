@@ -1,5 +1,5 @@
 <template>
-  <div class="min-w-60 flex flex-col gap-y-6 pb-6 text-black">
+  <div class="sticky top-0 min-w-60 flex flex-col gap-y-6 pb-6 text-black overflow-y-auto">
     <div>
       <p class="task-detail">고유코드</p>
       <p class="text-sm text-black">{{ data.taskCode || '-' }}</p>

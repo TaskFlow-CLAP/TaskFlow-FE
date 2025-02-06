@@ -1,8 +1,9 @@
 <template>
-  <div class="list-card">
+  <div
+    class="list-card"
+    @click="handleModal(info.taskId)">
     <ListCardTab
       v-for="tab in requestedTabList"
-      @click="handleModal(info.taskId)"
       :key="tab.content"
       :content="tab.content"
       :width="tab.width"

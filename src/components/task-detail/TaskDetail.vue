@@ -1,17 +1,20 @@
 <template>
-  <div class="fixed inset-0 bg-black bg-opacity-15 flex justify-center items-center z-50 p-12">
+  <div
+    :onClick="closeTaskDetail"
+    class="fixed inset-0 bg-black bg-opacity-15 flex justify-center items-center z-50 p-12">
     <div
-      class="flex flex-col overflow-y-auto rounded-lg w-full max-w-[1200px] min-w-[1024px] bg-white p-6">
+      @click.stop
+      class="flex flex-col overflow-y-auto rounded-lg w-full max-w-[1200px] min-w-[768px] h-full bg-white p-6">
       <TaskDetailTopBar
         :is-approved="data?.taskStatus !== 'REQUESTED'"
         :close-task-detail="closeTaskDetail"
         :id="data?.taskId || 0"
-        :isProcessor="data?.processorNickName === info.nickname || info.memberRole === 'ROLE_'"
-        :isRequestor="data?.requesterNickName === info.nickname" />
+        :isProcessor="data?.processorNickName === info.nicknanme || info.role === 'ROLE_MANAGER'"
+        :isRequestor="data?.requesterNickName === info.nicknanme" />
       <div
-        class="w-full flex gap-6"
+        class="w-full flex gap-6 relative overflow-y-auto"
         v-if="data">
-        <div class="w-full h-[718px] flex flex-col gap-y-8 overflow-y-auto scrollbar-hide">
+        <div class="w-full flex flex-col gap-y-8 overflow-y-auto scrollbar-hide">
           <TaskDetailLeft :data="data" />
           <div class="w-full h-[1px] bg-border-1 shrink-0"></div>
           <TaskDetailHistory
@@ -22,7 +25,7 @@
         <div class="w-[1px] bg-border-1"></div>
         <TaskDetailRight
           :data
-          :isProcessor="data?.processorNickName === info.nickname" />
+          :isProcessor="data?.processorNickName === info.nicknanme" />
       </div>
     </div>
   </div>
@@ -48,7 +51,7 @@ console.log(info, '인포')
 const { data } = useQuery<TaskDetailDatas>({
   queryKey: ['taskDetailUser', selectedId],
   queryFn:
-    info.value.memberRole === 'ROLE_USER'
+    info.value.role === 'ROLE_USER'
       ? () => getTaskDetailUser(selectedId)
       : () => getTaskDetailManager(selectedId)
 })

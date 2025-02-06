@@ -25,7 +25,7 @@
         v-if="!isApproved && (isRequestor || isProcessor)"
         class="flex gap-1 items-center cursor-pointer">
         <CommonIcons :name="cancelIcon" />
-        <p class="text-red-1">요청취소</p>
+        <p class="text-red-1">요청 취소</p>
       </div>
     </div>
     <CommonIcons
