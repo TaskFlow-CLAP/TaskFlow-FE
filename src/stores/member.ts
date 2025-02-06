@@ -45,7 +45,6 @@ export const useMemberStore = defineStore('memberInfo', () => {
   }
 
   function $reset() {
-    isLogined.value = false
     info.value = INITIAL_INFO
   }
 

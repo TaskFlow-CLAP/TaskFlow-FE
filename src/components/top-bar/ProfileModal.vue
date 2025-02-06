@@ -81,7 +81,7 @@ const openLogoutModal = () => {
 }
 const closeLogoutModal = () => {
   isModalVisible.value = false
-  emit('close')
+  memberStore.isLogined = false
   router.push('/login')
 }
 
