@@ -1,6 +1,6 @@
 import type { Status } from '@/types/common'
-import type { userInfo } from '@/types/user'
 import type { RequestApprovePostTypes } from '@/types/manager'
+import type { userInfo } from '@/types/user'
 import { axiosInstance, formDataAxiosInstance } from '@/utils/axios'
 
 export const patchEditInfo = async (formdata: userInfo, image: File) => {
@@ -75,5 +75,10 @@ export const patchComment = async (commentId: number, content: string) => {
 
 export const deleteComment = async (commentId: number) => {
   const response = await axiosInstance.delete(`/api/comment/${commentId}`)
+  return response.data
+}
+
+export const patchTaskRequest = async (taskId: string, formdata: FormData) => {
+  const response = await formDataAxiosInstance.patch(`/api/tasks/${taskId}`, formdata)
   return response.data
 }

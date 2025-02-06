@@ -3,12 +3,14 @@
     <div class="flex gap-4 text-sm font-bold pb-6">
       <div
         v-if="isApproved && isRequestor"
+        @click="router.push(`/task-request?requestType=re&id=${id}`)"
         class="flex gap-1 items-center cursor-pointer">
         <CommonIcons :name="reRequestIcon" />
         <p class="text-body">재요청</p>
       </div>
       <div
         v-if="!isApproved && isRequestor"
+        @click="router.push(`/task-request?requestType=edit&id=${id}`)"
         class="flex gap-1 items-center cursor-pointer">
         <CommonIcons :name="modificationIcon" />
         <p class="text-primary1">요청 수정</p>
