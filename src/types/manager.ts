@@ -64,10 +64,14 @@ export interface MyTaskListData {
 }
 
 export interface TeamBoardCardProps {
-  name: string
   department: string
-  taskStatusSummary: { inProgress: number; pendingCompletion: number; totalTasks: number }
+  imageUrl?: string
+  inProgressTaskCount: number
+  inReviewingTaskCount: number
+  nickname: string
+  processorId: number
   tasks: TaskCardProps[]
+  totalTaskCount: number
 }
 
 export type PeriodType = 'DAY' | 'WEEK' | 'MONTH'
@@ -164,4 +168,11 @@ export interface ManagerTypes {
   nickname: string
   imageUrl: string
   remainingTasks: number
+}
+
+export interface TeamBoardResponse {
+  members: TeamBoardCardProps[]
+  totalInProgressTaskCount: number
+  totalInReviewingTaskCount: number
+  totalTaskCount: number
 }
