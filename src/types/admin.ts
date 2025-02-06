@@ -42,6 +42,11 @@ export interface UserRegistrationProps {
   departmentRole: string
 }
 
+export interface UserInfoForAdmin extends UserRegistrationProps {
+  profileImageUrl: string
+  departmentName: string
+}
+
 export type RoleTypes = '관리자' | '사용자' | '담당자'
 
 export type RoleTypesEnum = 'ROLE_ADMIN' | 'ROLE_USER' | 'ROLE_MANAGER'
@@ -105,6 +110,15 @@ export interface UserRegistrationApiProps {
   name: string
   email: string
   nickname: string
+  isReviewer: boolean
+  departmentId: number
+  role: RoleTypesEnum
+  departmentRole: string
+}
+
+export interface UserUpdateValue {
+  name: string
+  email: null
   isReviewer: boolean
   departmentId: number
   role: RoleTypesEnum

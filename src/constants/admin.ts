@@ -63,4 +63,10 @@ export const RoleTypeMapping: { [key in RoleTypes]: RoleTypesEnum } = {
   관리자: 'ROLE_ADMIN'
 }
 
+export const RoleMapping: { [key in RoleTypesEnum]: RoleTypes } = {
+  ROLE_USER: '사용자',
+  ROLE_MANAGER: '담당자',
+  ROLE_ADMIN: '관리자'
+}
+
 export const RoleKeys: RoleTypes[] = Object.keys(RoleTypeMapping) as RoleTypes[]

@@ -13,7 +13,8 @@
       :value="modelValue"
       :disabled="isEdit"
       @input="updateValue(($event.target as HTMLInputElement).value)"
-      :placeholder="placeholderText" />
+      :placeholder="placeholderText"
+      :class="{ 'text-gray-500': isEdit, 'text-black': !isEdit }" />
     <p
       v-if="isInvalidateState === 'input'"
       class="text-red-1 text-xs absolute top-[calc(100%+4px)]">

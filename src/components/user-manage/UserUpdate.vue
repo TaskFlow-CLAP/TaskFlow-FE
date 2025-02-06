@@ -15,10 +15,19 @@
       :placeholderText="'회원의 아이디를 입력해주세요'"
       :isEdit="true"
       :labelName="'아이디'" />
-    <RequestTaskInput
-      v-model="userRegistrationForm.email"
-      :placeholderText="'회원의 이메일을 입력해주세요'"
-      :labelName="'이메일'" />
+    <div class="flex w-full gap-2">
+      <RequestTaskInput
+        v-model="userRegistrationForm.nickname"
+        :is-edit="true"
+        :placeholderText="'이메일은 아이디와 동일합니다'"
+        :labelName="'이메일'" />
+      <RequestTaskInput
+        v-model="userRegistrationForm.email"
+        :placeholderText="'@kakao.com'"
+        :label-name="'도메인'"
+        :is-edit="true"
+        :is-not-required="false" />
+    </div>
     <RequestTaskDropdown
       v-model="userRegistrationForm.role"
       :options="RoleKeys"
@@ -44,9 +53,16 @@
 </template>
 
 <script lang="ts" setup>
-import { INITIAL_USER_REGISTRATION, RoleKeys } from '@/constants/admin'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { getMemberDetailAdmin, updateMemberAdmin } from '@/api/admin'
+import {
+  INITIAL_USER_REGISTRATION,
+  RoleKeys,
+  RoleMapping,
+  RoleTypeMapping
+} from '@/constants/admin'
+import type { UserRegistrationProps } from '@/types/admin'
+import { onMounted, ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import FormCheckbox from '../common/FormCheckbox.vue'
 import ModalView from '../ModalView.vue'
@@ -57,15 +73,52 @@ import DepartmentDropDown from './DepartmentDropDown.vue'
 const isModalVisible = ref(false)
 const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
 
+const route = useRoute()
 const router = useRouter()
+const userId = ref(route.query.id)
+const userData = ref<UserRegistrationProps | null>(null)
+console.log(userId.value, '유저 아이디')
+
+watch(
+  () => router.currentRoute.value.query.id,
+  newId => {
+    userId.value = newId
+  }
+)
+onMounted(async () => {
+  if (typeof userId.value === 'string') {
+    userData.value = await getMemberDetailAdmin(userId.value)
+  }
+  if (userData.value) {
+    if (userData.value.role in RoleMapping) {
+      userRegistrationForm.value = {
+        ...userData.value,
+        role: RoleMapping[userData.value.role as keyof typeof RoleMapping]
+      }
+    }
+  }
+})
+
 const handleCancel = () => {
   userRegistrationForm.value = { ...INITIAL_USER_REGISTRATION }
   isModalVisible.value = false
   router.back()
 }
 
-const handleSubmit = () => {
-  console.log(userRegistrationForm.value)
+const handleSubmit = async () => {
+  if (typeof userId.value === 'string') {
+    const userData = {
+      role: RoleTypeMapping[userRegistrationForm.value.role],
+      email: null,
+      name: userRegistrationForm.value.name,
+      isReviewer: userRegistrationForm.value.isReviewer,
+      departmentId: userRegistrationForm.value.departmentId,
+      departmentRole: userRegistrationForm.value.departmentRole
+    }
+    console.log(userData, '수정할 데이터')
+    console.log(userId.value, '수정할 아이디')
+    await updateMemberAdmin(userId.value, userData)
+  }
   isModalVisible.value = true
 }
 </script>

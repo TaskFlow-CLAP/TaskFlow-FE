@@ -10,7 +10,7 @@
       :is-status="tab.isStatus" />
     <div class="w-[180px] flex gap-2 justify-center items-center shrink-0">
       <button
-        @click="router.push(`/user-update`)"
+        @click="router.push(`/user-update?id=${info.memberId}`)"
         class="button-medium-primary">
         수정
       </button>
@@ -57,15 +57,15 @@
 </template>
 
 <script setup lang="ts">
-import type { ListCardProps, Role } from '@/types/common'
-import ListCardTab from '../lists/ListCardTab.vue'
 import type { MemberManagementListData } from '@/types/admin'
-import { useRouter } from 'vue-router'
-import ModalView from '../ModalView.vue'
-import { ref } from 'vue'
+import type { ListCardProps, Role } from '@/types/common'
 import { axiosInstance } from '@/utils/axios'
-import { useQueryClient } from '@tanstack/vue-query'
 import { formatDate } from '@/utils/date'
+import { useQueryClient } from '@tanstack/vue-query'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import ListCardTab from '../lists/ListCardTab.vue'
+import ModalView from '../ModalView.vue'
 
 const roleContent = (role: Role) => {
   return role === 'ROLE_USER' ? '사용자' : role === 'ROLE_MANAGER' ? '담당자' : '관리자'

@@ -1,4 +1,4 @@
-import type { NewLabelTypes, UserRegistrationApiProps } from '@/types/admin'
+import type { NewLabelTypes, UserRegistrationApiProps, UserUpdateValue } from '@/types/admin'
 import type { LabelDataTypes } from '@/types/common'
 import { axiosInstance, formDataAxiosInstance } from '@/utils/axios'
 
@@ -37,5 +37,15 @@ export const getDepartmentsAdmin = async () => {
 
 export const addMemberAdminByCsv = async (formdata: FormData) => {
   const response = await formDataAxiosInstance.post('/api/managements/members/upload', formdata)
+  return response.data
+}
+
+export const getMemberDetailAdmin = async (id: string) => {
+  const response = await axiosInstance.get(`api/managements/members/${id}/details`)
+  return response.data
+}
+
+export const updateMemberAdmin = async (id: string, data: UserUpdateValue) => {
+  const response = await axiosInstance.post(`api/managements/members/${id}`, data)
   return response.data
 }
