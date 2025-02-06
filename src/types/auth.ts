@@ -7,6 +7,11 @@ export interface User {
   memberStatus: string
   departmentName: string
   departmentRole: string
+  notificationSettingInfo: {
+    agit: boolean
+    email: boolean
+    kakaoWork: boolean
+  }
 }
 
 export interface loginDataTypes {

@@ -13,7 +13,12 @@ export const useMemberStore = defineStore('memberInfo', () => {
     memberStatus: '',
     email: '',
     departmentName: '',
-    departmentRole: ''
+    departmentRole: '',
+    notificationSettingInfo: {
+      agit: false,
+      email: false,
+      kakaoWork: false
+    }
   })
 
   const refreshToken = ref(Cookies.get('refreshToken') || '')
@@ -35,22 +40,17 @@ export const useMemberStore = defineStore('memberInfo', () => {
       memberRole: responseData.role || '',
       memberStatus: responseData.memberStatus || '',
       departmentName: responseData.departmentName || '',
-      departmentRole: responseData.departmentRole || ''
+      departmentRole: responseData.departmentRole || '',
+      notificationSettingInfo: {
+        agit: responseData.notificationSettingInfo.agit,
+        email: responseData.notificationSettingInfo.email,
+        kakaoWork: responseData.notificationSettingInfo.kakaoWork
+      }
     }
     console.log('Updated member info:', info.value)
   }
 
   function logout() {
-    info.value = {
-      memberName: '',
-      nickname: '',
-      imageUrl: '',
-      memberRole: '',
-      memberStatus: '',
-      email: '',
-      departmentName: '',
-      departmentRole: ''
-    }
     isLogined.value = false
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
