@@ -29,7 +29,7 @@ export const useMemberStore = defineStore('memberInfo', () => {
   function updateMemberInfo(responseData: any) {
     info.value = {
       memberName: responseData.name || '',
-      nickname: responseData.nicknanme || '',
+      nickname: responseData.nickname || '',
       email: responseData.email || '',
       imageUrl: responseData.profileImageUrl || '',
       memberRole: responseData.role || '',
