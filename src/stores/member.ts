@@ -6,10 +6,10 @@ import Cookies from 'js-cookie'
 
 export const useMemberStore = defineStore('memberInfo', () => {
   const info = ref<User>({
-    memberName: '',
+    name: '',
     nickname: '',
-    imageUrl: '',
-    memberRole: '',
+    profileImageUrl: '',
+    role: '',
     memberStatus: '',
     email: '',
     departmentName: '',
@@ -30,13 +30,13 @@ export const useMemberStore = defineStore('memberInfo', () => {
     isLogined.value = true
   }
 
-  function updateMemberInfo(responseData: any) {
+  function updateMemberInfo(responseData: User) {
     info.value = {
-      memberName: responseData.name || '',
-      nickname: responseData.nicknanme || '',
+      name: responseData.name || '',
+      nickname: responseData.nickname || '',
       email: responseData.email || '',
-      imageUrl: responseData.profileImageUrl || '',
-      memberRole: responseData.role || '',
+      profileImageUrl: responseData.profileImageUrl || '',
+      role: responseData.role || '',
       memberStatus: responseData.memberStatus || '',
       departmentName: responseData.departmentName || '',
       departmentRole: responseData.departmentRole || '',

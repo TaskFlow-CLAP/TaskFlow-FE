@@ -10,8 +10,8 @@
     <div class="profile">
       <p class="text-body text-xs font-bold">프로필 사진</p>
       <img
-        v-if="previewUrl || info.imageUrl"
-        :src="previewUrl || info.imageUrl"
+        v-if="previewUrl || info.profileImageUrl"
+        :src="previewUrl || info.profileImageUrl"
         alt="프로필 이미지"
         class="w-24 h-24 rounded-full object-cover border mt-3" />
 
@@ -33,7 +33,7 @@
       <input
         class="input-box h-11 mt-2 text-black"
         placeholder="이름을 입력해주세요"
-        v-model="info.memberName" />
+        v-model="info.name" />
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">아이디</p>
@@ -124,7 +124,7 @@ const handleFileUpload = (event: Event) => {
 const handleSubmit = async () => {
   const formData = new FormData()
   const memberInfo = {
-    name: info.value.memberName,
+    name: info.value.name,
     agitNotification: info.value.notificationSettingInfo.agit,
     emailNotification: info.value.notificationSettingInfo.email,
     kakaoWorkNotification: info.value.notificationSettingInfo.kakaoWork

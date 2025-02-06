@@ -1,9 +1,9 @@
 export interface User {
-  memberName: string
+  name: string
   nickname: string
   email: string
-  imageUrl: string
-  memberRole: string
+  profileImageUrl: string
+  role: string
   memberStatus: string
   departmentName: string
   departmentRole: string
