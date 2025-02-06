@@ -105,7 +105,7 @@ const closeModal = () => {
 
 const onMemberDelete = async (memberId: number) => {
   try {
-    await axiosInstance.patch(`/api/managements/members/delete`, { memberId })
+    await axiosInstance.delete(`/api/managements/members`, { data: { memberId } })
     toggleModal('success')
   } catch {
     toggleModal('fail')
