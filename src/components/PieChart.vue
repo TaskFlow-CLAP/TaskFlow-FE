@@ -5,7 +5,7 @@
     :options="options" />
   <NoContent
     v-else
-    content="데이터가 없습니다" />
+    content="집계된 데이터가 없습니다" />
 </template>
 
 <script setup lang="ts">

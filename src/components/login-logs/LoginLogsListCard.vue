@@ -15,15 +15,31 @@
 <script setup lang="ts">
 import type { ListCardProps } from '@/types/common'
 import ListCardTab from '../lists/ListCardTab.vue'
-import type { LogsListData } from '@/types/admin'
+import type { LoginLogsListData } from '@/types/admin'
+import { formatDate } from '@/utils/date'
 
-const { info } = defineProps<{ info: LogsListData }>()
+const logStatus = {
+  LOGIN: '로그인 시도',
+  LOGOUT: '로그아웃'
+}
+
+const { info } = defineProps<{ info: LoginLogsListData }>()
 const myRequestTabList: ListCardProps[] = [
-  { content: info.division, width: 80, isTextXs: true, isTextBody: true },
-  { content: info.createdAt, width: 180, isTextXs: true },
+  {
+    content: logStatus[info.logStatus as keyof typeof logStatus],
+    width: 80,
+    isTextXs: true,
+    isTextBody: true
+  },
+  { content: formatDate(info.requestAt), width: 180, isTextXs: true },
   { content: info.nickName, width: 80 },
-  { content: info.ipAddress, width: 120, isTextXs: true },
-  { content: String(info.status), width: 40, isTextXs: true, isStatusCode: true },
-  { content: info.result }
+  { content: info.clientIp, width: 120, isTextXs: true },
+  { content: String(info.statusCode), width: 40, isTextXs: true, isStatusCode: true },
+  {
+    content:
+      info.statusCode !== 200 && info.failedAttempts !== 0
+        ? `failedAttempts = ${info.failedAttempts}`
+        : ''
+  }
 ]
 </script>

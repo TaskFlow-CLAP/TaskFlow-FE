@@ -8,7 +8,7 @@
       </div>
       <div class="flex flex-1 bg-primary2 rounded-t-lg">
         <span class="text-xs font-bold text-body p-4">
-          검토 중 {{ data?.tasksPendingComplete.length }}
+          검토 중 {{ data?.tasksInProgress.length }}
         </span>
       </div>
       <div class="flex flex-1 bg-primary2 rounded-t-lg">
@@ -47,7 +47,7 @@
       <div class="flex-1 px-4 pb-4 bg-primary2 rounded-b-lg relative">
         <div class="absolute top-0 left-0 px-4 w-full">
           <div
-            v-if="data?.tasksPendingComplete.length === 0"
+            v-if="data?.tasksInProgress.length === 0"
             class="w-full max-w-80 h-[130px] bg-white border border-dashed border-border-1 rounded-lg flex justify-center items-center">
             <span class="whitespace-pre-wrap text-center text-sm font-bold text-disabled">
               {{ '상태를 변경할 작업을\n끌어 놓으세요' }}
@@ -59,7 +59,7 @@
           group="taskList"
           item-key="task"
           class="flex flex-col gap-4 h-full"
-          @change="event => onListChange(event, 'PENDING_COMPLETED')">
+          @change="event => onListChange(event, 'IN_REVIEWING')">
           <template #item="{ element }">
             <TaskCard
               :key="element.taskId"
@@ -113,8 +113,8 @@ const queryClient = useQueryClient()
 const statusToKey = (status: Status): keyof TaskCardList | undefined => {
   if (status === 'IN_PROGRESS') {
     return 'tasksInProgress'
-  } else if (status === 'PENDING_COMPLETED') {
-    return 'tasksPendingComplete'
+  } else if (status === 'IN_REVIEWING') {
+    return 'tasksInReviewing'
   } else if (status === 'COMPLETED') {
     return 'tasksCompleted'
   }
@@ -172,6 +172,6 @@ const { data } = useQuery<TaskCardList>({
 })
 
 const tasksInProgress = computed(() => [...(data.value?.tasksInProgress || [])])
-const tasksPendingComplete = computed(() => [...(data.value?.tasksPendingComplete || [])])
+const tasksPendingComplete = computed(() => [...(data.value?.tasksInReviewing || [])])
 const tasksCompleted = computed(() => [...(data.value?.tasksCompleted || [])])
 </script>

@@ -15,15 +15,22 @@
 <script setup lang="ts">
 import type { ListCardProps } from '@/types/common'
 import ListCardTab from '../lists/ListCardTab.vue'
-import type { LogsListData } from '@/types/admin'
+import type { ApiLogsListData } from '@/types/admin'
+import { formatDate } from '@/utils/date'
+import { API_LOGS_DIVISION_LIST } from '@/constants/admin'
 
-const { info } = defineProps<{ info: LogsListData }>()
+const { info } = defineProps<{ info: ApiLogsListData }>()
 const myRequestTabList: ListCardProps[] = [
-  { content: info.division, width: 80, isTextXs: true, isTextBody: true },
-  { content: info.createdAt, width: 180, isTextXs: true },
+  {
+    content: API_LOGS_DIVISION_LIST.find(el => el.value === info.logStatus)?.content,
+    width: 80,
+    isTextXs: true,
+    isTextBody: true
+  },
+  { content: formatDate(info.requestAt), width: 180, isTextXs: true },
   { content: info.nickName, width: 80 },
-  { content: info.ipAddress, width: 120, isTextXs: true },
-  { content: String(info.status), width: 40, isTextXs: true, isStatusCode: true },
-  { content: info.result }
+  { content: info.clientIp, width: 120, isTextXs: true },
+  { content: String(info.statusCode), width: 40, isTextXs: true, isStatusCode: true },
+  { content: '' }
 ]
 </script>
