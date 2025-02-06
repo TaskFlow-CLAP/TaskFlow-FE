@@ -35,7 +35,8 @@
       v-model="userRegistrationForm.isReviewer"
       :labelName="'요청 승인 권한'"
       :checkButtonName="'허용'"
-      :isChecked="userRegistrationForm.isReviewer" />
+      :isChecked="userRegistrationForm.isReviewer"
+      :isDisabled="userRegistrationForm.role !== '담당자'" />
     <DepartmentDropDown v-model="userRegistrationForm.departmentId" />
     <RequestTaskInput
       v-model="userRegistrationForm.departmentRole"
