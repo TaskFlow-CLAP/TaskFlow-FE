@@ -141,12 +141,9 @@ const handleSubmit = async () => {
 
   try {
     console.log(formData)
-    patchEditInfo(formData)
-    await memberStore.updateMemberInfoWithToken()
-    console.log('memberInfo.agitNotification', memberInfo.agitNotification)
-    console.log('memberInfo.emailNotification', memberInfo.emailNotification)
-    console.log('memberInfo.kakaoWorkNotification', memberInfo.kakaoWorkNotification)
+    await patchEditInfo(formData)
     isModalVisible.value = true
+    await memberStore.updateMemberInfoWithToken()
   } catch (error) {
     console.error('요청 실패:', error)
   }
