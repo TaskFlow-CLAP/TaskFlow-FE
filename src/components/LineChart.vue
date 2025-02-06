@@ -19,7 +19,8 @@ import {
   PointElement,
   CategoryScale,
   LinearScale,
-  Colors
+  Colors,
+  Filler
 } from 'chart.js'
 import NoContent from './lists/NoContent.vue'
 import type { PeriodType } from '@/types/manager'
@@ -32,7 +33,8 @@ ChartJS.register(
   PointElement,
   CategoryScale,
   LinearScale,
-  Colors
+  Colors,
+  Filler
 )
 
 const { labels, series, dataLabel, periodType } = defineProps<{
