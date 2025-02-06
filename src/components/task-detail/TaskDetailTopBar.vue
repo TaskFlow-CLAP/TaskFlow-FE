@@ -79,6 +79,4 @@ const ApproveTask = () => {
   toggleModal('approve')
   router.push(`/request-approve/${id}`)
 }
-
-console.log(isProcessor, '이즈 프로세서 값')
 </script>

@@ -18,19 +18,13 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 const reqType = ref(route.query.requestType || null)
 const id = ref(route.query.id || null)
-console.log(reqType.value, id.value)
 
 watch(
-  () => route.query.requestType,
-  newReqType => {
-    reqType.value = newReqType || null
-  }
-)
-
-watch(
-  () => route.query.id,
-  newId => {
-    id.value = newId || null
-  }
+  () => route.query,
+  newQuery => {
+    reqType.value = newQuery.requestType || null
+    id.value = newQuery.id || null
+  },
+  { deep: true }
 )
 </script>
