@@ -35,25 +35,11 @@
     <template #header>회원을 삭제 하시겠습니까?</template>
     <template #body>삭제된 회원은 복구할 수 없습니다</template>
   </ModalView>
-  <ModalView
-    type="failType"
-    :is-open="isModalVisible.fail"
-    @close="closeModal">
-    <template #header>회원 삭제에 실패했습니다</template>
-  </ModalView>
-  <ModalView
-    type="successType"
-    :is-open="isModalVisible.success"
-    @close="closeModal">
-    <template #header>회원을 삭제했습니다</template>
-  </ModalView>
-
-  <ModalView
-    type="successType"
-    :is-open="isModalVisible.invite"
-    @close="closeModal">
-    <template #header>초대 메일을 발송하였습니다</template>
-  </ModalView>
+  <ResultModal
+    :type="resultModalType"
+    :is-open="isModalVisible.result"
+    :message="message"
+    @close="closeModal" />
 </template>
 
 <script setup lang="ts">
@@ -66,6 +52,7 @@ import { ref } from 'vue'
 import { axiosInstance } from '@/utils/axios'
 import { useQueryClient } from '@tanstack/vue-query'
 import { formatDate } from '@/utils/date'
+import ResultModal from '../common/ResultModal.vue'
 
 const roleContent = (role: Role) => {
   return role === 'ROLE_USER' ? '사용자' : role === 'ROLE_MANAGER' ? '담당자' : '관리자'
@@ -88,32 +75,44 @@ const queryClient = useQueryClient()
 
 const isModalVisible = ref({
   delete: false,
-  invite: false,
-  fail: false,
-  success: false
+  result: false
 })
+const resultModalType = ref('')
+const message = ref('')
 const toggleModal = (key: keyof typeof isModalVisible.value) => {
   isModalVisible.value = Object.fromEntries(
     Object.keys(isModalVisible.value).map(k => [k, k === key])
   ) as typeof isModalVisible.value
 }
 const closeModal = () => {
-  const prevSuccess = isModalVisible.value.success
-  isModalVisible.value = { delete: false, invite: false, fail: false, success: false }
+  const prevSuccess = isModalVisible.value.result
+  isModalVisible.value = { delete: false, result: false }
   if (prevSuccess) queryClient.invalidateQueries({ queryKey: ['member'] })
 }
 
 const onMemberDelete = async (memberId: number) => {
   try {
-    await axiosInstance.patch(`/api/managements/members/delete`, { memberId })
-    toggleModal('success')
+    await axiosInstance.delete(`/api/managements/members`, { data: { memberId } })
+    resultModalType.value = 'successType'
+    message.value = '회원을 삭제했습니다'
+    toggleModal('result')
   } catch {
-    toggleModal('fail')
+    resultModalType.value = 'failType'
+    message.value = '회원 삭제에 실패했습니다'
+    toggleModal('result')
   }
 }
 
-const onMemberInvite = (memberId: number) => {
-  console.log(memberId)
-  toggleModal('invite')
+const onMemberInvite = async (memberId: number) => {
+  try {
+    await axiosInstance.post('/api/managements/members/invite', { memberId })
+    resultModalType.value = 'successType'
+    message.value = '초대 메일을 발송하였습니다'
+    toggleModal('result')
+  } catch {
+    resultModalType.value = 'failType'
+    message.value = '초대 메일 발송에 실패했습니다'
+    toggleModal('result')
+  }
 }
 </script>

@@ -14,13 +14,16 @@
           :key="JSON.stringify(mainLabels) + periodType"
           :labels="mainLabels"
           :series="mainSeries"
+          :period-type="periodType"
           @on-click="changeMainCategory" />
       </div>
       <div class="w-1/2 px-1">
         <PieChart
           :key="JSON.stringify(subLabels) + mainCategory + periodType"
           :labels="subLabels"
-          :series="subSeries" />
+          :series="subSeries"
+          :period-type="periodType"
+          :content="mainCategory && '1차 카테고리를 선택해주세요'" />
       </div>
     </div>
   </div>

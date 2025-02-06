@@ -16,7 +16,7 @@
 import type { ListCardProps } from '@/types/common'
 import ListCardTab from '../lists/ListCardTab.vue'
 import type { LoginLogsListData } from '@/types/admin'
-import { formatDate } from '@/utils/date'
+import { formatFullDateTime } from '@/utils/date'
 
 const logStatus = {
   LOGIN: '로그인 시도',
@@ -31,7 +31,7 @@ const myRequestTabList: ListCardProps[] = [
     isTextXs: true,
     isTextBody: true
   },
-  { content: formatDate(info.requestAt), width: 180, isTextXs: true },
+  { content: formatFullDateTime(info.requestAt), width: 180, isTextXs: true },
   { content: info.nickName, width: 80 },
   { content: info.clientIp, width: 120, isTextXs: true },
   { content: String(info.statusCode), width: 40, isTextXs: true, isStatusCode: true },

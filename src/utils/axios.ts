@@ -26,7 +26,7 @@ const getNewAccessToken = async () => {
     console.error('토큰 발행 실패', e)
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
-    window.location.reload()
+    window.location.href = '/login'
   }
 }
 const setInterceptors = (instance: AxiosInstance) => {

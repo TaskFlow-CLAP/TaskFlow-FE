@@ -13,14 +13,17 @@
       <div
         class="w-full h-[360px] rounded-lg bg-primary2 shadow-custom overflow-y-scroll items-center p-6 gap-4">
         <PieChart
+          :key="chartLabels.length || 0"
           :labels="chartLabels"
-          :series="chartSeries" />
+          :series="chartSeries"
+          content="진행 중인 작업이 없습니다" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import PieChart from '../PieChart.vue'
 
 const { teamSummary, teamData } = defineProps<{
@@ -32,6 +35,6 @@ const { teamSummary, teamData } = defineProps<{
   teamData: { name: string; tasks: number }[]
 }>()
 
-const chartSeries = teamData.map(member => member.tasks)
-const chartLabels = teamData.map(member => member.name)
+const chartSeries = computed(() => teamData.map(member => member.tasks))
+const chartLabels = computed(() => teamData.map(member => member.name))
 </script>

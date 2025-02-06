@@ -8,7 +8,7 @@
       </div>
       <div class="flex flex-1 bg-primary2 rounded-t-lg">
         <span class="text-xs font-bold text-body p-4">
-          검토 중 {{ data?.tasksInProgress.length }}
+          검토 중 {{ data?.tasksInReviewing.length }}
         </span>
       </div>
       <div class="flex flex-1 bg-primary2 rounded-t-lg">
@@ -47,7 +47,7 @@
       <div class="flex-1 px-4 pb-4 bg-primary2 rounded-b-lg relative">
         <div class="absolute top-0 left-0 px-4 w-full">
           <div
-            v-if="data?.tasksInProgress.length === 0"
+            v-if="data?.tasksInReviewing.length === 0"
             class="w-full max-w-80 h-[130px] bg-white border border-dashed border-border-1 rounded-lg flex justify-center items-center">
             <span class="whitespace-pre-wrap text-center text-sm font-bold text-disabled">
               {{ '상태를 변경할 작업을\n끌어 놓으세요' }}
@@ -55,7 +55,7 @@
           </div>
         </div>
         <draggableComponent
-          :list="tasksPendingComplete"
+          :list="tasksInReviewing"
           group="taskList"
           item-key="task"
           class="flex flex-col gap-4 h-full"
@@ -132,7 +132,6 @@ const onListChange = async (event: DraggableEvent, status: Status) => {
       targetTaskId,
       nextTaskId
     }
-    console.log(prevTaskId, targetTaskId, nextTaskId)
     await axiosInstance.patch('/api/task-board', body, { params: { status } })
     queryClient.invalidateQueries({ queryKey: ['taskBoard'] })
   }
@@ -172,6 +171,6 @@ const { data } = useQuery<TaskCardList>({
 })
 
 const tasksInProgress = computed(() => [...(data.value?.tasksInProgress || [])])
-const tasksPendingComplete = computed(() => [...(data.value?.tasksInReviewing || [])])
+const tasksInReviewing = computed(() => [...(data.value?.tasksInReviewing || [])])
 const tasksCompleted = computed(() => [...(data.value?.tasksCompleted || [])])
 </script>

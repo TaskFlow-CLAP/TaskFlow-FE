@@ -56,8 +56,7 @@ const isComposing = ref(false)
 
 const isPossible = computed(
   () =>
-    history.length !== 0 &&
-    (info.value.memberRole !== 'ROLE_USER' || info.value.nickname === requestorName)
+    history.length !== 0 && (info.value.role !== 'ROLE_USER' || info.value.role === requestorName)
 )
 
 const isSendable = computed(() => isPossible.value && messageText.value.trim() !== '')
