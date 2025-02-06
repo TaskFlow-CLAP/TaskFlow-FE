@@ -33,10 +33,10 @@
         <div
           v-if="isClicked"
           @click="deleteCommentText"
-            :class="[
+          :class="[
             'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
             isProcessor ? 'right-6' : 'left-6'
-            ]">
+          ]">
           삭제
         </div>
       </div>
@@ -73,7 +73,9 @@ const clickMenuDot = async () => {
 
 const deleteCommentText = async () => {
   isClicked.value = !isClicked.value
-  await deleteComment(history.historyId)
+  if (history.details.commentDetails?.commentId !== undefined) {
+    await deleteComment(history.details.commentDetails.commentId)
+  }
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
 }
 </script>

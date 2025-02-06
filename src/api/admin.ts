@@ -26,7 +26,6 @@ export const deleteCategoryAdmin = async (id: number) => {
 }
 
 export const addMemberAdmin = async (memberData: UserRegistrationProps) => {
-  console.log(memberData, '요청 데이터')
   const response = await axiosInstance.post('/api/managements/members', memberData)
   return response.data
 }

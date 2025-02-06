@@ -1,5 +1,6 @@
 import type { Status } from '@/types/common'
 import type { RequestApprovePostTypes } from '@/types/manager'
+import type { userInfo } from '@/types/user'
 import { axiosInstance, formDataAxiosInstance } from '@/utils/axios'
 
 export const postTaskRequest = async (formdata: FormData) => {
@@ -53,21 +54,26 @@ export const getHistory = async (taskID: number) => {
 }
 
 export const postComment = async (taskID: number, content: string) => {
-  const response = await axiosInstance.post(`/api/comment/${taskID}`, { content })
+  const response = await axiosInstance.post(`/api/comments/${taskID}`, { content })
   return response.data
 }
 
 export const postCommentAttachment = async (taskID: number, formdata: FormData) => {
-  const response = await formDataAxiosInstance.post(`/api/comment/attachment/${taskID}`, formdata)
+  const response = await formDataAxiosInstance.post(`/api/comments/attachment/${taskID}`, formdata)
   return response.data
 }
 
 export const patchComment = async (commentId: number, content: string) => {
-  const response = await axiosInstance.patch(`/api/comment/${commentId}`, { content })
+  const response = await axiosInstance.patch(`/api/comments/${commentId}`, { content })
   return response.data
 }
 
 export const deleteComment = async (commentId: number) => {
-  const response = await axiosInstance.delete(`/api/comment/${commentId}`)
+  const response = await axiosInstance.delete(`/api/comments/${commentId}`)
+  return response.data
+}
+
+export const patchTaskRequest = async (taskId: string, formdata: FormData) => {
+  const response = await formDataAxiosInstance.patch(`/api/tasks/${taskId}`, formdata)
   return response.data
 }

@@ -6,7 +6,7 @@
         :is-approved="data?.taskStatus !== 'REQUESTED'"
         :close-task-detail="closeTaskDetail"
         :id="data?.taskId || 0"
-        :isProcessor="data?.processorNickName === info.nickname || info.memberRole === 'ROLE_'"
+        :isProcessor="data?.processorNickName === info.nickname || info.role === 'ROLE_MANAGER'"
         :isRequestor="data?.requesterNickName === info.nickname" />
       <div
         class="w-full flex gap-6"
@@ -43,12 +43,11 @@ const { closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
-console.log(info, '인포')
 
 const { data } = useQuery<TaskDetailDatas>({
   queryKey: ['taskDetailUser', selectedId],
   queryFn:
-    info.value.memberRole === 'ROLE_USER'
+    info.value.role === 'ROLE_USER'
       ? () => getTaskDetailUser(selectedId)
       : () => getTaskDetailManager(selectedId)
 })
@@ -57,6 +56,4 @@ const { data: historyData } = useQuery<TaskDetailHistoryData>({
   queryKey: ['historyData', selectedId],
   queryFn: () => getHistory(selectedId)
 })
-
-console.log(historyData.value, '가져온 히스ㅇ토리', selectedId, '선택된 id')
 </script>
