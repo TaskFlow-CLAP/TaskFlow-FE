@@ -2,13 +2,13 @@
   <div class="w-full flex justify-between items-center bg-white">
     <div class="flex gap-4 text-sm font-bold pb-6">
       <div
-        v-if="!isProcessor && isApproved"
+        v-if="isApproved && isRequestor"
         class="flex gap-1 items-center cursor-pointer">
         <CommonIcons :name="reRequestIcon" />
         <p class="text-body">재요청</p>
       </div>
       <div
-        v-if="!isProcessor && !isApproved"
+        v-if="!isApproved && isRequestor"
         class="flex gap-1 items-center cursor-pointer">
         <CommonIcons :name="modificationIcon" />
         <p class="text-primary1">요청 수정</p>
@@ -22,7 +22,7 @@
       </div>
       <div
         @click="cancelTask"
-        v-if="!isApproved"
+        v-if="!isApproved && (isRequestor || isProcessor)"
         class="flex gap-1 items-center cursor-pointer">
         <CommonIcons :name="cancelIcon" />
         <p class="text-red-1">요청취소</p>
@@ -57,7 +57,8 @@ import CommonIcons from '../common/CommonIcons.vue'
 import ModalView from '../ModalView.vue'
 
 const router = useRouter()
-const { isApproved, closeTaskDetail, id, isProcessor } = defineProps<TaskDetailTopBarProps>()
+const { isApproved, closeTaskDetail, id, isProcessor, isRequestor } =
+  defineProps<TaskDetailTopBarProps>()
 
 const isModalOpen = ref({
   cancel: false,
