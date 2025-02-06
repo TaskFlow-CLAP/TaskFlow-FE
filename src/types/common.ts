@@ -1,4 +1,5 @@
 import type { Ref } from 'vue'
+import type { TaskHistory } from './user'
 
 export interface Filter {
   title: string
@@ -126,4 +127,15 @@ export interface NotificationContent {
   message: string
   isRead: boolean
   createdAt: string
+}
+export interface TaskDetailHistoryProps {
+  historyData: TaskHistory[]
+  taskId: number
+  requestorName: string
+}
+
+export interface TaskDetailHistoryChatProps {
+  history: TaskHistory
+  taskId: number
+  requestorName: string
 }

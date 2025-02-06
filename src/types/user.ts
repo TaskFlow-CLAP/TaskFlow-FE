@@ -83,7 +83,7 @@ export type TaskHistoryType =
   | 'PROCESSOR_CHANGED'
   | 'TASK_TERMINATED'
 
-export interface TaskDetailHistoryProps {
+export interface TaskDetailHistoryData {
   histories: TaskHistory[]
 }
 
@@ -122,7 +122,6 @@ export interface CommentFileDetails {
 }
 
 export interface TaskDetailProps {
-  isApproved: boolean
   selectedId: number
   closeTaskDetail: () => void
 }

@@ -96,7 +96,6 @@ const handleSubmit = async () => {
   const formData = new FormData()
   const taskInfo = {
     categoryId: category2.value.id,
-
     title: title.value,
     description: description.value
   }
