@@ -26,7 +26,6 @@ export const useMemberStore = defineStore('memberInfo', () => {
 
   async function updateMemberInfoWithToken() {
     const response = await axiosInstance.get('/api/members/info')
-    console.log('API Response:', response.data)
     updateMemberInfo(response.data)
     isLogined.value = true
   }
@@ -47,7 +46,6 @@ export const useMemberStore = defineStore('memberInfo', () => {
         kakaoWork: responseData.notificationSettingInfo.kakaoWork
       }
     }
-    console.log('Updated member info:', info.value)
   }
 
   function logout() {
