@@ -26,17 +26,16 @@ export const patchPassword = async (password: string) => {
 }
 
 export const deleteLogout = async () => {
-  const memberStore = useMemberStore()
-  // const refreshToken = Cookies.get('refreshToken')
+  const refreshToken = Cookies.get('refreshToken')
+  const accessToken = Cookies.get('accessToken')
 
-  // // const response = await axiosInstance.delete('/api/auths/logout', {
-  // //   headers: {
-  // //     Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
-  // //     refreshToken: refreshToken
-  // //   }
-  // // })
+  const response = await axiosInstance.delete('/api/auths/logout', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      refreshToken: refreshToken
+    }
+  })
   Cookies.remove('accessToken', { path: '/' })
   Cookies.remove('refreshToken', { path: '/' })
-  await memberStore.updateMemberInfoWithToken()
-  return
+  return response
 }
