@@ -46,6 +46,6 @@ export const getMemberDetailAdmin = async (id: string) => {
 }
 
 export const updateMemberAdmin = async (id: string, data: UserUpdateValue) => {
-  const response = await axiosInstance.patch(`api/managements/members/${id}`, data)
+  const response = await axiosInstance.post(`api/managements/members/${id}`, data)
   return response.data
 }

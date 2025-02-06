@@ -37,6 +37,7 @@
       v-model="userRegistrationForm.isReviewer"
       :labelName="'요청 승인 권한'"
       :checkButtonName="'허용'"
+      :isDisabled="userRegistrationForm.role !== '담당자'"
       :isChecked="userRegistrationForm.isReviewer" />
     <DepartmentDropDown v-model="userRegistrationForm.departmentId" />
     <RequestTaskInput
@@ -77,7 +78,6 @@ const route = useRoute()
 const router = useRouter()
 const userId = ref(route.query.id)
 const userData = ref<UserRegistrationProps | null>(null)
-console.log(userId.value, '유저 아이디')
 
 watch(
   () => router.currentRoute.value.query.id,
@@ -85,6 +85,7 @@ watch(
     userId.value = newId
   }
 )
+
 onMounted(async () => {
   if (typeof userId.value === 'string') {
     userData.value = await getMemberDetailAdmin(userId.value)
@@ -115,7 +116,9 @@ const handleSubmit = async () => {
     }
     console.log(userData, '수정할 데이터')
     console.log(userId.value, '수정할 아이디')
-    await updateMemberAdmin(userId.value, userData)
+    const res = await updateMemberAdmin(userId.value, userData)
+    console.log(res, '수정 결과')
+
     isModalVisible.value = true
   }
 }
