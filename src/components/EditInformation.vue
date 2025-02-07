@@ -36,13 +36,24 @@
         accept="image/*"
         class="hidden" />
     </div>
-
-    <div class="flex flex-col">
+    <div class="flex flex-col relative">
       <p class="text-body text-xs font-bold">이름</p>
+      <span class="absolute top-1 right-2 text-xs text-gray-500"> {{ name.length }} / 10 </span>
       <input
-        class="input-box h-11 mt-2 text-black"
+        :class="[
+          'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2 text-black',
+          isInvalid ? 'border-red-1' : 'border-border-1'
+        ]"
         placeholder="이름을 입력해주세요"
-        v-model="name" />
+        v-model="name"
+        maxlength="10"
+        ref="nameInput"
+        @blur="validateName" />
+      <span
+        v-show="isInvalid"
+        class="text-red-1 text-xs font-bold mt-1"
+        >이름에는 특수문자가 포함될 수 없습니다.</span
+      >
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">아이디</p>
@@ -95,7 +106,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watchEffect } from 'vue'
+import { nextTick, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from './ModalView.vue'
 import FormButtonContainer from './common/FormButtonContainer.vue'
@@ -116,6 +127,9 @@ const kakaoWorkCheck = ref(info.value.notificationSettingInfo.kakaoWork)
 const selectedFile = ref<File | null>(null)
 const previewUrl = ref<string | null>(null)
 
+const isInvalid = ref(false)
+const nameInput = ref<HTMLInputElement | null>(null)
+
 const isModalVisible = ref(false)
 const isWarnningModalVisible = ref(false)
 
@@ -128,6 +142,17 @@ watchEffect(() => {
   }
 })
 
+const validateName = () => {
+  const regex = /[!@#$%^&*(),.?":{}|<>]/g
+  console.log(isInvalid.value)
+  isInvalid.value = regex.test(name.value)
+
+  if (isInvalid.value) {
+    nextTick(() => {
+      nameInput.value?.focus()
+    })
+  }
+}
 const handleCancel = () => {
   router.back()
 }
@@ -163,28 +188,30 @@ const handleFileUpload = (event: Event) => {
 }
 
 const handleSubmit = async () => {
-  const formData = new FormData()
-  const memberInfo = {
-    name: name.value,
-    agitNotification: agitCheck.value,
-    emailNotification: emailCheck.value,
-    kakaoWorkNotification: kakaoWorkCheck.value
-  }
-  const jsonMemberInfo = JSON.stringify(memberInfo)
-  const newBlob = new Blob([jsonMemberInfo], { type: 'application/json' })
+  if (isInvalid.value == false) {
+    const formData = new FormData()
+    const memberInfo = {
+      name: name.value,
+      agitNotification: agitCheck.value,
+      emailNotification: emailCheck.value,
+      kakaoWorkNotification: kakaoWorkCheck.value
+    }
+    const jsonMemberInfo = JSON.stringify(memberInfo)
+    const newBlob = new Blob([jsonMemberInfo], { type: 'application/json' })
 
-  formData.append('memberInfo', newBlob)
+    formData.append('memberInfo', newBlob)
 
-  if (selectedFile.value) {
-    formData.append('profileImage', selectedFile.value)
-  }
+    if (selectedFile.value) {
+      formData.append('profileImage', selectedFile.value)
+    }
 
-  try {
-    await patchEditInfo(formData)
-    isModalVisible.value = true
-    await memberStore.updateMemberInfoWithToken()
-  } catch (error) {
-    console.error('요청 실패:', error)
+    try {
+      await patchEditInfo(formData)
+      isModalVisible.value = true
+      await memberStore.updateMemberInfoWithToken()
+    } catch (error) {
+      console.error('요청 실패:', error)
+    }
   }
 }
 </script>
