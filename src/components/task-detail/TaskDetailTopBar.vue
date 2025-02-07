@@ -46,7 +46,7 @@
     <ModalView
       :is-open="isModalOpen.success"
       type="successType"
-      @close="toggleModal('success')">
+      @close="finishCancel">
       <template #header>요청이 취소되었습니다</template>
     </ModalView>
   </div>
@@ -71,6 +71,10 @@ const router = useRouter()
 const { isApproved, closeTaskDetail, id, isProcessor, isRequestor } =
   defineProps<TaskDetailTopBarProps>()
 
+import { useQueryClient } from '@tanstack/vue-query'
+
+const queryClient = useQueryClient()
+
 const isModalOpen = ref({
   cancel: false,
   success: false
@@ -88,6 +92,15 @@ const cancelTask = async () => {
   await cancelTaskUser(id)
   toggleModal('cancel')
   toggleModal('success')
+}
+
+const finishCancel = async () => {
+  await queryClient.refetchQueries({
+    queryKey: ['myRequest']
+  })
+
+  toggleModal('success')
+  closeTaskDetail()
 }
 
 const ApproveTask = () => {
