@@ -1,8 +1,12 @@
 <template>
   <div
+    v-if="isOpen"
     class="fixed inset-0 bg-black bg-opacity-15 flex items-center z-50"
-    @click.self="$emit('close')">
-    <div class="flex flex-col relative w-80 bg-white h-screen shadow-custom py-2">
+    @click.self="$emit('close')" />
+  <Transition name="sidebar">
+    <div
+      v-if="isOpen"
+      class="flex flex-col fixed w-80 bg-white h-screen shadow-custom py-2 z-50">
       <div class="flex flex-col gap-12 flex-1 overflow-hidden">
         <div class="flex justify-between items-center px-6">
           <CommonIcons
@@ -62,7 +66,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
@@ -76,6 +80,9 @@ import { storeToRefs } from 'pinia'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
+
+const { isOpen } = defineProps<{ isOpen: boolean }>()
+defineEmits(['close'])
 
 const route = useRoute()
 
