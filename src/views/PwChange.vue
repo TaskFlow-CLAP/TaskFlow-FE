@@ -3,7 +3,7 @@
     <ModalView
       :isOpen="isModalOpen"
       type="successType"
-      @close="pwChange">
+      @close="closeModal">
       <template #header> 비밀번호가 변경 되었습니다 </template>
       <template #body> 다시 로그인 해주세요 </template>
     </ModalView>
@@ -27,16 +27,35 @@
           v-model="newPw"
           placeholder="새 비밀번호를 입력해주세요"
           required
-          class="input-box" />
+          ref="passwordInput"
+          :class="[
+            'block w-full px-4 py-4 border rounded focus:outline-none',
+            isInvalid ? 'border-red-1' : 'border-border-1'
+          ]"
+          @blur="validatePassword" />
+        <p
+          v-show="isInvalid"
+          class="text-red-1 text-xs font-bold mt-1">
+          대문자, 소문자, 숫자, 특수문자 포함 8자-20자 입력해주세요
+        </p>
       </div>
       <div class="mb-8">
         <input
           type="password"
           id="checkPw"
           v-model="checkPw"
+          ref="checkPwInput"
           placeholder="새 비밀번호를 다시 입력해주세요"
           required
-          class="input-box" />
+          :class="[
+            'block w-full px-4 py-4 border rounded focus:outline-none',
+            isDifferent ? 'border-red-1' : 'border-border-1'
+          ]" />
+        <p
+          v-show="isDifferent"
+          class="text-red-1 text-xs font-bold mt-1">
+          비밀번호가 일치하지 않아요
+        </p>
       </div>
       <button
         type="submit"
@@ -49,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from '../components/ModalView.vue'
 import { deleteLogout, patchPassword } from '@/api/auth'
@@ -65,22 +84,43 @@ const newPw = ref('')
 const checkPw = ref('')
 const isModalOpen = ref(false)
 const router = useRouter()
+const isDifferent = ref(false)
+const checkPwInput = ref<HTMLInputElement | null>(null)
+const isInvalid = ref(false)
+const passwordInput = ref<HTMLInputElement | null>(null)
 
-const toggleModal = () => {
+const validatePassword = () => {
+  const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-]).{8,20}$/
+  isInvalid.value = !regex.test(newPw.value)
+
+  if (isInvalid.value) {
+    nextTick(() => {
+      passwordInput.value?.focus()
+    })
+  }
+}
+
+const openModal = () => {
   isModalOpen.value = !isModalOpen.value
+}
+const closeModal = () => {
+  isModalOpen.value = !isModalOpen.value
+  router.push('/login')
+  deleteLogout()
 }
 
 const handleChange = () => {
   if (newPw.value === checkPw.value) {
     patchPassword(newPw.value)
-    toggleModal()
+    pwChange()
+    openModal()
   } else {
+    isDifferent.value = true
+    checkPwInput.value?.focus()
   }
 }
 
 const pwChange = () => {
   isLogined.value = false
-  deleteLogout()
-  router.push('/login')
 }
 </script>
