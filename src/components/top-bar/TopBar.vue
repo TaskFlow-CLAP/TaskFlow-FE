@@ -62,8 +62,8 @@ import ProfileModal from './ProfileModal.vue'
 import { getNotifiCount } from '@/api/common'
 import { useRoute, useRouter } from 'vue-router'
 import { PERMITTED_URL } from '@/constants/common'
-import { useOutsideClick } from '../hooks/useOutsideClick'
 import ImageContainer from '../common/ImageContainer.vue'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)

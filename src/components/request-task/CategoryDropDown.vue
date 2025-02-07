@@ -44,10 +44,10 @@
 
 <script lang="ts" setup>
 import { dropdownIcon } from '@/constants/iconPath'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 import type { Category, CategoryDropdownProps } from '@/types/common'
 import { computed, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
-import { useOutsideClick } from '../hooks/useOutsideClick'
 
 const { options, labelName, modelValue, isLabel, isDisabled, isInvalidate } =
   defineProps<CategoryDropdownProps>()

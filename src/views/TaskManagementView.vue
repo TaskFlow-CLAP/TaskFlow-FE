@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
+import TitleBar from '@/components/common/TitleBar.vue'
 import CategoryManagement from '@/components/task-management/CategoryManagement.vue'
 import LabelManagement from '@/components/task-management/LabelManagement.vue'
-import TitleBar from '@/components/TitleBar.vue'
 </script>

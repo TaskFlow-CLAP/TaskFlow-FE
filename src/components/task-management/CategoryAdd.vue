@@ -20,7 +20,6 @@
       @close="handleFailModal">
       <template #header>카테고리 정보를 확인해주세요</template>
     </ModalView>
-    <!-- 카테고리 목록 API 필요, 임시로 역할로 설정 -->
     <RequestTaskDropdown
       v-model="mainCategory"
       :options="categoryOptions.map(el => el.name)"
@@ -63,12 +62,12 @@ import { CATEGORY_FORM } from '@/constants/admin'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
-import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
 import { axiosInstance } from '@/utils/axios'
 import { getMainCategory } from '@/api/common'
 import type { Category, CategoryForm } from '@/types/common'
+import ModalView from '../common/ModalView.vue'
 
 const router = useRouter()
 const route = useRoute()

@@ -72,9 +72,9 @@ import { useQueryClient } from '@tanstack/vue-query'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ListCardTab from '../lists/ListCardTab.vue'
-import ModalView from '../ModalView.vue'
 import TaskDetail from '../task-detail/TaskDetail.vue'
 import { useMemberStore } from '@/stores/member'
+import ModalView from '../common/ModalView.vue'
 
 const { info } = defineProps<{ info: RequestedListData }>()
 const requestedTabList: ListCardProps[] = [

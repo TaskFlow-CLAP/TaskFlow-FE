@@ -40,10 +40,10 @@ import FilterCategory from '../filters/FilterCategory.vue'
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 import { getCategory } from '@/api/common'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
+import { useRequestParamsChange } from '@/hooks/useRequestParamsChange'
 
 const store = useRequestParamsStore()
 store.$reset()

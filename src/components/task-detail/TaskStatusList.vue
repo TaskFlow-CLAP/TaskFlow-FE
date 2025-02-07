@@ -44,7 +44,7 @@ import { axiosInstance } from '@/utils/axios'
 import { statusAsColor } from '@/utils/statusAsColor'
 import { useQueryClient } from '@tanstack/vue-query'
 import { ref, watch } from 'vue'
-import ModalView from '../ModalView.vue'
+import ModalView from '../common/ModalView.vue'
 
 const { modelValue, isProcessor, taskId } = defineProps<TaskStatusListProps>()
 const modalError = ref('')

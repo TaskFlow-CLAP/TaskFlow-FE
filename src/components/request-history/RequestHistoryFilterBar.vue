@@ -33,17 +33,17 @@
 </template>
 
 <script setup lang="ts">
+import { getCategory } from '@/api/common'
 import { PAGE_SIZE_LIST, TASK_STATUS_LIST, TERM_LIST } from '@/constants/common'
+import { useRequestParamsChange } from '@/hooks/useRequestParamsChange'
+import { useMemberStore } from '@/stores/member'
 import { useRequestParamsStore } from '@/stores/params'
 import { useQuery } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
-import { getCategory } from '@/api/common'
-import { useMemberStore } from '@/stores/member'
-import { storeToRefs } from 'pinia'
 
 const store = useRequestParamsStore()
 store.$reset()

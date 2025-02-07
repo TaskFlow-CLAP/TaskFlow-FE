@@ -106,9 +106,9 @@ import { axiosInstance } from '@/utils/axios'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import { computed } from 'vue'
 import draggableComponent from 'vuedraggable'
-import { useParseParams } from '../hooks/useParseParams'
-import TaskCard from '../TaskCard.vue'
 import { storeToRefs } from 'pinia'
+import { useParseParams } from '@/hooks/useParseParams'
+import TaskCard from '../common/TaskCard.vue'
 
 const queryClient = useQueryClient()
 

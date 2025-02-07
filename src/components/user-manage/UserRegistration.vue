@@ -59,10 +59,10 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import FormCheckbox from '../common/FormCheckbox.vue'
-import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
 import DepartmentDropDown from './DepartmentDropDown.vue'
+import ModalView from '../common/ModalView.vue'
 
 const router = useRouter()
 const isModalVisible = ref(false)

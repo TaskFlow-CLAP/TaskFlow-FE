@@ -122,10 +122,10 @@ import { storeToRefs } from 'pinia'
 import { nextTick, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from './ModalView.vue'
-import FormButtonContainer from './common/FormButtonContainer.vue'
-import FormCheckbox from './common/FormCheckbox.vue'
-import ImageContainer from './common/ImageContainer.vue'
 import { patchEditInfo } from '@/api/common'
+import FormButtonContainer from './FormButtonContainer.vue'
+import FormCheckbox from './FormCheckbox.vue'
+import ImageContainer from './ImageContainer.vue'
 const router = useRouter()
 
 const memberStore = useMemberStore()

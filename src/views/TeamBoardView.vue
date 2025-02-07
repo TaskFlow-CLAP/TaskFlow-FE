@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
+import TitleBar from '@/components/common/TitleBar.vue'
 import TeamBoard from '@/components/team-board/TeamBoard.vue'
 import TeamBoardFilterBar from '@/components/team-board/TeamBoardFilterBar.vue'
-import TitleBar from '@/components/TitleBar.vue'
 </script>

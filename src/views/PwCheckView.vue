@@ -39,10 +39,10 @@
 <script setup lang="ts">
 import { postPasswordCheck } from '@/api/auth'
 import TitleContainer from '@/components/common/TitleContainer.vue'
-import ModalView from '@/components/ModalView.vue'
 import axios from 'axios'
 import { ref } from 'vue'
 import router from '../router/index'
+import ModalView from '@/components/common/ModalView.vue'
 
 const isModalVisible = ref(false)
 

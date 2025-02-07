@@ -66,13 +66,13 @@ import type { TaskDetailTopBarProps } from '@/types/manager'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import CommonIcons from '../common/CommonIcons.vue'
-import ModalView from '../ModalView.vue'
 
 const router = useRouter()
 const { isApproved, closeTaskDetail, id, isProcessor, isRequestor } =
   defineProps<TaskDetailTopBarProps>()
 
 import { useQueryClient } from '@tanstack/vue-query'
+import ModalView from '../common/ModalView.vue'
 
 const queryClient = useQueryClient()
 

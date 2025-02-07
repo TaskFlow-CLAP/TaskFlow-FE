@@ -28,8 +28,6 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import PieChart from '../PieChart.vue'
-import LineChart from '../LineChart.vue'
 import PeriodButtons from './PeriodButtons.vue'
 import type { PeriodType } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
@@ -37,6 +35,8 @@ import { useQuery } from '@tanstack/vue-query'
 import type { StatisticsData } from '@/types/admin'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
+import PieChart from '../charts/PieChart.vue'
+import LineChart from '../charts/LineChart.vue'
 
 const { title, statisticsType, chartType } = defineProps<{
   title: string

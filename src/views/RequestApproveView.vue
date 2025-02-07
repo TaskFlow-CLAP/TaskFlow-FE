@@ -7,6 +7,6 @@
 </template>
 
 <script setup lang="ts">
+import TitleBar from '@/components/common/TitleBar.vue'
 import RequestApprove from '@/components/request-approve/RequestApprove.vue'
-import TitleBar from '@/components/TitleBar.vue'
 </script>

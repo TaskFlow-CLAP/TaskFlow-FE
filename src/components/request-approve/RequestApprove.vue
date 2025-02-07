@@ -62,11 +62,11 @@ import { convertToISO } from '@/utils/date'
 import { onMounted, ref, watch } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
-import ModalView from '../ModalView.vue'
 import CategoryDropDown from '../request-task/CategoryDropDown.vue'
 import DueDateInput from './DueDateInput.vue'
 import LabelDropdown from './LabelDropdown.vue'
 import ManagerDropdown from './ManagerDropdown.vue'
+import ModalView from '../common/ModalView.vue'
 
 const isModalVisible = ref(false)
 const category1 = ref<Category | null>(null)

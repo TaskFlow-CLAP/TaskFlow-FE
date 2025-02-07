@@ -7,6 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import TitleBar from '@/components/TitleBar.vue'
+import TitleBar from '@/components/common/TitleBar.vue'
 import CategoryAdd from '../components/task-management/CategoryAdd.vue'
 </script>

@@ -27,10 +27,10 @@ import { useQuery } from '@tanstack/vue-query'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { useTeamBoardParamsChange } from '../hooks/useTeamBoardParamsChange'
 import { getCategory } from '@/api/common'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
+import { useTeamBoardParamsChange } from '@/hooks/useTeamBoardParamsChange'
 
 const { params } = useTeamBoardParamsStore()
 

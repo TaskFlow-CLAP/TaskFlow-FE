@@ -51,7 +51,7 @@ import { deleteCategoryAdmin } from '@/api/admin'
 import type { CategoryAllData } from '@/types/admin'
 import { defineProps, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import ModalView from '../ModalView.vue'
+import ModalView from '../common/ModalView.vue'
 
 const { categories } = defineProps<CategoryAllData>()
 const router = useRouter()

@@ -11,5 +11,5 @@
 <script setup lang="ts">
 import ApiLogsFilterBar from '@/components/api-logs/ApiLogsFilterBar.vue'
 import ApiLogsList from '@/components/api-logs/ApiLogsList.vue'
-import TitleBar from '@/components/TitleBar.vue'
+import TitleBar from '@/components/common/TitleBar.vue'
 </script>

@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import type { ListCardProps, Status } from '@/types/common'
-import TaskStatus from '../TaskStatus.vue'
+import TaskStatus from '../common/TaskStatus.vue'
 
 const { content, width, isTextXs, profileImg, isStatus, isStatusCode, isTextBody } =
   defineProps<ListCardProps>()

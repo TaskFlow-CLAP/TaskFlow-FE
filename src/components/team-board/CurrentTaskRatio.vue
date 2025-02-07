@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import PieChart from '../PieChart.vue'
+import PieChart from '../charts/PieChart.vue'
 
 const { teamSummary, teamData } = defineProps<{
   teamSummary: {

@@ -30,7 +30,7 @@ import { useMemberManagementParamsStore } from '@/stores/params'
 import { useQueryClient } from '@tanstack/vue-query'
 import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
-import ModalView from '../ModalView.vue'
+import ModalView from '../common/ModalView.vue'
 
 const queryClient = useQueryClient()
 const isModalVisible = ref(false)

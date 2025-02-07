@@ -90,11 +90,11 @@ import type { TaskDetailDatas } from '@/types/user'
 import { formatDate, formatDaysBefore, formatDueDate } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
 import { defineProps, ref, watch } from 'vue'
-import TaskStatus from '../TaskStatus.vue'
 import TaskDetailLabelDropdown from './TaskDetailLabelDropdown.vue'
 import TaskDetailManagerDropdown from './TaskDetailManagerDropdown.vue'
 import TaskStatusList from './TaskStatusList.vue'
 import ImageContainer from '../common/ImageContainer.vue'
+import TaskStatus from '../common/TaskStatus.vue'
 
 const { data, isProcessor } = defineProps<{ data: TaskDetailDatas; isProcessor: boolean }>()
 

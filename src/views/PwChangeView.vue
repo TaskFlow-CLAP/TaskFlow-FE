@@ -70,12 +70,12 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import ModalView from '../components/ModalView.vue'
 import { deleteLogout, patchPassword } from '@/api/auth'
 import TitleContainer from '@/components/common/TitleContainer.vue'
 import Cookies from 'js-cookie'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
+import ModalView from '@/components/common/ModalView.vue'
 const memberStore = useMemberStore()
 const { isLogined } = storeToRefs(memberStore)
 

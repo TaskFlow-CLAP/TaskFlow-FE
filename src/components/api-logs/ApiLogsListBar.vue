@@ -12,11 +12,11 @@
 </template>
 
 <script setup lang="ts">
-import { useLogsParamsStore } from '@/stores/params'
-import ListBarTab from '../lists/ListBarTab.vue'
 import { LOGS_LIST_BAR_TAB } from '@/constants/admin'
-import { useLogsParamsChange } from '../hooks/useLogsParamsChange'
+import { useLogsParamsChange } from '@/hooks/useLogsParamsChange'
+import { useLogsParamsStore } from '@/stores/params'
 import { computed } from 'vue'
+import ListBarTab from '../lists/ListBarTab.vue'
 
 const { params } = useLogsParamsStore()
 const orderRequest = computed(() => ({

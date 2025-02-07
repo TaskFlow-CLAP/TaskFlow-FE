@@ -27,10 +27,10 @@
 
 <script setup lang="ts">
 import CommonIcons from '@/components/common/CommonIcons.vue'
+import TitleBar from '@/components/common/TitleBar.vue'
 import MemberManagementAddByCsv from '@/components/member-management/MemberManagementAddByCsv.vue'
 import MemberManagementFilterBar from '@/components/member-management/MemberManagementFilterBar.vue'
 import MemberManagementList from '@/components/member-management/MemberManagementList.vue'
-import TitleBar from '@/components/TitleBar.vue'
 import { csvPath } from '@/constants/admin'
 import { downloadIcon } from '@/constants/iconPath'
 import { useRouter } from 'vue-router'

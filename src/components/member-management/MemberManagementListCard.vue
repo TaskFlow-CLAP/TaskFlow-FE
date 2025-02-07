@@ -55,7 +55,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ResultModal from '../common/ResultModal.vue'
 import ListCardTab from '../lists/ListCardTab.vue'
-import ModalView from '../ModalView.vue'
+import ModalView from '../common/ModalView.vue'
 
 const roleContent = (role: Role) => {
   return role === 'ROLE_USER' ? '사용자' : role === 'ROLE_MANAGER' ? '담당자' : '관리자'

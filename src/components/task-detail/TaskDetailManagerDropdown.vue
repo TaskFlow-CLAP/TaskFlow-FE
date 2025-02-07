@@ -42,10 +42,10 @@
 <script lang="ts" setup>
 import { getManager } from '@/api/user'
 import { dropdownIcon } from '@/constants/iconPath'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 import type { ManagerTypes } from '@/types/manager'
 import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
-import { useOutsideClick } from '../hooks/useOutsideClick'
 import ImageContainer from '../common/ImageContainer.vue'
 
 const { modelValue } = defineProps<{ modelValue: ManagerTypes; taskId: number }>()

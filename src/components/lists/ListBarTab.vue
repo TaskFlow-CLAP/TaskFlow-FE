@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import type { ListBarTabProps } from '@/types/common'
 import { computed } from 'vue'
-import OrderIcon from '../OrderIcon.vue'
+import OrderIcon from '../common/OrderIcon.vue'
 
 const { content, width, sortBy, currentOrderRequest } = defineProps<ListBarTabProps>()
 defineEmits(['toggleSortBy'])

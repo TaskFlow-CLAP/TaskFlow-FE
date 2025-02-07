@@ -15,8 +15,8 @@
 import ListBarTab from '../lists/ListBarTab.vue'
 import { useRequestParamsStore } from '@/stores/params'
 import { REQUEST_HISTORY_LIST_BAR_TAB } from '@/constants/manager'
-import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 import { computed } from 'vue'
+import { useRequestParamsChange } from '@/hooks/useRequestParamsChange'
 
 const { params } = useRequestParamsStore()
 const orderRequest = computed(() => ({

@@ -22,8 +22,8 @@ import {
   type ChartEvent,
   type ActiveElement
 } from 'chart.js'
-import NoContent from './lists/NoContent.vue'
 import type { PeriodType } from '@/types/manager'
+import NoContent from '../lists/NoContent.vue'
 ChartJS.register(Title, Tooltip, Legend, ArcElement, Colors)
 
 const { labels, series, periodType, content } = defineProps<{

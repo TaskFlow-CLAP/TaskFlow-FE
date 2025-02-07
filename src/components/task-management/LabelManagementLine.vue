@@ -70,8 +70,8 @@ import { deleteLabelAdmin, patchLabelAdmin } from '@/api/admin'
 import type { LabelColorTypes, LabelDataTypes } from '@/types/common'
 import { getColor } from '@/utils/color'
 import { defineProps, ref } from 'vue'
-import ModalView from '../ModalView.vue'
 import ColorSelectModal from './ColorSelectModal.vue'
+import ModalView from '../common/ModalView.vue'
 
 const { labelData } = defineProps<{ labelData: LabelDataTypes[] }>()
 

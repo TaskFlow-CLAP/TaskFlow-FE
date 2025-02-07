@@ -36,8 +36,8 @@
 import CommonIcons from '@/components/common/CommonIcons.vue'
 import { uploadIcon } from '@/constants/iconPath'
 import { computed, ref } from 'vue'
-import ModalView from '../ModalView.vue'
 import RequestTaskFileInputAfter from './RequestTaskFileInputAfter.vue'
+import ModalView from '../common/ModalView.vue'
 
 const { modelValue } = defineProps<{
   modelValue: File[] | null
