@@ -40,11 +40,10 @@
         @change="handleFileUpload"
         accept="image/*"
         class="hidden" />
-      <input
-        id="fileInput"
-        type="file"
-        @change="handleFileDelete"
-        accept="image/*"
+      <button
+        id="fileDelete"
+        type="button"
+        @click="handleFileDelete"
         class="hidden" />
     </div>
     <div class="flex flex-col relative">
@@ -135,6 +134,7 @@ const name = ref(info.value.name)
 const agitCheck = ref(info.value.notificationSettingInfo.agit)
 const emailCheck = ref(info.value.notificationSettingInfo.email)
 const kakaoWorkCheck = ref(info.value.notificationSettingInfo.kakaoWork)
+const imageDelete = ref(info.value.profileImageUrl == null ? true : false)
 
 const selectedFile = ref<File | null>(null)
 const previewUrl = ref<string | null>(null)
@@ -156,7 +156,6 @@ watchEffect(() => {
 
 const validateName = () => {
   const regex = /[!@#$%^&*(),.?":{}|<>]/g
-  console.log(isInvalid.value)
   isInvalid.value = regex.test(name.value)
 
   if (isInvalid.value) {
@@ -197,14 +196,13 @@ const handleFileUpload = (event: Event) => {
     selectedFile.value = target.files[0]
     previewUrl.value = URL.createObjectURL(selectedFile.value)
   }
+  imageDelete.value = false
 }
 
-const handleFileDelete = (event: Event) => {
-  const target = event.target as HTMLInputElement
-  if (target.files && target.files[0]) {
-    selectedFile.value = target.files[0]
-    previewUrl.value = URL.createObjectURL(selectedFile.value)
-  }
+const handleFileDelete = () => {
+  imageDelete.value = true
+  previewUrl.value = ''
+  info.value.profileImageUrl = ''
 }
 
 const handleSubmit = async () => {
@@ -212,6 +210,7 @@ const handleSubmit = async () => {
     const formData = new FormData()
     const memberInfo = {
       name: name.value,
+      isProfileImageDeleted: imageDelete.value,
       agitNotification: agitCheck.value,
       emailNotification: emailCheck.value,
       kakaoWorkNotification: kakaoWorkCheck.value
@@ -221,8 +220,10 @@ const handleSubmit = async () => {
 
     formData.append('memberInfo', newBlob)
 
-    if (selectedFile.value) {
+    if (selectedFile.value && imageDelete.value == false) {
       formData.append('profileImage', selectedFile.value)
+    } else if (imageDelete.value == true) {
+      selectedFile.value = null
     }
 
     try {
