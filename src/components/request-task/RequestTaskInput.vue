@@ -19,7 +19,8 @@
       :disabled="isEdit"
       @input="updateValue(($event.target as HTMLInputElement).value)"
       :placeholder="placeholderText"
-      :class="{ 'text-gray-500': isEdit, 'text-black': !isEdit }" />
+      :class="{ 'text-gray-500': isEdit, 'text-black': !isEdit }"
+      :maxlength="labelName === '제목' ? 30 : undefined" />
 
     <p
       v-if="isInvalidateState === 'code'"
