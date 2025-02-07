@@ -108,6 +108,7 @@ import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import type { Status } from '@/types/common'
 import { computed } from 'vue'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const queryClient = useQueryClient()
 
@@ -166,7 +167,8 @@ const fetchTaskBoard = async () => {
   const response = await axiosInstance.get('/api/task-board', { params: parsedParams })
   return response.data
 }
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery<TaskCardList>({
   queryKey: ['taskBoard', params],
   queryFn: fetchTaskBoard,

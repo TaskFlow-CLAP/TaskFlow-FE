@@ -30,12 +30,14 @@ import FilterInput from '../filters/FilterInput.vue'
 import { useTeamBoardParamsChange } from '../hooks/useTeamBoardParamsChange'
 import { getCategory } from '@/api/common'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const { params } = useTeamBoardParamsStore()
 
 const onParamsChange = useTeamBoardParamsChange()
 
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery({
   queryKey: ['category'],
   queryFn: getCategory,

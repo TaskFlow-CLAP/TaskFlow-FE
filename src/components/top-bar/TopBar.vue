@@ -71,9 +71,10 @@ const { isLogined, info } = storeToRefs(memberStore)
 const route = useRoute()
 const router = useRouter()
 onMounted(async () => {
+  await memberStore.updateMemberInfoWithToken()
+
   if (isLogined.value) {
     await fetchNotificationCount()
-    await memberStore.updateMemberInfoWithToken()
   }
 
   const originUrl = route.path.split('/')[1]
