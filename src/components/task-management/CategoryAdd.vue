@@ -67,8 +67,8 @@ import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
 import { axiosInstance } from '@/utils/axios'
-import { getMainCategory, getSubCategory } from '@/api/common'
-import type { Category, CategoryForm, SubCategory } from '@/types/common'
+import { getMainCategory } from '@/api/common'
+import type { Category, CategoryForm } from '@/types/common'
 
 const router = useRouter()
 const route = useRoute()
@@ -146,24 +146,24 @@ onMounted(async () => {
   if (categoryStep === '1') {
     if (id) {
       const mainCategories: Category[] = await getMainCategory()
-      const initailValue = mainCategories.find(el => el.id === id)
-      if (initailValue) {
-        categoryForm.value = { name: initailValue.name, code: initailValue.code }
+      const initialValue = mainCategories.find(el => el.id === id)
+      if (initialValue) {
+        categoryForm.value = { name: initialValue.name, code: initialValue.code }
       }
     }
   } else if (categoryStep === '2') {
     categoryOptions.value = await getMainCategory()
     if (id) {
-      const subCategory: SubCategory[] = await getSubCategory()
-      const initailValue = subCategory.find(el => el.id === id)
-      if (initailValue) {
+      const { data: initialValue } = await axiosInstance.get(`/api/sub-categories/${id}`)
+      if (initialValue) {
         categoryForm.value = {
-          name: initailValue.name,
-          code: initailValue.code,
-          mainCategoryId: initailValue.mainCategoryId
+          name: initialValue.name,
+          code: initialValue.code,
+          mainCategoryId: initialValue.mainCategoryId,
+          descriptionExample: initialValue.descriptionExample
         }
         mainCategory.value =
-          categoryOptions.value.find(el => el.id === initailValue.mainCategoryId)?.name || ''
+          categoryOptions.value.find(el => el.id === initialValue.mainCategoryId)?.name || ''
       }
     }
   }

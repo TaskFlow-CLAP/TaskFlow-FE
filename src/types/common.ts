@@ -25,6 +25,7 @@ export interface SubCategory {
   mainCategoryId: number
   name: string
   code: string
+  descriptionExample: string
 }
 
 export interface FilterCategoryProps {
