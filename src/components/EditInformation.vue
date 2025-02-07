@@ -22,16 +22,28 @@
         class="mt-3"
         :url="previewUrl || info.profileImageUrl"
         :size="96" />
-
-      <label
-        for="fileInput"
-        class="mt-3 text-xs text-primary1 font-bold cursor-pointer"
-        >변경</label
-      >
+      <div class="flex gap-6">
+        <label
+          for="fileInput"
+          class="mt-3 text-xs text-primary1 font-bold cursor-pointer hover:underline"
+          >변경</label
+        >
+        <label
+          for="fileDelete"
+          class="mt-3 text-xs text-red-1 font-bold cursor-pointer hover:underline"
+          >삭제</label
+        >
+      </div>
       <input
         id="fileInput"
         type="file"
         @change="handleFileUpload"
+        accept="image/*"
+        class="hidden" />
+      <input
+        id="fileInput"
+        type="file"
+        @change="handleFileDelete"
         accept="image/*"
         class="hidden" />
     </div>
@@ -180,6 +192,14 @@ const warningModalToggle = () => {
 }
 
 const handleFileUpload = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  if (target.files && target.files[0]) {
+    selectedFile.value = target.files[0]
+    previewUrl.value = URL.createObjectURL(selectedFile.value)
+  }
+}
+
+const handleFileDelete = (event: Event) => {
   const target = event.target as HTMLInputElement
   if (target.files && target.files[0]) {
     selectedFile.value = target.files[0]
