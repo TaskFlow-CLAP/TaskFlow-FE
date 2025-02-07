@@ -32,11 +32,11 @@
 <script lang="ts" setup>
 import { getLabelsManager } from '@/api/user'
 import { dropdownIcon } from '@/constants/iconPath'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 import type { LabelDataTypes } from '@/types/common'
 import type { LabelDropdownProps } from '@/types/user'
 import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
-import { useOutsideClick } from '../hooks/useOutsideClick'
 
 const { modelValue, placeholderText } = defineProps<LabelDropdownProps>()
 const emit = defineEmits(['update:modelValue'])

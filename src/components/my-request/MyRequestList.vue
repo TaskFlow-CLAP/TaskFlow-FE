@@ -27,7 +27,6 @@ import type { MyRequestResponse } from '@/types/user'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
-import { useParseParams } from '../hooks/useParseParams'
 import ListContainer from '../lists/ListContainer.vue'
 import ListPagination from '../lists/ListPagination.vue'
 import NoContent from '../lists/NoContent.vue'
@@ -35,6 +34,7 @@ import MyRequestListBar from './MyRequestListBar.vue'
 import MyRequestListCard from './MyRequestListCard.vue'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
+import { useParseParams } from '@/hooks/useParseParams'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {

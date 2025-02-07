@@ -6,10 +6,10 @@
     ]">
     <textarea
       class="w-full h-20 focus:outline-none resize-none"
-      type="text"
       :placeholder="placeHolderText"
       v-model="messageText"
       :disabled="!isPossible"
+      maxlength="254"
       @compositionstart="isComposing = true"
       @compositionend="isComposing = false"
       @keydown.enter.stop.prevent="handleEnterKey"></textarea>
@@ -56,7 +56,8 @@ const isComposing = ref(false)
 
 const isPossible = computed(
   () =>
-    history.length !== 0 && (info.value.role !== 'ROLE_USER' || info.value.role === requestorName)
+    history.length !== 0 &&
+    (info.value.role !== 'ROLE_USER' || info.value.nickname === requestorName)
 )
 
 const isSendable = computed(() => isPossible.value && messageText.value.trim() !== '')

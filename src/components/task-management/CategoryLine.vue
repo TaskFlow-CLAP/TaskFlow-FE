@@ -17,11 +17,13 @@
           </div>
           <div class="flex gap-2 text-xs font-bold">
             <button
+              type="button"
               @click="router.push(`/category-first/${main.id}`)"
               class="text-primary1 hover:underline">
               수정
             </button>
             <button
+              type="button"
               @click="openModal(main.id)"
               class="text-red-1 hover:underline">
               삭제
@@ -49,7 +51,7 @@ import { deleteCategoryAdmin } from '@/api/admin'
 import type { CategoryAllData } from '@/types/admin'
 import { defineProps, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import ModalView from '../ModalView.vue'
+import ModalView from '../common/ModalView.vue'
 
 const { categories } = defineProps<CategoryAllData>()
 const router = useRouter()

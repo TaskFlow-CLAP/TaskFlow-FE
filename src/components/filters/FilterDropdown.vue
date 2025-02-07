@@ -29,11 +29,11 @@
 </template>
 
 <script setup lang="ts">
+import { dropdownIcon } from '@/constants/iconPath'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 import type { Filter } from '@/types/common'
 import { ref } from 'vue'
-import { dropdownIcon } from '@/constants/iconPath'
 import CommonIcons from '../common/CommonIcons.vue'
-import { useOutsideClick } from '../hooks/useOutsideClick'
 
 const { title, value, width = '120', optionList } = defineProps<Filter>()
 const emit = defineEmits(['update:value'])

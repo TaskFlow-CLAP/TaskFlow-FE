@@ -22,7 +22,7 @@ export const API_LOGS_DIVISION_LIST: Option[] = [
   { content: '요청 수정', value: 'REQUEST_UPDATED' },
   { content: '요청 취소', value: 'REQUEST_CANCELLED' },
   { content: '요청 승인', value: 'REQUEST_APPROVED' },
-  { content: '처리자 변경', value: 'ASSIGNER_CHANGED' },
+  { content: '담당자 변경', value: 'ASSIGNER_CHANGED' },
   { content: '댓글 추가', value: 'COMMENT_ADDED' },
   { content: '댓글 수정', value: 'COMMENT_UPDATED' },
   { content: '작업 상태 변경', value: 'STATUS_CHANGED' },
@@ -69,3 +69,6 @@ export const RoleMapping: { [key in RoleTypesEnum]: RoleTypes } = {
 }
 
 export const RoleKeys: RoleTypes[] = Object.keys(RoleTypeMapping) as RoleTypes[]
+
+export const csvPath =
+  'https://objectstorage.kr-central-2.kakaocloud.com/v1/34481374c1ee4bbb8745df43e4c13fff/taskflow/example/member_form_example.csv'

@@ -7,6 +7,11 @@
         class="text-red-1">
         *
       </p>
+      <p
+        v-if="isInvalidateState === 'input'"
+        class="text-red-1 text-xs">
+        {{ labelName }}을 입력해주세요
+      </p>
     </div>
     <input
       class="w-full h-11 border border-border-1 px-4 focus:outline-none text-black rounded"
@@ -14,12 +19,9 @@
       :disabled="isEdit"
       @input="updateValue(($event.target as HTMLInputElement).value)"
       :placeholder="placeholderText"
-      :class="{ 'text-gray-500': isEdit, 'text-black': !isEdit }" />
-    <p
-      v-if="isInvalidateState === 'input'"
-      class="text-red-1 text-xs absolute top-[calc(100%+4px)]">
-      {{ labelName }}을 입력해주세요
-    </p>
+      :class="{ 'text-gray-500': isEdit, 'text-black': !isEdit }"
+      :maxlength="labelName === '제목' ? 30 : undefined" />
+
     <p
       v-if="isInvalidateState === 'code'"
       class="text-red-1 text-xs absolute top-[calc(100%+4px)]">

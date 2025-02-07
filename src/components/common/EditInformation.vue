@@ -101,6 +101,7 @@
     <div>
       <p class="text-body text-xs font-bold">비밀번호 재설정</p>
       <button
+        type="button"
         class="button-medium-secondary mt-2"
         @click="handlePwChange">
         재설정하기
@@ -116,16 +117,16 @@
 </template>
 
 <script lang="ts" setup>
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 import { nextTick, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from './ModalView.vue'
-import FormButtonContainer from './common/FormButtonContainer.vue'
-import FormCheckbox from './common/FormCheckbox.vue'
-const router = useRouter()
-import { useMemberStore } from '@/stores/member'
-import { storeToRefs } from 'pinia'
 import { patchEditInfo } from '@/api/common'
-import ImageContainer from './common/ImageContainer.vue'
+import FormButtonContainer from './FormButtonContainer.vue'
+import FormCheckbox from './FormCheckbox.vue'
+import ImageContainer from './ImageContainer.vue'
+const router = useRouter()
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)

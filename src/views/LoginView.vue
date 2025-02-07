@@ -50,13 +50,14 @@
 </template>
 
 <script setup lang="ts">
+import { postLogin } from '@/api/auth'
+import ModalView from '@/components/common/ModalView.vue'
+import TitleContainer from '@/components/common/TitleContainer.vue'
+import { useMemberStore } from '@/stores/member'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { postLogin } from '@/api/auth'
-import { useMemberStore } from '@/stores/member'
-import TitleContainer from '@/components/common/TitleContainer.vue'
-import Cookies from 'js-cookie'
-import ModalView from '@/components/ModalView.vue'
 
 const router = useRouter()
 
@@ -100,18 +101,20 @@ const handleLogin = async () => {
       }
     }
   } catch (error) {
-    switch (error?.response?.status) {
-      case 401:
-        isModalVisible.value = !isModalVisible.value
-        messageHeader.value = '일치하는 정보가 없습니다'
-        messageBody.value = '닉네임과 비밀번호를 다시 확인해 주세요'
-        break
+    if (axios.isAxiosError(error)) {
+      switch (error.response?.status) {
+        case 401:
+          isModalVisible.value = !isModalVisible.value
+          messageHeader.value = '일치하는 정보가 없습니다'
+          messageBody.value = '닉네임과 비밀번호를 다시 확인해 주세요'
+          break
 
-      case 500:
-        isModalVisible.value = !isModalVisible.value
-        messageHeader.value = '서버에 문제가 발생했습니다'
-        messageBody.value = '잠시후 다시 이용해주세요'
-        break
+        case 500:
+          isModalVisible.value = !isModalVisible.value
+          messageHeader.value = '서버에 문제가 발생했습니다'
+          messageBody.value = '잠시후 다시 이용해주세요'
+          break
+      }
     }
   }
 }

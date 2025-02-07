@@ -6,6 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import TitleBar from '@/components/TitleBar.vue'
+import TitleBar from '@/components/common/TitleBar.vue'
 import UserRegistration from '@/components/user-manage/UserRegistration.vue'
 </script>

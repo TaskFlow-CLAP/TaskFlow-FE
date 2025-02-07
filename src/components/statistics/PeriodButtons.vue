@@ -1,6 +1,7 @@
 <template>
   <div class="text-xs font-bold flex gap-4">
     <button
+      type="button"
       @click="changePeriod('DAY')"
       :class="
         periodType === 'DAY'
@@ -10,6 +11,7 @@
       일간
     </button>
     <button
+      type="button"
       @click="changePeriod('WEEK')"
       :class="
         periodType === 'WEEK'
@@ -19,6 +21,7 @@
       주간
     </button>
     <button
+      type="button"
       @click="changePeriod('MONTH')"
       :class="
         periodType === 'MONTH'

@@ -15,11 +15,13 @@
           </div>
           <div class="flex gap-2 text-xs font-bold">
             <button
+              type="button"
               @click="router.push(`/category-second/${sub.id}`)"
               class="text-primary1 hover:underline">
               수정
             </button>
             <button
+              type="button"
               @click="openModal(sub.id)"
               class="text-red-1 hover:underline">
               삭제
@@ -52,8 +54,8 @@ import type { CategoryAllData } from '@/types/admin'
 import { useQueryClient } from '@tanstack/vue-query'
 import { defineProps, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import ModalView from '../ModalView.vue'
 import CommonIcons from '../common/CommonIcons.vue'
+import ModalView from '../common/ModalView.vue'
 
 const { categories } = defineProps<CategoryAllData>()
 const router = useRouter()

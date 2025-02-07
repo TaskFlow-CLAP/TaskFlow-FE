@@ -40,14 +40,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { deleteLogout } from '@/api/auth'
-import ModalView from '../ModalView.vue'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import ImageContainer from '../common/ImageContainer.vue'
+import ModalView from '../common/ModalView.vue'
 
 const isModalVisible = ref(false)
 

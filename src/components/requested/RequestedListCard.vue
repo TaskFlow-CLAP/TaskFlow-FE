@@ -12,6 +12,7 @@
       :is-status="tab.isStatus" />
     <div class="w-[120px] flex gap-2 justify-center items-center shrink-0">
       <button
+        type="button"
         @click.stop="
           userInfo.isReviewer && router.push(`/request-approve?requestId=${info.taskId}`)
         "
@@ -23,6 +24,7 @@
         승인
       </button>
       <button
+        type="button"
         @click.stop="userInfo.isReviewer && toggleModal('reject')"
         :class="
           userInfo.isReviewer
@@ -70,9 +72,9 @@ import { useQueryClient } from '@tanstack/vue-query'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ListCardTab from '../lists/ListCardTab.vue'
-import ModalView from '../ModalView.vue'
 import TaskDetail from '../task-detail/TaskDetail.vue'
 import { useMemberStore } from '@/stores/member'
+import ModalView from '../common/ModalView.vue'
 
 const { info } = defineProps<{ info: RequestedListData }>()
 const requestedTabList: ListCardProps[] = [

@@ -7,12 +7,14 @@
       <p class="text-body font-bold text-xs">알림</p>
       <div class="flex items-center gap-2">
         <button
+          type="button"
           @click="readAllNotifi"
           class="flex items-center gap-1 p-1 rounded hover:bg-background-2">
           <CommonIcons :name="smallCheckIcon" />
           <p class="font-bold text-primary1 text-xs">모두 읽음</p>
         </button>
         <button
+          type="button"
           class="hover:bg-background-2 rounded"
           @click="closeModal">
           <CommonIcons :name="closeIcon" />
@@ -43,14 +45,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { getNotification, patchNotificationRead } from '@/api/common'
+import { closeIcon, smallCheckIcon } from '@/constants/iconPath'
+import type { NotificationContent } from '@/types/common'
+import { axiosInstance } from '@/utils/axios'
 import InfiniteLoading from 'v3-infinite-loading'
 import 'v3-infinite-loading/lib/style.css'
+import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
-import { smallCheckIcon, closeIcon } from '@/constants/iconPath'
-import { getNotification, patchNotificationRead } from '@/api/common'
-import { axiosInstance } from '@/utils/axios'
-import type { NotificationContent } from '@/types/common'
 import NotificationMessage from './NotificationMessage.vue'
 
 const { isOpen } = defineProps<{

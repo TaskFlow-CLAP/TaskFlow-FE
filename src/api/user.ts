@@ -38,7 +38,7 @@ export const changeProcessor = async (taskID: number, processorId: number) => {
 }
 
 export const patchChangeStatus = async (taskID: number, status: Status) => {
-  const response = await axiosInstance.patch(`/api/tasks/${taskID}/status`, status)
+  const response = await axiosInstance.patch(`/api/tasks/${taskID}/status`, { status })
   return response.data
 }
 
@@ -54,12 +54,15 @@ export const getHistory = async (taskID: number | null) => {
 }
 
 export const postComment = async (taskID: number, content: string) => {
-  const response = await axiosInstance.post(`/api/comments/${taskID}`, { content })
+  const response = await axiosInstance.post(`/api/tasks/${taskID}/comments`, { content })
   return response.data
 }
 
 export const postCommentAttachment = async (taskID: number, formdata: FormData) => {
-  const response = await formDataAxiosInstance.post(`/api/comments/attachment/${taskID}`, formdata)
+  const response = await formDataAxiosInstance.post(
+    `/api/tasks/${taskID}/comments/attachment`,
+    formdata
+  )
   return response.data
 }
 
@@ -80,5 +83,10 @@ export const patchTaskRequest = async (taskId: string, formdata: FormData) => {
 
 export const cancelTaskUser = async (taskId: number) => {
   const response = await axiosInstance.patch(`/api/tasks/${taskId}/cancel`)
+  return response.data
+}
+
+export const getSubCategoryDetail = async (categoryId: number) => {
+  const response = await axiosInstance.get(`/api/sub-categories/${categoryId}`)
   return response.data
 }

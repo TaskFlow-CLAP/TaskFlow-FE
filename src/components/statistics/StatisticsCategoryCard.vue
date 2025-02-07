@@ -31,7 +31,6 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import PieChart from '../PieChart.vue'
 import PeriodButtons from './PeriodButtons.vue'
 import type { PeriodType } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
@@ -39,6 +38,7 @@ import { useQuery } from '@tanstack/vue-query'
 import type { StatisticsData } from '@/types/admin'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
+import PieChart from '../charts/PieChart.vue'
 
 const periodType = ref<PeriodType>('DAY')
 const changePeriod = (newPeriodType: PeriodType) => {

@@ -98,17 +98,17 @@
 </template>
 
 <script setup lang="ts">
-import draggableComponent from 'vuedraggable'
-import TaskCard from '../TaskCard.vue'
+import { useMemberStore } from '@/stores/member'
+import { useTaskBoardParamsStore } from '@/stores/params'
+import type { Status } from '@/types/common'
 import type { DraggableEvent, TaskCardList } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
-import { useParseParams } from '../hooks/useParseParams'
-import { useTaskBoardParamsStore } from '@/stores/params'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
-import type { Status } from '@/types/common'
 import { computed } from 'vue'
-import { useMemberStore } from '@/stores/member'
+import draggableComponent from 'vuedraggable'
 import { storeToRefs } from 'pinia'
+import { useParseParams } from '@/hooks/useParseParams'
+import TaskCard from '../common/TaskCard.vue'
 
 const queryClient = useQueryClient()
 
@@ -154,7 +154,6 @@ const onListChange = async (event: DraggableEvent, status: Status) => {
       targetTaskId,
       nextTaskId
     }
-    console.log(prevTaskId, targetTaskId, nextTaskId)
     await axiosInstance.patch('/api/task-board', body)
     queryClient.invalidateQueries({ queryKey: ['taskBoard'] })
   }

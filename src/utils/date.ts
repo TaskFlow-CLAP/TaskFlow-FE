@@ -20,7 +20,8 @@ export const formatDateWithDay = (dateString: string) => {
 }
 
 export const convertToISO = (dateStr: string, timeStr: string) => {
-  if (dateStr === '' || timeStr === '') return null
+  if (dateStr === '') return null
+  if (!timeStr) timeStr = '00:00'
   const date = new Date(`${dateStr}T${timeStr}:00`)
   return date.toISOString()
 }
@@ -41,14 +42,16 @@ export const formatDaysBefore = (dateString: string) => {
   const date = new Date(dateString)
   const today = new Date()
 
-  const koreaOffset = 9 * 60 * 60 * 1000
-  const koreaDate = new Date(date.getTime() + koreaOffset)
-  const koreaToday = new Date(today.getTime() + koreaOffset)
-
-  const diffTime = koreaDate.getTime() - koreaToday.getTime()
+  const diffTime = today.getTime() - date.getTime()
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
 
-  return `${diffDays}일 남음`
+  if (diffDays > 0) {
+    return `${diffDays}일 초과`
+  } else if (diffDays === 0) {
+    return '오늘 마감'
+  } else {
+    return `${Math.abs(diffDays)}일 남음`
+  }
 }
 export const formatTodayOrNot = (dateStr: string, timeStr: string) => {
   const inputDate = new Date(`${dateStr}T${timeStr}`)

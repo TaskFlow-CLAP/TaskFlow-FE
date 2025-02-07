@@ -39,6 +39,7 @@
         </div>
 
         <button
+          type="button"
           class="button-large-primary"
           v-if="type == 'successType'"
           @click="closeModal">
@@ -46,6 +47,7 @@
         </button>
 
         <button
+          type="button"
           class="button-large-default"
           v-if="type == 'failType'"
           @click="closeModal">
@@ -56,11 +58,13 @@
           class="flex items-center gap-6"
           v-if="type == 'warningType' || type == 'inputType'">
           <button
+            type="button"
             class="button-large-default"
             @click="closeModal">
             취소
           </button>
           <button
+            type="button"
             class="button-large-red"
             @click="confirmModal">
             {{ type === 'inputType' ? '거부' : '삭제' }}
@@ -72,9 +76,8 @@
 </template>
 
 <script setup lang="ts">
+import { failIcon, successIcon, warningIcon } from '@/constants/iconPath'
 import { ref, watch } from 'vue'
-import CommonIcons from './common/CommonIcons.vue'
-import { successIcon, failIcon, warningIcon } from '../constants/iconPath'
 
 const props = defineProps<{
   isOpen: boolean

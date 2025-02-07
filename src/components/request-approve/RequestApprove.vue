@@ -23,13 +23,22 @@
       :placeholderText="'담당자를 선택해주세요'"
       :is-invalidate="isInvalidate" />
     <div class="flex flex-col gap-2">
-      <p class="text-body text-xs font-bold">마감기한</p>
+      <div class="flex gap-1">
+        <p class="text-body text-xs font-bold">마감기한</p>
+        <p
+          v-if="isInvalidate === 'date'"
+          class="text-red-1 text-xs">
+          기한정보를 모두 입력하세요
+        </p>
+      </div>
       <div class="flex w-full justify-center gap-6">
         <DueDateInput
           v-model="approveData.dueDate"
+          :is-invalidate="isInvalidate"
           inputType="date" />
         <DueDateInput
           v-model="approveData.dueTime"
+          :is-invalidate="isInvalidate"
           inputType="time" />
       </div>
     </div>
@@ -53,11 +62,11 @@ import { convertToISO } from '@/utils/date'
 import { onMounted, ref, watch } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
-import ModalView from '../ModalView.vue'
 import CategoryDropDown from '../request-task/CategoryDropDown.vue'
 import DueDateInput from './DueDateInput.vue'
 import LabelDropdown from './LabelDropdown.vue'
 import ManagerDropdown from './ManagerDropdown.vue'
+import ModalView from '../common/ModalView.vue'
 
 const isModalVisible = ref(false)
 const category1 = ref<Category | null>(null)
@@ -116,6 +125,13 @@ const handleSubmit = async () => {
   }
   if (!approveData.value.processor?.memberId) {
     isInvalidate.value = 'manager'
+    return
+  }
+  if (
+    (approveData.value.dueDate && !approveData.value.dueTime) ||
+    (!approveData.value.dueDate && approveData.value.dueTime)
+  ) {
+    isInvalidate.value = 'date'
     return
   }
 

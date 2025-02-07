@@ -37,11 +37,12 @@
 </template>
 
 <script setup lang="ts">
+import { postPasswordCheck } from '@/api/auth'
+import TitleContainer from '@/components/common/TitleContainer.vue'
+import axios from 'axios'
 import { ref } from 'vue'
 import router from '../router/index'
-import TitleContainer from '@/components/common/TitleContainer.vue'
-import { postPasswordCheck } from '@/api/auth'
-import ModalView from '@/components/ModalView.vue'
+import ModalView from '@/components/common/ModalView.vue'
 
 const isModalVisible = ref(false)
 
@@ -59,31 +60,32 @@ const handleCheck = async () => {
     await postPasswordCheck(pw.value)
     router.push('/pw-change')
   } catch (error) {
-    console.log(error?.response?.status)
-    switch (error?.response?.status) {
-      case 400:
-        isModalVisible.value = !isModalVisible.value
-        messageHeader.value = '비밀번호가 일치 하지 않습니다'
-        messageBody.value = '다시 확인하여 주세요'
-        break
+    if (axios.isAxiosError(error)) {
+      switch (error?.response?.status) {
+        case 400:
+          isModalVisible.value = !isModalVisible.value
+          messageHeader.value = '비밀번호가 일치 하지 않습니다'
+          messageBody.value = '다시 확인하여 주세요'
+          break
 
-      case 401:
-        isModalVisible.value = !isModalVisible.value
-        messageHeader.value = '비밀번호가 일치 하지 않습니다'
-        messageBody.value = '다시 확인하여 주세요'
-        break
+        case 401:
+          isModalVisible.value = !isModalVisible.value
+          messageHeader.value = '비밀번호가 일치 하지 않습니다'
+          messageBody.value = '다시 확인하여 주세요'
+          break
 
-      case 500:
-        isModalVisible.value = !isModalVisible.value
-        messageHeader.value = '서버에 문제가 발생했습니다'
-        messageBody.value = '잠시후 다시 이용해주세요'
-        break
+        case 500:
+          isModalVisible.value = !isModalVisible.value
+          messageHeader.value = '서버에 문제가 발생했습니다'
+          messageBody.value = '잠시후 다시 이용해주세요'
+          break
 
-      default:
-        isModalVisible.value = !isModalVisible.value
-        messageHeader.value = '문제가 발생했습니다'
-        messageBody.value = '잠시후 다시 이용해주세요'
-        break
+        default:
+          isModalVisible.value = !isModalVisible.value
+          messageHeader.value = '문제가 발생했습니다'
+          messageBody.value = '잠시후 다시 이용해주세요'
+          break
+      }
     }
   }
 }

@@ -8,8 +8,8 @@
 </template>
 
 <script setup lang="ts">
-import TitleBar from '@/components/TitleBar.vue'
-import EditInformation from '../components/EditInformation.vue'
+import EditInformation from '@/components/common/EditInformation.vue'
+import TitleBar from '@/components/common/TitleBar.vue'
 </script>
 
 <style scoped></style>

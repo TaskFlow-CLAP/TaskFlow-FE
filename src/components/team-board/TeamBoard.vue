@@ -21,19 +21,19 @@ import CurrentTaskRatio from './CurrentTaskRatio.vue'
 import { axiosInstance } from '@/utils/axios'
 import { useTeamBoardParamsStore } from '@/stores/params'
 import { useQuery } from '@tanstack/vue-query'
-import { useParseParams } from '../hooks/useParseParams'
 import type { TeamBoardResponse } from '@/types/manager'
 import { computed } from 'vue'
 import NoContent from '../lists/NoContent.vue'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
+import { useParseParams } from '@/hooks/useParseParams'
 
 const { params } = useTeamBoardParamsStore()
 
 const fetchTeamStatus = async () => {
   const { parseBoardParams } = useParseParams()
   const parsedParams = parseBoardParams(params)
-  const response = await axiosInstance.get('/api/team-status/filter', { params: parsedParams })
+  const response = await axiosInstance.get('/api/team-status', { params: parsedParams })
   return response.data
 }
 const memberStore = useMemberStore()

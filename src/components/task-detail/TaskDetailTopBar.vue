@@ -31,6 +31,7 @@
       </div>
     </div>
     <button
+      type="button"
       @click="closeTaskDetail"
       class="hover:bg-background-2 p-[2px] rounded">
       <CommonIcons :name="closeIcon" />
@@ -46,7 +47,7 @@
     <ModalView
       :is-open="isModalOpen.success"
       type="successType"
-      @close="toggleModal('success')">
+      @close="finishCancel">
       <template #header>요청이 취소되었습니다</template>
     </ModalView>
   </div>
@@ -65,11 +66,15 @@ import type { TaskDetailTopBarProps } from '@/types/manager'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import CommonIcons from '../common/CommonIcons.vue'
-import ModalView from '../ModalView.vue'
 
 const router = useRouter()
 const { isApproved, closeTaskDetail, id, isProcessor, isRequestor } =
   defineProps<TaskDetailTopBarProps>()
+
+import { useQueryClient } from '@tanstack/vue-query'
+import ModalView from '../common/ModalView.vue'
+
+const queryClient = useQueryClient()
 
 const isModalOpen = ref({
   cancel: false,
@@ -90,7 +95,16 @@ const cancelTask = async () => {
   toggleModal('success')
 }
 
+const finishCancel = async () => {
+  await queryClient.refetchQueries({
+    queryKey: ['myRequest']
+  })
+
+  toggleModal('success')
+  closeTaskDetail()
+}
+
 const ApproveTask = () => {
-  router.push(`/request-approve/${id}`)
+  router.push(`/request-approve?requestId=${id}`)
 }
 </script>

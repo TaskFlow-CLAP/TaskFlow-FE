@@ -22,8 +22,8 @@ import {
   Colors,
   Filler
 } from 'chart.js'
-import NoContent from './lists/NoContent.vue'
 import type { PeriodType } from '@/types/manager'
+import NoContent from '../lists/NoContent.vue'
 
 ChartJS.register(
   Title,

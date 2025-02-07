@@ -5,13 +5,15 @@
       :options="mainCategoryArr"
       :label-name="'1차 카테고리'"
       :placeholderText="'1차 카테고리를 선택해주세요'"
-      :isDisabled="false" />
+      :isDisabled="false"
+      :is-invalidate="isInvalidate" />
     <CategoryDropDown
       v-model="category2"
       :options="afterSubCategoryArr"
       :label-name="'2차 카테고리'"
       :placeholderText="'2차 카테고리를 선택해주세요'"
-      :isDisabled="!category1" />
+      :isDisabled="!category1"
+      :is-invalidate="isInvalidate" />
     <RequestTaskInput
       v-model="title"
       :placeholderText="'제목을 입력해주세요'"
@@ -43,11 +45,11 @@ import type { AttachmentResponse } from '@/types/user'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
-import ModalView from '../ModalView.vue'
 import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
+import ModalView from '../common/ModalView.vue'
 
 const category1 = ref<Category | null>(null)
 const category2 = ref<Category | null>(null)
@@ -65,8 +67,6 @@ const initFileArr = ref<AttachmentResponse[]>([])
 const isFirst = ref(true)
 
 const { id, reqType } = defineProps<{ id: string; reqType: string }>()
-console.log(reqType, id, '가져온 값')
-
 const router = useRouter()
 
 const handleCancel = () => {
@@ -78,7 +78,6 @@ onMounted(async () => {
   subCategoryArr.value = await getSubCategory()
   afterSubCategoryArr.value = await getSubCategory()
   const data = await getTaskDetailUser(Number(id))
-  console.log(data, '데이터')
   const selected = mainCategoryArr.value.find(ct => ct.name === data.mainCategoryName) || null
   category1.value = selected
   category2.value = subCategoryArr.value.find(ct => ct.name === data.categoryName) || null
@@ -129,8 +128,6 @@ const handleSubmit = async () => {
     attachmentsToDelete: attachmentsToDelete
   }
 
-  console.log(taskInfoEdit, '뭘 삭제할건지')
-
   const jsonTaskInfo = JSON.stringify(taskInfoEdit)
   const newBlob = new Blob([jsonTaskInfo], { type: 'application/json' })
   formData.append('taskInfo', newBlob)
@@ -140,12 +137,10 @@ const handleSubmit = async () => {
       f => !initFileArr.value.some(initFile => initFile.fileName === f.name)
     )
     newFiles.forEach(f => {
-      console.log('첨부 파일:', f)
       formData.append('attachment', f)
     })
   } else {
     file.value?.forEach(f => {
-      console.log('첨부 파일:', f)
       formData.append('attachment', f)
     })
   }

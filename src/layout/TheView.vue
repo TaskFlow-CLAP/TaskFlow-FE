@@ -17,7 +17,7 @@ import { useRoute } from 'vue-router'
 import TaskDetail from '@/components/task-detail/TaskDetail.vue'
 
 const route = useRoute()
-const selectedID = ref(route.query.taskId || null)
+const selectedID = ref(route.query?.taskId || null)
 
 watch(
   () => route.query.taskId,

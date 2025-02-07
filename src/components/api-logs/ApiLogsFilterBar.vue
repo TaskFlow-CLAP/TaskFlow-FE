@@ -27,12 +27,12 @@
 <script setup lang="ts">
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { useLogsParamsStore } from '@/stores/params'
-import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
 import { API_LOGS_DIVISION_LIST } from '@/constants/admin'
-import { useLogsParamsChange } from '../hooks/useLogsParamsChange'
 import FilterIpAddress from '../filters/FilterIpAddress.vue'
 import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
+import { useLogsParamsChange } from '@/hooks/useLogsParamsChange'
+import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
+import { useLogsParamsStore } from '@/stores/params'
 
 const store = useLogsParamsStore()
 store.$reset()

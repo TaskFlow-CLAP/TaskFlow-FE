@@ -32,11 +32,13 @@
         </div>
         <div class="flex gap-2 text-xs font-bold">
           <button
+            type="button"
             @click="isEdit && editValue.labelId === label.labelId ? finishEdit() : startEdit(label)"
             class="text-primary1 w-[21px] hover:underline">
             {{ isEdit && editValue.labelId === label.labelId ? '확인' : '수정' }}
           </button>
           <button
+            type="button"
             @click="
               isEdit && editValue.labelId === label.labelId
                 ? handleEdit()
@@ -68,8 +70,8 @@ import { deleteLabelAdmin, patchLabelAdmin } from '@/api/admin'
 import type { LabelColorTypes, LabelDataTypes } from '@/types/common'
 import { getColor } from '@/utils/color'
 import { defineProps, ref } from 'vue'
-import ModalView from '../ModalView.vue'
 import ColorSelectModal from './ColorSelectModal.vue'
+import ModalView from '../common/ModalView.vue'
 
 const { labelData } = defineProps<{ labelData: LabelDataTypes[] }>()
 

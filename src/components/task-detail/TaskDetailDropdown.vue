@@ -45,10 +45,10 @@
 
 <script lang="ts" setup>
 import { dropdownIcon } from '@/constants/iconPath'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 import type { TaskDetailDropdownProps } from '@/types/user'
 import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
-import { useOutsideClick } from '../hooks/useOutsideClick'
 
 const { options, modelValue, processor } = defineProps<TaskDetailDropdownProps>()
 const emit = defineEmits(['update:modelValue'])

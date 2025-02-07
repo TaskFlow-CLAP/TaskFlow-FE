@@ -29,8 +29,8 @@
 
 <script setup lang="ts">
 import type { TeamBoardCardProps } from '@/types/manager'
-import TaskCard from '../TaskCard.vue'
 import ImageContainer from '../common/ImageContainer.vue'
+import TaskCard from '../common/TaskCard.vue'
 
 const { info } = defineProps<{ info: TeamBoardCardProps }>()
 </script>

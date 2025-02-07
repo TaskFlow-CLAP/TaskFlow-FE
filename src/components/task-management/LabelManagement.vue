@@ -41,11 +41,13 @@
         </div>
         <div class="flex gap-2 text-xs font-bold">
           <button
+            type="button"
             @click="addNewLabel"
             class="text-primary1 w-[21px]">
             확인
           </button>
           <button
+            type="button"
             @click="handleAdd"
             class="text-disabled w-[21px]">
             취소

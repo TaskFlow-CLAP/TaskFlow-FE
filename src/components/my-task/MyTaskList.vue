@@ -22,19 +22,19 @@
 </template>
 
 <script setup lang="ts">
-import ListPagination from '../lists/ListPagination.vue'
-import ListContainer from '../lists/ListContainer.vue'
-import { useRequestParamsStore } from '@/stores/params'
-import MyTaskListCard from './MyTaskListCard.vue'
-import MyTaskListBar from './MyTaskListBar.vue'
-import { useParseParams } from '../hooks/useParseParams'
-import { axiosInstance } from '@/utils/axios'
-import type { MyTaskResponse } from '@/types/manager'
-import { useQuery } from '@tanstack/vue-query'
-import { computed } from 'vue'
-import NoContent from '../lists/NoContent.vue'
+import { useParseParams } from '@/hooks/useParseParams'
 import { useMemberStore } from '@/stores/member'
+import { useRequestParamsStore } from '@/stores/params'
+import type { MyTaskResponse } from '@/types/manager'
+import { axiosInstance } from '@/utils/axios'
+import { useQuery } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
+import ListContainer from '../lists/ListContainer.vue'
+import ListPagination from '../lists/ListPagination.vue'
+import NoContent from '../lists/NoContent.vue'
+import MyTaskListBar from './MyTaskListBar.vue'
+import MyTaskListCard from './MyTaskListCard.vue'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
