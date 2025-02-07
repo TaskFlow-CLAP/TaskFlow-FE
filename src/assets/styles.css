@@ -142,3 +142,37 @@ body {
 .task-detail-manager-dropdown {
   @apply flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-black;
 }
+
+.modal-enter-active,
+.modal-leave-active {
+  transition:
+    transform 0.25s ease-in-out,
+    opacity 0.25s ease-in-out;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  transform: translate(-50%, -40%);
+  opacity: 0;
+}
+
+.modal-enter-to,
+.modal-leave-from {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.sidebar-enter-active,
+.sidebar-leave-active {
+  transition: transform 0.25s ease-in-out;
+}
+
+.sidebar-enter-from,
+.sidebar-leave-to {
+  transform: translateX(-100%);
+}
+
+.sidebar-enter-to,
+.sidebar-leave-from {
+  transform: translateX(0);
+}

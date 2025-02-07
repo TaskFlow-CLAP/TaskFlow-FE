@@ -20,7 +20,6 @@ export interface RequestTaskDropdownProps {
   labelName: string
   modelValue: string
   isLabel?: boolean
-  disabled?: boolean
 }
 
 export interface RequestTaskInputProps {
@@ -30,6 +29,7 @@ export interface RequestTaskInputProps {
   isNotRequired?: boolean
   isEdit?: boolean
   isInvalidate?: string
+  isDisbled?: boolean
 }
 
 export interface RequestTaskFileInputProps {
@@ -117,8 +117,9 @@ export interface CommentFileDetails {
 }
 
 export interface TaskDetailProps {
-  selectedId: number
+  selectedId: number | null
   closeTaskDetail: () => void
+  isApproved?: boolean
 }
 export interface ManagerInfoTypes {
   nickName: string

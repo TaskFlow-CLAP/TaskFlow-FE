@@ -49,7 +49,7 @@
     </div>
   </div>
   <SideBar
-    v-if="isSideOpen"
+    :is-open="isSideOpen"
     @close="onCloseSide" />
 </template>
 

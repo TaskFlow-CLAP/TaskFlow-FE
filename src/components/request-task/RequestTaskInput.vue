@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative w-full">
     <div class="text-xs flex gap-x-1 mb-2">
       <p class="text-body font-bold">{{ labelName }}</p>
       <p
@@ -13,7 +13,8 @@
       :value="modelValue"
       :disabled="isEdit"
       @input="updateValue(($event.target as HTMLInputElement).value)"
-      :placeholder="placeholderText" />
+      :placeholder="placeholderText"
+      :class="{ 'text-gray-500': isEdit, 'text-black': !isEdit }" />
     <p
       v-if="isInvalidateState === 'input'"
       class="text-red-1 text-xs absolute top-[calc(100%+4px)]">

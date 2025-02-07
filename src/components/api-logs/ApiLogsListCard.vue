@@ -16,7 +16,7 @@
 import type { ListCardProps } from '@/types/common'
 import ListCardTab from '../lists/ListCardTab.vue'
 import type { ApiLogsListData } from '@/types/admin'
-import { formatDate } from '@/utils/date'
+import { formatFullDateTime } from '@/utils/date'
 import { API_LOGS_DIVISION_LIST } from '@/constants/admin'
 
 const { info } = defineProps<{ info: ApiLogsListData }>()
@@ -27,7 +27,7 @@ const myRequestTabList: ListCardProps[] = [
     isTextXs: true,
     isTextBody: true
   },
-  { content: formatDate(info.requestAt), width: 180, isTextXs: true },
+  { content: formatFullDateTime(info.requestAt), width: 180, isTextXs: true },
   { content: info.nickName, width: 80 },
   { content: info.clientIp, width: 120, isTextXs: true },
   { content: String(info.statusCode), width: 40, isTextXs: true, isStatusCode: true },

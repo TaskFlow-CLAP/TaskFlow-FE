@@ -12,7 +12,7 @@
       :disabled="!isPossible"
       @compositionstart="isComposing = true"
       @compositionend="isComposing = false"
-      @keyup.enter.prevent="handleEnterKey"></textarea>
+      @keydown.enter.stop.prevent="handleEnterKey"></textarea>
     <input
       class="hidden"
       type="file"

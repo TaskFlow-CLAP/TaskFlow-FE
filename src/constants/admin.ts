@@ -48,19 +48,25 @@ export const CATEGORY_FORM: CategoryForm = {
 }
 
 export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {
-  name: '조철득',
-  email: 'choiron@gmail.com',
-  nickname: 'iron.ch',
+  name: '',
+  email: '',
+  nickname: '',
   isReviewer: false,
+  role: '사용자',
   departmentId: 1,
-  role: 'ROLE_USER',
-  departmentRole: 'FE'
+  departmentRole: ''
 }
 
 export const RoleTypeMapping: { [key in RoleTypes]: RoleTypesEnum } = {
   사용자: 'ROLE_USER',
   담당자: 'ROLE_MANAGER',
   관리자: 'ROLE_ADMIN'
+}
+
+export const RoleMapping: { [key in RoleTypesEnum]: RoleTypes } = {
+  ROLE_USER: '사용자',
+  ROLE_MANAGER: '담당자',
+  ROLE_ADMIN: '관리자'
 }
 
 export const RoleKeys: RoleTypes[] = Object.keys(RoleTypeMapping) as RoleTypes[]

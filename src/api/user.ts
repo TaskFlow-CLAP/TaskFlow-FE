@@ -1,6 +1,5 @@
 import type { Status } from '@/types/common'
 import type { RequestApprovePostTypes } from '@/types/manager'
-import type { userInfo } from '@/types/user'
 import { axiosInstance, formDataAxiosInstance } from '@/utils/axios'
 
 export const postTaskRequest = async (formdata: FormData) => {
@@ -48,7 +47,8 @@ export const changeLabel = async (taskID: number, labelId: number) => {
   return response.data
 }
 
-export const getHistory = async (taskID: number) => {
+export const getHistory = async (taskID: number | null) => {
+  if (taskID === null) return null
   const response = await axiosInstance.get(`/api/tasks/${taskID}/histories`)
   return response.data
 }
@@ -75,5 +75,10 @@ export const deleteComment = async (commentId: number) => {
 
 export const patchTaskRequest = async (taskId: string, formdata: FormData) => {
   const response = await formDataAxiosInstance.patch(`/api/tasks/${taskId}`, formdata)
+  return response.data
+}
+
+export const cancelTaskUser = async (taskId: number) => {
+  const response = await axiosInstance.patch(`/api/tasks/${taskId}/cancel`)
   return response.data
 }

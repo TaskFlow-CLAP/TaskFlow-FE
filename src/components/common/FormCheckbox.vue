@@ -2,8 +2,11 @@
   <div class="text-xs font-bold">
     <p class="text-body mb-2">{{ labelName }}</p>
     <div
-      class="w-fit flex gap-2 items-center cursor-pointer"
-      @click="updateValue">
+      @click="!isDisabled && updateValue()"
+      :class="[
+        'w-fit flex gap-2 items-center',
+        { 'cursor-pointer': !isDisabled, 'cursor-not-allowed': isDisabled }
+      ]">
       <CommonIcons
         :name="checkBoxIcon"
         :class="[
@@ -19,12 +22,22 @@
 <script lang="ts" setup>
 import { checkBoxIcon } from '@/constants/iconPath'
 import type { FormCheckboxProps } from '@/types/common'
+import { watch } from 'vue'
 import CommonIcons from './CommonIcons.vue'
 
-const { labelName, checkButtonName, isChecked } = defineProps<FormCheckboxProps>()
+const { labelName, checkButtonName, isChecked, isDisabled } = defineProps<FormCheckboxProps>()
 const emit = defineEmits(['update:modelValue'])
 
 const updateValue = () => {
   emit('update:modelValue', !isChecked)
 }
+
+watch(
+  () => isDisabled,
+  newVal => {
+    if (newVal) {
+      emit('update:modelValue', false)
+    }
+  }
+)
 </script>
