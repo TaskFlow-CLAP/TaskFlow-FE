@@ -2,9 +2,9 @@
   <div class="flex flex-col gap-4">
     <div class="flex justify-between items-center">
       <div class="flex items-center gap-2">
-        <div class="w-6 h-6 rounded-full overflow-hidden">
-          <img src="https://picsum.photos/24" />
-        </div>
+        <ImageContainer
+          :url="info.imageUrl"
+          :size="24" />
         <span class="text-black">{{ info.nickname }}</span>
       </div>
       <span class="text-xs font-bold text-body">{{ info.department }}</span>
@@ -30,6 +30,7 @@
 <script setup lang="ts">
 import type { TeamBoardCardProps } from '@/types/manager'
 import TaskCard from '../TaskCard.vue'
+import ImageContainer from '../common/ImageContainer.vue'
 
 const { info } = defineProps<{ info: TeamBoardCardProps }>()
 </script>

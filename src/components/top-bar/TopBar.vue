@@ -31,15 +31,11 @@
           class="flex">
           <button
             type="button"
+            class="flex"
             @click="toggleProfile">
-            <img
-              v-if="info?.profileImageUrl"
-              class="rounded-[50%] w-10 h-10"
-              :src="info.profileImageUrl"
-              alt="프로필 이미지" />
-            <div
-              v-else
-              class="rounded-[50%] bg-zinc-100 p-5" />
+            <ImageContainer
+              :url="info.profileImageUrl"
+              :size="40" />
           </button>
           <ProfileModal
             :isOpen="isProfileVisible"
@@ -67,6 +63,7 @@ import { getNotifiCount } from '@/api/common'
 import { useRoute, useRouter } from 'vue-router'
 import { PERMITTED_URL } from '@/constants/common'
 import { useOutsideClick } from '../hooks/useOutsideClick'
+import ImageContainer from '../common/ImageContainer.vue'
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)
@@ -98,6 +95,7 @@ const isNotifiVisible = ref(false)
 const isProfileVisible = ref(false)
 
 const fetchNotificationCount = async () => {
+  if (!info.value.role) return
   try {
     const data = await getNotifiCount()
     countNotifi.value = data.count
@@ -122,7 +120,7 @@ const onCloseSide = () => {
 watch(
   () => info.value,
   async newInfo => {
-    if (newInfo.name) {
+    if (newInfo.role) {
       await fetchNotificationCount()
     }
   },

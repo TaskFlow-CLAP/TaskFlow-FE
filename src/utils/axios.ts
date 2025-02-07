@@ -19,10 +19,11 @@ const getNewAccessToken = async () => {
 
     return response.data.accessToken
   } catch (e) {
-    console.error('토큰 발행 실패', e)
-    Cookies.remove('accessToken')
-    Cookies.remove('refreshToken')
-    window.location.href = 'login'
+    console.log(e)
+    // console.error('토큰 발행 실패', e)
+    // Cookies.remove('accessToken')
+    // Cookies.remove('refreshToken')
+    // window.location.href = 'login'
   }
 }
 const setInterceptors = (instance: AxiosInstance) => {
@@ -49,14 +50,12 @@ const setInterceptors = (instance: AxiosInstance) => {
         switch (error.response.status) {
           case 401:
             if (error.response.data === 'AUTH_003') {
-              Cookies.remove('accessToken')
               Cookies.remove('refreshToken')
-              window.location.href = 'login'
             }
             break
           case 403: {
             if (error.response.data !== 'AUTH_002') {
-              Cookies.remove('accessToken')
+              // Cookies.remove('accessToken')
               const originalRequest = error.config
               if (!originalRequest._retry) {
                 originalRequest._retry = true

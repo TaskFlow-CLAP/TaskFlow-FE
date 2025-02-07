@@ -107,6 +107,7 @@ import { useTaskBoardParamsStore } from '@/stores/params'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
 import type { Status } from '@/types/common'
 import { computed } from 'vue'
+import { useMemberStore } from '@/stores/member'
 
 const queryClient = useQueryClient()
 
@@ -165,9 +166,11 @@ const fetchTaskBoard = async () => {
   const response = await axiosInstance.get('/api/task-board', { params: parsedParams })
   return response.data
 }
+const { isLogined } = useMemberStore()
 const { data } = useQuery<TaskCardList>({
   queryKey: ['taskBoard', params],
-  queryFn: fetchTaskBoard
+  queryFn: fetchTaskBoard,
+  enabled: isLogined
 })
 
 const tasksInProgress = computed(() => [...(data.value?.tasksInProgress || [])])

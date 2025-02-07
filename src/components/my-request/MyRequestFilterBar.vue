@@ -53,6 +53,6 @@ const { isLogined } = useMemberStore()
 const { data } = useQuery({
   queryKey: ['category'],
   queryFn: getCategory,
-  enabled: !!isLogined
+  enabled: isLogined
 })
 </script>

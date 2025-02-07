@@ -12,6 +12,7 @@
       :is-status="tab.isStatus" />
   </div>
   <TaskDetail
+    v-if="selectedID"
     :is-approved="info.taskStatus !== 'REQUESTED'"
     :selected-id="selectedID"
     :close-task-detail="() => handleModal(null)" />

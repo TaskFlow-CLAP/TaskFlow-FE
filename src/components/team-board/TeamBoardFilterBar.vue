@@ -29,13 +29,16 @@ import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterInput from '../filters/FilterInput.vue'
 import { useTeamBoardParamsChange } from '../hooks/useTeamBoardParamsChange'
 import { getCategory } from '@/api/common'
+import { useMemberStore } from '@/stores/member'
 
 const { params } = useTeamBoardParamsStore()
 
 const onParamsChange = useTeamBoardParamsChange()
 
+const { isLogined } = useMemberStore()
 const { data } = useQuery({
   queryKey: ['category'],
-  queryFn: getCategory
+  queryFn: getCategory,
+  enabled: isLogined
 })
 </script>
