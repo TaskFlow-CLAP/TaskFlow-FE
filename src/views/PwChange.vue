@@ -69,9 +69,7 @@ const toggleModal = () => {
 
 const handleChange = () => {
   if (newPw.value === checkPw.value) {
-    const response = patchPassword(newPw.value)
-    console.log(response)
-    console.log('비밀번호 변경 성공!')
+    patchPassword(newPw.value)
     toggleModal()
   } else {
   }
