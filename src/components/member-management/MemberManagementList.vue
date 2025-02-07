@@ -22,22 +22,21 @@
 </template>
 
 <script setup lang="ts">
-import ListPagination from '../lists/ListPagination.vue'
-import ListContainer from '../lists/ListContainer.vue'
 import { useMemberManagementParamsStore } from '@/stores/params'
-import MemberManagementListBar from './MemberManagementListBar.vue'
-import MemberManagementListCard from './MemberManagementListCard.vue'
-import NoContent from '../lists/NoContent.vue'
+import type { MemberManagementResponse } from '@/types/admin'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
-import type { MemberManagementResponse } from '@/types/admin'
+import ListContainer from '../lists/ListContainer.vue'
+import ListPagination from '../lists/ListPagination.vue'
+import NoContent from '../lists/NoContent.vue'
+import MemberManagementListBar from './MemberManagementListBar.vue'
+import MemberManagementListCard from './MemberManagementListCard.vue'
 
 const { params } = useMemberManagementParamsStore()
 const onPageChange = (value: number) => {
   params.page = value
 }
-
 const fetchMemberList = async () => {
   const response = await axiosInstance.get('/api/managements/members', { params })
   return response.data

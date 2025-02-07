@@ -30,7 +30,6 @@ const emit = defineEmits(['update:modelValue'])
 
 const updateValue = () => {
   emit('update:modelValue', !isChecked)
-  console.log('updateValue')
 }
 
 watch(

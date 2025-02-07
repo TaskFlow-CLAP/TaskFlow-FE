@@ -32,11 +32,12 @@
       :label-name="'역할'"
       :placeholderText="'회원의 역할을 선택해주세요'" />
     <FormCheckbox
+      v-if="isManager"
       v-model="userRegistrationForm.isReviewer"
       :labelName="'요청 승인 권한'"
       :checkButtonName="'허용'"
-      :isChecked="userRegistrationForm.isReviewer"
-      :isDisabled="userRegistrationForm.role !== '담당자'" />
+      :isDisabled="!isManager"
+      :isChecked="userRegistrationForm.isReviewer" />
     <DepartmentDropDown v-model="userRegistrationForm.departmentId" />
     <RequestTaskInput
       v-model="userRegistrationForm.departmentRole"
@@ -54,7 +55,7 @@
 <script lang="ts" setup>
 import { addMemberAdmin } from '@/api/admin'
 import { INITIAL_USER_REGISTRATION, RoleKeys, RoleTypeMapping } from '@/constants/admin'
-import { ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import FormCheckbox from '../common/FormCheckbox.vue'
@@ -63,22 +64,24 @@ import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
 import DepartmentDropDown from './DepartmentDropDown.vue'
 
+const router = useRouter()
 const isModalVisible = ref(false)
 const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
+const isManager = computed(() => userRegistrationForm.value.role === '담당자')
 
-const router = useRouter()
+onMounted(async () => {
+  userRegistrationForm.value = { ...INITIAL_USER_REGISTRATION }
+})
 
 const handleCancel = () => {
-  userRegistrationForm.value = { ...INITIAL_USER_REGISTRATION }
   isModalVisible.value = false
   router.back()
 }
-console.log(RoleTypeMapping['사용자'])
 
 const handleSubmit = async () => {
-  console.log(userRegistrationForm.value)
   const formData = {
     ...userRegistrationForm.value,
+    isReviewer: isManager.value ? userRegistrationForm.value.isReviewer : false,
     role: RoleTypeMapping[userRegistrationForm.value.role],
     email: userRegistrationForm.value.nickname + userRegistrationForm.value.email
   }

@@ -34,10 +34,11 @@
       :label-name="'역할'"
       :placeholderText="'회원의 역할을 선택해주세요'" />
     <FormCheckbox
+      v-if="isManager"
       v-model="userRegistrationForm.isReviewer"
       :labelName="'요청 승인 권한'"
       :checkButtonName="'허용'"
-      :isDisabled="userRegistrationForm.role !== '담당자'"
+      :isDisabled="!isManager"
       :isChecked="userRegistrationForm.isReviewer" />
     <DepartmentDropDown v-model="userRegistrationForm.departmentId" />
     <RequestTaskInput
@@ -62,7 +63,7 @@ import {
   RoleTypeMapping
 } from '@/constants/admin'
 import type { UserRegistrationProps } from '@/types/admin'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import FormCheckbox from '../common/FormCheckbox.vue'
@@ -71,13 +72,14 @@ import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
 import DepartmentDropDown from './DepartmentDropDown.vue'
 
-const isModalVisible = ref(false)
-const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
-
 const route = useRoute()
 const router = useRouter()
+
+const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
+const isManager = computed(() => userRegistrationForm.value.role === '담당자')
 const userId = ref(route.query.id)
 const userData = ref<UserRegistrationProps | null>(null)
+const isModalVisible = ref(false)
 
 watch(
   () => router.currentRoute.value.query.id,
@@ -99,7 +101,7 @@ onMounted(async () => {
   }
 })
 
-const handleCancel = () => {
+const handleCancel = async () => {
   userRegistrationForm.value = { ...INITIAL_USER_REGISTRATION }
   isModalVisible.value = false
   router.back()
@@ -110,12 +112,11 @@ const handleSubmit = async () => {
     const userData = {
       role: RoleTypeMapping[userRegistrationForm.value.role],
       name: userRegistrationForm.value.name,
-      isReviewer: userRegistrationForm.value.isReviewer,
+      isReviewer: isManager.value ? userRegistrationForm.value.isReviewer : false,
       departmentId: userRegistrationForm.value.departmentId,
       departmentRole: userRegistrationForm.value.departmentRole
     }
     await updateMemberAdmin(userId.value, userData)
-
     isModalVisible.value = true
   }
 }
