@@ -2,6 +2,7 @@
   <div class="w-full">
     <div v-if="selectedID">
       <TaskDetail
+        v-if="selectedID"
         :selected-id="Number(selectedID)"
         :close-task-detail="() => handleModal(null)" />
     </div>

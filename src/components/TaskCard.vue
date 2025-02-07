@@ -5,12 +5,14 @@
     @click="onTaskClick">
     <div class="flex flex-col gap-1">
       <div class="flex justify-between items-center gap-4">
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 overflow-hidden">
           <TaskLabel
             v-if="data.labelInfo"
             :color="data.labelInfo.labelColor"
             :content="data.labelInfo.labelName" />
-          <span class="text-black">{{ data.title }}</span>
+          <span class="text-black text-ellipsis overflow-hidden whitespace-nowrap">{{
+            data.title
+          }}</span>
         </div>
         <CommonIcons
           v-if="draggable"
@@ -19,7 +21,9 @@
       <span class="text-xs text-body">{{ data.mainCategoryName }} - {{ data.categoryName }}</span>
     </div>
     <div class="flex justify-between items-end">
-      <span class="text-xs font-bold text-black">{{ data.taskCode }}</span>
+      <span class="text-xs font-bold text-black whitespace-nowrap overflow-hidden text-ellipsis">{{
+        data.taskCode
+      }}</span>
       <div class="flex flex-col gap-1 items-end">
         <span class="text-xs font-bold text-body">{{ data.requesterDepartment }}</span>
         <div class="flex items-center gap-1.5">

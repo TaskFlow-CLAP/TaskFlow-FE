@@ -23,7 +23,7 @@
           :labels="subLabels"
           :series="subSeries"
           :period-type="periodType"
-          :content="mainCategory && '1차 카테고리를 선택해주세요'" />
+          :content="!mainCategory ? '1차 카테고리를 선택해주세요' : ''" />
       </div>
     </div>
   </div>

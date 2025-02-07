@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="text-xs mb-2 text-body font-bold">구분</div>
-    <div class="relative flex">
+    <div
+      ref="htmlRef"
+      class="relative flex">
       <div
         class="flex w-full h-11 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-black"
         @click="toggleDropdown">
@@ -34,6 +36,7 @@ import type { LabelDataTypes } from '@/types/common'
 import type { LabelDropdownProps } from '@/types/user'
 import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
+import { useOutsideClick } from '../hooks/useOutsideClick'
 
 const { modelValue, placeholderText } = defineProps<LabelDropdownProps>()
 const emit = defineEmits(['update:modelValue'])
@@ -53,4 +56,6 @@ const selectOption = (option: LabelDataTypes) => {
   emit('update:modelValue', option)
   dropdownOpen.value = false
 }
+
+const { htmlRef } = useOutsideClick(() => dropdownOpen.value && toggleDropdown())
 </script>

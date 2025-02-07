@@ -50,10 +50,7 @@ const setInterceptors = (instance: AxiosInstance) => {
         switch (error.response.status) {
           case 401:
             if (error.response.data === 'AUTH_003') {
-              console.log('잡았다')
-              // Cookies.remove('accessToken')
-              // Cookies.remove('refreshToken')
-              // window.location.href = 'login'
+              Cookies.remove('refreshToken')
             }
             break
           case 403: {

@@ -47,11 +47,10 @@
       <div
         v-else
         class="flex gap-2">
-        <img
+        <ImageContainer
           v-if="data.processorNickName"
-          :src="data.processorImageUrl || '/images/mockProfile.jpg'"
-          class="rounded-full overflow-hidden w-5 h-5"
-          alt="processorImg" />
+          :url="data.processorImageUrl"
+          :size="20" />
         <p class="text-sm text-black">{{ data.processorNickName || '-' }}</p>
       </div>
     </div>

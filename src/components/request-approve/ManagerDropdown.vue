@@ -9,18 +9,16 @@
         담당자를 선택해주세요
       </p>
     </div>
-    <div class="relative flex">
+    <div
+      ref="htmlRef"
+      class="relative flex">
       <div
         class="request-task-dropdown"
         @click="toggleDropdown">
         <div class="flex gap-2 items-center">
-          <div
-            v-if="modelValue"
-            class="w-6 h-6 rounded-full overflow-hidden">
-            <img
-              :src="modelValue?.imageUrl || '/images/mockProfile.jpg'"
-              alt="userProfile" />
-          </div>
+          <ImageContainer
+            :size="24"
+            :url="modelValue?.imageUrl" />
           <p :class="{ 'text-disabled': !modelValue }">
             {{ modelValue?.nickname || placeholderText }}
           </p>
@@ -38,11 +36,9 @@
           class="request-task-dropdown-option justify-between"
           @click="selectOption(option)">
           <div class="flex gap-2">
-            <div class="w-6 h-6 rounded-full overflow-hidden">
-              <img
-                :src="option.imageUrl || '/images/mockProfile.jpg'"
-                alt="userProfile" />
-            </div>
+            <ImageContainer
+              :size="24"
+              :url="option.imageUrl" />
             <p>
               {{ option.nickname }}
             </p>
@@ -61,6 +57,8 @@ import type { ManagerTypes } from '@/types/manager'
 import type { ManagerDropdownProps } from '@/types/user'
 import { computed, onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
+import ImageContainer from '../common/ImageContainer.vue'
+import { useOutsideClick } from '../hooks/useOutsideClick'
 
 const { placeholderText, modelValue, isInvalidate } = defineProps<ManagerDropdownProps>()
 const emit = defineEmits(['update:modelValue'])
@@ -81,4 +79,6 @@ const selectOption = (option: ManagerTypes) => {
   emit('update:modelValue', option)
   dropdownOpen.value = false
 }
+
+const { htmlRef } = useOutsideClick(() => dropdownOpen.value && toggleDropdown())
 </script>
