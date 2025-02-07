@@ -24,22 +24,14 @@
           required
           class="input-box" />
       </div>
-      <div class="flex relative mb-8 items-center">
+      <div class="mb-8">
         <input
-          :type="passwordVisible ? 'text' : 'password'"
+          type="password"
           id="password"
           v-model="password"
           placeholder="비밀번호를 입력해주세요"
           required
           class="input-box" />
-        <div class="absolute px-2 right-4 items-center justify-center">
-          <button
-            type="button"
-            @click="togglePasswordVisibility"
-            class="flex items-center">
-            <CommonIcons :name="passwordVisible ? onEyeIcon : offEyeIcon" />
-          </button>
-        </div>
       </div>
       <button
         type="submit"
@@ -65,8 +57,6 @@ import { useMemberStore } from '@/stores/member'
 import TitleContainer from '@/components/common/TitleContainer.vue'
 import Cookies from 'js-cookie'
 import ModalView from '@/components/ModalView.vue'
-import CommonIcons from '@/components/common/CommonIcons.vue'
-import { offEyeIcon, onEyeIcon } from '@/constants/iconPath'
 
 const router = useRouter()
 
@@ -78,12 +68,6 @@ const messageHeader = ref('')
 const messageBody = ref('')
 
 const isModalVisible = ref(false)
-
-const passwordVisible = ref(false)
-
-const togglePasswordVisibility = () => {
-  passwordVisible.value = !passwordVisible.value
-}
 
 const closeModal = () => {
   isModalVisible.value = false
