@@ -56,10 +56,18 @@ const pw = ref('')
 
 const handleCheck = async () => {
   try {
-    const res = await postPasswordCheck(pw.value)
+    await postPasswordCheck(pw.value)
+    router.push('/pw-change')
   } catch (error) {
-    switch (error?.status) {
+    console.log(error?.response?.status)
+    switch (error?.response?.status) {
       case 400:
+        isModalVisible.value = !isModalVisible.value
+        messageHeader.value = '비밀번호가 일치 하지 않습니다'
+        messageBody.value = '다시 확인하여 주세요'
+        break
+
+      case 401:
         isModalVisible.value = !isModalVisible.value
         messageHeader.value = '비밀번호가 일치 하지 않습니다'
         messageBody.value = '다시 확인하여 주세요'
@@ -70,8 +78,13 @@ const handleCheck = async () => {
         messageHeader.value = '서버에 문제가 발생했습니다'
         messageBody.value = '잠시후 다시 이용해주세요'
         break
+
+      default:
+        isModalVisible.value = !isModalVisible.value
+        messageHeader.value = '문제가 발생했습니다'
+        messageBody.value = '잠시후 다시 이용해주세요'
+        break
     }
   }
-  router.push('/pw-change')
 }
 </script>
