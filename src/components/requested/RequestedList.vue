@@ -33,6 +33,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
 import type { RequestedResponse } from '@/types/manager'
 import NoContent from '../lists/NoContent.vue'
+import { useMemberStore } from '@/stores/member'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
@@ -46,9 +47,11 @@ const fetchRequestedList = async () => {
   return response.data
 }
 
+const { isLogined } = useMemberStore()
 const { data } = useQuery<RequestedResponse>({
   queryKey: ['requested', params],
-  queryFn: fetchRequestedList
+  queryFn: fetchRequestedList,
+  enabled: !!isLogined
 })
 
 const totalPage = computed(() => {
