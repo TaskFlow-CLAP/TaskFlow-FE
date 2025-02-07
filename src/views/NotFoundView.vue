@@ -4,6 +4,7 @@
       title="404 Error"
       :content="'요청하신 페이지는\n없는 페이지입니다'" />
     <button
+      type="button"
       class="button-large-primary"
       @click="router.back()">
       이전으로

@@ -5,6 +5,7 @@
     <div class="flex gap-1 absolute left-0 top-1/2 -translate-x-[calc(100%+8px)] -translate-y-1/2">
       <button
         v-if="pageSet[0] !== 1"
+        type="button"
         @click="onPrevSetClick"
         class="rounded hover:bg-primary2">
         <CommonIcons :name="prevSetIcon" />
@@ -17,6 +18,7 @@
     </div>
     <button
       v-for="page in pageSet"
+      type="button"
       :key="page"
       class="w-6 h-6 flex justify-center items-center rounded text-sm"
       :class="

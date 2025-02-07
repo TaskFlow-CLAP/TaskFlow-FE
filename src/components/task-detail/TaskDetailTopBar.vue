@@ -31,6 +31,7 @@
       </div>
     </div>
     <button
+      type="button"
       @click="closeTaskDetail"
       class="hover:bg-background-2 p-[2px] rounded">
       <CommonIcons :name="closeIcon" />

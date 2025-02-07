@@ -32,11 +32,13 @@
         </div>
         <div class="flex gap-2 text-xs font-bold">
           <button
+            type="button"
             @click="isEdit && editValue.labelId === label.labelId ? finishEdit() : startEdit(label)"
             class="text-primary1 w-[21px]">
             {{ isEdit && editValue.labelId === label.labelId ? '확인' : '수정' }}
           </button>
           <button
+            type="button"
             @click="
               isEdit && editValue.labelId === label.labelId
                 ? handleEdit()

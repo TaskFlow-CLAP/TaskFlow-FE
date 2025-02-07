@@ -17,11 +17,13 @@
           </div>
           <div class="flex gap-2 text-xs font-bold">
             <button
+              type="button"
               @click="router.push(`/category-first/${main.id}`)"
               class="text-primary1">
               수정
             </button>
             <button
+              type="button"
               @click="openModal(main.id)"
               class="text-red-1">
               삭제

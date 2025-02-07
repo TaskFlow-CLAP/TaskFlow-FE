@@ -3,6 +3,7 @@
     <TitleBar title="회원 관리">
       <template #button>
         <button
+          type="button"
           class="flex py-1 px-2 rounded hover:bg-background-2 items-center gap-1 text-xs font-bold text-primary1"
           @click="createNewMember">
           새 회원 추가

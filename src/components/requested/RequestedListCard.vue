@@ -12,11 +12,13 @@
       :is-status="tab.isStatus" />
     <div class="w-[120px] flex gap-2 justify-center items-center shrink-0">
       <button
+        type="button"
         @click="router.push(`/request-approve?requestId=${info.taskId}`)"
         class="button-medium-primary">
         승인
       </button>
       <button
+        type="button"
         @click.stop="toggleModal('reject')"
         class="button-medium-default">
         거부
