@@ -93,6 +93,7 @@ onMounted(async () => {
   if (userData.value && userData.value.role in RoleMapping) {
     userRegistrationForm.value = {
       ...userData.value,
+      email: '@' + userData.value.email.split('@')[1],
       role: RoleMapping[userData.value.role as keyof typeof RoleMapping]
     }
   }
@@ -108,16 +109,12 @@ const handleSubmit = async () => {
   if (typeof userId.value === 'string') {
     const userData = {
       role: RoleTypeMapping[userRegistrationForm.value.role],
-      email: userRegistrationForm.value.email,
       name: userRegistrationForm.value.name,
       isReviewer: userRegistrationForm.value.isReviewer,
       departmentId: userRegistrationForm.value.departmentId,
       departmentRole: userRegistrationForm.value.departmentRole
     }
-    console.log(userData, '수정할 데이터')
-    console.log(userId.value, '수정할 아이디')
-    const res = await updateMemberAdmin(userId.value, userData)
-    console.log(res, '수정 결과')
+    await updateMemberAdmin(userId.value, userData)
 
     isModalVisible.value = true
   }
