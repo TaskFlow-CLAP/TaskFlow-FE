@@ -3,7 +3,7 @@
     <TitleBar title="내 요청">
       <template #button>
         <button
-          class="flex items-center gap-1 text-xs font-bold text-primary1"
+          class="flex items-center gap-1 py-1 px-2 rounded hover:bg-background-2 text-xs font-bold text-primary1"
           @click="createNewRequest">
           <CommonIcons
             :name="plusIcon"
