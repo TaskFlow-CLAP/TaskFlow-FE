@@ -38,7 +38,7 @@ export const changeProcessor = async (taskID: number, processorId: number) => {
 }
 
 export const patchChangeStatus = async (taskID: number, status: Status) => {
-  const response = await axiosInstance.patch(`/api/tasks/${taskID}/status`, status)
+  const response = await axiosInstance.patch(`/api/tasks/${taskID}/status`, {status})
   return response.data
 }
 
