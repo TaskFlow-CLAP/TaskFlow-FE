@@ -6,11 +6,9 @@
       class="task-detail-manager-dropdown"
       @click="toggleDropdown">
       <div class="flex gap-2 items-center">
-        <div class="w-5 h-5 rounded-full overflow-hidden">
-          <img
-            :src="modelValue?.imageUrl || '/images/mockProfile.jpg'"
-            alt="userProfile" />
-        </div>
+        <ImageContainer
+          :url="modelValue?.imageUrl"
+          :size="20" />
         <p>
           {{ modelValue?.nickname }}
         </p>
@@ -28,11 +26,9 @@
         class="request-task-dropdown-option justify-between"
         @click="selectOption(option)">
         <div class="flex gap-2">
-          <div class="w-5 h-5 rounded-full overflow-hidden">
-            <img
-              :src="option.imageUrl || '/images/mockProfile.jpg'"
-              alt="userProfile" />
-          </div>
+          <ImageContainer
+            :url="option.imageUrl"
+            :size="20" />
           <p>
             {{ option.nickname }}
           </p>
@@ -50,6 +46,7 @@ import type { ManagerTypes } from '@/types/manager'
 import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import { useOutsideClick } from '../hooks/useOutsideClick'
+import ImageContainer from '../common/ImageContainer.vue'
 
 const { modelValue } = defineProps<{ modelValue: ManagerTypes; taskId: number }>()
 const emit = defineEmits(['update:modelValue'])

@@ -26,8 +26,6 @@ export const API_LOGS_DIVISION_LIST: Option[] = [
   { content: '댓글 추가', value: 'COMMENT_ADDED' },
   { content: '댓글 수정', value: 'COMMENT_UPDATED' },
   { content: '작업 상태 변경', value: 'STATUS_CHANGED' },
-  { content: '작업 완료', value: 'TASK_COMPLETED' },
-  { content: '작업 실패', value: 'TASK_FAILED' },
   { content: '작업 조회', value: 'TASK_VIEWED' }
 ]
 
