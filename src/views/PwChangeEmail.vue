@@ -51,11 +51,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import router from '../router/index'
-import ModalView from '../components/ModalView.vue'
-import TitleContainer from '@/components/common/TitleContainer.vue'
 import { postPasswordEmailSend } from '@/api/auth'
+import TitleContainer from '@/components/common/TitleContainer.vue'
+import axios from 'axios'
+import { ref } from 'vue'
+import ModalView from '../components/ModalView.vue'
+import router from '../router/index'
 
 const messageHeader = ref('')
 const messageBody = ref('')
@@ -78,24 +79,26 @@ const handleCheck = async () => {
     await postPasswordEmailSend(name.value, email.value)
     isModalVisible.value = !isModalVisible.value
   } catch (error) {
-    switch (error?.response?.status) {
-      case 404:
-        isFailModalVisible.value = !isFailModalVisible.value
-        messageHeader.value = '일치하는 정보가 없습니다'
-        messageBody.value = '이메일과 이름을 다시 확인해 주세요'
-        break
+    if (axios.isAxiosError(error)) {
+      switch (error?.response?.status) {
+        case 404:
+          isFailModalVisible.value = !isFailModalVisible.value
+          messageHeader.value = '일치하는 정보가 없습니다'
+          messageBody.value = '이메일과 이름을 다시 확인해 주세요'
+          break
 
-      case 500:
-        isFailModalVisible.value = !isFailModalVisible.value
-        messageHeader.value = '서버에 문제가 발생했습니다'
-        messageBody.value = '잠시후 다시 이용해주세요'
-        break
+        case 500:
+          isFailModalVisible.value = !isFailModalVisible.value
+          messageHeader.value = '서버에 문제가 발생했습니다'
+          messageBody.value = '잠시후 다시 이용해주세요'
+          break
 
-      default:
-        isFailModalVisible.value = !isFailModalVisible.value
-        messageHeader.value = '문제가 발생했습니다'
-        messageBody.value = '잠시후 다시 이용해주세요'
-        break
+        default:
+          isFailModalVisible.value = !isFailModalVisible.value
+          messageHeader.value = '문제가 발생했습니다'
+          messageBody.value = '잠시후 다시 이용해주세요'
+          break
+      }
     }
   }
 }
