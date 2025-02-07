@@ -58,7 +58,7 @@ export type SortDirection = 'DESC' | 'ASC'
 export type Role = 'ROLE_USER' | 'ROLE_MANAGER' | 'ROLE_ADMIN'
 
 export interface DueDateInputProps {
-  modelValue: string
+  modelValue: string | null
   inputType: string
 }
 

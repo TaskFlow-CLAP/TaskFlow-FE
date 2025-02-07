@@ -36,8 +36,8 @@ export const useMemberStore = defineStore('memberInfo', () => {
       info.value = data
       isLogined.value = Cookies.get('refreshToken') ? true : false
       return data.role
-    } catch {
-      router.push('/login')
+    } catch (e) {
+      console.log(e)
     }
   }
 

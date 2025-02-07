@@ -51,7 +51,7 @@ const { isLogined } = useMemberStore()
 const { data } = useQuery<MyTaskResponse>({
   queryKey: ['myTask', params],
   queryFn: fetchMyTaskList,
-  enabled: !!isLogined
+  enabled: isLogined
 })
 
 const totalPage = computed(() => {

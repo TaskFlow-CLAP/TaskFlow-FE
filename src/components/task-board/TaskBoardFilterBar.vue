@@ -31,6 +31,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
 import type { LabelDataTypes } from '@/types/common'
 import { getCategory, getLabels } from '@/api/common'
+import { useMemberStore } from '@/stores/member'
 
 const { params } = useTaskBoardParamsStore()
 
@@ -55,14 +56,17 @@ const onTitleChange = (value: string) => {
   params.title = value
 }
 
+const { isLogined } = useMemberStore()
 const { data: categoryList } = useQuery({
   queryKey: ['category'],
-  queryFn: getCategory
+  queryFn: getCategory,
+  enabled: isLogined
 })
 
 const { data: labelList } = useQuery<LabelDataTypes[]>({
   queryKey: ['label'],
-  queryFn: getLabels
+  queryFn: getLabels,
+  enabled: isLogined
 })
 const labelOptionList = computed(() => {
   const list = [{ value: '', content: '전체' }]

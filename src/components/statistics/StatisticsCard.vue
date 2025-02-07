@@ -69,7 +69,7 @@ const { isLogined } = useMemberStore()
 const { data } = useQuery<StatisticsData[]>({
   queryKey: computed(() => [statisticsType, periodType]),
   queryFn: fetchStatistics,
-  enabled: !!isLogined
+  enabled: isLogined
 })
 
 const labels = computed(() => {

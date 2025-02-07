@@ -5,9 +5,9 @@
         'flex justify-center items-center w-10 h-10 shrink-0 rounded-full overflow-hidden mt-1.5',
         isProcessor ? 'order-3' : 'order-1'
       ]">
-      <img
-        :src="history.details.commentDetails?.profileImageUrl || '/images/mockProfile.jpg'"
-        class="center" />
+      <ImageContainer
+        :url="history.details.commentDetails?.profileImageUrl"
+        :size="40" />
     </div>
     <div
       :class="[
@@ -62,6 +62,7 @@ import { useQueryClient } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import { computed, defineProps, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
+import ImageContainer from '../common/ImageContainer.vue'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)

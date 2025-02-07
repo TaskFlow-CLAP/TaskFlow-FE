@@ -37,12 +37,15 @@ import CommonIcons from '../common/CommonIcons.vue'
 import CategoryLine from './CategoryLine.vue'
 import CategoryLineSub from './CategoryLineSub.vue'
 import { getCategory } from '@/api/common'
+import { useMemberStore } from '@/stores/member'
 
 const router = useRouter()
 
+const { isLogined } = useMemberStore()
 const { data } = useQuery({
   queryKey: ['category'],
-  queryFn: getCategory
+  queryFn: getCategory,
+  enabled: isLogined
 })
 
 const MovetoAddCategory = () => {

@@ -32,6 +32,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
 import type { LoginLogsResponse } from '@/types/admin'
 import NoContent from '../lists/NoContent.vue'
+import { useMemberStore } from '@/stores/member'
 
 const { params } = useLogsParamsStore()
 const onPageChange = (value: number) => {
@@ -48,9 +49,11 @@ const fetchLoginLogsList = async () => {
   return response.data
 }
 
+const { isLogined } = useMemberStore()
 const { data } = useQuery<LoginLogsResponse>({
   queryKey: ['loginLogs', params],
-  queryFn: fetchLoginLogsList
+  queryFn: fetchLoginLogsList,
+  enabled: isLogined
 })
 
 const totalPage = computed(() => {

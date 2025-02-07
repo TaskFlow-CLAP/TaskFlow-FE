@@ -1,8 +1,11 @@
 <template>
   <div class="w-full">
-    <TaskDetail
-      :selected-id="Number(selectedID)"
-      :close-task-detail="() => handleModal(null)" />
+    <div v-if="selectedID">
+      <TaskDetail
+        v-if="selectedID"
+        :selected-id="Number(selectedID)"
+        :close-task-detail="() => handleModal(null)" />
+    </div>
     <RouterView />
   </div>
 </template>

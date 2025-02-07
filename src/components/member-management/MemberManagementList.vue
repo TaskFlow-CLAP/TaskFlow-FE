@@ -32,6 +32,7 @@ import ListPagination from '../lists/ListPagination.vue'
 import NoContent from '../lists/NoContent.vue'
 import MemberManagementListBar from './MemberManagementListBar.vue'
 import MemberManagementListCard from './MemberManagementListCard.vue'
+import { useMemberStore } from '@/stores/member'
 
 const { params } = useMemberManagementParamsStore()
 const onPageChange = (value: number) => {
@@ -42,9 +43,11 @@ const fetchMemberList = async () => {
   return response.data
 }
 
+const { isLogined } = useMemberStore()
 const { data } = useQuery<MemberManagementResponse>({
   queryKey: ['member', params],
-  queryFn: fetchMemberList
+  queryFn: fetchMemberList,
+  enabled: isLogined
 })
 
 const totalPage = computed(() => {

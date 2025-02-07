@@ -18,11 +18,10 @@
 
     <div class="profile">
       <p class="text-body text-xs font-bold">프로필 사진</p>
-      <img
-        v-if="previewUrl || info.profileImageUrl"
-        :src="previewUrl || info.profileImageUrl"
-        alt="프로필 이미지"
-        class="w-24 h-24 rounded-full object-cover border mt-3" />
+      <ImageContainer
+        class="mt-3"
+        :url="previewUrl || info.profileImageUrl"
+        :size="96" />
 
       <label
         for="fileInput"
@@ -104,6 +103,7 @@ const router = useRouter()
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
 import { patchEditInfo } from '@/api/common'
+import ImageContainer from './common/ImageContainer.vue'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
