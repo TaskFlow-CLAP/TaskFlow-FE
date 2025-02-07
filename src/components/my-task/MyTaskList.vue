@@ -34,6 +34,7 @@ import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
 import NoContent from '../lists/NoContent.vue'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
@@ -47,7 +48,8 @@ const fetchMyTaskList = async () => {
   return response.data
 }
 
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery<MyTaskResponse>({
   queryKey: ['myTask', params],
   queryFn: fetchMyTaskList,

@@ -36,6 +36,7 @@ import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import type { StatisticsData } from '@/types/admin'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const { title, statisticsType, chartType } = defineProps<{
   title: string
@@ -65,7 +66,8 @@ const fetchStatistics = async () => {
   return response.data
 }
 
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery<StatisticsData[]>({
   queryKey: computed(() => [statisticsType, periodType]),
   queryFn: fetchStatistics,

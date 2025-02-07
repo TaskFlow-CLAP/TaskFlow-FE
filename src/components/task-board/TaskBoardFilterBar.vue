@@ -32,6 +32,7 @@ import { computed } from 'vue'
 import type { LabelDataTypes } from '@/types/common'
 import { getCategory, getLabels } from '@/api/common'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const { params } = useTaskBoardParamsStore()
 
@@ -56,7 +57,8 @@ const onTitleChange = (value: string) => {
   params.title = value
 }
 
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data: categoryList } = useQuery({
   queryKey: ['category'],
   queryFn: getCategory,

@@ -37,13 +37,15 @@ import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 import { useQuery } from '@tanstack/vue-query'
 import { getCategory } from '@/api/common'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const store = useRequestParamsStore()
 store.$reset()
 
 const onParamsChange = useRequestParamsChange()
 
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery({
   queryKey: ['category'],
   queryFn: getCategory,

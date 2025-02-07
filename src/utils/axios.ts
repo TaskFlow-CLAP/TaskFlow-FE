@@ -15,15 +15,13 @@ const getNewAccessToken = async () => {
       }
     )
     Cookies.set('accessToken', response.data.accessToken)
-    Cookies.set('refreshToken', response.data.newRefreshToken)
+    Cookies.set('refreshToken', response.data.refreshToken)
 
     return response.data.accessToken
-  } catch (e) {
-    console.log(e)
-    // console.error('토큰 발행 실패', e)
-    // Cookies.remove('accessToken')
-    // Cookies.remove('refreshToken')
-    // window.location.href = 'login'
+  } catch {
+    Cookies.remove('accessToken')
+    Cookies.remove('refreshToken')
+    window.location.href = 'login'
   }
 }
 const setInterceptors = (instance: AxiosInstance) => {

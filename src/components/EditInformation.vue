@@ -22,26 +22,48 @@
         class="mt-3"
         :url="previewUrl || info.profileImageUrl"
         :size="96" />
-
-      <label
-        for="fileInput"
-        class="mt-3 text-xs text-primary1 font-bold cursor-pointer"
-        >변경</label
-      >
+      <div class="flex gap-6">
+        <label
+          for="fileInput"
+          class="mt-3 text-xs text-primary1 font-bold cursor-pointer hover:underline"
+          >변경</label
+        >
+        <label
+          for="fileDelete"
+          class="mt-3 text-xs text-red-1 font-bold cursor-pointer hover:underline"
+          >삭제</label
+        >
+      </div>
       <input
         id="fileInput"
         type="file"
         @change="handleFileUpload"
         accept="image/*"
         class="hidden" />
+      <button
+        id="fileDelete"
+        type="button"
+        @click="handleFileDelete"
+        class="hidden" />
     </div>
-
-    <div class="flex flex-col">
+    <div class="flex flex-col relative">
       <p class="text-body text-xs font-bold">이름</p>
+      <span class="absolute top-1 right-2 text-xs text-gray-500"> {{ name.length }} / 10 </span>
       <input
-        class="input-box h-11 mt-2 text-black"
+        :class="[
+          'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2 text-black',
+          isInvalid ? 'border-red-1' : 'border-border-1'
+        ]"
         placeholder="이름을 입력해주세요"
-        v-model="name" />
+        v-model="name"
+        maxlength="10"
+        ref="nameInput"
+        @blur="validateName" />
+      <span
+        v-show="isInvalid"
+        class="text-red-1 text-xs font-bold mt-1"
+        >이름에는 특수문자가 포함될 수 없습니다.</span
+      >
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">아이디</p>
@@ -95,15 +117,15 @@
 </template>
 
 <script lang="ts" setup>
-import { patchEditInfo } from '@/api/common'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
-import { ref, watchEffect } from 'vue'
+import { nextTick, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from './ModalView.vue'
 import FormButtonContainer from './common/FormButtonContainer.vue'
 import FormCheckbox from './common/FormCheckbox.vue'
 import ImageContainer from './common/ImageContainer.vue'
+import { patchEditInfo } from '@/api/common'
 const router = useRouter()
 
 const memberStore = useMemberStore()
@@ -113,9 +135,13 @@ const name = ref(info.value.name)
 const agitCheck = ref(info.value.notificationSettingInfo.agit)
 const emailCheck = ref(info.value.notificationSettingInfo.email)
 const kakaoWorkCheck = ref(info.value.notificationSettingInfo.kakaoWork)
+const imageDelete = ref(info.value.profileImageUrl == null ? true : false)
 
 const selectedFile = ref<File | null>(null)
 const previewUrl = ref<string | null>(null)
+
+const isInvalid = ref(false)
+const nameInput = ref<HTMLInputElement | null>(null)
 
 const isModalVisible = ref(false)
 const isWarnningModalVisible = ref(false)
@@ -129,6 +155,16 @@ watchEffect(() => {
   }
 })
 
+const validateName = () => {
+  const regex = /[!@#$%^&*(),.?":{}|<>]/g
+  isInvalid.value = regex.test(name.value)
+
+  if (isInvalid.value) {
+    nextTick(() => {
+      nameInput.value?.focus()
+    })
+  }
+}
 const handleCancel = () => {
   router.back()
 }
@@ -161,31 +197,43 @@ const handleFileUpload = (event: Event) => {
     selectedFile.value = target.files[0]
     previewUrl.value = URL.createObjectURL(selectedFile.value)
   }
+  imageDelete.value = false
+}
+
+const handleFileDelete = () => {
+  imageDelete.value = true
+  previewUrl.value = ''
+  info.value.profileImageUrl = ''
 }
 
 const handleSubmit = async () => {
-  const formData = new FormData()
-  const memberInfo = {
-    name: name.value,
-    agitNotification: agitCheck.value,
-    emailNotification: emailCheck.value,
-    kakaoWorkNotification: kakaoWorkCheck.value
-  }
-  const jsonMemberInfo = JSON.stringify(memberInfo)
-  const newBlob = new Blob([jsonMemberInfo], { type: 'application/json' })
+  if (isInvalid.value == false) {
+    const formData = new FormData()
+    const memberInfo = {
+      name: name.value,
+      isProfileImageDeleted: imageDelete.value,
+      agitNotification: agitCheck.value,
+      emailNotification: emailCheck.value,
+      kakaoWorkNotification: kakaoWorkCheck.value
+    }
+    const jsonMemberInfo = JSON.stringify(memberInfo)
+    const newBlob = new Blob([jsonMemberInfo], { type: 'application/json' })
 
-  formData.append('memberInfo', newBlob)
+    formData.append('memberInfo', newBlob)
 
-  if (selectedFile.value) {
-    formData.append('profileImage', selectedFile.value)
-  }
+    if (selectedFile.value && imageDelete.value == false) {
+      formData.append('profileImage', selectedFile.value)
+    } else if (imageDelete.value == true) {
+      selectedFile.value = null
+    }
 
-  try {
-    await patchEditInfo(formData)
-    isModalVisible.value = true
-    await memberStore.updateMemberInfoWithToken()
-  } catch (error) {
-    console.error('요청 실패:', error)
+    try {
+      await patchEditInfo(formData)
+      isModalVisible.value = true
+      await memberStore.updateMemberInfoWithToken()
+    } catch (error) {
+      console.error('요청 실패:', error)
+    }
   }
 }
 </script>

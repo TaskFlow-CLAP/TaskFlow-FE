@@ -22,17 +22,18 @@
 </template>
 
 <script setup lang="ts">
-import ListPagination from '../lists/ListPagination.vue'
-import ListContainer from '../lists/ListContainer.vue'
+import { useMemberStore } from '@/stores/member'
 import { useLogsParamsStore } from '@/stores/params'
-import LoginLogsListBar from './LoginLogsListBar.vue'
-import LoginLogsListCard from './LoginLogsListCard.vue'
+import type { LoginLogsResponse } from '@/types/admin'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
-import type { LoginLogsResponse } from '@/types/admin'
+import ListContainer from '../lists/ListContainer.vue'
+import ListPagination from '../lists/ListPagination.vue'
 import NoContent from '../lists/NoContent.vue'
-import { useMemberStore } from '@/stores/member'
+import LoginLogsListBar from './LoginLogsListBar.vue'
+import LoginLogsListCard from './LoginLogsListCard.vue'
 
 const { params } = useLogsParamsStore()
 const onPageChange = (value: number) => {
@@ -49,7 +50,8 @@ const fetchLoginLogsList = async () => {
   return response.data
 }
 
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery<LoginLogsResponse>({
   queryKey: ['loginLogs', params],
   queryFn: fetchLoginLogsList,
