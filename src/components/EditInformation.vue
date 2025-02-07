@@ -165,12 +165,11 @@ const handleFileUpload = (event: Event) => {
 const handleSubmit = async () => {
   const formData = new FormData()
   const memberInfo = {
-    name: name,
-    agitNotification: agitCheck,
-    emailNotification: emailCheck,
-    kakaoWorkNotification: kakaoWorkCheck
+    name: name.value,
+    agitNotification: agitCheck.value,
+    emailNotification: emailCheck.value,
+    kakaoWorkNotification: kakaoWorkCheck.value
   }
-
   const jsonMemberInfo = JSON.stringify(memberInfo)
   const newBlob = new Blob([jsonMemberInfo], { type: 'application/json' })
 
