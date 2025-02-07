@@ -42,14 +42,17 @@ import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
 import FilterInput from '../filters/FilterInput.vue'
 import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 import { getCategory } from '@/api/common'
+import { useMemberStore } from '@/stores/member'
 
 const store = useRequestParamsStore()
 store.$reset()
 
 const onParamsChange = useRequestParamsChange()
 
+const { isLogined } = useMemberStore()
 const { data } = useQuery({
   queryKey: ['category'],
-  queryFn: getCategory
+  queryFn: getCategory,
+  enabled: isLogined
 })
 </script>

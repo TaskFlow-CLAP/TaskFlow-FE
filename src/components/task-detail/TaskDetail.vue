@@ -73,7 +73,7 @@ const { data, refetch } = useQuery<TaskDetailDatas>({
   enabled: false
 })
 
-const { data: historyData } = useQuery<TaskDetailHistoryData>({
+const { data: historyData, refetch: refetchHistory } = useQuery<TaskDetailHistoryData>({
   queryKey: ['historyData', selectedId],
   queryFn: () => getHistory(selectedId),
   enabled: isDataFetched.value
@@ -89,4 +89,10 @@ watch(
   },
   { immediate: true }
 )
+
+watch(isDataFetched, async newValue => {
+  if (newValue) {
+    await refetchHistory()
+  }
+})
 </script>

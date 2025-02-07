@@ -61,7 +61,7 @@ const { isLogined } = useMemberStore()
 const { data: mainData } = useQuery<StatisticsData[]>({
   queryKey: computed(() => ['REQUEST_BY_CATEGORY', periodType]),
   queryFn: fetchMainStatistics,
-  enabled: !!isLogined
+  enabled: isLogined
 })
 const mainLabels = computed(() => {
   return mainData.value?.map(el => el.key) || []
@@ -83,7 +83,7 @@ const fetchSubStatistics = async () => {
 const { data: subData } = useQuery<StatisticsData[]>({
   queryKey: computed(() => [mainCategory.value, periodType]),
   queryFn: fetchSubStatistics,
-  enabled: computed(() => mainCategory.value !== '')
+  enabled: computed(() => mainCategory.value !== '') && isLogined
 })
 const subLabels = computed(() => {
   return subData.value?.map(el => el.key) || []

@@ -82,8 +82,7 @@ export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
     sortBy: 'CONTRIBUTE',
     mainCategoryIds: [],
     categoryIds: [],
-    taskTitle: '',
-    valid: true
+    taskTitle: ''
   })
 
   return { params }

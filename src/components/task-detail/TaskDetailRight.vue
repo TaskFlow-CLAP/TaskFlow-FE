@@ -31,10 +31,9 @@
     <div>
       <p class="task-detail">요청자</p>
       <div class="flex gap-2">
-        <img
-          :src="data.requesterImageUrl || '/images/mockProfile.jpg'"
-          class="rounded-full overflow-hidden w-5 h-5"
-          alt="requesterImg" />
+        <ImageContainer
+          :url="data.requesterImageUrl"
+          :size="20" />
         <p class="text-sm text-black">{{ data.requesterNickName }}</p>
       </div>
     </div>
@@ -96,6 +95,7 @@ import TaskStatus from '../TaskStatus.vue'
 import TaskDetailLabelDropdown from './TaskDetailLabelDropdown.vue'
 import TaskDetailManagerDropdown from './TaskDetailManagerDropdown.vue'
 import TaskStatusList from './TaskStatusList.vue'
+import ImageContainer from '../common/ImageContainer.vue'
 
 const { data, isProcessor } = defineProps<{ data: TaskDetailDatas; isProcessor: boolean }>()
 

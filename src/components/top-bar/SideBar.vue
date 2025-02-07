@@ -43,14 +43,9 @@
 
       <div class="flex w-full justify-between px-6 py-4 bg-white">
         <div class="flex w-full items-center gap-3">
-          <img
-            v-if="info?.profileImageUrl"
-            class="rounded-[50%] w-10 h-10"
-            :src="info.profileImageUrl"
-            alt="프로필 이미지" />
-          <div
-            v-else
-            class="w-10 h-10 rounded-full bg-background-1" />
+          <ImageContainer
+            :url="info.profileImageUrl"
+            :size="40" />
           <div class="flex flex-col gap-1">
             <p class="text-xs text-body font-bold">{{ name }}</p>
             <p class="text-sm text-black">{{ nickname }}</p>
@@ -77,6 +72,7 @@ import { hamburgerIcon } from '@/constants/iconPath'
 import { SIDE_USER_MENU, SIDE_MANAGER_MENU, SIDE_ADMIN_MENU } from '@/constants/menu'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
+import ImageContainer from '../common/ImageContainer.vue'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)

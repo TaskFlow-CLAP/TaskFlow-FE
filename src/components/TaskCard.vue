@@ -23,9 +23,9 @@
       <div class="flex flex-col gap-1 items-end">
         <span class="text-xs font-bold text-body">{{ data.requesterDepartment }}</span>
         <div class="flex items-center gap-1.5">
-          <div class="w-4 h-4 rounded-full bg-background-1 overflow-hidden">
-            <img :src="data.requesterImageUrl" />
-          </div>
+          <ImageContainer
+            :url="data.requesterImageUrl"
+            :size="16" />
           <span class="text-xs font-bold text-black">{{ data.requesterNickname }}</span>
         </div>
       </div>
@@ -41,6 +41,7 @@ import type { TaskCardProps } from '@/types/manager'
 import CommonIcons from './common/CommonIcons.vue'
 import { statusAsColor } from '@/utils/statusAsColor'
 import TaskLabel from './common/TaskLabel.vue'
+import ImageContainer from './common/ImageContainer.vue'
 
 const { data } = defineProps<{ data: TaskCardProps; draggable?: boolean }>()
 

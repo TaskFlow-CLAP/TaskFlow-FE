@@ -30,6 +30,7 @@ import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import type { ApiLogsResponse } from '@/types/admin'
 import { computed } from 'vue'
+import { useMemberStore } from '@/stores/member'
 
 const { params } = useLogsParamsStore()
 const onPageChange = (value: number) => {
@@ -46,9 +47,11 @@ const fetchApiLogsList = async () => {
   return response.data
 }
 
+const { isLogined } = useMemberStore()
 const { data } = useQuery<ApiLogsResponse>({
   queryKey: ['apiLogs', params],
-  queryFn: fetchApiLogsList
+  queryFn: fetchApiLogsList,
+  enabled: !!isLogined
 })
 
 const totalPage = computed(() => {

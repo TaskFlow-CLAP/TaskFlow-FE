@@ -5,15 +5,10 @@
     class="absolute w-60 bg-white right-6 top-[calc(100%+16px)] rounded-lg shadow-custom overflow-hidden">
     <div
       class="flex items-center justify-center relative px-6 py-8 border-b bg-primary2 border-border-2">
-      <div class="flex flex-col items-center justify-center">
-        <img
-          v-if="imgUrl"
-          class="rounded-full mb-6 w-24 h-24"
-          :src="info.profileImageUrl"
-          alt="프로필 이미지" />
-        <div
-          v-else
-          class="w-24 h-24 bg-background-1 rounded-full mb-6" />
+      <div class="flex flex-col items-center justify-center gap-6">
+        <ImageContainer
+          :url="info.profileImageUrl"
+          :size="96" />
         <div>
           <div class="flex flex-col justify-center items-center w-[172px]">
             <p class="text-xs text-body font-bold">{{ name }}</p>
@@ -52,13 +47,13 @@ import ModalView from '../ModalView.vue'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
+import ImageContainer from '../common/ImageContainer.vue'
 
 const isModalVisible = ref(false)
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)
 
-const imgUrl = computed(() => info.value.profileImageUrl)
 const name = computed(() => info.value.name)
 const nickname = computed(() => info.value.nickname)
 

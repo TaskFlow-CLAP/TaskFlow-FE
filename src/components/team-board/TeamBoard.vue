@@ -25,6 +25,7 @@ import { useParseParams } from '../hooks/useParseParams'
 import type { TeamBoardResponse } from '@/types/manager'
 import { computed } from 'vue'
 import NoContent from '../lists/NoContent.vue'
+import { useMemberStore } from '@/stores/member'
 
 const { params } = useTeamBoardParamsStore()
 
@@ -34,9 +35,11 @@ const fetchTeamStatus = async () => {
   const response = await axiosInstance.get('/api/team-status/filter', { params: parsedParams })
   return response.data
 }
+const { isLogined } = useMemberStore()
 const { data } = useQuery<TeamBoardResponse>({
   queryKey: ['teamStatus', params],
-  queryFn: fetchTeamStatus
+  queryFn: fetchTeamStatus,
+  enabled: isLogined
 })
 
 const teamSummary = computed(() => {

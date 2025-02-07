@@ -36,14 +36,17 @@ import { useRequestParamsStore } from '@/stores/params'
 import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 import { useQuery } from '@tanstack/vue-query'
 import { getCategory } from '@/api/common'
+import { useMemberStore } from '@/stores/member'
 
 const store = useRequestParamsStore()
 store.$reset()
 
 const onParamsChange = useRequestParamsChange()
 
+const { isLogined } = useMemberStore()
 const { data } = useQuery({
   queryKey: ['category'],
-  queryFn: getCategory
+  queryFn: getCategory,
+  enabled: isLogined
 })
 </script>

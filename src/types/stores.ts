@@ -39,7 +39,6 @@ export interface TeamBoardParams {
   mainCategoryIds: number[]
   categoryIds: number[]
   taskTitle: string
-  valid?: boolean
 }
 
 export interface TaskBoardParams {
