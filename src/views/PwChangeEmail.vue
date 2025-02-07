@@ -90,6 +90,12 @@ const handleCheck = async () => {
         messageHeader.value = '서버에 문제가 발생했습니다'
         messageBody.value = '잠시후 다시 이용해주세요'
         break
+
+      default:
+        isFailModalVisible.value = !isFailModalVisible.value
+        messageHeader.value = '문제가 발생했습니다'
+        messageBody.value = '잠시후 다시 이용해주세요'
+        break
     }
   }
 }
