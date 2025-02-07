@@ -1,10 +1,8 @@
 <template>
   <div class="w-full">
-    <div v-if="selectedID">
-      <TaskDetail
-        :selected-id="Number(selectedID)"
-        :close-task-detail="() => handleModal(null)" />
-    </div>
+    <TaskDetail
+      :selected-id="Number(selectedID)"
+      :close-task-detail="() => handleModal(null)" />
     <RouterView />
   </div>
 </template>
@@ -16,7 +14,7 @@ import { useRoute } from 'vue-router'
 import TaskDetail from '@/components/task-detail/TaskDetail.vue'
 
 const route = useRoute()
-const selectedID = ref(route.query.taskId || null)
+const selectedID = ref(route.query?.taskId || null)
 
 watch(
   () => route.query.taskId,
