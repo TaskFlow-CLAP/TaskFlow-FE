@@ -104,6 +104,6 @@ const finishCancel = async () => {
 }
 
 const ApproveTask = () => {
-  router.push(`/request-approve/${id}`)
+  router.push(`/request-approve?requestId=${id}`)
 }
 </script>

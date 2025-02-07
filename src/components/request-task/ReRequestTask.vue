@@ -5,13 +5,15 @@
       :options="mainCategoryArr"
       :label-name="'1차 카테고리'"
       :placeholderText="'1차 카테고리를 선택해주세요'"
-      :isDisabled="false" />
+      :isDisabled="false"
+      :is-invalidate="isInvalidate" />
     <CategoryDropDown
       v-model="category2"
       :options="afterSubCategoryArr"
       :label-name="'2차 카테고리'"
       :placeholderText="'2차 카테고리를 선택해주세요'"
-      :isDisabled="!category1" />
+      :isDisabled="!category1"
+      :is-invalidate="isInvalidate" />
     <RequestTaskInput
       v-model="title"
       :placeholderText="'제목을 입력해주세요'"
