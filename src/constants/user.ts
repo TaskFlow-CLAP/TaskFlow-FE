@@ -1,6 +1,5 @@
-import type { TaskHistoryType } from '@/types/user'
-
 import type { ListBarTabProps } from '@/types/common'
+import type { TaskHistoryType } from '@/types/user'
 
 export const MY_REQUEST_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '고유코드', width: 120 },
