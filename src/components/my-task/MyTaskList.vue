@@ -33,6 +33,7 @@ import type { MyTaskResponse } from '@/types/manager'
 import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
 import NoContent from '../lists/NoContent.vue'
+import { useMemberStore } from '@/stores/member'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
@@ -46,9 +47,11 @@ const fetchMyTaskList = async () => {
   return response.data
 }
 
+const { isLogined } = useMemberStore()
 const { data } = useQuery<MyTaskResponse>({
   queryKey: ['myTask', params],
-  queryFn: fetchMyTaskList
+  queryFn: fetchMyTaskList,
+  enabled: !!isLogined
 })
 
 const totalPage = computed(() => {

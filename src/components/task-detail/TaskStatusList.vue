@@ -2,7 +2,7 @@
   <div class="flex flex-wrap items-center gap-2.5">
     <ModalView
       :is-open="isModalVisible.reject"
-      @update:model-value="value => (rejectReason = value)"
+      @update:model-value="value => (rejectReason = value || '')"
       type="inputType"
       @close="closeModal"
       @click="rejectRequest">
@@ -79,13 +79,13 @@ const closeModal = () => {
 }
 
 const textColor = (taskStatus: Status) => {
-  return currentStatus.value === taskStatus ? 'text-white' : `text-${statusAsColor(taskStatus)}-1`
+  return currentStatus.value === taskStatus ? 'text-white' : `text-gray-1`
 }
 
 const bgColor = (taskStatus: Status) => {
   return currentStatus.value === taskStatus
     ? `bg-${statusAsColor(taskStatus)}-1`
-    : `bg-${statusAsColor(taskStatus)}-2`
+    : `bg-gray-2${isProcessor ? ' hover:bg-background-1' : ''}`
 }
 
 const rejectRequest = async () => {

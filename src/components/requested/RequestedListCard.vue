@@ -30,7 +30,7 @@
 
   <ModalView
     :is-open="isModalVisible.reject"
-    @update:model-value="value => (rejectReason = value)"
+    @update:model-value="value => (rejectReason = value || '')"
     type="inputType"
     @close="closeModal"
     @click="rejectRequest">

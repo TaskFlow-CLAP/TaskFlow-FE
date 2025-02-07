@@ -7,7 +7,7 @@
     <div
       v-if="selectedId"
       @click.stop
-      class="flex flex-col overflow-y-auto rounded-lg w-full max-w-[1104px] min-w-[768px] h-[calc(100%-96px)] bg-white shadow-custom p-6 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+      class="flex flex-col overflow-y-auto rounded-lg w-[calc(100%-96px)] max-w-[1104px] min-w-[768px] h-[calc(100%-96px)] bg-white shadow-custom py-6 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
       <TaskDetailTopBar
         v-if="data"
         :is-approved="isApproved"
@@ -17,8 +17,8 @@
         :isRequestor="data?.requesterNickName === info.nickname" />
       <div
         v-if="data"
-        class="w-full flex gap-6 relative overflow-y-auto">
-        <div class="w-full flex flex-col gap-y-8 overflow-y-auto scrollbar-hide">
+        class="w-full flex relative overflow-y-auto">
+        <div class="w-full flex flex-col gap-y-8 overflow-y-auto scrollbar-hide p-6">
           <TaskDetailLeft :data="data" />
           <div class="w-full h-[1px] bg-border-1 shrink-0"></div>
           <TaskDetailHistory
