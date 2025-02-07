@@ -54,12 +54,12 @@ export const getHistory = async (taskID: number | null) => {
 }
 
 export const postComment = async (taskID: number, content: string) => {
-  const response = await axiosInstance.post(`/api/comments/${taskID}`, { content })
+  const response = await axiosInstance.post(`/api/tasks/${taskID}/comments`, { content })
   return response.data
 }
 
 export const postCommentAttachment = async (taskID: number, formdata: FormData) => {
-  const response = await formDataAxiosInstance.post(`/api/comments/attachment/${taskID}`, formdata)
+  const response = await formDataAxiosInstance.post(`/api/tasks/${taskID}/comments/attachment`, formdata)
   return response.data
 }
 
