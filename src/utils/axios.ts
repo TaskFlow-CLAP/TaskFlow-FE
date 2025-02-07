@@ -48,9 +48,11 @@ const setInterceptors = (instance: AxiosInstance) => {
         console.log('상태확인 에러메세지:', error.response)
         switch (error.response.status) {
           case 401:
-            Cookies.remove('accessToken')
-            Cookies.remove('refreshToken')
-            window.location.href = 'login'
+            if (error.response.data === 'AUTH_003') {
+              Cookies.remove('accessToken')
+              Cookies.remove('refreshToken')
+              window.location.href = 'login'
+            }
             break
           case 403: {
             if (error.response.data !== 'AUTH_002') {
