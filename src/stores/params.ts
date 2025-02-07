@@ -6,7 +6,7 @@ import type {
   TaskBoardParams
 } from '@/types/stores'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 export const useRequestParamsStore = defineStore('requestParams', () => {
   const params = ref<RequestParams>({
@@ -21,6 +21,24 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
     sortBy: 'REQUESTED_AT',
     sortDirection: 'DESC'
   })
+
+  watch(
+    () => ({
+      pageSize: params.value.pageSize,
+      term: params.value.term,
+      mainCategoryIds: params.value.mainCategoryIds,
+      categoryIds: params.value.categoryIds,
+      title: params.value.title,
+      nickName: params.value.nickName,
+      taskStatus: params.value.taskStatus,
+      sortBy: params.value.sortBy,
+      sortDirection: params.value.sortDirection
+    }),
+    () => {
+      params.value.page = 0
+    },
+    { deep: true }
+  )
 
   const $reset = () => {
     params.value.page = 0
@@ -50,6 +68,22 @@ export const useMemberManagementParamsStore = defineStore('userManagementParams'
     sortDirection: 'DESC'
   })
 
+  watch(
+    () => ({
+      pageSize: params.value.pageSize,
+      name: params.value.name,
+      email: params.value.email,
+      nickName: params.value.nickName,
+      departmentName: params.value.departmentName,
+      role: params.value.role,
+      sortDirection: params.value.sortDirection
+    }),
+    () => {
+      params.value.page = 0
+    },
+    { deep: true }
+  )
+
   return { params }
 })
 
@@ -63,6 +97,21 @@ export const useLogsParamsStore = defineStore('logsParams', () => {
     clientIp: '',
     sortDirection: 'DESC'
   })
+
+  watch(
+    () => ({
+      pageSize: params.value.pageSize,
+      term: params.value.term,
+      logStatus: params.value.logStatus,
+      nickName: params.value.nickName,
+      clientIp: params.value.clientIp,
+      sortDirection: params.value.sortDirection
+    }),
+    () => {
+      params.value.page = 0
+    },
+    { deep: true }
+  )
 
   const $reset = () => {
     params.value.page = 0
