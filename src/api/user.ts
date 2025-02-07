@@ -59,7 +59,10 @@ export const postComment = async (taskID: number, content: string) => {
 }
 
 export const postCommentAttachment = async (taskID: number, formdata: FormData) => {
-  const response = await formDataAxiosInstance.post(`/api/tasks/${taskID}/comments/attachment`, formdata)
+  const response = await formDataAxiosInstance.post(
+    `/api/tasks/${taskID}/comments/attachment`,
+    formdata
+  )
   return response.data
 }
 

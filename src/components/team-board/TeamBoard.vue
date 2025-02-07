@@ -32,7 +32,7 @@ const { params } = useTeamBoardParamsStore()
 const fetchTeamStatus = async () => {
   const { parseBoardParams } = useParseParams()
   const parsedParams = parseBoardParams(params)
-  const response = await axiosInstance.get('/api/team-status', { params: parsedParams })
+  const response = await axiosInstance.get('/api/team-status/filter', { params: parsedParams })
   return response.data
 }
 const { isLogined } = useMemberStore()
