@@ -7,7 +7,6 @@ const getNewAccessToken = async () => {
   console.log('토큰 재발급 시도')
   try {
     const refreshToken = Cookies.get('refreshToken')
-    console.log(refreshToken)
     const response = await axios.post(
       baseURL + '/api/auths/reissuance',
       {},
@@ -17,16 +16,13 @@ const getNewAccessToken = async () => {
     )
     Cookies.set('accessToken', response.data.accessToken)
     Cookies.set('refreshToken', response.data.newRefreshToken)
-    console.log('토큰 발행 성공')
-
-    console.log(response.data)
 
     return response.data.accessToken
   } catch (e) {
     console.error('토큰 발행 실패', e)
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
-    window.location.href = '/login'
+    window.location.href = 'login'
   }
 }
 const setInterceptors = (instance: AxiosInstance) => {
@@ -52,25 +48,29 @@ const setInterceptors = (instance: AxiosInstance) => {
         console.log('상태확인 에러메세지:', error.response)
         switch (error.response.status) {
           case 401:
-            console.error('인증 오류: 다시 로그인하세요.')
+            Cookies.remove('accessToken')
+            Cookies.remove('refreshToken')
+            window.location.href = 'login'
             break
           case 403: {
-            console.error('권한 오류: 접근 권한이 없습니다.')
+            if (error.response.data !== 'AUTH_002') {
+              Cookies.remove('accessToken')
+              const originalRequest = error.config
+              if (!originalRequest._retry) {
+                originalRequest._retry = true
 
-            const originalRequest = error.config
-            if (!originalRequest._retry) {
-              originalRequest._retry = true
+                try {
+                  console.log('토큰이 만료됨')
+                  const newAccessToken = await getNewAccessToken()
 
-              try {
-                console.log('토큰이 만료됨')
-                const newAccessToken = await getNewAccessToken()
-
-                originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
-                return instance(originalRequest)
-              } catch (err) {
-                console.error('토큰 갱신 실패:', err)
+                  originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
+                  return instance(originalRequest)
+                } catch (err) {
+                  console.error('토큰 갱신 실패:', err)
+                }
               }
             }
+
             break
           }
           case 404:

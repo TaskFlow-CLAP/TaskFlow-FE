@@ -33,6 +33,7 @@ import ListPagination from '../lists/ListPagination.vue'
 import NoContent from '../lists/NoContent.vue'
 import MyRequestListBar from './MyRequestListBar.vue'
 import MyRequestListCard from './MyRequestListCard.vue'
+import { useMemberStore } from '@/stores/member'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
@@ -46,9 +47,11 @@ const fetchMyRequestList = async () => {
   return response.data
 }
 
+const { isLogined } = useMemberStore()
 const { data } = useQuery<MyRequestResponse>({
   queryKey: ['myRequest', params],
-  queryFn: fetchMyRequestList
+  queryFn: fetchMyRequestList,
+  enabled: !!isLogined
 })
 
 const totalPage = computed(() => {

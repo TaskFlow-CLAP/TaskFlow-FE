@@ -37,6 +37,7 @@ import type { PeriodType } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import type { StatisticsData } from '@/types/admin'
+import { useMemberStore } from '@/stores/member'
 
 const periodType = ref<PeriodType>('DAY')
 const changePeriod = (newPeriodType: PeriodType) => {
@@ -56,9 +57,11 @@ const fetchMainStatistics = async () => {
 
   return response.data
 }
+const { isLogined } = useMemberStore()
 const { data: mainData } = useQuery<StatisticsData[]>({
   queryKey: computed(() => ['REQUEST_BY_CATEGORY', periodType]),
-  queryFn: fetchMainStatistics
+  queryFn: fetchMainStatistics,
+  enabled: !!isLogined
 })
 const mainLabels = computed(() => {
   return mainData.value?.map(el => el.key) || []

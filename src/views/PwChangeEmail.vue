@@ -3,51 +3,33 @@
     <ModalView
       :isOpen="isModalOpen"
       type="successType"
-      @close="toggleModal">
+      @close="closeModal">
       <template #header> 인증 번호가 전송되었습니다 </template>
       <template #body> 이메일을 확인해주세요 </template>
     </ModalView>
     <div class="py-16">
       <TitleContainer
         :title="'비밀번호\n재설정'"
-        content="가입된 아이디와 이메일을 입력해주세요" />
+        content="가입된 이메일과 이름을 입력해주세요" />
     </div>
     <form
       @submit.prevent="handleCheck"
       class="mb-2">
       <div class="mb-6">
         <input
-          type="text"
-          id="id"
-          v-model="id"
-          placeholder="아이디를 입력해주세요"
-          required
-          class="input-box" />
-      </div>
-      <div class="relative mb-6">
-        <div class="absolute flex items-center right-4 h-full">
-          <button
-            type="button"
-            @click="handleRequestEmail"
-            class="bg-white text-xs py-2 px-4 border-[1px] border-primary1 rounded text-primary1">
-            {{ requestEmail ? '재요청' : '인증 요청' }}
-          </button>
-        </div>
-        <input
           type="email"
           id="email"
           v-model="email"
-          placeholder="이메일을 입력해주세요"
+          placeholder="이메일 입력해주세요"
           required
           class="input-box" />
       </div>
-      <div class="mb-8">
+      <div class="relative mb-8">
         <input
           type="text"
-          :disabled="!requestEmail"
-          id="checkCode"
-          v-model="checkCode"
-          placeholder="인증코드를 입력해주세요"
+          id="name"
+          v-model="name"
+          placeholder="이름을 입력해주세요"
           required
           class="input-box" />
       </div>
@@ -66,25 +48,19 @@ import { ref } from 'vue'
 import router from '../router/index'
 import ModalView from '../components/ModalView.vue'
 import TitleContainer from '@/components/common/TitleContainer.vue'
+import { postPasswordEmailSend } from '@/api/auth'
 
-const id = ref('')
+const name = ref('')
 const email = ref('')
-const checkCode = ref('')
-const requestEmail = ref(false)
 const isModalOpen = ref(false)
 
-const toggleModal = () => {
+const closeModal = () => {
   isModalOpen.value = !isModalOpen.value
-}
-
-const handleRequestEmail = () => {
-  toggleModal()
-  requestEmail.value = true
-  // 이메일 인증 코드 전송 API 추가 필요
+  router.push('/login')
 }
 
 const handleCheck = () => {
-  // 이메일 인증 코드 확인 API 추가 필요
-  router.push('/pw-change')
+  postPasswordEmailSend(name.value, email.value)
+  isModalOpen.value = !isModalOpen.value
 }
 </script>

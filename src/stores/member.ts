@@ -23,8 +23,7 @@ export const useMemberStore = defineStore('memberInfo', () => {
   }
 
   const info = ref<User>(INITIAL_INFO)
-  const refreshToken = ref(Cookies.get('refreshToken') || '')
-  const isLogined = ref(!!refreshToken.value)
+  const isLogined = ref(!!Cookies.get('refreshToken'))
   const router = useRouter()
 
   async function updateMemberInfoWithToken() {
@@ -35,7 +34,7 @@ export const useMemberStore = defineStore('memberInfo', () => {
     try {
       const { data }: { data: User } = await axiosInstance.get('/api/members/info')
       info.value = data
-      isLogined.value = true
+      isLogined.value = Cookies.get('refreshToken') ? true : false
       return data.role
     } catch {
       router.push('/login')

@@ -3,6 +3,20 @@ import Cookies from 'js-cookie'
 import type { loginDataTypes } from '@/types/auth'
 import { useMemberStore } from '@/stores/member'
 
+export const postPasswordEmailSend = async (name: string, email: string) => {
+  const request = {
+    name: name,
+    email: email
+  }
+  const response = await axiosInstance.post('/api/new-password', request)
+  return response.data
+}
+
+export const postPasswordCheck = async (password: string) => {
+  const response = await axiosInstance.post('/api/members/password', { password: password })
+  return response.data
+}
+
 export const postLogin = async (loginData: loginDataTypes) => {
   const response = await axiosInstance.post('/api/auths/login', loginData)
   Cookies.set('accessToken', response.data.accessToken, {
@@ -17,7 +31,8 @@ export const postLogin = async (loginData: loginDataTypes) => {
 }
 
 export const patchPassword = async (password: string) => {
-  const response = await axiosInstance.patch('/api/members/password', password)
+  const request = { password: password }
+  const response = await axiosInstance.patch('/api/members/password', request)
   return response.data
 }
 

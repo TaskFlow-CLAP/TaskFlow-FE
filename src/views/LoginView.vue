@@ -34,7 +34,7 @@
     </form>
     <div class="flex w-full justify-center">
       <RouterLink
-        class="text-body font-bold text-[12px]"
+        class="text-body font-bold text-[12px] hover:underline"
         to="/pw-change-email"
         >비밀번호 재설정</RouterLink
       >
@@ -48,6 +48,7 @@ import { useRouter } from 'vue-router'
 import { postLogin } from '@/api/auth'
 import { useMemberStore } from '@/stores/member'
 import TitleContainer from '@/components/common/TitleContainer.vue'
+import Cookies from 'js-cookie'
 
 const router = useRouter()
 
@@ -64,7 +65,9 @@ const handleLogin = async () => {
     const res = await postLogin(loginData)
     const role = await memberStore.updateMemberInfoWithToken()
 
-    if (res && role) {
+    if (!Cookies.get('refreshToken')) {
+      router.push('/pw-change')
+    } else if (res && role && Cookies.get('refreshToken')) {
       switch (role) {
         case 'ROLE_ADMIN':
           router.push('/member-management')
@@ -80,7 +83,6 @@ const handleLogin = async () => {
       }
     }
   } catch (error) {
-    // 로그인 실패 시 에러 처리
     console.error('로그인 실패:', error)
   }
 }
