@@ -117,8 +117,9 @@ export interface CommentFileDetails {
 }
 
 export interface TaskDetailProps {
-  selectedId: number
+  selectedId: number | null
   closeTaskDetail: () => void
+  isApproved?: boolean
 }
 export interface ManagerInfoTypes {
   nickName: string

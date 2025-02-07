@@ -18,7 +18,7 @@
       class="relative flex">
       <div
         class="flex w-full h-11 items-center rounded p-4 border border-border-1 cursor-pointer text-black"
-        :class="isDisabled ? 'bg-background-1' : 'bg-white'"
+        :class="isDisabled ? 'bg-background-2' : 'bg-white'"
         @click="toggleDropdown">
         <p :class="{ 'text-disabled': !modelValue?.name }">
           {{ modelValue?.name ?? labelName + '를 선택해주세요' }}
