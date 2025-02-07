@@ -23,13 +23,22 @@
       :placeholderText="'담당자를 선택해주세요'"
       :is-invalidate="isInvalidate" />
     <div class="flex flex-col gap-2">
-      <p class="text-body text-xs font-bold">마감기한</p>
+      <div class="flex gap-1">
+        <p class="text-body text-xs font-bold">마감기한</p>
+        <p
+          v-if="isInvalidate === 'date'"
+          class="text-red-1 text-xs">
+          기한정보를 모두 입력하세요
+        </p>
+      </div>
       <div class="flex w-full justify-center gap-6">
         <DueDateInput
           v-model="approveData.dueDate"
+          :is-invalidate="isInvalidate"
           inputType="date" />
         <DueDateInput
           v-model="approveData.dueTime"
+          :is-invalidate="isInvalidate"
           inputType="time" />
       </div>
     </div>
@@ -110,12 +119,21 @@ const handleCancel = () => {
 }
 
 const handleSubmit = async () => {
+  console.log(approveData.value.dueDate)
+  console.log(approveData.value.dueTime)
   if (!category1.value || !category2.value) {
     isInvalidate.value = 'category'
     return
   }
   if (!approveData.value.processor?.memberId) {
     isInvalidate.value = 'manager'
+    return
+  }
+  if (
+    (approveData.value.dueDate && !approveData.value.dueTime) ||
+    (!approveData.value.dueDate && approveData.value.dueTime)
+  ) {
+    isInvalidate.value = 'date'
     return
   }
 
