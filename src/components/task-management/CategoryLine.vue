@@ -18,12 +18,12 @@
           <div class="flex gap-2 text-xs font-bold">
             <button
               @click="router.push(`/category-first/${main.id}`)"
-              class="text-primary1">
+              class="text-primary1 hover:underline">
               수정
             </button>
             <button
               @click="openModal(main.id)"
-              class="text-red-1">
+              class="text-red-1 hover:underline">
               삭제
             </button>
           </div>

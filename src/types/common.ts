@@ -84,6 +84,7 @@ export interface CategoryForm {
   name: string
   code: string
   mainCategoryId?: number
+  descriptionExample?: string
 }
 
 export interface CategoryDropdownProps {

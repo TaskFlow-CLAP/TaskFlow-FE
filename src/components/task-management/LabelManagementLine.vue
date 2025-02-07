@@ -11,7 +11,7 @@
               borderColor: getColor(label.labelColor)?.borderColor,
               backgroundColor: getColor(label.labelColor)?.fillColor
             }"
-            class="w-4 h-4 rounded-full border-2 cursor-pointer pr-3"
+            class="w-4 h-4 rounded-full border-2 cursor-pointer pr-3 relative"
             @click="isEdit && clickColor(label.labelId)"></div>
           <ColorSelectModal
             v-if="isColorModalVisible && editValue.labelId === label.labelId"
@@ -33,7 +33,7 @@
         <div class="flex gap-2 text-xs font-bold">
           <button
             @click="isEdit && editValue.labelId === label.labelId ? finishEdit() : startEdit(label)"
-            class="text-primary1 w-[21px]">
+            class="text-primary1 w-[21px] hover:underline">
             {{ isEdit && editValue.labelId === label.labelId ? '확인' : '수정' }}
           </button>
           <button
@@ -44,8 +44,8 @@
             "
             :class="
               isEdit && editValue.labelId === label.labelId
-                ? 'text-disabled w-[21px]'
-                : 'text-red-1 w-[21px]'
+                ? 'text-disabled w-[21px] hover:underline'
+                : 'text-red-1 w-[21px] hover:underline'
             ">
             {{ isEdit && editValue.labelId === label.labelId ? '취소' : '삭제' }}
           </button>

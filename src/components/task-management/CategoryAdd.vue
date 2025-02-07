@@ -38,6 +38,18 @@
       label-name="고유코드 (대문자 영어 2글자까지)"
       :is-invalidate="isCodeInvalidate" />
 
+    <div
+      v-if="categoryStep === '2'"
+      class="flex flex-col gap-2">
+      <p class="text-body text-xs font-bold">부가설명 템플릿</p>
+      <textarea
+        class="w-full h-32 border border-border-1 px-4 py-2 resize-none focus:outline-none rounded"
+        :value="categoryForm.descriptionExample"
+        :placeholder="'부가설명 템플릿을 작성해주세요'"
+        @input="onValueChange">
+      </textarea>
+    </div>
+
     <FormButtonContainer
       :handle-cancel="handleCancel"
       :handle-submit="handleSubmit"
@@ -161,4 +173,9 @@ watch(mainCategory, () => {
     el => el.name === mainCategory.value
   )?.id
 })
+
+const onValueChange = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  categoryForm.value.descriptionExample = target.value
+}
 </script>
