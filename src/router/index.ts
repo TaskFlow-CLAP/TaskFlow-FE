@@ -143,7 +143,6 @@ router.beforeEach((to, from, next) => {
     ) {
       next()
     } else {
-      alert('비밀번호를 먼저 확인해주세요.')
       next('/login')
       return
     }
