@@ -67,8 +67,6 @@ const initFileArr = ref<AttachmentResponse[]>([])
 const isFirst = ref(true)
 
 const { id, reqType } = defineProps<{ id: string; reqType: string }>()
-console.log(reqType, id, '가져온 값')
-
 const router = useRouter()
 
 const handleCancel = () => {
@@ -80,7 +78,6 @@ onMounted(async () => {
   subCategoryArr.value = await getSubCategory()
   afterSubCategoryArr.value = await getSubCategory()
   const data = await getTaskDetailUser(Number(id))
-  console.log(data, '데이터')
   const selected = mainCategoryArr.value.find(ct => ct.name === data.mainCategoryName) || null
   category1.value = selected
   category2.value = subCategoryArr.value.find(ct => ct.name === data.categoryName) || null
@@ -131,8 +128,6 @@ const handleSubmit = async () => {
     attachmentsToDelete: attachmentsToDelete
   }
 
-  console.log(taskInfoEdit, '뭘 삭제할건지')
-
   const jsonTaskInfo = JSON.stringify(taskInfoEdit)
   const newBlob = new Blob([jsonTaskInfo], { type: 'application/json' })
   formData.append('taskInfo', newBlob)
@@ -142,12 +137,10 @@ const handleSubmit = async () => {
       f => !initFileArr.value.some(initFile => initFile.fileName === f.name)
     )
     newFiles.forEach(f => {
-      console.log('첨부 파일:', f)
       formData.append('attachment', f)
     })
   } else {
     file.value?.forEach(f => {
-      console.log('첨부 파일:', f)
       formData.append('attachment', f)
     })
   }

@@ -119,8 +119,6 @@ const handleCancel = () => {
 }
 
 const handleSubmit = async () => {
-  console.log(approveData.value.dueDate)
-  console.log(approveData.value.dueTime)
   if (!category1.value || !category2.value) {
     isInvalidate.value = 'category'
     return
