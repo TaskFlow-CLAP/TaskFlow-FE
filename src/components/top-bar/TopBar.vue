@@ -118,12 +118,6 @@ const onCloseSide = () => {
   document.body.style.overflow = ''
 }
 
-watch(isLogined, newValue => {
-  if (newValue) {
-    location.reload() // 페이지 새로고침
-  }
-})
-
 watch(
   () => info.value,
   async newInfo => {
