@@ -59,13 +59,12 @@ const handleFileUpload = (event: Event) => {
       handleModal()
       return
     }
-    const updatedFiles = modelValue ? [...modelValue, ...target.files] : target.files
+    const updatedFiles = modelValue ? [...modelValue, ...newFiles] : newFiles
     if (updatedFiles.length > 5) {
       handleModal()
       return
     }
-
-    emit('update:modelValue', updatedFiles)
+    emit('update:modelValue', updatedFiles.length === 1 ? [updatedFiles[0]] : updatedFiles)
   }
 }
 
