@@ -6,10 +6,10 @@
     ]">
     <textarea
       class="w-full h-20 focus:outline-none resize-none"
-      type="text"
       :placeholder="placeHolderText"
       v-model="messageText"
       :disabled="!isPossible"
+      maxlength="254"
       @compositionstart="isComposing = true"
       @compositionend="isComposing = false"
       @keydown.enter.stop.prevent="handleEnterKey"></textarea>

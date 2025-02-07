@@ -3,7 +3,7 @@
     <span class="text-2xl font-bold text-black">{{ title }}</span>
     <div
       v-if="$slots.button"
-      class="flex gap-4">
+      class="flex gap-2">
       <slot
         name="button"
         class="flex gap-4" />

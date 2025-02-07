@@ -1,24 +1,26 @@
 <template>
-  <input
-    class="hidden"
-    type="file"
-    id="file"
-    accept=".csv"
-    @change="handleFileUpload" />
-  <label
-    for="file"
-    class="cursor-pointer flex items-center gap-1 text-xs font-bold text-primary1">
-    <CommonIcons
-      :name="plusIcon"
-      :style="{ fill: '#7879EB' }" />
-    파일로 일괄 추가
-  </label>
-  <ModalView
-    :isOpen="isModalVisible"
-    :type="'successType'"
-    @close="handleCancel">
-    <template #header> 회원이 추가되었습니다 </template>
-  </ModalView>
+  <div class="py-1 px-2 rounded">
+    <input
+      class="hidden"
+      type="file"
+      id="file"
+      accept=".csv"
+      @change="handleFileUpload" />
+    <label
+      for="file"
+      class="cursor-pointer flex items-center gap-1 text-xs font-bold text-primary1">
+      <CommonIcons
+        :name="plusIcon"
+        :style="{ fill: '#7879EB' }" />
+      파일로 일괄 추가
+    </label>
+    <ModalView
+      :isOpen="isModalVisible"
+      :type="'successType'"
+      @close="handleCancel">
+      <template #header> 회원이 추가되었습니다 </template>
+    </ModalView>
+  </div>
 </template>
 
 <script setup lang="ts">

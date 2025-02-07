@@ -68,3 +68,6 @@ export const RoleMapping: { [key in RoleTypesEnum]: RoleTypes } = {
 }
 
 export const RoleKeys: RoleTypes[] = Object.keys(RoleTypeMapping) as RoleTypes[]
+
+export const csvPath =
+  'https://objectstorage.kr-central-2.kakaocloud.com/v1/34481374c1ee4bbb8745df43e4c13fff/taskflow/example/member_form_example.csv'
