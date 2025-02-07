@@ -23,8 +23,7 @@ export const useMemberStore = defineStore('memberInfo', () => {
   }
 
   const info = ref<User>(INITIAL_INFO)
-  const refreshToken = ref(Cookies.get('refreshToken') || '')
-  const isLogined = ref(!!refreshToken.value)
+  const isLogined = ref(!!Cookies.get('refreshToken'))
   const router = useRouter()
 
   async function updateMemberInfoWithToken() {
