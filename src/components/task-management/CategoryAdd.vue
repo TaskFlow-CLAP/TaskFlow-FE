@@ -38,6 +38,18 @@
       label-name="고유코드 (대문자 영어 2글자까지)"
       :is-invalidate="isCodeInvalidate" />
 
+    <div
+      v-if="categoryStep === '2'"
+      class="flex flex-col gap-2">
+      <p class="text-body text-xs font-bold">부가설명 템플릿</p>
+      <textarea
+        class="w-full h-32 border border-border-1 px-4 py-2 resize-none focus:outline-none rounded"
+        :value="categoryForm.descriptionExample"
+        :placeholder="'부가설명 템플릿을 작성해주세요'"
+        @input="onValueChange">
+      </textarea>
+    </div>
+
     <FormButtonContainer
       :handle-cancel="handleCancel"
       :handle-submit="handleSubmit"
@@ -55,8 +67,8 @@ import ModalView from '../ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
 import { axiosInstance } from '@/utils/axios'
-import { getMainCategory, getSubCategory } from '@/api/common'
-import type { Category, CategoryForm, SubCategory } from '@/types/common'
+import { getMainCategory } from '@/api/common'
+import type { Category, CategoryForm } from '@/types/common'
 
 const router = useRouter()
 const route = useRoute()
@@ -134,24 +146,24 @@ onMounted(async () => {
   if (categoryStep === '1') {
     if (id) {
       const mainCategories: Category[] = await getMainCategory()
-      const initailValue = mainCategories.find(el => el.id === id)
-      if (initailValue) {
-        categoryForm.value = { name: initailValue.name, code: initailValue.code }
+      const initialValue = mainCategories.find(el => el.id === id)
+      if (initialValue) {
+        categoryForm.value = { name: initialValue.name, code: initialValue.code }
       }
     }
   } else if (categoryStep === '2') {
     categoryOptions.value = await getMainCategory()
     if (id) {
-      const subCategory: SubCategory[] = await getSubCategory()
-      const initailValue = subCategory.find(el => el.id === id)
-      if (initailValue) {
+      const { data: initialValue } = await axiosInstance.get(`/api/sub-categories/${id}`)
+      if (initialValue) {
         categoryForm.value = {
-          name: initailValue.name,
-          code: initailValue.code,
-          mainCategoryId: initailValue.mainCategoryId
+          name: initialValue.name,
+          code: initialValue.code,
+          mainCategoryId: initialValue.mainCategoryId,
+          descriptionExample: initialValue.descriptionExample
         }
         mainCategory.value =
-          categoryOptions.value.find(el => el.id === initailValue.mainCategoryId)?.name || ''
+          categoryOptions.value.find(el => el.id === initialValue.mainCategoryId)?.name || ''
       }
     }
   }
@@ -161,4 +173,9 @@ watch(mainCategory, () => {
     el => el.name === mainCategory.value
   )?.id
 })
+
+const onValueChange = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  categoryForm.value.descriptionExample = target.value
+}
 </script>

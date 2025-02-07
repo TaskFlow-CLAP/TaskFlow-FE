@@ -13,14 +13,24 @@
     <div class="w-[120px] flex gap-2 justify-center items-center shrink-0">
       <button
         type="button"
-        @click="router.push(`/request-approve?requestId=${info.taskId}`)"
-        class="button-medium-primary">
+        @click.stop="
+          userInfo.isReviewer && router.push(`/request-approve?requestId=${info.taskId}`)
+        "
+        :class="
+          userInfo.isReviewer
+            ? 'button-medium-primary'
+            : 'button-medium text-disabled bg-background-1'
+        ">
         승인
       </button>
       <button
         type="button"
-        @click.stop="toggleModal('reject')"
-        class="button-medium-default">
+        @click.stop="userInfo.isReviewer && toggleModal('reject')"
+        :class="
+          userInfo.isReviewer
+            ? 'button-medium-primary'
+            : 'button-medium text-disabled bg-background-1'
+        ">
         거부
       </button>
     </div>
@@ -64,6 +74,7 @@ import { useRouter } from 'vue-router'
 import ListCardTab from '../lists/ListCardTab.vue'
 import ModalView from '../ModalView.vue'
 import TaskDetail from '../task-detail/TaskDetail.vue'
+import { useMemberStore } from '@/stores/member'
 
 const { info } = defineProps<{ info: RequestedListData }>()
 const requestedTabList: ListCardProps[] = [
@@ -118,4 +129,6 @@ const rejectRequest = async () => {
     modalError.value = '작업 거부에 실패했습니다'
   }
 }
+
+const { info: userInfo } = useMemberStore()
 </script>
