@@ -7,6 +7,15 @@
       <template #header> 정보가 수정되었습니다 </template>
     </ModalView>
 
+    <ModalView
+      :isOpen="isWarnningModalVisible"
+      :type="'warningType'"
+      @click="changePw"
+      @close="warningModalToggle">
+      <template #header> 정보가 저장되지 않았습니다 </template>
+      <template #body> 수정 사항을 삭제하고 이동하시겠습니까? </template>
+    </ModalView>
+
     <div class="profile">
       <p class="text-body text-xs font-bold">프로필 사진</p>
       <img
@@ -33,7 +42,7 @@
       <input
         class="input-box h-11 mt-2 text-black"
         placeholder="이름을 입력해주세요"
-        v-model="info.name" />
+        v-model="name" />
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">아이디</p>
@@ -55,17 +64,17 @@
       <p class="text-body text-xs font-bold">알림 수신 여부</p>
       <div class="flex flex-col mt-2 gap-2">
         <FormCheckbox
-          v-model="info.notificationSettingInfo.agit"
+          v-model="agitCheck"
           :checkButtonName="'아지트'"
-          :isChecked="info.notificationSettingInfo.agit" />
+          :isChecked="agitCheck" />
         <FormCheckbox
-          v-model="info.notificationSettingInfo.kakaoWork"
+          v-model="kakaoWorkCheck"
           :checkButtonName="'카카오워크'"
-          :isChecked="info.notificationSettingInfo.kakaoWork" />
+          :isChecked="kakaoWorkCheck" />
         <FormCheckbox
-          v-model="info.notificationSettingInfo.email"
+          v-model="emailCheck"
           :checkButtonName="'이메일'"
-          :isChecked="info.notificationSettingInfo.email" />
+          :isChecked="emailCheck" />
       </div>
     </div>
     <div>
@@ -86,7 +95,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from './ModalView.vue'
 import FormButtonContainer from './common/FormButtonContainer.vue'
@@ -99,24 +108,56 @@ import { patchEditInfo } from '@/api/common'
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 
+const name = ref(info.value.name)
+const agitCheck = ref(info.value.notificationSettingInfo.agit)
+const emailCheck = ref(info.value.notificationSettingInfo.email)
+const kakaoWorkCheck = ref(info.value.notificationSettingInfo.kakaoWork)
+
 const selectedFile = ref<File | null>(null)
 const previewUrl = ref<string | null>(null)
 
 const isModalVisible = ref(false)
+const isWarnningModalVisible = ref(false)
+
+watchEffect(() => {
+  if (info.value) {
+    name.value = info.value.name
+    agitCheck.value = info.value.notificationSettingInfo.agit
+    emailCheck.value = info.value.notificationSettingInfo.email
+    kakaoWorkCheck.value = info.value.notificationSettingInfo.kakaoWork
+  }
+})
 
 const handleCancel = () => {
   router.back()
 }
 
 const handlePwChange = () => {
+  if (
+    selectedFile.value ||
+    info.value.name != name.value ||
+    info.value.notificationSettingInfo.agit != agitCheck.value ||
+    info.value.notificationSettingInfo.kakaoWork != kakaoWorkCheck.value ||
+    info.value.notificationSettingInfo.email != emailCheck.value
+  ) {
+    warningModalToggle()
+  } else {
+    changePw()
+  }
+}
+
+const changePw = () => {
   router.push('/pw-check')
+}
+
+const warningModalToggle = () => {
+  isWarnningModalVisible.value = !isWarnningModalVisible.value
 }
 
 const handleFileUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
   if (target.files && target.files[0]) {
     selectedFile.value = target.files[0]
-
     previewUrl.value = URL.createObjectURL(selectedFile.value)
   }
 }
@@ -124,10 +165,10 @@ const handleFileUpload = (event: Event) => {
 const handleSubmit = async () => {
   const formData = new FormData()
   const memberInfo = {
-    name: info.value.name,
-    agitNotification: info.value.notificationSettingInfo.agit,
-    emailNotification: info.value.notificationSettingInfo.email,
-    kakaoWorkNotification: info.value.notificationSettingInfo.kakaoWork
+    name: name,
+    agitNotification: agitCheck,
+    emailNotification: emailCheck,
+    kakaoWorkNotification: kakaoWorkCheck
   }
 
   const jsonMemberInfo = JSON.stringify(memberInfo)
