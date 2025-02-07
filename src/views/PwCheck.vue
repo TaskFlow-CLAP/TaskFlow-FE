@@ -1,6 +1,13 @@
 <template>
   <div class="max-w-400">
     <div class="py-16">
+      <ModalView
+        :is-open="isModalVisible"
+        type="failType"
+        @close="closeModal">
+        <template #header>{{ messageHeader }}</template>
+        <template #body>{{ messageBody }}</template>
+      </ModalView>
       <TitleContainer
         :title="'비밀번호\n재설정'"
         :content="'비밀번호 재설정을 위해\n 현재 비밀번호를 입력해주세요'" />
@@ -34,11 +41,37 @@ import { ref } from 'vue'
 import router from '../router/index'
 import TitleContainer from '@/components/common/TitleContainer.vue'
 import { postPasswordCheck } from '@/api/auth'
+import ModalView from '@/components/ModalView.vue'
+
+const isModalVisible = ref(false)
+
+const messageHeader = ref('')
+const messageBody = ref('')
+
+const closeModal = () => {
+  isModalVisible.value = false
+}
 
 const pw = ref('')
 
-const handleCheck = () => {
-  postPasswordCheck(pw.value)
+const handleCheck = async () => {
+  try {
+    const res = await postPasswordCheck(pw.value)
+  } catch (error) {
+    switch (error?.status) {
+      case 400:
+        isModalVisible.value = !isModalVisible.value
+        messageHeader.value = '비밀번호가 일치 하지 않습니다'
+        messageBody.value = '다시 확인하여 주세요'
+        break
+
+      case 500:
+        isModalVisible.value = !isModalVisible.value
+        messageHeader.value = '서버에 문제가 발생했습니다'
+        messageBody.value = '잠시후 다시 이용해주세요'
+        break
+    }
+  }
   router.push('/pw-change')
 }
 </script>
