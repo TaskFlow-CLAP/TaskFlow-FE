@@ -78,6 +78,7 @@
 <script setup lang="ts">
 import { failIcon, successIcon, warningIcon } from '@/constants/iconPath'
 import { ref, watch } from 'vue'
+import CommonIcons from './CommonIcons.vue'
 
 const props = defineProps<{
   isOpen: boolean
