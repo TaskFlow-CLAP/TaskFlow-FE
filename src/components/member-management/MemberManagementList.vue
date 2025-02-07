@@ -33,6 +33,7 @@ import NoContent from '../lists/NoContent.vue'
 import MemberManagementListBar from './MemberManagementListBar.vue'
 import MemberManagementListCard from './MemberManagementListCard.vue'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const { params } = useMemberManagementParamsStore()
 const onPageChange = (value: number) => {
@@ -43,7 +44,8 @@ const fetchMemberList = async () => {
   return response.data
 }
 
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery<MemberManagementResponse>({
   queryKey: ['member', params],
   queryFn: fetchMemberList,

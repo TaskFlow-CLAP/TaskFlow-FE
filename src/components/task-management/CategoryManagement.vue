@@ -37,10 +37,12 @@ import CategoryLine from './CategoryLine.vue'
 import CategoryLineSub from './CategoryLineSub.vue'
 import { getCategory } from '@/api/common'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const router = useRouter()
 
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery({
   queryKey: ['category'],
   queryFn: getCategory,

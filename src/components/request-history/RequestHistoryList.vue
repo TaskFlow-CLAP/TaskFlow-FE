@@ -34,6 +34,7 @@ import { computed } from 'vue'
 import type { RequestHistoryResponse } from '@/types/manager'
 import NoContent from '../lists/NoContent.vue'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
@@ -47,7 +48,8 @@ const fetchRequestHistoryList = async () => {
   return response.data
 }
 
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery<RequestHistoryResponse>({
   queryKey: ['requestHistory', params],
   queryFn: fetchRequestHistoryList,

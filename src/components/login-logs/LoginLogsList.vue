@@ -33,6 +33,7 @@ import { computed } from 'vue'
 import type { LoginLogsResponse } from '@/types/admin'
 import NoContent from '../lists/NoContent.vue'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const { params } = useLogsParamsStore()
 const onPageChange = (value: number) => {
@@ -49,7 +50,8 @@ const fetchLoginLogsList = async () => {
   return response.data
 }
 
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery<LoginLogsResponse>({
   queryKey: ['loginLogs', params],
   queryFn: fetchLoginLogsList,

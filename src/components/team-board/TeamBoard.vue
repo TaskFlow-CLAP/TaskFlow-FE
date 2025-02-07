@@ -26,6 +26,7 @@ import type { TeamBoardResponse } from '@/types/manager'
 import { computed } from 'vue'
 import NoContent from '../lists/NoContent.vue'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const { params } = useTeamBoardParamsStore()
 
@@ -35,7 +36,8 @@ const fetchTeamStatus = async () => {
   const response = await axiosInstance.get('/api/team-status/filter', { params: parsedParams })
   return response.data
 }
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery<TeamBoardResponse>({
   queryKey: ['teamStatus', params],
   queryFn: fetchTeamStatus,
