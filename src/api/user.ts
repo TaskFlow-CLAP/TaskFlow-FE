@@ -77,3 +77,8 @@ export const patchTaskRequest = async (taskId: string, formdata: FormData) => {
   const response = await formDataAxiosInstance.patch(`/api/tasks/${taskId}`, formdata)
   return response.data
 }
+
+export const cancelTaskUser = async (taskId: number) => {
+  const response = await axiosInstance.patch(`/api/tasks/${taskId}/cancel`)
+  return response.data
+}

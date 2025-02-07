@@ -1,6 +1,6 @@
-import type { NewLabelTypes, UserRegistrationProps } from '@/types/admin'
+import type { NewLabelTypes, UserRegistrationApiProps, UserUpdateValue } from '@/types/admin'
 import type { LabelDataTypes } from '@/types/common'
-import { axiosInstance } from '@/utils/axios'
+import { axiosInstance, formDataAxiosInstance } from '@/utils/axios'
 
 export const deleteLabelAdmin = async (id: number) => {
   const response = await axiosInstance.delete(`/api/managements/labels/${id}`)
@@ -25,7 +25,27 @@ export const deleteCategoryAdmin = async (id: number) => {
   return response.data
 }
 
-export const addMemberAdmin = async (memberData: UserRegistrationProps) => {
+export const addMemberAdmin = async (memberData: UserRegistrationApiProps) => {
   const response = await axiosInstance.post('/api/managements/members', memberData)
+  return response.data
+}
+
+export const getDepartmentsAdmin = async () => {
+  const response = await axiosInstance.get('/api/managements/departments')
+  return response.data
+}
+
+export const addMemberAdminByCsv = async (formdata: FormData) => {
+  const response = await formDataAxiosInstance.post('/api/managements/members/upload', formdata)
+  return response.data
+}
+
+export const getMemberDetailAdmin = async (id: string) => {
+  const response = await axiosInstance.get(`api/managements/members/${id}/details`)
+  return response.data
+}
+
+export const updateMemberAdmin = async (id: string, data: UserUpdateValue) => {
+  const response = await axiosInstance.post(`api/managements/members/${id}`, data)
   return response.data
 }

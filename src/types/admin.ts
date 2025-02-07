@@ -38,8 +38,13 @@ export interface UserRegistrationProps {
   nickname: string
   isReviewer: boolean
   departmentId: number
-  role: string
+  role: RoleTypes
   departmentRole: string
+}
+
+export interface UserInfoForAdmin extends UserRegistrationProps {
+  profileImageUrl: string
+  departmentName: string
 }
 
 export type RoleTypes = '관리자' | '사용자' | '담당자'
@@ -94,4 +99,27 @@ export interface ApiLogsResponse {
   pageSize: number
   isFirst: boolean
   isLast: boolean
+}
+
+export interface DepartmentType {
+  departmentId: number
+  name: string
+}
+
+export interface UserRegistrationApiProps {
+  name: string
+  email: string
+  nickname: string
+  isReviewer: boolean
+  departmentId: number
+  role: RoleTypesEnum
+  departmentRole: string
+}
+
+export interface UserUpdateValue {
+  name: string
+  isReviewer: boolean
+  departmentId: number
+  role: RoleTypesEnum
+  departmentRole: string
 }

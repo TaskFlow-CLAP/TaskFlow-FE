@@ -10,7 +10,7 @@
       :is-status="tab.isStatus" />
     <div class="w-[180px] flex gap-2 justify-center items-center shrink-0">
       <button
-        @click="router.push(`/user-update`)"
+        @click="router.push(`/user-update?id=${info.memberId}`)"
         class="button-medium-primary">
         수정
       </button>
