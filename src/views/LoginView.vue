@@ -1,5 +1,12 @@
 <template>
   <div class="max-w-400">
+    <ModalView
+      :is-open="isModalVisible"
+      type="failType"
+      @close="closeModal">
+      <template #header>{{ messageHeader }}</template>
+      <template #body>{{ messageBody }}</template>
+    </ModalView>
     <div class="py-16">
       <TitleContainer
         :title="'TaskFlow\n로그인'"
@@ -49,12 +56,22 @@ import { postLogin } from '@/api/auth'
 import { useMemberStore } from '@/stores/member'
 import TitleContainer from '@/components/common/TitleContainer.vue'
 import Cookies from 'js-cookie'
+import ModalView from '@/components/ModalView.vue'
 
 const router = useRouter()
 
 const nickname = ref('')
 const password = ref('')
 const memberStore = useMemberStore()
+
+const messageHeader = ref('')
+const messageBody = ref('')
+
+const isModalVisible = ref(false)
+
+const closeModal = () => {
+  isModalVisible.value = false
+}
 
 const handleLogin = async () => {
   try {
@@ -83,7 +100,19 @@ const handleLogin = async () => {
       }
     }
   } catch (error) {
-    console.error('로그인 실패:', error)
+    switch (error?.response?.status) {
+      case 401:
+        isModalVisible.value = !isModalVisible.value
+        messageHeader.value = '일치하는 정보가 없습니다'
+        messageBody.value = '닉네임과 비밀번호를 다시 확인해 주세요'
+        break
+
+      case 500:
+        isModalVisible.value = !isModalVisible.value
+        messageHeader.value = '서버에 문제가 발생했습니다'
+        messageBody.value = '잠시후 다시 이용해주세요'
+        break
+    }
   }
 }
 </script>
