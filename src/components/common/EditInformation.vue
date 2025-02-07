@@ -77,7 +77,9 @@
       <p class="text-body text-xs font-bold">부서</p>
       <p class="mt-2 text-black">{{ info.departmentName }}</p>
     </div>
-    <div class="flex flex-col">
+    <div
+      v-if="info.departmentRole"
+      class="flex flex-col">
       <p class="text-body text-xs font-bold">직무</p>
       <p class="mt-2 text-black">{{ info.departmentRole }}</p>
     </div>
