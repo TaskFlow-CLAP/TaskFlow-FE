@@ -16,12 +16,12 @@
           <div class="flex gap-2 text-xs font-bold">
             <button
               @click="router.push(`/category-second/${sub.id}`)"
-              class="text-primary1">
+              class="text-primary1 hover:underline">
               수정
             </button>
             <button
               @click="openModal(sub.id)"
-              class="text-red-1">
+              class="text-red-1 hover:underline">
               삭제
             </button>
           </div>
@@ -36,7 +36,7 @@
         </ModalView>
       </div>
       <div
-        class="category-management-line gap-1 justify-center cursor-pointer bg-white"
+        class="category-management-line gap-1 justify-center cursor-pointer bg-white hover:bg-background-2"
         @click="MovetoAddSubCategory">
         <CommonIcons :name="plusIcon" />
         <p class="text-xs text-disabled font-bold">새 2차 카테고리 추가</p>

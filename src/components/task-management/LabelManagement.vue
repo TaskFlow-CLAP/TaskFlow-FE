@@ -1,19 +1,19 @@
 <template>
   <div
-    class="flex flex-col w-full min-h-[240px] overflow-y-auto border border-border-1 rounded-lg bg-background-1">
+    class="flex flex-col w-full h-[240px] overflow-hidden border border-border-1 rounded-lg bg-background-1">
     <div class="flex w-full">
       <div class="task-management-title rounded-tl-lg">
         <p>색상</p>
         <p>구분명</p>
       </div>
     </div>
-    <div class="flex flex-col w-full shrink-0 overflow-y-auto pb-8">
+    <div class="flex flex-col w-full grow overflow-y-auto pb-32">
       <LabelManagementLine
         :label-data="labelData"
         @updateLabels="fetchLabels" />
       <div
         v-if="!isAdd"
-        class="w-full h-11 text-xs shrink-0 text-disabled gap-1 category-management-line justify-center cursor-pointer bg-white"
+        class="w-full h-11 text-xs shrink-0 text-disabled gap-1 category-management-line justify-center cursor-pointer bg-white !border-b-0 hover:bg-background-2"
         @click="isAdd = true">
         <CommonIcons :name="plusIcon" />
         새 구분 추가

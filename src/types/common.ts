@@ -25,6 +25,7 @@ export interface SubCategory {
   mainCategoryId: number
   name: string
   code: string
+  descriptionExample: string
 }
 
 export interface FilterCategoryProps {
@@ -84,6 +85,7 @@ export interface CategoryForm {
   name: string
   code: string
   mainCategoryId?: number
+  descriptionExample?: string
 }
 
 export interface CategoryDropdownProps {
