@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Cookies from 'js-cookie'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -135,10 +136,13 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.path === '/pw-change') {
-    if (from.path === '/pw-check' || from.path === '/pw-change-email') {
+    if (
+      from.path === '/pw-check' ||
+      from.path === '/pw-change-email' ||
+      (from.path === '/login' && Cookies.get('accessToken'))
+    ) {
       next()
     } else {
-      alert('비밀번호를 먼저 확인해주세요.')
       next('/login')
       return
     }

@@ -9,6 +9,11 @@
     </ModalView>
     <div class="py-16">
       <TitleContainer
+        v-if="!isFirst"
+        :title="'비밀번호\n재설정'"
+        content="새로운 비밀번호를 입력해주세요" />
+      <TitleContainer
+        v-if="isFirst"
         :title="'비밀번호\n재설정'"
         content="초기 비밀번호를 변경해주세요" />
     </div>
@@ -47,9 +52,15 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from '../components/ModalView.vue'
-import { patchPassword } from '@/api/auth'
+import { deleteLogout, patchPassword } from '@/api/auth'
 import TitleContainer from '@/components/common/TitleContainer.vue'
+import Cookies from 'js-cookie'
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 
+const isFirst = Cookies.get('accessToken') ? (Cookies.get('refreshToken') ? false : true) : false
 const newPw = ref('')
 const checkPw = ref('')
 const isModalOpen = ref(false)
@@ -61,16 +72,15 @@ const toggleModal = () => {
 
 const handleChange = () => {
   if (newPw.value === checkPw.value) {
-    const response = patchPassword(newPw.value)
-    console.log(response)
-    console.log('비밀번호 변경 성공!')
+    patchPassword(newPw.value)
     toggleModal()
   } else {
-    alert('비밀번호가 일치하지 않습니다.')
   }
 }
 
 const pwChange = () => {
+  isLogined.value = false
+  deleteLogout()
   router.push('/login')
 }
 </script>

@@ -3,7 +3,7 @@
     <div class="py-16">
       <TitleContainer
         :title="'비밀번호\n재설정'"
-        content="비밀번호 재설정을 위해\n현재 비밀번호를 입력해주세요" />
+        :content="'비밀번호 재설정을 위해\n 현재 비밀번호를 입력해주세요'" />
     </div>
     <form
       @submit.prevent="handleCheck"
@@ -33,11 +33,12 @@
 import { ref } from 'vue'
 import router from '../router/index'
 import TitleContainer from '@/components/common/TitleContainer.vue'
+import { postPasswordCheck } from '@/api/auth'
 
 const pw = ref('')
 
 const handleCheck = () => {
-  // 기존 비밀번호 확인 API 추가 필요
+  postPasswordCheck(pw.value)
   router.push('/pw-change')
 }
 </script>
