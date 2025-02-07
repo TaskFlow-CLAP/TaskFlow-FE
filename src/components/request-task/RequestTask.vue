@@ -39,7 +39,7 @@
 
 <script lang="ts" setup>
 import { getMainCategory, getSubCategory } from '@/api/common'
-import { postTaskRequest } from '@/api/user'
+import { getSubCategoryDetail, postTaskRequest } from '@/api/user'
 import type { Category, SubCategory } from '@/types/common'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -74,6 +74,13 @@ watch(category1, async newValue => {
   afterSubCategoryArr.value = subCategoryArr.value.filter(
     subCategory => subCategory.mainCategoryId === newValue?.id
   )
+})
+
+watch(category2, async newVal => {
+  if (newVal) {
+    const res = await getSubCategoryDetail(newVal.id)
+    description.value = res.descriptionExample
+  }
 })
 
 const router = useRouter()

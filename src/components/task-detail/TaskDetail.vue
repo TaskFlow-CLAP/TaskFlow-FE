@@ -46,7 +46,6 @@ const { closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
-console.log(info, '인포')
 
 const { data } = useQuery<TaskDetailDatas>({
   queryKey: ['taskDetailUser', selectedId],
@@ -56,10 +55,8 @@ const { data } = useQuery<TaskDetailDatas>({
       : () => getTaskDetailManager(selectedId)
 })
 
-const { data: historyData, refetch: refetchHistory } = useQuery<TaskDetailHistoryData>({
+const { data: historyData } = useQuery<TaskDetailHistoryData>({
   queryKey: ['historyData', selectedId],
   queryFn: () => getHistory(selectedId)
 })
-
-console.log(historyData.value, '가져온 히스ㅇ토리', selectedId, '선택된 id')
 </script>

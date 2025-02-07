@@ -35,6 +35,7 @@
       </div>
     </div>
     <TaskDetail
+      v-if="selectedID"
       :is-approved="data.taskStatus !== 'REQUESTED'"
       :selected-id="selectedID"
       :close-task-detail="() => handleModal(null)" />
@@ -48,8 +49,8 @@ import type { TaskCardProps } from '@/types/manager'
 import { statusAsColor } from '@/utils/statusAsColor'
 import { computed, ref } from 'vue'
 import CommonIcons from './common/CommonIcons.vue'
-import TaskLabel from './common/TaskLabel.vue'
 import ImageContainer from './common/ImageContainer.vue'
+import TaskLabel from './common/TaskLabel.vue'
 import TaskDetail from './task-detail/TaskDetail.vue'
 
 const { data } = defineProps<{ data: TaskCardProps; draggable?: boolean }>()
