@@ -52,12 +52,15 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from '../components/ModalView.vue'
-import { patchPassword } from '@/api/auth'
+import { deleteLogout, patchPassword } from '@/api/auth'
 import TitleContainer from '@/components/common/TitleContainer.vue'
 import Cookies from 'js-cookie'
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 
 const isFirst = Cookies.get('accessToken') ? (Cookies.get('refreshToken') ? false : true) : false
-console.log(isFirst)
 const newPw = ref('')
 const checkPw = ref('')
 const isModalOpen = ref(false)
@@ -76,6 +79,8 @@ const handleChange = () => {
 }
 
 const pwChange = () => {
+  isLogined.value = false
+  deleteLogout()
   router.push('/login')
 }
 </script>
