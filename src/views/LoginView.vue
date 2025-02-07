@@ -41,7 +41,7 @@
     </form>
     <div class="flex w-full justify-center">
       <RouterLink
-        class="text-body font-bold text-[12px] hover:underline"
+        class="text-body font-bold text-[12px]"
         to="/pw-change-email"
         >비밀번호 재설정</RouterLink
       >
