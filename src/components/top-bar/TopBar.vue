@@ -86,6 +86,8 @@ onMounted(async () => {
     if (!PERMITTED_URL.ROLE_MANAGER.includes(originUrl)) router.push('/my-task')
   } else if (info.value.role === 'ROLE_ADMIN') {
     if (!PERMITTED_URL.ROLE_ADMIN.includes(originUrl)) router.push('/member-management')
+  } else {
+    if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) router.push('/login')
   }
 })
 
@@ -96,7 +98,6 @@ const isNotifiVisible = ref(false)
 const isProfileVisible = ref(false)
 
 const fetchNotificationCount = async () => {
-  if (!isLogined.value) return
   try {
     const data = await getNotifiCount()
     countNotifi.value = data.count
@@ -117,12 +118,6 @@ const onCloseSide = () => {
   isSideOpen.value = false
   document.body.style.overflow = ''
 }
-
-watch(isLogined, newValue => {
-  if (newValue) {
-    location.reload() // 페이지 새로고침
-  }
-})
 
 watch(
   () => info.value,

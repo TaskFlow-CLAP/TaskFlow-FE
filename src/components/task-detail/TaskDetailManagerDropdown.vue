@@ -1,47 +1,43 @@
 <template>
-  <div>
+  <div
+    ref="htmlRef"
+    class="relative flex">
     <div
-      ref="htmlRef"
-      class="relative flex">
+      class="task-detail-manager-dropdown"
+      @click="toggleDropdown">
+      <div class="flex gap-2 items-center">
+        <div class="w-5 h-5 rounded-full overflow-hidden">
+          <img
+            :src="modelValue?.imageUrl || '/images/mockProfile.jpg'"
+            alt="userProfile" />
+        </div>
+        <p>
+          {{ modelValue?.nickname }}
+        </p>
+      </div>
+      <CommonIcons
+        :name="dropdownIcon"
+        :class="['ml-auto', { 'rotate-180': dropdownOpen }]" />
+    </div>
+    <div
+      v-if="dropdownOpen"
+      class="request-task-dropdown-option-list">
       <div
-        class="task-detail-manager-dropdown"
-        @click="toggleDropdown">
-        <div class="flex gap-2 items-center">
-          <div
-            v-if="modelValue"
-            class="w-5 h-5 rounded-full overflow-hidden">
+        v-for="option in managerArr"
+        :key="option.memberId"
+        class="request-task-dropdown-option justify-between"
+        @click="selectOption(option)">
+        <div class="flex gap-2">
+          <div class="w-5 h-5 rounded-full overflow-hidden">
             <img
-              :src="modelValue?.imageUrl || '/images/mockProfile.jpg'"
+              :src="option.imageUrl || '/images/mockProfile.jpg'"
               alt="userProfile" />
           </div>
           <p>
-            {{ modelValue?.nickname }}
+            {{ option.nickname }}
           </p>
         </div>
-        <CommonIcons
-          :name="dropdownIcon"
-          :class="['ml-auto', { 'rotate-180': dropdownOpen }]" />
-      </div>
-      <div
-        v-if="dropdownOpen"
-        class="request-task-dropdown-option-list">
-        <div
-          v-for="option in managerArr"
-          :key="option.memberId"
-          class="request-task-dropdown-option justify-between"
-          @click="selectOption(option)">
-          <div class="flex gap-2">
-            <div class="w-5 h-5 rounded-full overflow-hidden">
-              <img
-                :src="option.imageUrl || '/images/mockProfile.jpg'"
-                alt="userProfile" />
-            </div>
-            <p>
-              {{ option.nickname }}
-            </p>
-          </div>
-          <p class="text-primary1 text-xs">잔여 작업 : {{ option.remainingTasks }}</p>
-        </div>
+        <p class="text-primary1 text-xs">잔여 작업 : {{ option.remainingTasks }}</p>
       </div>
     </div>
   </div>
