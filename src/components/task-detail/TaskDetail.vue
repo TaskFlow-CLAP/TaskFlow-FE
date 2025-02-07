@@ -10,7 +10,7 @@
       class="flex flex-col overflow-y-auto rounded-lg w-full max-w-[1104px] min-w-[768px] h-[calc(100%-96px)] bg-white shadow-custom p-6 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
       <TaskDetailTopBar
         v-if="data"
-        :is-approved="isApproved"
+        :is-approved="data.taskStatus !== 'REQUESTED'"
         :close-task-detail="closeTaskDetail"
         :id="data?.taskId || 0"
         :isProcessor="data?.processorNickName === info.nickname || info.role === 'ROLE_MANAGER'"
@@ -47,7 +47,7 @@ import TaskDetailLeft from './TaskDetailLeft.vue'
 import TaskDetailRight from './TaskDetailRight.vue'
 import TaskDetailTopBar from './TaskDetailTopBar.vue'
 
-const { closeTaskDetail, selectedId, isApproved } = defineProps<TaskDetailProps>()
+const { closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
 const queryClient = useQueryClient()
 
 const memberStore = useMemberStore()
