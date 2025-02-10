@@ -11,13 +11,13 @@
     </div>
     <div
       :class="[
-        'flex flex-col gap-2 order-2',
-        isProcessor ? 'items-end pr-4 pl-1' : 'items-start pl-4 pr-1'
+        'flex flex-col gap-2 order-2 text-body font-bold',
+        isProcessor ? 'items-end pr-4 pl-2' : 'items-start pl-4 pr-2'
       ]">
-      <p>{{ history.details.commentDetails?.nickName }}</p>
+      <p class="text-xs">{{ history.details.commentDetails?.nickName }}</p>
       <p
         :class="[
-          'flex max-w-[400px] flex-wrap px-4 py-3  text-black rounded-lg',
+          'flex max-w-[400px] flex-wrap px-4 py-3 text-base text-black rounded-lg',
           isProcessor ? 'bg-primary2' : 'bg-background-2'
         ]">
         {{ history.details.commentDetails?.comment }}
@@ -25,12 +25,12 @@
     </div>
     <div
       :class="[
-        'flex flex-col h-full justify-end text-xs font-bold text-body gap-1 relative',
+        'flex flex-col justify-end self-end text-xs font-bold text-body gap-1 relative',
         isProcessor ? 'order-1 items-end' : 'order-3 items-start'
       ]">
       <div
         v-if="history.details.commentDetails?.nickName === info.nickname"
-        class="relative cursor-pointer">
+        class="relative cursor-pointer h-full">
         <CommonIcons
           :name="menuDotIcon"
           @click="clickMenuDot" />
@@ -44,9 +44,8 @@
           삭제
         </div>
       </div>
-      <div class="flex flex-col gap-1">
-        {{ history.details.commentDetails?.isModified ? '(수정됨)' : '' }}
-        {{ formatTodayOrNot(history.date, history.time) }}
+      <div class="flex flex-col gap-1 h-full justify-end font-bold">
+        {{ formatOnlyTime(history.time) }}
       </div>
     </div>
   </div>
@@ -64,7 +63,7 @@ import { deleteComment } from '@/api/user'
 import { menuDotIcon } from '@/constants/iconPath'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailHistoryChatProps } from '@/types/common'
-import { formatTodayOrNot } from '@/utils/date'
+import { formatOnlyTime } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import { computed, defineProps, ref } from 'vue'

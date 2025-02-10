@@ -5,11 +5,15 @@
         :url="history.details.commentDetails?.profileImageUrl"
         :size="40" />
     </div>
-    <div :class="['flex flex-col gap-2 px-4 order-2', isProcessor ? 'items-end' : 'items-start']">
+    <div
+      :class="[
+        'flex flex-col gap-2 pl-4 pr-2 order-2',
+        isProcessor ? 'items-end pr-4 pl-2' : 'items-start pl-4 pr-2'
+      ]">
       <p>{{ history.details.commentFileDetails?.nickName }}</p>
       <div
         :class="[
-          'flex max-w-[400px] flex-wrap px-6 py-4 gap-4 items-center text-black rounded-lg',
+          'flex max-w-[400px] flex-wrap px-4 py-3 gap-4 items-center text-black rounded-lg',
           isProcessor ? 'bg-primary2' : 'bg-background-2'
         ]">
         <a
@@ -28,8 +32,8 @@
     </div>
     <div
       :class="[
-        'flex flex-col justify-end h-full gap-1 text-xs font-bold text-body',
-        isProcessor ? 'ml-4 order-1' : 'ml-2 order-3'
+        'flex flex-col justify-end self-end gap-1 text-xs font-bold text-body',
+        isProcessor ? 'order-1' : 'order-3'
       ]">
       <div
         v-if="history.details.commentFileDetails?.nickName === info.nickname"
@@ -41,15 +45,14 @@
           v-if="isClicked"
           @click="handleModal"
           :class="[
-            'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
+            'absolute shadow-custom bottom-0 w-20 h-[27px] rounded flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
             isProcessor ? 'right-6' : 'left-6'
           ]">
           삭제
         </div>
       </div>
       <div>
-        {{ history.details.commentFileDetails?.isModified ? '(수정됨)' : '' }}
-        {{ formatTodayOrNot(history.date, history.time) }}
+        {{ formatOnlyTime(history.time) }}
       </div>
     </div>
   </div>
@@ -67,7 +70,7 @@ import { deleteComment } from '@/api/user'
 import { fileIcon, menuDotIcon } from '@/constants/iconPath'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailHistoryChatProps } from '@/types/common'
-import { formatTodayOrNot } from '@/utils/date'
+import { formatOnlyTime } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import { computed, defineProps, ref } from 'vue'
