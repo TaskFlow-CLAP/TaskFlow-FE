@@ -26,7 +26,7 @@
       <div class="w-[1px] bg-border-1"></div>
       <TaskDetailRight
         :data
-        :isProcessor="data?.processorNickName === info.nickname" />
+        :isProcessor="info.role !== 'ROLE_USER'" />
     </div>
   </div>
 </template>

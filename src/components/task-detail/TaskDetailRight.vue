@@ -24,7 +24,7 @@
       <div v-else>
         <TaskStatusList
           v-model="taskStatus"
-          :isProcessor="isProcessor"
+          :isProcessor="info.isReviewer || isProcessor"
           :taskId="data.taskId" />
       </div>
     </div>
@@ -39,7 +39,7 @@
     </div>
     <div>
       <p class="task-detail">담당자</p>
-      <div v-if="isProcessor && data.processorNickName">
+      <div v-if="data.taskStatus !== 'REQUESTED' && isProcessor">
         <TaskDetailManagerDropdown
           v-model="newManager"
           :task-id="data.taskId" />
@@ -54,9 +54,9 @@
         <p class="text-sm text-black">{{ data.processorNickName || '-' }}</p>
       </div>
     </div>
-    <div>
-      <p class="task-detail">마감기한</p>
+    <div v-if="data.taskStatus !== 'REQUESTED' && isProcessor">
       <div v-if="data.dueDate">
+        <p class="task-detail">마감기한</p>
         <div class="w-full flex justify-between items-center">
           <p class="text-sm text-black">{{ formatDueDate(data.dueDate) || '-' }}</p>
         </div>
@@ -64,42 +64,37 @@
       </div>
       <div v-else>-</div>
     </div>
-    <div>
+    <div v-if="data.taskStatus !== 'REQUESTED' && isProcessor">
       <p class="task-detail">구분</p>
-      <div v-if="data.labelName">
-        <TaskDetailLabelDropdown
-          v-if="isProcessor"
-          v-model="taskLabel"
-          :placeholder-text="'라벨을 선택해주세요'"
-          :task-id="data.taskId" />
-        <div
-          v-else-if="!isProcessor"
-          class="flex w-full items-center bg-white text-sm text-black">
-          {{ data.labelName }}
-        </div>
-      </div>
-      <div v-else>-</div>
+      <TaskDetailLabelDropdown
+        v-model="taskLabel"
+        :placeholder-text="'라벨을 선택해주세요'"
+        :task-id="data.taskId" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { changeProcessor } from '@/api/user'
+import { useMemberStore } from '@/stores/member'
 import type { ManagerTypes } from '@/types/manager'
 import type { TaskDetailDatas } from '@/types/user'
 import { formatDate, formatDaysBefore, formatDueDate } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
 import { defineProps, ref, watch } from 'vue'
+import ImageContainer from '../common/ImageContainer.vue'
+import TaskStatus from '../common/TaskStatus.vue'
 import TaskDetailLabelDropdown from './TaskDetailLabelDropdown.vue'
 import TaskDetailManagerDropdown from './TaskDetailManagerDropdown.vue'
 import TaskStatusList from './TaskStatusList.vue'
-import ImageContainer from '../common/ImageContainer.vue'
-import TaskStatus from '../common/TaskStatus.vue'
 
 const { data, isProcessor } = defineProps<{ data: TaskDetailDatas; isProcessor: boolean }>()
 
 const taskStatus = ref(data.taskStatus)
 const queryClient = useQueryClient()
+const memberStore = useMemberStore()
+const { info } = storeToRefs(memberStore)
 
 const taskLabel = ref({
   labelId: -1,
