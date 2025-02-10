@@ -25,7 +25,7 @@
       <NotificationMessage
         v-for="notification in notifications"
         :key="notification.notificationId"
-        @click="readNotifi(notification.notificationId)"
+        @click="readNotifi(notification.notificationId, notification.taskId)"
         :type="notification.notificationType"
         :title="notification.taskTitle"
         :message="notification.message"
@@ -54,10 +54,13 @@ import 'v3-infinite-loading/lib/style.css'
 import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import NotificationMessage from './NotificationMessage.vue'
+import { useRouter } from 'vue-router'
 
 const { isOpen } = defineProps<{
   isOpen: boolean
 }>()
+
+const router = useRouter()
 
 const notifications = ref<NotificationContent[]>([])
 const page = ref(0)
@@ -94,9 +97,10 @@ const loadMoreNotifications = async ($state: InfiniteLoadingState) => {
   }
 }
 
-const readNotifi = async (id: number) => {
+const readNotifi = async (id: number, taskId: number) => {
   await patchNotificationRead(id)
   emit('close')
+  router.push({ query: { taskId } })
 }
 
 const emit = defineEmits<{
@@ -108,7 +112,7 @@ const closeModal = () => {
 }
 
 const readAllNotifi = async () => {
-  await axiosInstance.patch('/api/notification')
+  await axiosInstance.patch('/api/notifications')
   emit('close')
 }
 </script>
