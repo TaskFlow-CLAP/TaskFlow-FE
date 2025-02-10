@@ -52,7 +52,7 @@
       <input
         :class="[
           'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2 text-black',
-          isInvalid ? 'border-red-1' : 'border-border-1'
+          isInvalid || isFull ? 'border-red-1' : 'border-border-1'
         ]"
         placeholder="이름을 입력해주세요"
         v-model="name"
@@ -63,6 +63,11 @@
         v-show="isInvalid"
         class="text-red-1 text-xs font-bold mt-1"
         >이름에는 특수문자가 포함될 수 없습니다.</span
+      >
+      <span
+        v-show="isFull"
+        class="text-red-1 text-xs font-bold mt-1"
+        >이름은 1글자 이상, 10글자이하만 가능합니다.</span
       >
     </div>
     <div class="flex flex-col">
@@ -143,6 +148,7 @@ const selectedFile = ref<File | null>(null)
 const previewUrl = ref<string | null>(null)
 
 const isInvalid = ref(false)
+const isFull = ref(false)
 const nameInput = ref<HTMLInputElement | null>(null)
 
 const isModalVisible = ref(false)
@@ -160,8 +166,13 @@ watchEffect(() => {
 const validateName = () => {
   const regex = /[!@#$%^&*(),.?":{}|<>]/g
   isInvalid.value = regex.test(name.value)
+  if (name.value.length > 10 || name.value.length < 1) {
+    isFull.value = true
+  } else {
+    isFull.value = false
+  }
 
-  if (isInvalid.value) {
+  if (isInvalid.value || isFull.value) {
     nextTick(() => {
       nameInput.value?.focus()
     })
@@ -209,7 +220,7 @@ const handleFileDelete = () => {
 }
 
 const handleSubmit = async () => {
-  if (isInvalid.value == false) {
+  if (isInvalid.value == false && isFull.value == false) {
     const formData = new FormData()
     const memberInfo = {
       name: name.value,
