@@ -15,7 +15,7 @@
     <form
       @submit.prevent="handleLogin"
       class="mb-2">
-      <div class="mb-6">
+      <div class="mb-7">
         <input
           type="text"
           id="id"
