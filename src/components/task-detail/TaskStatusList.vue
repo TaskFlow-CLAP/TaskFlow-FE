@@ -91,6 +91,7 @@ const bgColor = (taskStatus: Status) => {
 const rejectRequest = async () => {
   if (rejectReason.value.length === 0) {
     toggleModal('fail')
+    currentStatus.value = 'TERMINATED'
     modalError.value = '종료 사유를 입력해주세요'
     return
   }
