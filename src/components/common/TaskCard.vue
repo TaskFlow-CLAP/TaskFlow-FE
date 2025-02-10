@@ -10,7 +10,7 @@
             v-if="data.labelInfo"
             :color="data.labelInfo.labelColor"
             :content="data.labelInfo.labelName" />
-          <span class="text-ellipsis overflow-hidden whitespace-nowrap">{{ data.title }}</span>
+          <span class="line-clamp-2">{{ data.title }}</span>
         </div>
         <CommonIcons
           v-if="draggable"
