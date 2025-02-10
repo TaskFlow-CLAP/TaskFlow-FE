@@ -3,7 +3,7 @@
     <span class="text-4xl font-bold whitespace-pre-wrap text-center leading-tight">
       {{ title }}
     </span>
-    <span class="font-bold whitespace-pre-wrap text-body text-center">{{ content }}</span>
+    <span class="whitespace-pre-wrap text-body text-center">{{ content }}</span>
   </div>
 </template>
 
