@@ -34,12 +34,14 @@
           group="taskList"
           item-key="task"
           class="flex flex-col gap-4 h-full"
-          @change="event => onListChange(event, 'IN_PROGRESS')">
+          @change="event => onListChange(event, 'IN_PROGRESS')"
+          :disabled="isDetailOpen">
           <template #item="{ element }">
             <div>
               <TaskCard
                 :key="element.taskId"
                 :data="element"
+                @toggle-modal="isDetailOpen = !isDetailOpen"
                 draggable />
             </div>
           </template>
@@ -61,12 +63,14 @@
           group="taskList"
           item-key="task"
           class="flex flex-col gap-4 h-full"
-          @change="event => onListChange(event, 'IN_REVIEWING')">
+          @change="event => onListChange(event, 'IN_REVIEWING')"
+          :disabled="isDetailOpen">
           <template #item="{ element }">
             <div>
               <TaskCard
                 :key="element.taskId"
                 :data="element"
+                @toggle-modal="isDetailOpen = !isDetailOpen"
                 draggable />
             </div>
           </template>
@@ -88,12 +92,14 @@
           group="taskList"
           item-key="task"
           class="flex flex-col gap-4 h-full"
-          @change="event => onListChange(event, 'COMPLETED')">
+          @change="event => onListChange(event, 'COMPLETED')"
+          :disabled="isDetailOpen">
           <template #item="{ element }">
             <div>
               <TaskCard
                 :key="element.taskId"
                 :data="element"
+                @toggle-modal="isDetailOpen = !isDetailOpen"
                 draggable />
             </div>
           </template>
@@ -110,7 +116,7 @@ import type { Status } from '@/types/common'
 import type { DraggableEvent, TaskCardList } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import draggableComponent from 'vuedraggable'
 import { storeToRefs } from 'pinia'
 import { useParseParams } from '@/hooks/useParseParams'
@@ -183,4 +189,6 @@ const { data } = useQuery<TaskCardList>({
 const tasksInProgress = computed(() => [...(data.value?.tasksInProgress || [])])
 const tasksInReviewing = computed(() => [...(data.value?.tasksInReviewing || [])])
 const tasksCompleted = computed(() => [...(data.value?.tasksCompleted || [])])
+
+const isDetailOpen = ref(false)
 </script>
