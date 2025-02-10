@@ -73,8 +73,8 @@ export default {
           2: '#F5F3FF'
         },
         gray: {
-          1: '#A1A1AA',
-          2: '#F4F4F5'
+          1: '#52525B',
+          2: '#E4E4E7'
         }
       }
     }
