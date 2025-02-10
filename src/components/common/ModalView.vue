@@ -26,7 +26,7 @@
 
             <div
               v-if="type != 'inputType'"
-              class="flex text-sm font-bold text-body justify-center">
+              class="flex text-sm font-bold text-body justify-center whitespace-pre-line text-center">
               <slot name="body"></slot>
             </div>
           </div>
@@ -34,7 +34,7 @@
           <textarea
             v-if="type == 'inputType'"
             v-model="textValue"
-            placeholder="거부 사유를 입력해주세요"
+            placeholder="반려 사유를 입력해주세요"
             class="flex border w-full border-border-1 px-4 py-3 focus:outline-none resize-none h-[120px]" />
         </div>
 
@@ -67,7 +67,7 @@
             type="button"
             class="button-large-red"
             @click="confirmModal">
-            {{ type === 'inputType' ? '거부' : '삭제' }}
+            {{ type === 'inputType' ? '반려' : '삭제' }}
           </button>
         </div>
       </div>

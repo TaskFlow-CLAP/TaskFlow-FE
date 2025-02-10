@@ -114,10 +114,7 @@ const handleSubmit = async () => {
     const categoryId = route.params.id
     if (categoryId) {
       const patchUrl = `/api/managements/categories/${categoryId}`
-      await axiosInstance.patch(patchUrl, {
-        name: categoryForm.value.name,
-        code: categoryForm.value.code
-      })
+      await axiosInstance.patch(patchUrl, categoryForm.value)
     } else {
       const postUrl =
         categoryStep === '1' ? '/api/managements/main-category' : '/api/managements/sub-category'

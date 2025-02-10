@@ -31,6 +31,7 @@ import { useQuery } from '@tanstack/vue-query'
 import type { ApiLogsResponse } from '@/types/admin'
 import { computed } from 'vue'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const { params } = useLogsParamsStore()
 const onPageChange = (value: number) => {
@@ -47,7 +48,8 @@ const fetchApiLogsList = async () => {
   return response.data
 }
 
-const { isLogined } = useMemberStore()
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery<ApiLogsResponse>({
   queryKey: ['apiLogs', params],
   queryFn: fetchApiLogsList,

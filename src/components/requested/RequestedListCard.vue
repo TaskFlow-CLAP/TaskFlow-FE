@@ -28,10 +28,10 @@
         @click.stop="userInfo.isReviewer && toggleModal('reject')"
         :class="
           userInfo.isReviewer
-            ? 'button-medium-primary'
+            ? 'button-medium-default'
             : 'button-medium text-disabled bg-background-1'
         ">
-        거부
+        반려
       </button>
     </div>
   </div>
