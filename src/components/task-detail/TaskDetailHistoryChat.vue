@@ -38,7 +38,7 @@
           v-if="isClicked"
           @click="deleteCommentText"
           :class="[
-            'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
+            'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-2 rounded',
             isProcessor ? 'right-6' : 'left-6'
           ]">
           삭제
