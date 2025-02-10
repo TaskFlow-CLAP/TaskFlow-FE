@@ -14,23 +14,19 @@
     </div>
     <form
       @submit.prevent="handleCheck"
-      class="mb-2">
-      <div class="mb-6">
-        <input
-          type="password"
-          id="pw"
-          v-model="pw"
-          placeholder="비밀번호를 입력해주세요"
-          required
-          class="input-box" />
-      </div>
-      <div class="mb-8">
-        <button
-          type="submit"
-          class="button-large-primary">
-          확인
-        </button>
-      </div>
+      class="flex flex-col gap-8">
+      <input
+        type="password"
+        id="pw"
+        v-model="pw"
+        placeholder="비밀번호를 입력해주세요"
+        required
+        class="input-box" />
+      <button
+        type="submit"
+        class="button-large-primary">
+        확인
+      </button>
     </form>
     <div class="flex w-full justify-center"></div>
   </div>
@@ -65,25 +61,25 @@ const handleCheck = async () => {
         case 400:
           isModalVisible.value = !isModalVisible.value
           messageHeader.value = '비밀번호가 일치하지 않습니다'
-          messageBody.value = '다시 확인하여 주세요'
+          messageBody.value = '다시 확인해주세요'
           break
 
         case 401:
           isModalVisible.value = !isModalVisible.value
           messageHeader.value = '비밀번호가 일치하지 않습니다'
-          messageBody.value = '다시 확인하여 주세요'
+          messageBody.value = '다시 확인해주세요'
           break
 
         case 500:
           isModalVisible.value = !isModalVisible.value
           messageHeader.value = '서버에 문제가 발생했습니다'
-          messageBody.value = '잠시후 다시 이용해주세요'
+          messageBody.value = '잠시 후 다시 이용해주세요'
           break
 
         default:
           isModalVisible.value = !isModalVisible.value
           messageHeader.value = '문제가 발생했습니다'
-          messageBody.value = '잠시후 다시 이용해주세요'
+          messageBody.value = '잠시 후 다시 이용해주세요'
           break
       }
     }

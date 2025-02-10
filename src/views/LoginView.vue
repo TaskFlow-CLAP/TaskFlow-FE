@@ -41,7 +41,7 @@
     </form>
     <div class="flex w-full justify-center">
       <RouterLink
-        class="text-body font-bold text-[12px]"
+        class="text-body font-bold text-[12px] hover:underline"
         to="/pw-change-email"
         >비밀번호 재설정</RouterLink
       >
@@ -88,7 +88,7 @@ const handleLogin = async () => {
           router.replace('/member-management')
           break
         case 'ROLE_MANAGER':
-          router.replace('my-request')
+          router.replace('my-task')
           break
         case 'ROLE_USER':
           router.replace('/my-request')
@@ -121,7 +121,7 @@ const handleLogin = async () => {
         case 500:
           isModalVisible.value = !isModalVisible.value
           messageHeader.value = '서버에 문제가 발생했습니다'
-          messageBody.value = '잠시후 다시 이용해주세요'
+          messageBody.value = '잠시 후 다시 이용해주세요'
           break
 
         default:

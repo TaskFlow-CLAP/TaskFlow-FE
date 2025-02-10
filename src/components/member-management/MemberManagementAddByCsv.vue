@@ -1,5 +1,5 @@
 <template>
-  <div class="py-1 px-2 rounded">
+  <div class="py-1 px-2 rounded hover:bg-background-2">
     <input
       class="hidden"
       type="file"
@@ -18,7 +18,7 @@
       :isOpen="isModalVisible"
       :type="'successType'"
       @close="handleCancel">
-      <template #header> 회원이 추가되었습니다 </template>
+      <template #header>회원이 추가되었습니다</template>
     </ModalView>
   </div>
 </template>

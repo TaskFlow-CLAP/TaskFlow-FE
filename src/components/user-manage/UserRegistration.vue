@@ -4,7 +4,7 @@
       :isOpen="isModalVisible"
       :type="'successType'"
       @close="handleCancel">
-      <template #header> 새로운 회원이 추가되었습니다 </template>
+      <template #header>새로운 회원이 추가되었습니다</template>
     </ModalView>
     <RequestTaskInput
       v-model="userRegistrationForm.name"

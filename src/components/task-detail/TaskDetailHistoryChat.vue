@@ -17,7 +17,7 @@
       <p>{{ history.details.commentDetails?.nickName }}</p>
       <p
         :class="[
-          'flex max-w-[400px] flex-wrap px-4 py-3  text-black rounded-lg',
+          'flex max-w-[400px] flex-wrap px-4 py-3 rounded-lg',
           isProcessor ? 'bg-primary2' : 'bg-background-2'
         ]">
         {{ history.details.commentDetails?.comment }}
@@ -38,7 +38,7 @@
           v-if="isClicked"
           @click="deleteCommentText"
           :class="[
-            'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
+            'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-2 rounded',
             isProcessor ? 'right-6' : 'left-6'
           ]">
           삭제

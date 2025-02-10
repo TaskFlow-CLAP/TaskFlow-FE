@@ -1,11 +1,12 @@
 <template>
   <div
     :class="[
-      'w-full flex gap-3 px-4 py-3 border border-border-1 items-end rounded',
+      'w-full flex gap-1 px-4 py-3 border border-border-1 items-end rounded',
       { 'bg-background-2': !isPossible, 'bg-white': isPossible }
     ]">
     <textarea
       class="w-full h-20 focus:outline-none resize-none"
+      :class="isPossible ? 'bg-white' : 'bg-background-2'"
       :placeholder="placeHolderText"
       v-model="messageText"
       :disabled="!isPossible"
@@ -21,14 +22,17 @@
       @change="handleFileUpload" />
     <label
       for="file"
-      class="cursor-pointer">
+      class="cursor-pointer hover:bg-background-2 rounded p-1">
       <CommonIcons :name="clipIcon" />
     </label>
-    <CommonIcons
-      :name="sendIcon"
-      class="cursor-pointer"
-      :style="{ fill: isSendable ? '#7879EB' : '#A1A1AA' }"
-      @click="sendMessage" />
+    <button
+      type="button"
+      class="hover:bg-background-2 rounded p-1">
+      <CommonIcons
+        :name="sendIcon"
+        :style="{ fill: isSendable ? '#7879EB' : '#A1A1AA' }"
+        @click="sendMessage" />
+    </button>
   </div>
 </template>
 

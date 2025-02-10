@@ -4,7 +4,7 @@
       :isOpen="isModalVisible"
       :type="'successType'"
       @close="handleCancel">
-      <template #header> 요청이 승인되었습니다 </template>
+      <template #header>요청이 승인되었습니다</template>
     </ModalView>
     <CategoryDropDown
       v-model="category1"

@@ -10,12 +10,12 @@
       </StatisticsCard>
       <StatisticsCategoryCard />
       <StatisticsCard
-        title="기간별 작업 처리량"
+        title="기간별 완료 작업량"
         statistics-type="PROCESS_BY_PERIOD"
         chart-type="line">
       </StatisticsCard>
       <StatisticsCard
-        title="담당자별 작업 처리량"
+        title="담당자별 완료 작업량"
         statistics-type="PROCESS_BY_MANAGER"
         chart-type="pie" />
     </div>

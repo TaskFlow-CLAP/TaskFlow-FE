@@ -13,8 +13,8 @@
       :status="content as Status" />
     <span
       v-else
-      class="break-all"
-      :class="`${isTextXs ? 'text-xs font-bold' : 'text-sm'} ${isStatusCode ? (content === '200' ? 'text-green-1' : 'text-red-1') : ''} ${isTextBody ? 'text-body' : 'text-black'}`">
+      class="break-all line-clamp-2"
+      :class="`${isTextXs ? 'text-xs' : 'text-sm'} ${isStatusCode ? (content === '200' ? 'text-green-1' : 'text-red-1') : ''} ${isTextBody ? 'text-body' : ''}`">
       {{ content ? content : '-' }}
     </span>
   </div>

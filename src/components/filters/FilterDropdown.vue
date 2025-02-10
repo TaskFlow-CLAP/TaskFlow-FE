@@ -17,7 +17,7 @@
         v-if="isDropdownOpened"
         class="filter-dropdown-option-list">
         <li
-          class="filter-dropdown-option hover:bg-background-2 text-black"
+          class="filter-dropdown-option hover:bg-background-2"
           v-for="option in optionList"
           :key="option.value"
           @click="() => onOptionClick(option.value)">

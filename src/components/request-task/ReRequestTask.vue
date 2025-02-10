@@ -27,12 +27,12 @@
       :handleCancel="handleCancel"
       :handleSubmit="handleSubmit"
       cancelText="취소"
-      submitText="요청" />
+      submitText="수정" />
     <ModalView
       :isOpen="isModalVisible"
       :type="'successType'"
       @close="handleCancel">
-      <template #header>작업이 요청되었습니다</template>
+      <template #header>작업이 수정되었습니다</template>
     </ModalView>
   </div>
 </template>

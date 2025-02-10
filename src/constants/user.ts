@@ -31,10 +31,10 @@ export const HistoryMessageBefore: Record<TaskHistoryType, string> = {
 }
 
 export const HistoryMessageAfter: Record<TaskHistoryType, string> = {
-  STATUS_SWITCHED: '상태로 변경되었습니다.',
-  PROCESSOR_CHANGED: '님으로 변경되었습니다.',
+  STATUS_SWITCHED: '상태로 변경되었습니다',
+  PROCESSOR_CHANGED: '님으로 변경되었습니다',
   COMMENT: '',
   COMMENT_FILE: '',
-  PROCESSOR_ASSIGNED: '님으로 할당되었습니다.',
-  TASK_TERMINATED: '종료되었습니다.'
+  PROCESSOR_ASSIGNED: '님으로 할당되었습니다',
+  TASK_TERMINATED: '종료되었습니다'
 }

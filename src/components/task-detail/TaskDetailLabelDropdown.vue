@@ -1,9 +1,9 @@
 <template>
   <div
     ref="htmlRef"
-    class="relative flex text-base">
+    class="relative flex">
     <div
-      class="flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-sm text-black"
+      class="flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-sm"
       @click="toggleDropdown">
       <p :class="{ 'text-disabled': !modelValue?.labelName }">
         {{ modelValue?.labelName || placeholderText }}
@@ -16,7 +16,7 @@
       v-if="dropdownOpen"
       class="absolute w-full pb-6 top-12">
       <div
-        class="w-full h-32 overflow-y-auto flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom text-black">
+        class="w-full h-32 overflow-y-auto flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom">
         <div
           v-for="option in labelArr"
           :key="option.labelId"

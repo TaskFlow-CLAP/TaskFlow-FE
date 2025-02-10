@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed w-full bg-white text-black py-2 border-b border-border-1 z-50">
+  <div class="fixed w-full bg-white py-2 border-b border-border-1 z-50">
     <div class="max-w-[1200px] mx-auto px-6 flex w-full justify-between items-center relative">
       <div class="flex justify-center items-center gap-6 h-full">
         <button

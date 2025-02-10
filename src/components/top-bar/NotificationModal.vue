@@ -36,7 +36,7 @@
         class="flex items-center justify-center">
         <template v-slot:complete>
           <span class="flex py-4 items-center justify-center text-xs text-primary1">
-            알림을 전부 확인하였습니다
+            알림을 전부 확인했습니다
           </span>
         </template>
       </InfiniteLoading>
@@ -98,6 +98,7 @@ const loadMoreNotifications = async ($state: InfiniteLoadingState) => {
 }
 
 const readNotifi = async (id: number, taskId: number) => {
+  document.body.style.overflow = 'hidden'
   await patchNotificationRead(id)
   emit('close')
   router.push({ query: { taskId } })

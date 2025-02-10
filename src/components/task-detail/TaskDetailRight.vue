@@ -1,16 +1,16 @@
 <template>
-  <div class="sticky top-0 w-[280px] shrink-0 flex flex-col gap-y-6 text-black overflow-y-auto p-6">
+  <div class="sticky top-0 w-[280px] shrink-0 flex flex-col gap-y-6 overflow-y-auto p-6">
     <div>
       <p class="task-detail">고유코드</p>
-      <p class="text-sm text-black">{{ data.taskCode || '-' }}</p>
+      <p class="text-sm">{{ data.taskCode || '-' }}</p>
     </div>
     <div>
       <p class="task-detail">요청일</p>
-      <p class="text-sm text-black">{{ formatDate(data.requestedAt) }}</p>
+      <p class="text-sm">{{ formatDate(data.requestedAt) }}</p>
     </div>
     <div>
       <p class="task-detail">종료일</p>
-      <p class="text-sm text-black">
+      <p class="text-sm">
         {{ (data.finishedAt && formatDate(data.finishedAt)) || '-' }}
       </p>
     </div>
@@ -34,7 +34,7 @@
         <ImageContainer
           :url="data.requesterImageUrl"
           :size="20" />
-        <p class="text-sm text-black">{{ data.requesterNickName }}</p>
+        <p class="text-sm">{{ data.requesterNickName }}</p>
       </div>
     </div>
     <div>
@@ -51,14 +51,14 @@
           v-if="data.processorNickName"
           :url="data.processorImageUrl"
           :size="20" />
-        <p class="text-sm text-black">{{ data.processorNickName || '-' }}</p>
+        <p class="text-sm">{{ data.processorNickName || '-' }}</p>
       </div>
     </div>
     <div>
       <p class="task-detail">마감기한</p>
       <div v-if="data.dueDate">
         <div class="w-full flex justify-between items-center">
-          <p class="text-sm text-black">{{ formatDueDate(data.dueDate) || '-' }}</p>
+          <p class="text-sm">{{ formatDueDate(data.dueDate) || '-' }}</p>
         </div>
         <p class="text-red-1 text-xs font-bold">{{ formatDaysBefore(data.dueDate) }}</p>
       </div>
@@ -74,7 +74,7 @@
           :task-id="data.taskId" />
         <div
           v-else-if="!isProcessor"
-          class="flex w-full items-center bg-white text-sm text-black">
+          class="flex w-full items-center bg-white text-sm">
           {{ data.labelName }}
         </div>
       </div>

@@ -9,7 +9,7 @@
       <p>{{ history.details.commentFileDetails?.nickName }}</p>
       <div
         :class="[
-          'flex max-w-[400px] px-4 py-3 gap-4 items-center text-black rounded-lg',
+          'flex max-w-[400px] px-4 py-3 gap-4 items-center rounded-lg',
           isProcessor ? 'bg-primary2' : 'bg-background-2'
         ]">
         <a

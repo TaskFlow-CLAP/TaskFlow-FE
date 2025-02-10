@@ -4,8 +4,8 @@
       :isOpen="isModalOpen"
       type="successType"
       @close="closeModal">
-      <template #header> 비밀번호가 변경 되었습니다 </template>
-      <template #body> 다시 로그인 해주세요 </template>
+      <template #header>비밀번호가 변경 되었습니다</template>
+      <template #body>다시 로그인 해주세요</template>
     </ModalView>
     <div class="py-16">
       <TitleContainer
@@ -19,8 +19,8 @@
     </div>
     <form
       @submit.prevent="handleChange"
-      class="mb-2">
-      <div class="mb-7">
+      class="flex flex-col gap-8">
+      <div class="relative">
         <input
           type="password"
           id="newPw"
@@ -38,7 +38,7 @@
           대문자, 소문자, 숫자, 특수문자 포함 8자-20자 입력해주세요
         </p>
       </div>
-      <div class="mb-8">
+      <div class="relative">
         <input
           type="password"
           id="checkPw"
