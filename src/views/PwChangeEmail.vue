@@ -27,7 +27,7 @@
           type="email"
           id="email"
           v-model="email"
-          placeholder="이메일 입력해주세요"
+          placeholder="이메일을 입력해주세요"
           required
           class="input-box" />
       </div>

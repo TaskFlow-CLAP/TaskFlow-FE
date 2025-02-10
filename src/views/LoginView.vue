@@ -18,9 +18,9 @@
       <div class="mb-6">
         <input
           type="text"
-          id="nickname"
-          v-model="nickname"
-          placeholder="닉네임을 입력해주세요"
+          id="id"
+          v-model="id"
+          placeholder="아이디를 입력해주세요"
           required
           class="input-box" />
       </div>
@@ -61,7 +61,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const nickname = ref('')
+const id = ref('')
 const password = ref('')
 const memberStore = useMemberStore()
 
@@ -76,7 +76,7 @@ const closeModal = () => {
 
 const handleLogin = async () => {
   try {
-    const name = nickname.value.toString()
+    const name = id.value.toString()
     const res = await postLogin(name, password.value)
     const role = await memberStore.updateMemberInfoWithToken()
 
@@ -85,16 +85,16 @@ const handleLogin = async () => {
     } else if (res && role && Cookies.get('refreshToken')) {
       switch (role) {
         case 'ROLE_ADMIN':
-          router.push('/member-management')
+          router.replace('/member-management')
           break
         case 'ROLE_MANAGER':
-          router.push('my-request')
+          router.replace('my-request')
           break
         case 'ROLE_USER':
-          router.push('/my-request')
+          router.replace('/my-request')
           break
         default:
-          router.push('/')
+          router.replace('/')
       }
     }
   } catch (error) {
@@ -103,7 +103,7 @@ const handleLogin = async () => {
         case 401:
           isModalVisible.value = !isModalVisible.value
           messageHeader.value = '일치하는 정보가 없습니다'
-          messageBody.value = '닉네임과 비밀번호를 다시 확인해 주세요'
+          messageBody.value = '아이디과 비밀번호를 다시 확인해 주세요'
           break
 
         case 500:
