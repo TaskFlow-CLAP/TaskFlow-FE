@@ -6,7 +6,7 @@ name: CI for front using github actions
 on:
   pull_request:
     types: [ opened, synchronize ]
-    branches: [ "develop" ]
+    branches: [ "release" ]
 
 permissions:
   contents: read

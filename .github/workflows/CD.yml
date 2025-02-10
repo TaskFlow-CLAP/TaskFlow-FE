@@ -1,11 +1,9 @@
 # github repository actions 페이지에 나타날 이름
 name: CD for front using github actions
 
-# event trigger
-# develop 브랜치에 pull_request가 닫히거나 푸시했을때 실행
 on:
-  push:
-    branches: [ "develop" ]
+  release:
+    types: [created]
 
 permissions:
   contents: read
