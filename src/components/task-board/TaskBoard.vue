@@ -1,25 +1,25 @@
 <template>
-  <div class="flex-1 overflow-y-auto">
-    <div class="w-full flex gap-12 sticky top-0 bg-white z-30">
-      <div class="flex flex-1 bg-primary2 rounded-t-lg">
+  <div class="overflow-y-auto">
+    <div class="w-full grid grid-cols-3 gap-12 sticky top-0 bg-white z-30">
+      <div class="flex bg-primary2 rounded-t-lg">
         <span class="text-xs font-bold text-body p-4">
           진행 중 {{ data?.tasksInProgress.length }}
         </span>
       </div>
-      <div class="flex flex-1 bg-primary2 rounded-t-lg">
+      <div class="flex bg-primary2 rounded-t-lg">
         <span class="text-xs font-bold text-body p-4">
           검토 중 {{ data?.tasksInReviewing.length }}
         </span>
       </div>
-      <div class="flex flex-1 bg-primary2 rounded-t-lg">
+      <div class="flex bg-primary2 rounded-t-lg">
         <span class="text-xs font-bold text-body p-4">
           완료 {{ data?.tasksCompleted.length }}
         </span>
       </div>
     </div>
 
-    <div class="w-full flex gap-12 min-h-[calc(100%-48px)]">
-      <div class="flex-1 px-4 pb-4 bg-primary2 rounded-b-lg relative">
+    <div class="w-full grid grid-cols-3 gap-12 min-h-[calc(100%-48px)] overflow-hidden">
+      <div class="grow shrink-0 px-4 pb-4 bg-primary2 rounded-b-lg relative">
         <div class="absolute top-0 left-0 px-4 w-full">
           <div
             v-if="data?.tasksInProgress.length === 0"
@@ -34,17 +34,21 @@
           group="taskList"
           item-key="task"
           class="flex flex-col gap-4 h-full"
-          @change="event => onListChange(event, 'IN_PROGRESS')">
+          @change="event => onListChange(event, 'IN_PROGRESS')"
+          :disabled="isDetailOpen">
           <template #item="{ element }">
-            <TaskCard
-              :key="element.taskId"
-              :data="element"
-              draggable />
+            <div>
+              <TaskCard
+                :key="element.taskId"
+                :data="element"
+                @toggle-modal="isDetailOpen = !isDetailOpen"
+                draggable />
+            </div>
           </template>
         </draggableComponent>
       </div>
 
-      <div class="flex-1 px-4 pb-4 bg-primary2 rounded-b-lg relative">
+      <div class="grow shrink-0 px-4 pb-4 bg-primary2 rounded-b-lg relative">
         <div class="absolute top-0 left-0 px-4 w-full">
           <div
             v-if="data?.tasksInReviewing.length === 0"
@@ -59,17 +63,21 @@
           group="taskList"
           item-key="task"
           class="flex flex-col gap-4 h-full"
-          @change="event => onListChange(event, 'IN_REVIEWING')">
+          @change="event => onListChange(event, 'IN_REVIEWING')"
+          :disabled="isDetailOpen">
           <template #item="{ element }">
-            <TaskCard
-              :key="element.taskId"
-              :data="element"
-              draggable />
+            <div>
+              <TaskCard
+                :key="element.taskId"
+                :data="element"
+                @toggle-modal="isDetailOpen = !isDetailOpen"
+                draggable />
+            </div>
           </template>
         </draggableComponent>
       </div>
 
-      <div class="flex-1 px-4 pb-4 bg-primary2 rounded-b-lg relative">
+      <div class="grow shrink-0 px-4 pb-4 bg-primary2 rounded-b-lg relative">
         <div class="absolute top-0 left-0 px-4 w-full">
           <div
             v-if="data?.tasksCompleted.length === 0"
@@ -84,12 +92,16 @@
           group="taskList"
           item-key="task"
           class="flex flex-col gap-4 h-full"
-          @change="event => onListChange(event, 'COMPLETED')">
+          @change="event => onListChange(event, 'COMPLETED')"
+          :disabled="isDetailOpen">
           <template #item="{ element }">
-            <TaskCard
-              :key="element.taskId"
-              :data="element"
-              draggable />
+            <div>
+              <TaskCard
+                :key="element.taskId"
+                :data="element"
+                @toggle-modal="isDetailOpen = !isDetailOpen"
+                draggable />
+            </div>
           </template>
         </draggableComponent>
       </div>
@@ -104,7 +116,7 @@ import type { Status } from '@/types/common'
 import type { DraggableEvent, TaskCardList } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import draggableComponent from 'vuedraggable'
 import { storeToRefs } from 'pinia'
 import { useParseParams } from '@/hooks/useParseParams'
@@ -177,4 +189,6 @@ const { data } = useQuery<TaskCardList>({
 const tasksInProgress = computed(() => [...(data.value?.tasksInProgress || [])])
 const tasksInReviewing = computed(() => [...(data.value?.tasksInReviewing || [])])
 const tasksCompleted = computed(() => [...(data.value?.tasksCompleted || [])])
+
+const isDetailOpen = ref(false)
 </script>

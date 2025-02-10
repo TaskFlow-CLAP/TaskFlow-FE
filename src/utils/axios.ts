@@ -1,10 +1,11 @@
+import { useMemberStore } from '@/stores/member'
 import axios, { type AxiosInstance, type InternalAxiosRequestConfig } from 'axios'
 import Cookies from 'js-cookie'
+import { storeToRefs } from 'pinia'
 
 const baseURL = import.meta.env.VITE_API_BASE_URL
 
 const getNewAccessToken = async () => {
-  console.log('토큰 재발급 시도')
   try {
     const refreshToken = Cookies.get('refreshToken')
     const response = await axios.post(
@@ -53,16 +54,18 @@ const setInterceptors = (instance: AxiosInstance) => {
             break
           case 403: {
             if (error.response.data !== 'AUTH_002') {
-              // Cookies.remove('accessToken')
+              const memberStore = useMemberStore()
+              const { isLogined } = storeToRefs(memberStore)
+              isLogined.value = false
+
               const originalRequest = error.config
               if (!originalRequest._retry) {
                 originalRequest._retry = true
 
                 try {
-                  console.log('토큰이 만료됨')
                   const newAccessToken = await getNewAccessToken()
-
                   originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
+                  isLogined.value = true
                   return instance(originalRequest)
                 } catch (err) {
                   console.error('토큰 갱신 실패:', err)

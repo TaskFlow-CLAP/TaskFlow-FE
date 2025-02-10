@@ -15,6 +15,7 @@ import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 import TaskDetail from '@/components/task-detail/TaskDetail.vue'
+import router from '@/router'
 
 const route = useRoute()
 const selectedID = ref(route.query?.taskId || null)
@@ -28,5 +29,8 @@ watch(
 
 const handleModal = (id: string | null) => {
   selectedID.value = id
+  if (id === null) {
+    router.push({ query: {} })
+  }
 }
 </script>
