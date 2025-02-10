@@ -14,23 +14,19 @@
     </div>
     <form
       @submit.prevent="handleCheck"
-      class="mb-2">
-      <div class="mb-6">
-        <input
-          type="password"
-          id="pw"
-          v-model="pw"
-          placeholder="비밀번호를 입력해주세요"
-          required
-          class="input-box" />
-      </div>
-      <div class="mb-8">
-        <button
-          type="submit"
-          class="button-large-primary">
-          확인
-        </button>
-      </div>
+      class="flex flex-col gap-8">
+      <input
+        type="password"
+        id="pw"
+        v-model="pw"
+        placeholder="비밀번호를 입력해주세요"
+        required
+        class="input-box" />
+      <button
+        type="submit"
+        class="button-large-primary">
+        확인
+      </button>
     </form>
     <div class="flex w-full justify-center"></div>
   </div>

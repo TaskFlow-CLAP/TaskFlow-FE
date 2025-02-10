@@ -19,8 +19,8 @@
     </div>
     <form
       @submit.prevent="handleChange"
-      class="mb-2">
-      <div class="mb-6">
+      class="flex flex-col gap-8">
+      <div class="relative">
         <input
           type="password"
           id="newPw"
@@ -34,11 +34,11 @@
           ]" />
         <p
           v-show="isInvalid"
-          class="text-red-1 text-xs font-bold mt-1">
-          대문자, 소문자, 숫자, 특수문자를 모두 포함한 8자-20자로 입력해주세요
+          class="absolute text-red-1 text-xs font-bold mt-1">
+          대문자, 소문자, 숫자, 특수문자 포함 8자-20자 입력해주세요
         </p>
       </div>
-      <div class="mb-8">
+      <div class="relative">
         <input
           type="password"
           id="checkPw"
@@ -52,8 +52,8 @@
           ]" />
         <p
           v-show="isDifferent"
-          class="text-red-1 text-xs font-bold mt-1">
-          비밀번호가 일치하지 않습니다
+          class="absolute text-red-1 text-xs font-bold mt-1">
+          비밀번호가 일치하지 않아요
         </p>
       </div>
       <button
@@ -109,14 +109,17 @@ const closeModal = () => {
 }
 
 const handleChange = () => {
+  if (newPw.value != checkPw.value) {
+    isDifferent.value = true
+    checkPwInput.value?.focus()
+  } else if (newPw.value == checkPw.value) {
+    isDifferent.value = false
+  }
   validatePassword()
   if (isInvalid.value == false && newPw.value === checkPw.value) {
     patchPassword(newPw.value)
     pwChange()
     openModal()
-  } else {
-    isDifferent.value = true
-    checkPwInput.value?.focus()
   }
 }
 

@@ -59,16 +59,18 @@
         maxlength="10"
         ref="nameInput"
         @blur="validateName" />
-      <span
-        v-show="isInvalid"
-        class="text-red-1 text-xs font-bold mt-1"
-        >이름에는 특수문자가 포함될 수 없습니다.</span
-      >
-      <span
-        v-show="isFull"
-        class="text-red-1 text-xs font-bold mt-1"
-        >이름은 1글자 이상, 10글자이하만 가능합니다.</span
-      >
+      <div class="mb-1">
+        <span
+          v-show="isInvalid"
+          class="absolute text-red-1 text-xs font-bold mt-1"
+          >이름에는 특수문자가 포함될 수 없습니다.</span
+        >
+        <span
+          v-show="isFull"
+          class="absolute text-red-1 text-xs font-bold mt-1"
+          >이름은 1글자 이상, 10글자이하만 가능합니다.</span
+        >
+      </div>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">아이디</p>
@@ -190,7 +192,7 @@ const handlePwChange = () => {
 }
 
 const changePw = () => {
-  router.push('/pw-check')
+  router.replace('/pw-check')
 }
 
 const warningModalToggle = () => {

@@ -79,13 +79,13 @@ onMounted(async () => {
 
   const originUrl = route.path.split('/')[1]
   if (info.value.role === 'ROLE_USER') {
-    if (!PERMITTED_URL.ROLE_USER.includes(originUrl)) router.push('/my-request')
+    if (!PERMITTED_URL.ROLE_USER.includes(originUrl)) router.replace('/my-request')
   } else if (info.value.role === 'ROLE_MANAGER') {
-    if (!PERMITTED_URL.ROLE_MANAGER.includes(originUrl)) router.push('/my-task')
+    if (!PERMITTED_URL.ROLE_MANAGER.includes(originUrl)) router.replace('/my-task')
   } else if (info.value.role === 'ROLE_ADMIN') {
-    if (!PERMITTED_URL.ROLE_ADMIN.includes(originUrl)) router.push('/member-management')
+    if (!PERMITTED_URL.ROLE_ADMIN.includes(originUrl)) router.replace('/member-management')
   } else {
-    if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) router.push('/login')
+    if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) router.replace('/login')
   }
 })
 
