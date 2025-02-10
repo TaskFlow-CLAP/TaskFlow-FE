@@ -4,7 +4,7 @@
       :isOpen="isModalVisible"
       type="successType"
       @close="closeModal">
-      <template #header> 새로운 비밀번호가 전송되었습니 </template>
+      <template #header> 새로운 비밀번호가 전송되었습니다 </template>
       <template #body> 이메일을 확인해주세요 </template>
     </ModalView>
     <ModalView
