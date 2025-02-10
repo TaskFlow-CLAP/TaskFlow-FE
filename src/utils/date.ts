@@ -44,6 +44,9 @@ export const formatDaysBefore = (dateString: string) => {
   const date = new Date(dateString)
   const today = new Date()
 
+  date.setHours(0, 0, 0, 0)
+  today.setHours(0, 0, 0, 0)
+
   const diffTime = today.getTime() - date.getTime()
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
 
