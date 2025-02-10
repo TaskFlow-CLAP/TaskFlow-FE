@@ -21,6 +21,7 @@
       :is-invalidate="isInvalidate" />
     <RequestTaskTextArea
       v-model="description"
+      :is-invalidate="isInvalidate"
       :placeholderText="'부가 정보를 입력해주세요'" />
     <RequestTaskFileInput v-model="file" />
     <FormButtonContainer
@@ -45,11 +46,11 @@ import type { AttachmentResponse } from '@/types/user'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
+import ModalView from '../common/ModalView.vue'
 import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
-import ModalView from '../common/ModalView.vue'
 
 const category1 = ref<Category | null>(null)
 const category2 = ref<Category | null>(null)
@@ -109,6 +110,12 @@ const handleSubmit = async () => {
     return
   } else if (!title.value) {
     isInvalidate.value = 'input'
+    return
+  } else if (title.value.length > 30) {
+    isInvalidate.value = 'title'
+    return
+  } else if (description.value.length > 200) {
+    isInvalidate.value = 'description'
     return
   }
   const formData = new FormData()
