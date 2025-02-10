@@ -3,7 +3,7 @@
     :type="inputType"
     :value="modelValue"
     :min="new Date().toISOString().split('T')[0]"
-    class="w-full border border-gray-300 rounded px-3 py-2 cursor-pointer focus:outline-none text-center text-black"
+    class="w-full border border-gray-300 rounded px-3 py-2 cursor-pointer focus:outline-none text-center"
     @focus="e => (e.target as HTMLInputElement).showPicker()"
     @input="updateValue(($event.target as HTMLInputElement).value)" />
 </template>

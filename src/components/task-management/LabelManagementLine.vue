@@ -24,9 +24,7 @@
             v-model="editValue.labelName"
             placeholder="새로운 구분명을 입력"
             class="w-full flex focus:outline-none" />
-          <p
-            v-else
-            class="text-black">
+          <p v-else>
             {{ label.labelName }}
           </p>
         </div>

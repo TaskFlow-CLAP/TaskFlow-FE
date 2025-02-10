@@ -20,7 +20,7 @@
               v-if="type == 'warningType'"
               :name="warningIcon" />
 
-            <div class="flex text-2xl font-bold justify-center text-black">
+            <div class="flex text-2xl font-bold justify-center">
               <slot name="header"></slot>
             </div>
 

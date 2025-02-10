@@ -14,12 +14,12 @@
       </p>
     </div>
     <input
-      class="w-full h-11 border border-border-1 px-4 focus:outline-none text-black rounded"
+      class="w-full h-11 border border-border-1 px-4 focus:outline-none rounded"
       :value="modelValue"
       :disabled="isEdit"
       @input="updateValue(($event.target as HTMLInputElement).value)"
       :placeholder="placeholderText"
-      :class="{ 'text-gray-500': isEdit, 'text-black': !isEdit }"
+      :class="{ 'text-gray-500': isEdit }"
       :maxlength="labelName === '제목' ? 30 : undefined" />
 
     <p

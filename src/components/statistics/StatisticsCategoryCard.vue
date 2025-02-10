@@ -2,7 +2,7 @@
   <div
     class="flex flex-col h-fit gap-3 px-4 py-4 border-l-8 border-primary1 bg-white rounded-lg shadow-custom">
     <div class="flex flex-col gap-2">
-      <span class="font-bold text-black">카테고리별 작업 요청량</span>
+      <span class="font-bold">카테고리별 작업 요청량</span>
       <PeriodButtons
         :period-type="periodType"
         @update:period="changePeriod" />

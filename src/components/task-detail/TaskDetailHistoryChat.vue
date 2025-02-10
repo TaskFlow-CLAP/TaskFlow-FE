@@ -17,7 +17,7 @@
       <p>{{ history.details.commentDetails?.nickName }}</p>
       <p
         :class="[
-          'flex max-w-[400px] flex-wrap px-4 py-3  text-black rounded-lg',
+          'flex max-w-[400px] flex-wrap px-4 py-3 rounded-lg',
           isProcessor ? 'bg-primary2' : 'bg-background-2'
         ]">
         {{ history.details.commentDetails?.comment }}

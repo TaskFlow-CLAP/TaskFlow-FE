@@ -108,10 +108,10 @@ body {
 }
 
 .request-task-dropdown {
-  @apply flex w-full h-11 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-black;
+  @apply flex w-full h-11 items-center rounded p-4 bg-white border border-border-1 cursor-pointer;
 }
 .request-task-dropdown-option-list {
-  @apply absolute w-full h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom text-black;
+  @apply absolute w-full h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom;
 }
 .request-task-dropdown-option {
   @apply w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer;
@@ -140,7 +140,7 @@ body {
   @apply w-full flex items-center h-10 p-2 rounded hover:bg-background-2 cursor-pointer;
 }
 .task-detail-manager-dropdown {
-  @apply flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-black;
+  @apply flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 cursor-pointer;
 }
 
 .modal-enter-active,

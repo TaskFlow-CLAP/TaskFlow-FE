@@ -51,7 +51,7 @@
       <span class="absolute top-1 right-2 text-xs text-gray-500"> {{ name.length }} / 10 </span>
       <input
         :class="[
-          'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2 text-black',
+          'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2',
           isInvalid ? 'border-red-1' : 'border-border-1'
         ]"
         placeholder="이름을 입력해주세요"
@@ -67,21 +67,21 @@
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">아이디</p>
-      <p class="mt-2 text-black">{{ info.nickname }}</p>
+      <p class="mt-2">{{ info.nickname }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">이메일</p>
-      <p class="mt-2 text-black">{{ info.email }}</p>
+      <p class="mt-2">{{ info.email }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">부서</p>
-      <p class="mt-2 text-black">{{ info.departmentName }}</p>
+      <p class="mt-2">{{ info.departmentName }}</p>
     </div>
     <div
       v-if="info.departmentRole"
       class="flex flex-col">
       <p class="text-body text-xs font-bold">직무</p>
-      <p class="mt-2 text-black">{{ info.departmentRole }}</p>
+      <p class="mt-2">{{ info.departmentRole }}</p>
     </div>
     <div>
       <p class="text-body text-xs font-bold">알림 수신 여부</p>
