@@ -21,7 +21,7 @@
           :class="
             (value as string[]).includes(option.value)
               ? 'bg-primary1 text-white font-bold'
-              : 'hover:bg-background-2 text-black'
+              : 'hover:bg-background-2'
           "
           @click="() => onOptionClick(option.value)">
           {{ option.content }}

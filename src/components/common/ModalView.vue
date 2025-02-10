@@ -20,13 +20,13 @@
               v-if="type == 'warningType'"
               :name="warningIcon" />
 
-            <div class="flex text-2xl font-bold justify-center text-black">
+            <div class="flex text-2xl font-bold justify-center">
               <slot name="header"></slot>
             </div>
 
             <div
               v-if="type != 'inputType'"
-              class="flex text-sm font-bold text-body justify-center">
+              class="flex text-sm font-bold text-body justify-center whitespace-pre-line text-center">
               <slot name="body"></slot>
             </div>
           </div>

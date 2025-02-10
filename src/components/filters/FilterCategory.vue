@@ -21,7 +21,7 @@
             :class="
               (main as number[]).includes(category.id)
                 ? 'bg-primary1 text-white font-bold'
-                : 'hover:bg-background-2 text-black'
+                : 'hover:bg-background-2'
             "
             @click="() => onMainClick(category)">
             {{ category.name }}
@@ -34,7 +34,7 @@
       <div
         ref="subRef"
         class="filter-dropdown"
-        :class="isDisabled ? 'bg-background-2 text-disabled' : 'text-black'"
+        :class="isDisabled ? 'bg-background-2 text-disabled' : ''"
         @click="!isDisabled && toggleDropdown('sub')">
         <span class="grow text-center">선택</span>
         <CommonIcons
@@ -62,7 +62,7 @@
               :class="
                 (sub as number[]).includes(subCategory.id)
                   ? 'bg-primary1 text-white font-bold'
-                  : 'hover:bg-background-2 text-black'
+                  : 'hover:bg-background-2'
               "
               @click="() => onSubClick(subCategory.id)">
               {{ subCategory.name }}

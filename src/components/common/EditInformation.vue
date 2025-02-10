@@ -4,7 +4,7 @@
       :isOpen="isModalVisible"
       :type="'successType'"
       @close="handleCancel">
-      <template #header> 정보가 수정되었습니다 </template>
+      <template #header>정보가 수정되었습니다</template>
     </ModalView>
 
     <ModalView
@@ -12,8 +12,8 @@
       :type="'warningType'"
       @click="changePw"
       @close="warningModalToggle">
-      <template #header> 정보가 저장되지 않았습니다 </template>
-      <template #body> 수정 사항을 삭제하고 이동하시겠습니까? </template>
+      <template #header>정보가 저장되지 않았습니다</template>
+      <template #body>수정 사항을 삭제하고 이동하시겠습니까?</template>
     </ModalView>
 
     <div class="profile">
@@ -51,45 +51,48 @@
       <span class="absolute top-1 right-2 text-xs text-gray-500"> {{ name.length }} / 10 </span>
       <input
         :class="[
-          'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2 text-black',
-          isInvalid ? 'border-red-1' : 'border-border-1'
+          'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2',
+          isInvalid || isFull ? 'border-red-1' : 'border-border-1'
         ]"
         placeholder="이름을 입력해주세요"
         v-model="name"
         maxlength="10"
         ref="nameInput"
         @blur="validateName" />
-      <span
-        v-show="isInvalid"
-        class="text-red-1 text-xs font-bold mt-1"
-        >이름에는 특수문자가 포함될 수 없습니다.</span
-      >
+      <div class="mb-1">
+        <span
+          v-show="isInvalid"
+          class="absolute text-red-1 text-xs font-bold mt-1"
+          >이름에는 특수문자가 포함될 수 없습니다.</span
+        >
+        <span
+          v-show="isFull"
+          class="absolute text-red-1 text-xs font-bold mt-1"
+          >이름은 1글자 이상, 10글자이하만 가능합니다.</span
+        >
+      </div>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">아이디</p>
-      <p class="mt-2 text-black">{{ info.nickname }}</p>
+      <p class="mt-2">{{ info.nickname }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">이메일</p>
-      <p class="mt-2 text-black">{{ info.email }}</p>
+      <p class="mt-2">{{ info.email }}</p>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-bold">부서</p>
-      <p class="mt-2 text-black">{{ info.departmentName }}</p>
+      <p class="mt-2">{{ info.departmentName }}</p>
     </div>
     <div
       v-if="info.departmentRole"
       class="flex flex-col">
       <p class="text-body text-xs font-bold">직무</p>
-      <p class="mt-2 text-black">{{ info.departmentRole }}</p>
+      <p class="mt-2">{{ info.departmentRole }}</p>
     </div>
     <div>
       <p class="text-body text-xs font-bold">알림 수신 여부</p>
       <div class="flex flex-col mt-2 gap-2">
-        <FormCheckbox
-          v-model="agitCheck"
-          :checkButtonName="'아지트'"
-          :isChecked="agitCheck" />
         <FormCheckbox
           v-model="kakaoWorkCheck"
           :checkButtonName="'카카오워크'"
@@ -134,7 +137,6 @@ const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 
 const name = ref(info.value.name)
-const agitCheck = ref(info.value.notificationSettingInfo.agit)
 const emailCheck = ref(info.value.notificationSettingInfo.email)
 const kakaoWorkCheck = ref(info.value.notificationSettingInfo.kakaoWork)
 const imageDelete = ref(info.value.profileImageUrl == null ? true : false)
@@ -143,6 +145,7 @@ const selectedFile = ref<File | null>(null)
 const previewUrl = ref<string | null>(null)
 
 const isInvalid = ref(false)
+const isFull = ref(false)
 const nameInput = ref<HTMLInputElement | null>(null)
 
 const isModalVisible = ref(false)
@@ -151,7 +154,6 @@ const isWarnningModalVisible = ref(false)
 watchEffect(() => {
   if (info.value) {
     name.value = info.value.name
-    agitCheck.value = info.value.notificationSettingInfo.agit
     emailCheck.value = info.value.notificationSettingInfo.email
     kakaoWorkCheck.value = info.value.notificationSettingInfo.kakaoWork
   }
@@ -160,8 +162,13 @@ watchEffect(() => {
 const validateName = () => {
   const regex = /[!@#$%^&*(),.?":{}|<>]/g
   isInvalid.value = regex.test(name.value)
+  if (name.value.length > 10 || name.value.length < 1) {
+    isFull.value = true
+  } else {
+    isFull.value = false
+  }
 
-  if (isInvalid.value) {
+  if (isInvalid.value || isFull.value) {
     nextTick(() => {
       nameInput.value?.focus()
     })
@@ -175,7 +182,6 @@ const handlePwChange = () => {
   if (
     selectedFile.value ||
     info.value.name != name.value ||
-    info.value.notificationSettingInfo.agit != agitCheck.value ||
     info.value.notificationSettingInfo.kakaoWork != kakaoWorkCheck.value ||
     info.value.notificationSettingInfo.email != emailCheck.value
   ) {
@@ -186,7 +192,7 @@ const handlePwChange = () => {
 }
 
 const changePw = () => {
-  router.push('/pw-check')
+  router.replace('/pw-check')
 }
 
 const warningModalToggle = () => {
@@ -209,12 +215,11 @@ const handleFileDelete = () => {
 }
 
 const handleSubmit = async () => {
-  if (isInvalid.value == false) {
+  if (isInvalid.value == false && isFull.value == false) {
     const formData = new FormData()
     const memberInfo = {
       name: name.value,
       isProfileImageDeleted: imageDelete.value,
-      agitNotification: agitCheck.value,
       emailNotification: emailCheck.value,
       kakaoWorkNotification: kakaoWorkCheck.value
     }

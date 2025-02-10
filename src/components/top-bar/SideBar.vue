@@ -27,7 +27,7 @@
               :key="menuItem.menuId">
               <RouterLink
                 :to="menuItem.link"
-                class="flex items-center text-black w-full h-[52px] hover:bg-background-2"
+                class="flex items-center w-full h-[52px] hover:bg-background-2"
                 :class="
                   menuItem.link === route.path
                     ? 'px-4 border-l-8 border-primary1 font-bold'
@@ -48,7 +48,7 @@
             :size="40" />
           <div class="flex flex-col gap-1">
             <p class="text-xs text-body font-bold">{{ name }}</p>
-            <p class="text-sm text-black">{{ nickname }}</p>
+            <p class="text-sm">{{ nickname }}</p>
           </div>
         </div>
         <div class="flex items-end whitespace-nowrap">

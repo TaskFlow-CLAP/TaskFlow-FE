@@ -4,7 +4,7 @@
       :isOpen="isModalVisible"
       :type="'successType'"
       @close="handleCancel">
-      <template #header> 회원정보가 수정되었습니다 </template>
+      <template #header>회원정보가 수정되었습니다</template>
     </ModalView>
     <RequestTaskInput
       v-model="userRegistrationForm.name"

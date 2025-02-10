@@ -11,16 +11,15 @@
       class="flex flex-col text-xs gap-1"
       v-if="type === 'COMMENT'">
       <span>
-        <span class="font-bold text-primary1">"{{ title }}""</span> 작업에 새로운 댓글이
+        <span class="font-bold text-primary1">"{{ title }}"</span> 작업에 새로운 댓글이
         추가되었습니다
       </span>
-      <span class="font-bold text-body">"{{ message }}"</span>
+      <span class="font-bold text-body line-clamp-2">"{{ message }}"</span>
     </div>
     <div
-      class="flex flex-col text-xs gap-1"
+      class="text-xs"
       v-else-if="type === 'TASK_REQUESTED'">
-      <span>새 작업이 요청되었습니다</span>
-      <span class="font-bold text-primary1">"{{ title }}"</span>
+      <span class="font-bold text-primary1">"{{ title }}"</span> 작업이 요청되었습니다
     </div>
     <div
       class="text-xs"

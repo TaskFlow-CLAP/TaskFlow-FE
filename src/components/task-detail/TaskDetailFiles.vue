@@ -2,7 +2,7 @@
   <div class="w-full h-32 border border-border-1 rounded">
     <div
       class="flex w-full justify-between items-center h-6 text-[10px] text-body font-bold bg-border-2 border-b border-b-border-1 px-4">
-      <p class="w-7">파일명</p>
+      <p class="w-7 whitespace-nowrap">파일명</p>
       <div class="flex gap-6">
         <p class="w-[60px]">용량</p>
         <p class="w-36">최종 업로드 시각</p>
@@ -15,7 +15,7 @@
       <div
         v-for="file in files"
         :key="file.fileName"
-        class="flex w-full justify-between items-center h-8 text-xs border-b border-b-border-2 text-black px-4 shrink-0">
+        class="flex w-full justify-between items-center h-8 text-xs border-b border-b-border-2 px-4 shrink-0">
         <p class="flex truncate mr-3">{{ file.fileName }}</p>
         <div class="flex gap-6">
           <p class="w-[60px]">{{ file.fileSize }}</p>

@@ -3,20 +3,20 @@
     <div class="flex gap-2 text-sm font-bold">
       <div
         v-if="isApproved && isRequestor"
-        @click="router.push(`/task-request?requestType=re&id=${id}`)"
+        @click="onButtonClick(`/task-request?requestType=re&id=${id}`)"
         class="flex gap-1 items-center cursor-pointer p-1 hover:bg-background-2 rounded">
         <CommonIcons :name="reRequestIcon" />
         <p class="text-body">재요청</p>
       </div>
       <div
         v-if="!isApproved && isRequestor"
-        @click="router.push(`/task-request?requestType=edit&id=${id}`)"
+        @click="onButtonClick(`/task-request?requestType=edit&id=${id}`)"
         class="flex gap-1 items-center cursor-pointer p-1 hover:bg-background-2 rounded">
         <CommonIcons :name="modificationIcon" />
         <p class="text-primary1">요청 수정</p>
       </div>
       <div
-        @click="ApproveTask"
+        @click="onButtonClick(`/request-approve?requestId=${id}`)"
         v-if="isReviewer && !isApproved"
         class="flex gap-1 items-center cursor-pointer p-1 hover:bg-background-2 rounded">
         <CommonIcons :name="approveIcon" />
@@ -104,7 +104,8 @@ const finishCancel = async () => {
   closeTaskDetail()
 }
 
-const ApproveTask = () => {
-  router.push(`/request-approve?requestId=${id}`)
+const onButtonClick = (url: string) => {
+  document.body.style.overflow = ''
+  router.push(url)
 }
 </script>

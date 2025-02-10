@@ -11,7 +11,7 @@
         <div class="category-management-line justify-between bg-white">
           <div class="flex gap-4 items-center">
             <p class="text-xs font-bold text-body w-[60px] text-center">{{ sub.code }}</p>
-            <p class="text-black">{{ sub.name }}</p>
+            <p>{{ sub.name }}</p>
           </div>
           <div class="flex gap-2 text-xs font-bold">
             <button

@@ -15,12 +15,12 @@
     <form
       @submit.prevent="handleLogin"
       class="mb-2">
-      <div class="mb-6">
+      <div class="mb-7">
         <input
           type="text"
-          id="nickname"
-          v-model="nickname"
-          placeholder="닉네임을 입력해주세요"
+          id="id"
+          v-model="id"
+          placeholder="아이디를 입력해주세요"
           required
           class="input-box" />
       </div>
@@ -41,7 +41,7 @@
     </form>
     <div class="flex w-full justify-center">
       <RouterLink
-        class="text-body font-bold text-[12px]"
+        class="text-body font-bold text-[12px] hover:underline"
         to="/pw-change-email"
         >비밀번호 재설정</RouterLink
       >
@@ -61,7 +61,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-const nickname = ref('')
+const id = ref('')
 const password = ref('')
 const memberStore = useMemberStore()
 
@@ -76,7 +76,7 @@ const closeModal = () => {
 
 const handleLogin = async () => {
   try {
-    const name = nickname.value.toString()
+    const name = id.value.toString()
     const res = await postLogin(name, password.value)
     const role = await memberStore.updateMemberInfoWithToken()
 
@@ -85,30 +85,48 @@ const handleLogin = async () => {
     } else if (res && role && Cookies.get('refreshToken')) {
       switch (role) {
         case 'ROLE_ADMIN':
-          router.push('/member-management')
+          router.replace('/member-management')
           break
         case 'ROLE_MANAGER':
-          router.push('my-request')
+          router.replace('my-task')
           break
         case 'ROLE_USER':
-          router.push('/my-request')
+          router.replace('/my-request')
           break
         default:
-          router.push('/')
+          router.replace('/')
       }
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
       switch (error.response?.status) {
         case 401:
+          if (error.response?.data == 'AUTH_015') {
+            messageHeader.value = '정지된 계정입니다'
+            messageBody.value =
+              '로그인 시도 5회 초과로 계정이 정지되었습니다\n30분 후 다시 시도해주세요'
+          } else {
+            messageHeader.value = '일치하는 정보가 없습니다'
+            messageBody.value = '닉네임과 비밀번호를 다시 확인해주세요'
+          }
           isModalVisible.value = !isModalVisible.value
-          messageHeader.value = '일치하는 정보가 없습니다'
-          messageBody.value = '닉네임과 비밀번호를 다시 확인해 주세요'
+          break
+
+        case 404:
+          isModalVisible.value = !isModalVisible.value
+          messageHeader.value = '활성화 되어있지 않은 계정입니다'
+          messageBody.value = '접근 상태를 다시 확인하여주세요'
           break
 
         case 500:
           isModalVisible.value = !isModalVisible.value
           messageHeader.value = '서버에 문제가 발생했습니다'
+          messageBody.value = '잠시 후 다시 이용해주세요'
+          break
+
+        default:
+          isModalVisible.value = !isModalVisible.value
+          messageHeader.value = '문제가 발생했습니다'
           messageBody.value = '잠시후 다시 이용해주세요'
           break
       }

@@ -79,13 +79,13 @@ const closeModal = () => {
 }
 
 const textColor = (taskStatus: Status) => {
-  return currentStatus.value === taskStatus ? 'text-white' : `text-gray-1`
+  return currentStatus.value === taskStatus ? 'text-white' : `text-zinc-400`
 }
 
 const bgColor = (taskStatus: Status) => {
   return currentStatus.value === taskStatus
     ? `bg-${statusAsColor(taskStatus)}-1`
-    : `bg-gray-2${isProcessor ? ' hover:bg-background-1' : ''}`
+    : `bg-zinc-100${isProcessor ? ' hover:bg-zinc-200' : ''}`
 }
 
 const rejectRequest = async () => {

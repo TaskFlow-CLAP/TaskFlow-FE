@@ -3,7 +3,6 @@
     :onClick="closeTaskDetail"
     class="fixed inset-0 bg-black bg-opacity-15 flex justify-center items-center z-50 p-12" />
   <div
-    @click.stop
     class="flex flex-col overflow-y-auto rounded-lg w-[calc(100%-96px)] max-w-[1104px] min-w-[768px] h-[calc(100%-96px)] bg-white shadow-custom py-6 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
     <TaskDetailTopBar
       v-if="data"
@@ -45,7 +44,7 @@ import TaskDetailTopBar from './TaskDetailTopBar.vue'
 const { closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
 
 const memberStore = useMemberStore()
-const { info } = storeToRefs(memberStore)
+const { info, isLogined } = storeToRefs(memberStore)
 
 const { data } = useQuery<TaskDetailDatas>({
   queryKey: ['taskDetailUser', selectedId],
@@ -59,6 +58,7 @@ const { data } = useQuery<TaskDetailDatas>({
 
 const { data: historyData } = useQuery<TaskDetailHistoryData>({
   queryKey: ['historyData', selectedId],
-  queryFn: () => getHistory(selectedId)
+  queryFn: () => getHistory(selectedId),
+  enabled: isLogined
 })
 </script>

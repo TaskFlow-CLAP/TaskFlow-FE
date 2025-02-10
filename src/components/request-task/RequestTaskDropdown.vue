@@ -7,7 +7,7 @@
     <div class="relative flex">
       <div
         class="flex w-full h-11 items-center rounded p-4 border border-border-1"
-        :class="disabled ? 'bg-background-1 text-disabled' : 'bg-white text-black cursor-pointer'"
+        :class="disabled ? 'bg-background-1 text-disabled' : 'bg-white cursor-pointer'"
         @click="!disabled && toggleDropdown()">
         <p :class="{ 'text-disabled': modelValue === placeholderText }">
           {{ modelValue || placeholderText }}
@@ -18,7 +18,7 @@
       </div>
       <div
         v-if="dropdownOpen"
-        class="absolute w-full h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2 text-black">
+        class="absolute w-full h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2">
         <div
           v-for="option in options"
           :key="option"

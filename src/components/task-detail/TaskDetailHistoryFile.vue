@@ -2,8 +2,8 @@
   <div :class="['flex w-full', isProcessor ? 'justify-end' : 'justify-start']">
     <div :class="['w-10 h-10 rounded-full pt-1.5', isProcessor ? 'order-3' : 'order-1']">
       <ImageContainer
-        :url="history.details.commentDetails?.profileImageUrl"
-        :size="40" />
+        :size="40"
+        :url="history.details.commentFileDetails?.profileImageUrl" />
     </div>
     <div
       :class="[
@@ -14,11 +14,11 @@
       <div :class="['flex gap-2', isProcessor ? 'flex-row-reverse' : 'flex-row']">
         <div
           :class="[
-            'flex max-w-[400px] flex-wrap px-4 py-3 gap-4 items-center text-black rounded-lg',
+            'flex max-w-[400px] flex-wrap px-4 py-3 gap-4 items-center rounded-lg',
             isProcessor ? 'bg-primary2' : 'bg-background-2'
           ]">
           <a
-            class="w-10 h-10 flex items-center justify-center bg-white border border-border-2 rounded-lg"
+            class="w-10 h-10 flex items-center justify-center bg-white border border-border-2 rounded-lg shrink-0 hover:bg-primary2"
             :href="history.details.commentFileDetails?.url"
             download>
             <CommonIcons :name="fileIcon" />

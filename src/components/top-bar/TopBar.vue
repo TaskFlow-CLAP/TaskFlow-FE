@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed w-full bg-white text-black py-2 border-b border-border-1 z-50">
+  <div class="fixed w-full bg-white py-2 border-b border-border-1 z-50">
     <div class="max-w-[1200px] mx-auto px-6 flex w-full justify-between items-center relative">
       <div class="flex justify-center items-center gap-6 h-full">
         <button
@@ -79,13 +79,13 @@ onMounted(async () => {
 
   const originUrl = route.path.split('/')[1]
   if (info.value.role === 'ROLE_USER') {
-    if (!PERMITTED_URL.ROLE_USER.includes(originUrl)) router.push('/my-request')
+    if (!PERMITTED_URL.ROLE_USER.includes(originUrl)) router.replace('/my-request')
   } else if (info.value.role === 'ROLE_MANAGER') {
-    if (!PERMITTED_URL.ROLE_MANAGER.includes(originUrl)) router.push('/my-task')
+    if (!PERMITTED_URL.ROLE_MANAGER.includes(originUrl)) router.replace('/my-task')
   } else if (info.value.role === 'ROLE_ADMIN') {
-    if (!PERMITTED_URL.ROLE_ADMIN.includes(originUrl)) router.push('/member-management')
+    if (!PERMITTED_URL.ROLE_ADMIN.includes(originUrl)) router.replace('/member-management')
   } else {
-    if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) router.push('/login')
+    if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) router.replace('/login')
   }
 })
 
