@@ -6,6 +6,7 @@
     ]">
     <textarea
       class="w-full h-20 focus:outline-none resize-none"
+      :class="isPossible ? 'bg-white' : 'bg-background-2'"
       :placeholder="placeHolderText"
       v-model="messageText"
       :disabled="!isPossible"
