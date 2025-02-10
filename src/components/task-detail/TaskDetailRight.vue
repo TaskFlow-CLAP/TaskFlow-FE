@@ -68,7 +68,7 @@
       <p class="task-detail">구분</p>
       <TaskDetailLabelDropdown
         v-model="taskLabel"
-        :placeholder-text="'라벨을 선택해주세요'"
+        :placeholder-text="'구분을 선택해주세요'"
         :task-id="data.taskId" />
     </div>
   </div>
