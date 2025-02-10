@@ -5,6 +5,7 @@
       <p v-if="!isNotRequired">*</p>
       <p v-if="isInvalidateState === 'input'">{{ labelName }}을 입력해주세요</p>
       <p v-if="isInvalidateState === 'duplicate'">회원아이디가 중복되었습니다</p>
+      <p v-if="isInvalidateState === 'title'">제목은 30자 이내로 적어주세요</p>
     </div>
     <input
       class="w-full h-11 border border-border-1 px-4 focus:outline-none text-black rounded"
