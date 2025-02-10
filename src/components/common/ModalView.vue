@@ -14,7 +14,7 @@
               v-if="type == 'successType'"
               :name="successIcon" />
             <CommonIcons
-              v-if="type == 'failType' || type == 'inputType'"
+              v-if="type == 'failType' || type == 'inputType' || type === 'terminate'"
               :name="failIcon" />
             <CommonIcons
               v-if="type == 'warningType'"
@@ -32,9 +32,11 @@
           </div>
 
           <textarea
-            v-if="type == 'inputType'"
+            v-if="type == 'inputType' || type === 'terminate'"
             v-model="textValue"
-            placeholder="거부 사유를 입력해주세요"
+            :placeholder="
+              type === 'terminate' ? '종료 사유를 입력해주세요' : '반려 사유를 입력해주세요'
+            "
             class="flex border w-full border-border-1 px-4 py-3 focus:outline-none resize-none h-[120px]" />
         </div>
 
@@ -56,7 +58,7 @@
 
         <div
           class="flex items-center gap-6"
-          v-if="type == 'warningType' || type == 'inputType'">
+          v-if="type == 'warningType' || type == 'inputType' || type === 'terminate'">
           <button
             type="button"
             class="button-large-default"
@@ -67,7 +69,7 @@
             type="button"
             class="button-large-red"
             @click="confirmModal">
-            {{ type === 'inputType' ? '거부' : '삭제' }}
+            {{ type === 'inputType' ? '반려' : type === 'terminate' ? '종료' : '삭제' }}
           </button>
         </div>
       </div>
@@ -78,7 +80,7 @@
 <script setup lang="ts">
 import { failIcon, successIcon, warningIcon } from '@/constants/iconPath'
 import { ref, watch } from 'vue'
-import CommonIcons from './CommonIcons.vue';
+import CommonIcons from './CommonIcons.vue'
 
 const props = defineProps<{
   isOpen: boolean
