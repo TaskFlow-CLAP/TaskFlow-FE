@@ -17,14 +17,14 @@
       </div>
       <div
         @click="ApproveTask"
-        v-if="isProcessor && !isApproved"
+        v-if="isReviewer && !isApproved"
         class="flex gap-1 items-center cursor-pointer p-1 hover:bg-background-2 rounded">
         <CommonIcons :name="approveIcon" />
         <p class="text-primary1">요청 승인</p>
       </div>
       <div
         @click="toggleModal('cancel')"
-        v-if="!isApproved && (isRequestor || isProcessor)"
+        v-if="!isApproved && (isRequestor || isReviewer)"
         class="flex gap-1 items-center cursor-pointer p-1 hover:bg-background-2 rounded">
         <CommonIcons :name="cancelIcon" />
         <p class="text-red-1">요청 취소</p>
@@ -68,7 +68,7 @@ import { useRouter } from 'vue-router'
 import CommonIcons from '../common/CommonIcons.vue'
 
 const router = useRouter()
-const { isApproved, closeTaskDetail, id, isProcessor, isRequestor } =
+const { isApproved, closeTaskDetail, id, isReviewer, isRequestor } =
   defineProps<TaskDetailTopBarProps>()
 
 import { useQueryClient } from '@tanstack/vue-query'

@@ -10,7 +10,7 @@
       :is-approved="data.taskStatus !== 'REQUESTED'"
       :close-task-detail="closeTaskDetail"
       :id="data?.taskId || 0"
-      :isProcessor="data?.processorNickName === info.nickname || info.role === 'ROLE_MANAGER'"
+      :isReviewer="info.isReviewer"
       :isRequestor="data?.requesterNickName === info.nickname" />
     <div
       v-if="data"

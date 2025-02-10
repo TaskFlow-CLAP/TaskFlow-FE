@@ -54,9 +54,9 @@
         <p class="text-sm text-black">{{ data.processorNickName || '-' }}</p>
       </div>
     </div>
-    <div v-if="data.taskStatus !== 'REQUESTED' && isProcessor">
+    <div v-if="data.taskStatus !== 'REQUESTED' && info.isReviewer">
+      <p class="task-detail">마감기한</p>
       <div v-if="data.dueDate">
-        <p class="task-detail">마감기한</p>
         <div class="w-full flex justify-between items-center">
           <p class="text-sm text-black">{{ formatDueDate(data.dueDate) || '-' }}</p>
         </div>
@@ -64,7 +64,7 @@
       </div>
       <div v-else>-</div>
     </div>
-    <div v-if="data.taskStatus !== 'REQUESTED' && isProcessor">
+    <div v-if="data.taskStatus !== 'REQUESTED' && info.isReviewer">
       <p class="task-detail">구분</p>
       <TaskDetailLabelDropdown
         v-model="taskLabel"
