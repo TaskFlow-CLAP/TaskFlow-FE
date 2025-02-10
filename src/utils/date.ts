@@ -87,3 +87,10 @@ export const formatFullDateTime = (dateString: string) => {
 
   return `${year}.${month}.${day} ${period} ${hours}:${minutes}:${seconds}`
 }
+
+export const isAfterNow = (dateString: string, timeString: string) => {
+  const date = new Date(`${dateString}T${timeString}`)
+  const now = new Date()
+
+  return date > now
+}
