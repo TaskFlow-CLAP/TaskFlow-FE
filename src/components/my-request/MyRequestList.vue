@@ -26,13 +26,15 @@ import { useRequestParamsStore } from '@/stores/params'
 import type { MyRequestResponse } from '@/types/user'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
-import { useParseParams } from '../hooks/useParseParams'
+import { computed } from 'vue'
 import ListContainer from '../lists/ListContainer.vue'
 import ListPagination from '../lists/ListPagination.vue'
 import NoContent from '../lists/NoContent.vue'
 import MyRequestListBar from './MyRequestListBar.vue'
 import MyRequestListCard from './MyRequestListCard.vue'
-import { computed } from 'vue'
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+import { useParseParams } from '@/hooks/useParseParams'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
@@ -42,18 +44,16 @@ const onPageChange = (value: number) => {
 const fetchMyRequestList = async () => {
   const { parseRequestParams } = useParseParams()
   const parsedParams = parseRequestParams(params)
-  const response = await axiosInstance.get('/api/tasks/requests', {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-    },
-    params: parsedParams
-  })
+  const response = await axiosInstance.get('/api/tasks/requests', { params: parsedParams })
   return response.data
 }
 
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery<MyRequestResponse>({
   queryKey: ['myRequest', params],
-  queryFn: fetchMyRequestList
+  queryFn: fetchMyRequestList,
+  enabled: isLogined
 })
 
 const totalPage = computed(() => {

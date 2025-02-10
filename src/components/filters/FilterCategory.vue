@@ -3,6 +3,7 @@
     <div class="filter-container grow">
       <span class="filter-title">1차 카테고리</span>
       <div
+        ref="mainRef"
         class="filter-dropdown"
         @click="toggleDropdown('main')">
         <span class="grow text-center">선택</span>
@@ -31,6 +32,7 @@
     <div class="filter-container grow">
       <span class="filter-title">2차 카테고리</span>
       <div
+        ref="subRef"
         class="filter-dropdown"
         :class="isDisabled ? 'bg-background-2 text-disabled' : 'text-black'"
         @click="!isDisabled && toggleDropdown('sub')">
@@ -77,6 +79,7 @@ import { dropdownIcon } from '@/constants/iconPath'
 import type { Category, FilterCategoryProps } from '@/types/common'
 import { computed, ref, watchEffect } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 const { categoryList = [], main, sub } = defineProps<FilterCategoryProps>()
 const emit = defineEmits(['update:main', 'update:sub'])
@@ -121,4 +124,7 @@ const onMainClick = (category: Category) => {
 const onSubClick = (value: number) => {
   emit('update:sub', value)
 }
+
+const { htmlRef: mainRef } = useOutsideClick(() => isMainOpened.value && toggleDropdown('main'))
+const { htmlRef: subRef } = useOutsideClick(() => isSubOpened.value && toggleDropdown('sub'))
 </script>

@@ -27,12 +27,14 @@ import ListContainer from '../lists/ListContainer.vue'
 import { useRequestParamsStore } from '@/stores/params'
 import RequestHistoryListBar from './RequestHistoryListBar.vue'
 import RequestHistoryListCard from './RequestHistoryListCard.vue'
-import { useParseParams } from '../hooks/useParseParams'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
 import type { RequestHistoryResponse } from '@/types/manager'
 import NoContent from '../lists/NoContent.vue'
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+import { useParseParams } from '@/hooks/useParseParams'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
@@ -42,18 +44,16 @@ const onPageChange = (value: number) => {
 const fetchRequestHistoryList = async () => {
   const { parseRequestParams } = useParseParams()
   const parsedParams = parseRequestParams(params)
-  const response = await axiosInstance.get('/api/tasks', {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-    },
-    params: parsedParams
-  })
+  const response = await axiosInstance.get('/api/tasks', { params: parsedParams })
   return response.data
 }
 
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery<RequestHistoryResponse>({
   queryKey: ['requestHistory', params],
-  queryFn: fetchRequestHistoryList
+  queryFn: fetchRequestHistoryList,
+  enabled: isLogined
 })
 
 const totalPage = computed(() => {

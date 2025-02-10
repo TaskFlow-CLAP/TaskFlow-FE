@@ -1,12 +1,29 @@
 import { axiosInstance } from '@/utils/axios'
 import Cookies from 'js-cookie'
 import type { loginDataTypes } from '@/types/auth'
+import { useMemberStore } from '@/stores/member'
 
-export const postLogin = async (loginData: loginDataTypes, sessionId: string) => {
-  const response = await axiosInstance.post('/api/auths/login', loginData, {
-    headers: { sessionId: sessionId }
-  })
+export const postPasswordEmailSend = async (name: string, email: string) => {
+  const request = {
+    name: name,
+    email: email
+  }
+  const response = await axiosInstance.post('/api/new-password', request)
+  return response.data
+}
+
+export const postPasswordCheck = async (password: string) => {
+  const response = await axiosInstance.post('/api/members/password', { password: password })
+  return response.data
+}
+
+export const postLogin = async (loginData: loginDataTypes) => {
+  const response = await axiosInstance.post('/api/auths/login', loginData)
   Cookies.set('accessToken', response.data.accessToken, {
+    path: '/',
+    sameSite: 'strict'
+  })
+  Cookies.set('refreshToken', response.data.refreshToken, {
     path: '/',
     sameSite: 'strict'
   })
@@ -14,15 +31,14 @@ export const postLogin = async (loginData: loginDataTypes, sessionId: string) =>
 }
 
 export const patchPassword = async (password: string) => {
-  const accessToken = Cookies.get('accessToken')
-
-  if (!accessToken) return
-
-  const response = await axiosInstance.patch('/api/members/password', password, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
-  })
-
+  const request = { password: password }
+  const response = await axiosInstance.patch('/api/members/password', request)
   return response.data
+}
+
+export const deleteLogout = async () => {
+  const memberStore = useMemberStore()
+  memberStore.$reset()
+  Cookies.remove('accessToken')
+  Cookies.remove('refreshToken')
 }

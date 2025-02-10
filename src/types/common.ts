@@ -1,4 +1,5 @@
 import type { Ref } from 'vue'
+import type { TaskHistory } from './user'
 
 export interface Filter {
   title: string
@@ -24,6 +25,7 @@ export interface SubCategory {
   mainCategoryId: number
   name: string
   code: string
+  descriptionExample: string
 }
 
 export interface FilterCategoryProps {
@@ -50,14 +52,14 @@ export interface ListBarTabProps {
   justifyCenter?: boolean
 }
 
-export type Status = 'REQUESTED' | 'IN_PROGRESS' | 'PENDING_COMPLETED' | 'COMPLETED' | 'TERMINATED'
+export type Status = 'REQUESTED' | 'IN_PROGRESS' | 'IN_REVIEWING' | 'COMPLETED' | 'TERMINATED'
 
 export type SortDirection = 'DESC' | 'ASC'
 
-export type Role = 'USER' | 'MANAGER' | 'ADMIN'
+export type Role = 'ROLE_USER' | 'ROLE_MANAGER' | 'ROLE_ADMIN'
 
 export interface DueDateInputProps {
-  modelValue: string
+  modelValue: string | null
   inputType: string
 }
 
@@ -69,20 +71,21 @@ export interface FormButtonProps {
 }
 
 export interface FormCheckboxProps {
-  labelName?: string
   checkButtonName: string
   isChecked: boolean
+  labelName?: string
+  isDisabled?: boolean
 }
 
 export interface ColorSelectProps {
   isOpen: boolean
-  newLabel: LabelDataTypes
 }
 
 export interface CategoryForm {
   name: string
   code: string
   mainCategoryId?: number
+  descriptionExample?: string
 }
 
 export interface CategoryDropdownProps {
@@ -95,7 +98,7 @@ export interface CategoryDropdownProps {
 }
 
 export interface LabelDataTypes {
-  labelId?: number
+  labelId: number
   labelName: string
   labelColor: string
 }
@@ -109,4 +112,33 @@ export interface LabelColorTypes {
 export interface TaskStatusListTypes {
   value: Status
   content: string
+}
+
+export type NotificationType =
+  | 'COMMENT'
+  | 'TASK_REQUESTED'
+  | 'STATUS_SWITCHED'
+  | 'PROCESSOR_ASSIGNED'
+  | 'PROCESSOR_CHANGED'
+
+export interface NotificationContent {
+  notificationId: number
+  taskId: number
+  notificationType: NotificationType
+  receiverId: number
+  taskTitle: string
+  message: string
+  isRead: boolean
+  createdAt: string
+}
+export interface TaskDetailHistoryProps {
+  historyData: TaskHistory[]
+  taskId: number
+  requestorName: string
+}
+
+export interface TaskDetailHistoryChatProps {
+  history: TaskHistory
+  taskId: number
+  requestorName: string
 }

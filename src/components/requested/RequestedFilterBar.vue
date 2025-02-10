@@ -33,22 +33,22 @@ import FilterCategory from '../filters/FilterCategory.vue'
 import FilterInput from '../filters/FilterInput.vue'
 import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
 import { useRequestParamsStore } from '@/stores/params'
-import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 import { useQuery } from '@tanstack/vue-query'
-import { axiosInstance } from '@/utils/axios'
+import { getCategory } from '@/api/common'
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+import { useRequestParamsChange } from '@/hooks/useRequestParamsChange'
 
 const store = useRequestParamsStore()
 store.$reset()
 
 const onParamsChange = useRequestParamsChange()
 
-const fetchCategory = async () => {
-  const response = await axiosInstance.get('/api/category')
-  return response.data
-}
-
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery({
   queryKey: ['category'],
-  queryFn: fetchCategory
+  queryFn: getCategory,
+  enabled: isLogined
 })
 </script>

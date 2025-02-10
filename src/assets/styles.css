@@ -11,6 +11,7 @@
 
 body {
   font-family: 'SUIT-Variable', sans-serif;
+  color: #18181b;
 }
 
 .shadow-custom {
@@ -37,29 +38,29 @@ body {
   @apply flex w-full py-3 font-bold border rounded items-center justify-center min-w-[138px];
 }
 .button-large-default {
-  @apply button-large bg-white text-zinc-400 border-zinc-400;
+  @apply button-large bg-white text-disabled border-border-1 hover:bg-background-2;
 }
 .button-large-red {
-  @apply button-large bg-red-1 text-white border-red-1;
+  @apply button-large bg-red-1 text-white border-red-1 hover:bg-[#D61E1E];
 }
 .button-large-primary {
-  @apply button-large bg-primary1 text-white border-primary1;
+  @apply button-large bg-primary1 text-white border-primary1 hover:bg-[#6D6EF0];
 }
 
 .button-medium {
   @apply flex items-center justify-center rounded px-4 py-2 font-bold gap-1 text-xs cursor-pointer shrink-0;
 }
 .button-medium-primary {
-  @apply button-medium bg-primary1 text-white;
+  @apply button-medium bg-primary1 text-white hover:bg-[#6869DE];
 }
 .button-medium-secondary {
-  @apply button-medium bg-white border border-primary1 text-primary1;
+  @apply button-medium bg-white border border-primary1 text-primary1 hover:bg-background-2;
 }
 .button-medium-default {
-  @apply button-medium bg-white border border-border-1 text-disabled;
+  @apply button-medium bg-white border border-border-1 text-disabled hover:bg-background-2;
 }
 .button-medium-red {
-  @apply button-medium bg-white border border-red-1 text-red-1;
+  @apply button-medium bg-white border border-red-1 text-red-1 hover:bg-background-2;
 }
 
 .button-small {
@@ -110,7 +111,7 @@ body {
   @apply flex w-full h-11 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-black;
 }
 .request-task-dropdown-option-list {
-  @apply absolute w-full h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2 text-black;
+  @apply absolute w-full h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom text-black;
 }
 .request-task-dropdown-option {
   @apply w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer;
@@ -137,4 +138,41 @@ body {
 }
 .task-detail-dropdown-option {
   @apply w-full flex items-center h-10 p-2 rounded hover:bg-background-2 cursor-pointer;
+}
+.task-detail-manager-dropdown {
+  @apply flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-black;
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition:
+    transform 0.25s ease-in-out,
+    opacity 0.25s ease-in-out;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  transform: translate(-50%, -40%);
+  opacity: 0;
+}
+
+.modal-enter-to,
+.modal-leave-from {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.sidebar-enter-active,
+.sidebar-leave-active {
+  transition: transform 0.25s ease-in-out;
+}
+
+.sidebar-enter-from,
+.sidebar-leave-to {
+  transform: translateX(-100%);
+}
+
+.sidebar-enter-to,
+.sidebar-leave-from {
+  transform: translateX(0);
 }

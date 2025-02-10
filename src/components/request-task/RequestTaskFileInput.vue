@@ -22,14 +22,22 @@
         <p>파일 선택</p>
       </label>
     </div>
+    <ModalView
+      :is-open="isModalVisible"
+      type="failType"
+      @close="handleModal">
+      <template #header>파일추가를 실패했습니다</template>
+      <template #body>최대 5개, 각 5mb까지 가능합니다.</template>
+    </ModalView>
   </div>
 </template>
 
 <script lang="ts" setup>
 import CommonIcons from '@/components/common/CommonIcons.vue'
 import { uploadIcon } from '@/constants/iconPath'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import RequestTaskFileInputAfter from './RequestTaskFileInputAfter.vue'
+import ModalView from '../common/ModalView.vue'
 
 const { modelValue } = defineProps<{
   modelValue: File[] | null
@@ -37,13 +45,26 @@ const { modelValue } = defineProps<{
 const emit = defineEmits(['update:modelValue'])
 
 const hasFiles = computed(() => modelValue && modelValue.length > 0)
+const isModalVisible = ref(false)
+
+const handleModal = () => {
+  isModalVisible.value = !isModalVisible.value
+}
 
 const handleFileUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
   if (target.files && target.files.length > 0) {
-    const newFiles = Array.from(target.files)
+    const newFiles = Array.from(target.files).filter(file => file.size <= 5 * 1024 * 1024)
+    if (newFiles.length !== target.files.length) {
+      handleModal()
+      return
+    }
     const updatedFiles = modelValue ? [...modelValue, ...newFiles] : newFiles
-    emit('update:modelValue', updatedFiles)
+    if (updatedFiles.length > 5) {
+      handleModal()
+      return
+    }
+    emit('update:modelValue', updatedFiles.length === 1 ? [updatedFiles[0]] : updatedFiles)
   }
 }
 

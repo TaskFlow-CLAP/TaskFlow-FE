@@ -5,34 +5,59 @@
         :team-summary="teamSummary"
         :team-data="teamData" />
       <TeamBoardCard
-        v-for="member in DUMMY_TEAM_MEMBERS_LIST"
-        :key="member.name"
-        :name="member.name"
-        :department="member.department"
-        :task-status-summary="member.taskStatusSummary"
-        :tasks="member.tasks" />
+        v-for="member in data?.members"
+        :key="member.processorId"
+        :info="member" />
+      <NoContent
+        v-if="data?.members.length === 0"
+        content="검색된 담당자가 없습니다" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { DUMMY_TEAM_MEMBERS_LIST } from '@/datas/dummy'
 import TeamBoardCard from './TeamBoardCard.vue'
 import CurrentTaskRatio from './CurrentTaskRatio.vue'
+import { axiosInstance } from '@/utils/axios'
+import { useTeamBoardParamsStore } from '@/stores/params'
+import { useQuery } from '@tanstack/vue-query'
+import type { TeamBoardResponse } from '@/types/manager'
+import { computed } from 'vue'
+import NoContent from '../lists/NoContent.vue'
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+import { useParseParams } from '@/hooks/useParseParams'
 
-const getSummaryCount = (key: 'inProgress' | 'pendingCompletion' | 'totalTasks') => {
-  let count = 0
-  DUMMY_TEAM_MEMBERS_LIST.forEach(el => (count += el.taskStatusSummary[key]))
-  return count
-}
-const teamSummary = {
-  inProgress: getSummaryCount('inProgress'),
-  pendingCompletion: getSummaryCount('pendingCompletion'),
-  totalTasks: getSummaryCount('totalTasks')
-}
+const { params } = useTeamBoardParamsStore()
 
-const teamData = DUMMY_TEAM_MEMBERS_LIST.map(el => ({
-  name: el.name,
-  tasks: el.taskStatusSummary.totalTasks
-}))
+const fetchTeamStatus = async () => {
+  const { parseBoardParams } = useParseParams()
+  const parsedParams = parseBoardParams(params)
+  const response = await axiosInstance.get('/api/team-status', { params: parsedParams })
+  return response.data
+}
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
+const { data } = useQuery<TeamBoardResponse>({
+  queryKey: ['teamStatus', params],
+  queryFn: fetchTeamStatus,
+  enabled: isLogined
+})
+
+const teamSummary = computed(() => {
+  return {
+    inProgress: data.value?.totalInProgressTaskCount || 0,
+    inReviewing: data.value?.totalInReviewingTaskCount || 0,
+    totalTasks: data.value?.totalTaskCount || 0
+  }
+})
+
+const teamData = computed(() => {
+  return (
+    data.value?.members.map(el => ({
+      name: el.nickname,
+      tasks: el.totalTaskCount
+    })) || []
+  )
+})
 </script>

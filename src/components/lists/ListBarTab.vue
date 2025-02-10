@@ -5,6 +5,7 @@
     :class="`${!width && 'grow'} ${justifyCenter && 'justify-center'}`">
     {{ content }}
     <button
+      type="button"
       v-if="sortBy"
       @click="$emit('toggleSortBy', sortBy)">
       <OrderIcon
@@ -15,9 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import OrderIcon from '../OrderIcon.vue'
 import type { ListBarTabProps } from '@/types/common'
+import { computed } from 'vue'
+import OrderIcon from '../common/OrderIcon.vue'
 
 const { content, width, sortBy, currentOrderRequest } = defineProps<ListBarTabProps>()
 defineEmits(['toggleSortBy'])

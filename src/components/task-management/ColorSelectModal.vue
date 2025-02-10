@@ -3,10 +3,10 @@
     v-if="isOpen"
     class="absolute top-7 left-3 w-[176px] h-[120px] p-4 flex flex-col !z-50 shadow-custom rounded-lg bg-white gap-4 import"
     @click.self="closeModal">
-    <div class="flex w-full justify-between">
+    <div class="flex w-full justify-between items-center">
       <p class="text-xs font-bold text-body">색상 선택</p>
       <CommonIcons
-        :class="'cursor-pointer'"
+        :class="'cursor-pointer rounded hover:bg-background-2'"
         :name="closeIcon"
         @click="closeModal" />
     </div>
@@ -24,11 +24,11 @@
 <script setup lang="ts">
 import { COLOR_LIST } from '@/constants/common'
 import { closeIcon } from '@/constants/iconPath'
-import type { ColorSelectProps, LabelColorTypes } from '@/types/common'
+import type { LabelColorTypes } from '@/types/common'
 import { defineEmits, defineProps } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { isOpen } = defineProps<ColorSelectProps>()
+const { isOpen } = defineProps<{ isOpen: boolean }>()
 
 const emit = defineEmits<{
   (e: 'close'): void

@@ -2,42 +2,61 @@ import { defineStore } from 'pinia'
 import { axiosInstance } from '@/utils/axios'
 import { ref } from 'vue'
 import type { User } from '@/types/auth'
+import Cookies from 'js-cookie'
+import { useRouter } from 'vue-router'
 
 export const useMemberStore = defineStore('memberInfo', () => {
-  const info = ref<User>({
-    memberName: '',
+  const INITIAL_INFO: User = {
+    profileImageUrl: '',
+    name: '',
     nickname: '',
-    imageUrl: '',
-    memberRole: '',
-    memberStatus: ''
-  })
-
-  async function updateMemberInfoWithToken() {
-    try {
-      const response = await axiosInstance.get('/api/members/info')
-
-      console.log('API Response:', response.data)
-      updateMemberInfo(response.data)
-    } catch (error) {
-      console.error('updata error:', error)
+    email: '',
+    isReviewer: false,
+    role: '',
+    departmentName: '',
+    departmentRole: '',
+    notificationSettingInfo: {
+      agit: false,
+      email: false,
+      kakaoWork: false
     }
   }
 
-  function updateMemberInfo(responseData: any) {
-    info.value = {
-      memberName: responseData.name || '',
-      nickname: responseData.nicknanme || '',
-      imageUrl: responseData.profileImageUrl || '',
-      memberRole: responseData.role || '',
-      memberStatus: ''
-    }
+  const info = ref<User>(INITIAL_INFO)
+  const isLogined = ref(false)
+  const router = useRouter()
 
-    console.log('Updated member info:', info.value)
+  async function updateMemberInfoWithToken() {
+    if (!Cookies.get('accessToken')) {
+      router.push('/login')
+      return
+    }
+    try {
+      const { data }: { data: User } = await axiosInstance.get('/api/members/info')
+      info.value = data
+      isLogined.value = true
+      return data.role
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  function logout() {
+    $reset()
+    isLogined.value = false
+    Cookies.remove('accessToken')
+    Cookies.remove('refreshToken')
+  }
+
+  function $reset() {
+    info.value = INITIAL_INFO
   }
 
   return {
     info,
-    updateMemberInfo,
-    updateMemberInfoWithToken
+    isLogined,
+    updateMemberInfoWithToken,
+    logout,
+    $reset
   }
 })

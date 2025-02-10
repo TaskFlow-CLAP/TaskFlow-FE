@@ -1,8 +1,12 @@
 <template>
   <div
+    v-if="isOpen"
     class="fixed inset-0 bg-black bg-opacity-15 flex items-center z-50"
-    @click.self="$emit('close')">
-    <div class="flex flex-col relative w-80 bg-white h-screen shadow-custom py-2">
+    @click.self="$emit('close')" />
+  <Transition name="sidebar">
+    <div
+      v-if="isOpen"
+      class="flex flex-col fixed w-80 bg-white h-screen shadow-custom py-2 z-50">
       <div class="flex flex-col gap-12 flex-1 overflow-hidden">
         <div class="flex justify-between items-center px-6">
           <CommonIcons
@@ -39,14 +43,9 @@
 
       <div class="flex w-full justify-between px-6 py-4 bg-white">
         <div class="flex w-full items-center gap-3">
-          <img
-            v-if="info?.imageUrl"
-            class="rounded-[50%] w-10 h-10"
-            :src="info.imageUrl"
-            alt="프로필 이미지" />
-          <div
-            v-else
-            class="w-10 h-10 rounded-full bg-background-1" />
+          <ImageContainer
+            :url="info.profileImageUrl"
+            :size="40" />
           <div class="flex flex-col gap-1">
             <p class="text-xs text-body font-bold">{{ name }}</p>
             <p class="text-sm text-black">{{ nickname }}</p>
@@ -62,7 +61,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
@@ -73,14 +72,18 @@ import { hamburgerIcon } from '@/constants/iconPath'
 import { SIDE_USER_MENU, SIDE_MANAGER_MENU, SIDE_ADMIN_MENU } from '@/constants/menu'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
+import ImageContainer from '../common/ImageContainer.vue'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 
+const { isOpen } = defineProps<{ isOpen: boolean }>()
+defineEmits(['close'])
+
 const route = useRoute()
 
-const role = computed(() => info.value.memberRole)
-const name = computed(() => info.value.memberName)
+const role = computed(() => info.value.role)
+const name = computed(() => info.value.name)
 const nickname = computed(() => info.value.nickname)
 
 const filteredMenu = computed(() => {

@@ -14,41 +14,37 @@ export interface RequestParams {
 }
 
 export interface MemberManagementParams {
-  name: string
-  nickName: string
-  department: string
-  email: string
-  role: Role | ''
-  pageSize: number
   page: number
-  sortBy: 'REGISTERED_AT'
+  pageSize: number
+  name: string
+  email: string
+  nickName: string
+  departmentName: string
+  role: Role | ''
   sortDirection: SortDirection
 }
 
 export interface LogsParams {
-  term: number | ''
-  division: string
-  nickName: string
-  ipAddress: string
-  pageSize: number
   page: number
-  sortBy: 'CREATED_AT'
+  pageSize: number
+  term: number | ''
+  logStatus: string[]
+  nickName: string
+  clientIp: string
   sortDirection: SortDirection
 }
 
 export interface TeamBoardParams {
-  order: string
-  title: string
+  sortBy: string
   mainCategoryIds: number[]
   categoryIds: number[]
+  taskTitle: string
 }
 
 export interface TaskBoardParams {
-  division: string | ''
+  labelId: number | ''
   mainCategoryIds: number[]
   categoryIds: number[]
   title: string
-  nickName: string
-  pageSize: number
-  page: number
+  requesterNickname: string
 }

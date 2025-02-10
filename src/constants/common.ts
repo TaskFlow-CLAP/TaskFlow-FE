@@ -10,7 +10,7 @@ export const TERM_LIST = [
 ]
 export const TASK_STATUS_LIST: TaskStatusListTypes[] = [
   { value: 'IN_PROGRESS', content: '진행 중' },
-  { value: 'PENDING_COMPLETED', content: '검토 중' },
+  { value: 'IN_REVIEWING', content: '검토 중' },
   { value: 'COMPLETED', content: '완료' },
   { value: 'TERMINATED', content: '종료' }
 ]
@@ -22,9 +22,9 @@ export const PAGE_SIZE_LIST = [
 
 export const ROLE_LIST = [
   { value: '', content: '전체' },
-  { value: 'user', content: '사용자' },
-  { value: 'manager', content: '담당자' },
-  { value: 'admin', content: '관리자' }
+  { value: 'ROLE_USER', content: '사용자' },
+  { value: 'ROLE_MANAGER', content: '담당자' },
+  { value: 'ROLE_ADMIN', content: '관리자' }
 ]
 
 export const COLOR_LIST = [
@@ -37,3 +37,34 @@ export const COLOR_LIST = [
   { borderColor: '#8B5CF6', fillColor: '#F5F3FF', colorEnum: 'PURPLE' },
   { borderColor: '#A1A1AA', fillColor: '#F4F4F5', colorEnum: 'GREY' }
 ]
+
+export const PERMITTED_URL = {
+  UNKNOWN: ['login', 'pw-change-email', 'pw-change'],
+  ROLE_USER: ['my-request', 'task-request', 'edit-information', 'pw-check', 'pw-change'],
+  ROLE_MANAGER: [
+    'my-request',
+    'task-request',
+    'requested',
+    'request-history',
+    'my-task',
+    'task-board',
+    'team-board',
+    'statistics',
+    'task-detail',
+    'edit-information',
+    'pw-check',
+    'pw-change'
+  ],
+  ROLE_ADMIN: [
+    'member-management',
+    'edit-information',
+    'task-management',
+    'category-first',
+    'category-second',
+    'login-logs',
+    'api-logs',
+    'edit-information',
+    'pw-check',
+    'pw-change'
+  ]
+}

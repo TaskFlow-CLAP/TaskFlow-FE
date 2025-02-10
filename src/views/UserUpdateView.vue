@@ -7,6 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import TitleBar from '@/components/TitleBar.vue'
+import TitleBar from '@/components/common/TitleBar.vue'
 import UserUpdate from '@/components/user-manage/UserUpdate.vue'
 </script>

@@ -1,16 +1,19 @@
-export interface UserTypes {
-  id: number
-  name: string
-  created_at: string
-  updated_at: string
-}
+import type { Role } from './common'
 
 export interface User {
-  memberName: string
+  profileImageUrl: string
+  name: string
   nickname: string
-  imageUrl: string
-  memberRole: string
-  memberStatus: string
+  email: string
+  isReviewer: boolean
+  role: Role | ''
+  departmentName: string
+  departmentRole: string
+  notificationSettingInfo: {
+    agit: boolean
+    email: boolean
+    kakaoWork: boolean
+  }
 }
 
 export interface loginDataTypes {

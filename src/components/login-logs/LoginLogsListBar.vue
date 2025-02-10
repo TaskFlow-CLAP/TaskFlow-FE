@@ -6,7 +6,7 @@
       :content="tab.content"
       :width="tab.width"
       :sortBy="tab.sortBy"
-      :current-order-request="params.orderRequest"
+      :current-order-request="orderRequest"
       @toggle-sort-by="toggleSortBy" />
   </div>
 </template>
@@ -15,9 +15,14 @@
 import ListBarTab from '../lists/ListBarTab.vue'
 import { useLogsParamsStore } from '@/stores/params'
 import { LOGS_LIST_BAR_TAB } from '@/constants/admin'
-import { useLogsParamsChange } from '../hooks/useLogsParamsChange'
+import { computed } from 'vue'
+import { useLogsParamsChange } from '@/hooks/useLogsParamsChange'
 
 const { params } = useLogsParamsStore()
+const orderRequest = computed(() => ({
+  sortBy: 'REQUESTED_AT',
+  sortDirection: params.sortDirection
+}))
 
 const { toggleSortBy } = useLogsParamsChange()
 </script>

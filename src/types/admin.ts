@@ -3,23 +3,33 @@ import type { Category, Role } from './common'
 export interface MemberManagementListData {
   memberId: number
   name: string
-  nickName: string
-  department: string
+  nickname: string
+  departmentName: string
   departmentRole: string
   email: string
   role: Role
-  permission?: boolean
-  registeredAt: string
+  isReviewer: boolean
+  createdAt: string
 }
 
-export interface LogsListData {
+export interface LoginLogsListData {
   logId: number
-  division: string
-  createdAt: string
+  logStatus: string
+  requestAt: string
   nickName: string
-  ipAddress: string
-  status: number
-  result?: string
+  clientIp: string
+  statusCode: number
+  customStatusCode: string
+  failedAttempts: number
+}
+
+export interface ApiLogsListData {
+  logId: number
+  logStatus: string
+  requestAt: string
+  nickName: string
+  clientIp: string
+  statusCode: number
 }
 
 export interface UserRegistrationProps {
@@ -27,9 +37,14 @@ export interface UserRegistrationProps {
   email: string
   nickname: string
   isReviewer: boolean
-  departmentId: string
-  role: string
+  departmentId: number
+  role: RoleTypes
   departmentRole: string
+}
+
+export interface UserInfoForAdmin extends UserRegistrationProps {
+  profileImageUrl: string
+  departmentName: string
 }
 
 export type RoleTypes = '관리자' | '사용자' | '담당자'
@@ -46,12 +61,6 @@ export interface CategoryAllData {
   categories: Category[]
 }
 
-export interface LabelDataTypes {
-  labelId: number
-  labelName: string
-  labelColor: string
-}
-
 export interface NewLabelTypes {
   labelName: string
   labelColor: string
@@ -60,4 +69,57 @@ export interface NewLabelTypes {
 export interface StatisticsData {
   key: string
   count: number
+}
+
+export interface MemberManagementResponse {
+  content: MemberManagementListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
+}
+
+export interface LoginLogsResponse {
+  content: LoginLogsListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
+}
+
+export interface ApiLogsResponse {
+  content: ApiLogsListData[]
+  totalElements: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+  isFirst: boolean
+  isLast: boolean
+}
+
+export interface DepartmentType {
+  departmentId: number
+  name: string
+}
+
+export interface UserRegistrationApiProps {
+  name: string
+  email: string
+  nickname: string
+  isReviewer: boolean
+  departmentId: number
+  role: RoleTypesEnum
+  departmentRole: string
+}
+
+export interface UserUpdateValue {
+  name: string
+  isReviewer: boolean
+  departmentId: number
+  role: RoleTypesEnum
+  departmentRole: string
 }

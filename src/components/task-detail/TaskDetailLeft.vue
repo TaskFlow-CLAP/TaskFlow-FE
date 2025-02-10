@@ -12,11 +12,13 @@
       <p class="task-detail">제목</p>
       <p>{{ data.title }}</p>
     </div>
-    <div>
+    <div v-if="data.description">
       <p class="task-detail">부가 설명</p>
-      <p class="px-6 py-4 bg-primary2 rounded-lg font-normal">{{ data.description }}</p>
+      <p class="px-6 py-4 bg-primary2 rounded-lg font-normal min-h-[120px] whitespace-pre-wrap">
+        {{ data.description }}
+      </p>
     </div>
-    <div>
+    <div v-if="data.attachmentResponses.length !== 0">
       <p class="task-detail">첨부 파일</p>
       <TaskDetailFiles :files="data.attachmentResponses" />
     </div>

@@ -16,7 +16,7 @@
       :value="store.params.title"
       @update:value="onParamsChange.onTitleChange" />
     <FilterInput
-      title="처리자"
+      title="담당자"
       :value="store.params.nickName"
       @update:value="onParamsChange.onNickNameChange" />
     <FilterDropdownMulti
@@ -35,26 +35,26 @@
 <script setup lang="ts">
 import { PAGE_SIZE_LIST, TASK_STATUS_LIST, TERM_LIST } from '@/constants/common'
 import { useRequestParamsStore } from '@/stores/params'
-import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
+import { getCategory } from '@/api/common'
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+import { useRequestParamsChange } from '@/hooks/useRequestParamsChange'
 
 const store = useRequestParamsStore()
 store.$reset()
 
 const onParamsChange = useRequestParamsChange()
 
-const fetchCategory = async () => {
-  const response = await axiosInstance.get('/api/category')
-  return response.data
-}
-
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery({
   queryKey: ['category'],
-  queryFn: fetchCategory
+  queryFn: getCategory,
+  enabled: isLogined
 })
 </script>

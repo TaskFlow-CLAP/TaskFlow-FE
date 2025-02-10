@@ -1,4 +1,5 @@
 import type { LabelDataTypes, Status } from './common'
+import type { ManagerTypes } from './manager'
 
 export interface MyRequestListData {
   taskId: number
@@ -19,6 +20,7 @@ export interface RequestTaskDropdownProps {
   labelName: string
   modelValue: string
   isLabel?: boolean
+  disabled?: boolean
 }
 
 export interface RequestTaskInputProps {
@@ -28,6 +30,7 @@ export interface RequestTaskInputProps {
   isNotRequired?: boolean
   isEdit?: boolean
   isInvalidate?: string
+  isDisbled?: boolean
 }
 
 export interface RequestTaskFileInputProps {
@@ -72,32 +75,49 @@ export type TaskHistoryType =
   | 'STATUS_SWITCHED'
   | 'PROCESSOR_ASSIGNED'
   | 'PROCESSOR_CHANGED'
+  | 'TASK_TERMINATED'
 
-interface TaskDetailHistoryFileTypes {
-  fileId: number
-  fileUrl: string
-  fileName: string
+export interface TaskDetailHistoryData {
+  histories: TaskHistory[]
 }
 
-export interface TaskDetailHistoryProps {
+export interface TaskHistory {
+  historyId: number
   date: string
   time: string
-  name: string
+  taskHistoryType: TaskHistoryType
+  details: TaskHistoryDetails
+}
+
+export interface TaskHistoryDetails {
+  taskDetails?: TaskDetails | null
+  commentDetails?: CommentDetails | null
+  commentFileDetails?: CommentFileDetails | null
+}
+
+export interface TaskDetails {
+  value: string
+}
+
+export interface CommentDetails {
+  commentId: number
+  nickName: string
   profileImageUrl: string
-  TaskHistoryType: TaskHistoryType
   isModified: boolean
-  details: {
-    previousProcessor: string
-    currentProcessor: string
-    comment?: string
-    updateDetails?: string
-    taskStatus?: string
-    file?: TaskDetailHistoryFileTypes
-  }
+  comment: string
+}
+
+export interface CommentFileDetails {
+  commentId: number
+  nickName: string
+  profileImageUrl: string
+  isModified: boolean
+  fileName: string
+  url: string
+  size: string
 }
 
 export interface TaskDetailProps {
-  isApproved: boolean
   selectedId: number
   closeTaskDetail: () => void
 }
@@ -119,7 +139,7 @@ export interface TaskDetailRightProps {
 
 export interface TaskDetailLabelDropdownProps {
   options: LabelDataTypes[]
-  modelValue: string
+  modelValue: LabelDataTypes
 }
 
 export interface TaskHistoryDatas {
@@ -149,4 +169,26 @@ export interface MyRequestResponse {
   pageSize: number
   isFirst: boolean
   isLast: boolean
+}
+
+export interface LabelDropdownProps {
+  taskId?: number
+  modelValue: LabelDataTypes | null
+  placeholderText: string
+}
+
+export interface ManagerDropdownProps {
+  modelValue: ManagerTypes | null
+  placeholderText: string
+  isInvalidate: string
+}
+
+export interface DetailManagerDropdownProps {
+  modelValue: ManagerTypes
+}
+
+export interface TaskStatusListProps {
+  modelValue: Status
+  isProcessor: boolean
+  taskId?: number
 }

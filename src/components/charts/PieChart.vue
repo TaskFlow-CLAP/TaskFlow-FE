@@ -5,7 +5,9 @@
     :options="options" />
   <NoContent
     v-else
-    content="데이터가 없습니다" />
+    :content="
+      !content && periodType ? `집계된 ${periodText[periodType]} 데이터가 없습니다` : content
+    " />
 </template>
 
 <script setup lang="ts">
@@ -20,11 +22,19 @@ import {
   type ChartEvent,
   type ActiveElement
 } from 'chart.js'
-import NoContent from './lists/NoContent.vue'
+import type { PeriodType } from '@/types/manager'
+import NoContent from '../lists/NoContent.vue'
 ChartJS.register(Title, Tooltip, Legend, ArcElement, Colors)
 
-const { labels, series } = defineProps<{ labels: string[]; series: number[] }>()
+const { labels, series, periodType, content } = defineProps<{
+  labels: string[]
+  series: number[]
+  periodType?: PeriodType
+  content?: string
+}>()
 const emit = defineEmits(['onClick'])
+
+const periodText = { DAY: '일간', WEEK: '주간', MONTH: '월간' }
 
 const teamData = {
   labels,

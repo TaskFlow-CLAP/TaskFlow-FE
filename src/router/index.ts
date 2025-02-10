@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -8,11 +9,10 @@ const router = createRouter({
       name: 'Login',
       component: () => import('../views/LoginView.vue')
     },
-
     {
       path: '/pw-change',
       name: 'PwChange',
-      component: () => import('../views/PwChange.vue')
+      component: () => import('../views/PwChangeView.vue')
     },
     {
       path: '/pw-change-email',
@@ -23,7 +23,7 @@ const router = createRouter({
     {
       path: '/pw-check',
       name: 'PWCheckView',
-      component: () => import('../views/PwCheck.vue'),
+      component: () => import('../views/PwCheckView.vue'),
       meta: { requiresAuth: true }
     },
     {
@@ -44,7 +44,7 @@ const router = createRouter({
     {
       path: '/request-history',
       name: 'RequestHistory',
-      component: () => import('../views/RequestHistory.vue')
+      component: () => import('../views/RequestHistoryView.vue')
     },
     {
       path: '/task-board',
@@ -55,17 +55,31 @@ const router = createRouter({
     {
       path: '/member-management',
       name: 'MemberManagement',
-      component: () => import('../views/MemberManagement.vue')
+      component: () => import('../views/MemberManagementView.vue')
     },
     {
       path: '/category-first',
       name: 'CategoryFirst',
-      component: () => import('../views/CategoryFirstAdd.vue')
+      component: () => import('../views/CategoryFirstAddView.vue'),
+      children: [
+        {
+          path: ':id',
+          name: 'EditSubCategory',
+          component: () => import('../views/CategoryFirstAddView.vue')
+        }
+      ]
     },
     {
       path: '/category-second',
       name: 'CategorySecond',
-      component: () => import('../views/CategorySecondAdd.vue')
+      component: () => import('../views/CategorySecondAddView.vue'),
+      children: [
+        {
+          path: ':id',
+          name: 'EditMainCategory',
+          component: () => import('../views/CategorySecondAddView.vue')
+        }
+      ]
     },
     {
       path: '/login-logs',
@@ -111,16 +125,24 @@ const router = createRouter({
       path: '/statistics',
       name: 'Statistics',
       component: () => import('../views/StatisticsView.vue')
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../views/NotFoundView.vue')
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
   if (to.path === '/pw-change') {
-    if (from.path === '/pw-check' || from.path === '/pw-change-email') {
+    if (
+      from.path === '/pw-check' ||
+      from.path === '/pw-change-email' ||
+      (from.path === '/login' && Cookies.get('accessToken'))
+    ) {
       next()
     } else {
-      alert('비밀번호를 먼저 확인해주세요.')
       next('/login')
       return
     }

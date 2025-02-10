@@ -6,15 +6,15 @@
 
     <template #listCards>
       <ApiLogsListCard
-        v-for="info in DUMMY_API_LOGS_LIST_DATA"
+        v-for="info in data?.content"
         :key="info.logId"
         :info="info" />
     </template>
 
     <template #pagination>
       <ListPagination
-        :page-number="params.page"
-        :total-page="DUMMY_TOTAL_PAGE"
+        :page-number="params.page + 1"
+        :total-page="totalPage || 0"
         @update:page-number="onPageChange" />
     </template>
   </ListContainer>
@@ -23,16 +23,38 @@
 <script setup lang="ts">
 import ListPagination from '../lists/ListPagination.vue'
 import ListContainer from '../lists/ListContainer.vue'
-import { useRequestParamsStore } from '@/stores/params'
+import { useLogsParamsStore } from '@/stores/params'
 import ApiLogsListBar from './ApiLogsListBar.vue'
 import ApiLogsListCard from './ApiLogsListCard.vue'
-import { DUMMY_API_LOGS_LIST_DATA } from '@/datas/dummy'
+import { axiosInstance } from '@/utils/axios'
+import { useQuery } from '@tanstack/vue-query'
+import type { ApiLogsResponse } from '@/types/admin'
+import { computed } from 'vue'
+import { useMemberStore } from '@/stores/member'
 
-const { params } = useRequestParamsStore()
-const DUMMY_TOTAL_PAGE = 18
+const { params } = useLogsParamsStore()
 const onPageChange = (value: number) => {
   params.page = value
 }
 
-// Data Handling
+const fetchApiLogsList = async () => {
+  const response = await axiosInstance.get('/api/managements/logs/general', {
+    params: {
+      ...params,
+      logStatus: params.logStatus.join(',')
+    }
+  })
+  return response.data
+}
+
+const { isLogined } = useMemberStore()
+const { data } = useQuery<ApiLogsResponse>({
+  queryKey: ['apiLogs', params],
+  queryFn: fetchApiLogsList,
+  enabled: !!isLogined
+})
+
+const totalPage = computed(() => {
+  return data.value?.totalPages
+})
 </script>

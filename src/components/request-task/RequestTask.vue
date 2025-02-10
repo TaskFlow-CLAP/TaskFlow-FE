@@ -5,12 +5,14 @@
       :options="mainCategoryArr"
       :label-name="'1차 카테고리'"
       :placeholderText="'1차 카테고리를 선택해주세요'"
+      :is-invalidate="isInvalidate"
       :isDisabled="false" />
     <CategoryDropDown
       v-model="category2"
       :options="afterSubCategoryArr"
       :label-name="'2차 카테고리'"
       :placeholderText="'2차 카테고리를 선택해주세요'"
+      :is-invalidate="isInvalidate"
       :isDisabled="!category1" />
     <RequestTaskInput
       v-model="title"
@@ -37,7 +39,7 @@
 
 <script lang="ts" setup>
 import { getMainCategory, getSubCategory } from '@/api/common'
-import { postTaskRequest } from '@/api/user'
+import { getSubCategoryDetail, postTaskRequest } from '@/api/user'
 import type { Category, SubCategory } from '@/types/common'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -46,6 +48,7 @@ import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
+import ModalView from '../common/ModalView.vue'
 
 const category1 = ref<Category | null>(null)
 const category2 = ref<Category | null>(null)
@@ -73,6 +76,13 @@ watch(category1, async newValue => {
   )
 })
 
+watch(category2, async newVal => {
+  if (newVal) {
+    const res = await getSubCategoryDetail(newVal.id)
+    description.value = res.descriptionExample
+  }
+})
+
 const router = useRouter()
 
 const handleCancel = () => {
@@ -87,7 +97,6 @@ const handleCancel = () => {
 const handleSubmit = async () => {
   if (!category1.value || !category2.value) {
     isInvalidate.value = 'category'
-    console.log(isInvalidate.value, '변경됨')
     return
   } else if (!title.value) {
     isInvalidate.value = 'input'
@@ -96,7 +105,6 @@ const handleSubmit = async () => {
   const formData = new FormData()
   const taskInfo = {
     categoryId: category2.value.id,
-
     title: title.value,
     description: description.value
   }
@@ -110,8 +118,8 @@ const handleSubmit = async () => {
     file.value.forEach(f => formData.append('attachment', f))
   }
   try {
-    const res = await postTaskRequest(formData)
-    console.error('요청 성공:', res)
+    await postTaskRequest(formData)
+    isModalVisible.value = true
   } catch (error) {
     console.error('요청 실패:', error)
   }

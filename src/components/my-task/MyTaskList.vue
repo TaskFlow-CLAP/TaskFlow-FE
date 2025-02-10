@@ -22,17 +22,19 @@
 </template>
 
 <script setup lang="ts">
-import ListPagination from '../lists/ListPagination.vue'
-import ListContainer from '../lists/ListContainer.vue'
+import { useParseParams } from '@/hooks/useParseParams'
+import { useMemberStore } from '@/stores/member'
 import { useRequestParamsStore } from '@/stores/params'
-import MyTaskListCard from './MyTaskListCard.vue'
-import MyTaskListBar from './MyTaskListBar.vue'
-import { useParseParams } from '../hooks/useParseParams'
-import { axiosInstance } from '@/utils/axios'
 import type { MyTaskResponse } from '@/types/manager'
+import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
+import ListContainer from '../lists/ListContainer.vue'
+import ListPagination from '../lists/ListPagination.vue'
 import NoContent from '../lists/NoContent.vue'
+import MyTaskListBar from './MyTaskListBar.vue'
+import MyTaskListCard from './MyTaskListCard.vue'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
@@ -42,18 +44,16 @@ const onPageChange = (value: number) => {
 const fetchMyTaskList = async () => {
   const { parseRequestParams } = useParseParams()
   const parsedParams = parseRequestParams(params)
-  const response = await axiosInstance.get('/api/tasks/assigned', {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-    },
-    params: parsedParams
-  })
+  const response = await axiosInstance.get('/api/tasks/assigned', { params: parsedParams })
   return response.data
 }
 
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data } = useQuery<MyTaskResponse>({
   queryKey: ['myTask', params],
-  queryFn: fetchMyTaskList
+  queryFn: fetchMyTaskList,
+  enabled: isLogined
 })
 
 const totalPage = computed(() => {

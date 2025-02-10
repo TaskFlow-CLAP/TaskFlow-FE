@@ -1,11 +1,16 @@
 <template>
   <div class="max-w-400">
+    <ModalView
+      :is-open="isModalVisible"
+      type="failType"
+      @close="closeModal">
+      <template #header>{{ messageHeader }}</template>
+      <template #body>{{ messageBody }}</template>
+    </ModalView>
     <div class="py-16">
-      <div class="text-4xl font-bold text-center">
-        <p class="pb-2">TaskFlow</p>
-        <p class="pb-2">로그인</p>
-      </div>
-      <p class="text-center font-bold text-body">아이디와 비밀번호를 입력해주세요</p>
+      <TitleContainer
+        :title="'TaskFlow\n로그인'"
+        content="아이디와 비밀번호를 입력해주세요" />
     </div>
     <form
       @submit.prevent="handleLogin"
@@ -45,14 +50,29 @@
 </template>
 
 <script setup lang="ts">
+import { postLogin } from '@/api/auth'
+import ModalView from '@/components/common/ModalView.vue'
+import TitleContainer from '@/components/common/TitleContainer.vue'
+import { useMemberStore } from '@/stores/member'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { postLogin } from '@/api/auth'
 
 const router = useRouter()
 
 const nickname = ref('')
 const password = ref('')
+const memberStore = useMemberStore()
+
+const messageHeader = ref('')
+const messageBody = ref('')
+
+const isModalVisible = ref(false)
+
+const closeModal = () => {
+  isModalVisible.value = false
+}
 
 const handleLogin = async () => {
   try {
@@ -60,11 +80,13 @@ const handleLogin = async () => {
       nickname: nickname.value,
       password: password.value
     }
-    const sessionId = '000'
-    const res = await postLogin(loginData, sessionId)
+    const res = await postLogin(loginData)
+    const role = await memberStore.updateMemberInfoWithToken()
 
-    if (res) {
-      switch (res.memberInfo.memberRole) {
+    if (!Cookies.get('refreshToken')) {
+      router.push('/pw-change')
+    } else if (res && role && Cookies.get('refreshToken')) {
+      switch (role) {
         case 'ROLE_ADMIN':
           router.push('/member-management')
           break
@@ -79,8 +101,21 @@ const handleLogin = async () => {
       }
     }
   } catch (error) {
-    // 로그인 실패 시 에러 처리
-    console.error('로그인 실패:', error)
+    if (axios.isAxiosError(error)) {
+      switch (error.response?.status) {
+        case 401:
+          isModalVisible.value = !isModalVisible.value
+          messageHeader.value = '일치하는 정보가 없습니다'
+          messageBody.value = '닉네임과 비밀번호를 다시 확인해 주세요'
+          break
+
+        case 500:
+          isModalVisible.value = !isModalVisible.value
+          messageHeader.value = '서버에 문제가 발생했습니다'
+          messageBody.value = '잠시후 다시 이용해주세요'
+          break
+      }
+    }
   }
 }
 </script>

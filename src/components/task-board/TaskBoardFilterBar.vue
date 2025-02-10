@@ -2,11 +2,11 @@
   <div class="flex gap-4 z-40">
     <FilterDropdown
       title="구분"
-      :option-list="DUMMY_DIVISION_LIST"
-      :value="params.division"
-      @update:value="onDivisionChange" />
+      :option-list="labelOptionList"
+      :value="String(params.labelId)"
+      @update:value="onLabelIdChange" />
     <FilterCategory
-      :category-list="data"
+      :category-list="categoryList"
       :main="params.mainCategoryIds"
       :sub="params.categoryIds"
       @update:main="onMainChange"
@@ -17,8 +17,8 @@
       @update:value="onTitleChange" />
     <FilterInput
       title="요청자"
-      :value="params.nickName"
-      @update:value="onNickNameChange" />
+      :value="params.requesterNickname"
+      @update:value="onRequesterNicknameChange" />
   </div>
 </template>
 
@@ -26,10 +26,13 @@
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { DUMMY_DIVISION_LIST } from '@/datas/dummy'
 import { useTaskBoardParamsStore } from '@/stores/params'
 import { useQuery } from '@tanstack/vue-query'
-import { axiosInstance } from '@/utils/axios'
+import { computed } from 'vue'
+import type { LabelDataTypes } from '@/types/common'
+import { getCategory, getLabels } from '@/api/common'
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
 
 const { params } = useTaskBoardParamsStore()
 
@@ -37,8 +40,9 @@ const onArrayChange = <Value extends number | string>(array: Value[], value: Val
   return array.includes(value) ? array.filter(el => el !== value) : [...array, value]
 }
 
-const onDivisionChange = (value: string) => {
-  params.division = value
+const onLabelIdChange = (value: string) => {
+  if (value === '') params.labelId = ''
+  else params.labelId = Number(value)
 }
 const onMainChange = (value: number) => {
   params.mainCategoryIds = onArrayChange(params.mainCategoryIds, value)
@@ -46,20 +50,29 @@ const onMainChange = (value: number) => {
 const onSubChange = (value: number) => {
   params.categoryIds = onArrayChange(params.categoryIds, value)
 }
-const onNickNameChange = (value: string) => {
-  params.nickName = value
+const onRequesterNicknameChange = (value: string) => {
+  params.requesterNickname = value
 }
 const onTitleChange = (value: string) => {
   params.title = value
 }
 
-const fetchCategory = async () => {
-  const response = await axiosInstance.get('/api/category')
-  return response.data
-}
-
-const { data } = useQuery({
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
+const { data: categoryList } = useQuery({
   queryKey: ['category'],
-  queryFn: fetchCategory
+  queryFn: getCategory,
+  enabled: isLogined
+})
+
+const { data: labelList } = useQuery<LabelDataTypes[]>({
+  queryKey: ['label'],
+  queryFn: getLabels,
+  enabled: isLogined
+})
+const labelOptionList = computed(() => {
+  const list = [{ value: '', content: '전체' }]
+  labelList.value?.forEach(el => list.push({ value: String(el.labelId), content: el.labelName }))
+  return list
 })
 </script>

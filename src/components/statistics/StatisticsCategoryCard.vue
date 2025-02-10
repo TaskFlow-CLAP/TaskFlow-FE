@@ -14,13 +14,16 @@
           :key="JSON.stringify(mainLabels) + periodType"
           :labels="mainLabels"
           :series="mainSeries"
+          :period-type="periodType"
           @on-click="changeMainCategory" />
       </div>
       <div class="w-1/2 px-1">
         <PieChart
           :key="JSON.stringify(subLabels) + mainCategory + periodType"
           :labels="subLabels"
-          :series="subSeries" />
+          :series="subSeries"
+          :period-type="periodType"
+          :content="!mainCategory ? '1차 카테고리를 선택해주세요' : ''" />
       </div>
     </div>
   </div>
@@ -28,12 +31,14 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import PieChart from '../PieChart.vue'
 import PeriodButtons from './PeriodButtons.vue'
 import type { PeriodType } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
 import type { StatisticsData } from '@/types/admin'
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+import PieChart from '../charts/PieChart.vue'
 
 const periodType = ref<PeriodType>('DAY')
 const changePeriod = (newPeriodType: PeriodType) => {
@@ -45,9 +50,6 @@ const changeMainCategory = (value: string) => (mainCategory.value = value)
 
 const fetchMainStatistics = async () => {
   const response = await axiosInstance.get('/api/tasks/statistics', {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-    },
     params: {
       periodType: periodType.value,
       statisticsType: 'REQUEST_BY_CATEGORY'
@@ -56,9 +58,12 @@ const fetchMainStatistics = async () => {
 
   return response.data
 }
+const memberStore = useMemberStore()
+const { isLogined } = storeToRefs(memberStore)
 const { data: mainData } = useQuery<StatisticsData[]>({
-  queryKey: ['REQUEST_BY_CATEGORY', periodType],
-  queryFn: fetchMainStatistics
+  queryKey: computed(() => ['REQUEST_BY_CATEGORY', periodType]),
+  queryFn: fetchMainStatistics,
+  enabled: isLogined
 })
 const mainLabels = computed(() => {
   return mainData.value?.map(el => el.key) || []
@@ -69,9 +74,6 @@ const mainSeries = computed(() => {
 
 const fetchSubStatistics = async () => {
   const response = await axiosInstance.get('/api/tasks/statistics/subcategory', {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-    },
     params: {
       periodType: periodType.value,
       mainCategory: mainCategory.value
@@ -81,9 +83,9 @@ const fetchSubStatistics = async () => {
   return response.data
 }
 const { data: subData } = useQuery<StatisticsData[]>({
-  queryKey: [mainCategory.value, periodType],
+  queryKey: computed(() => [mainCategory.value, periodType]),
   queryFn: fetchSubStatistics,
-  enabled: computed(() => mainCategory.value !== '')
+  enabled: computed(() => mainCategory.value !== '') && isLogined
 })
 const subLabels = computed(() => {
   return subData.value?.map(el => el.key) || []

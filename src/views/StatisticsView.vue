@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import TitleBar from '@/components/common/TitleBar.vue'
 import StatisticsCard from '@/components/statistics/StatisticsCard.vue'
 import StatisticsCategoryCard from '@/components/statistics/StatisticsCategoryCard.vue'
-import TitleBar from '@/components/TitleBar.vue'
 </script>

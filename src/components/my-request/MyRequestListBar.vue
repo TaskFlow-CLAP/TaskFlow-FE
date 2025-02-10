@@ -13,10 +13,10 @@
 
 <script setup lang="ts">
 import { MY_REQUEST_LIST_BAR_TAB } from '@/constants/user'
-import ListBarTab from '../lists/ListBarTab.vue'
+import { useRequestParamsChange } from '@/hooks/useRequestParamsChange'
 import { useRequestParamsStore } from '@/stores/params'
-import { useRequestParamsChange } from '../hooks/useRequestParamsChange'
 import { computed } from 'vue'
+import ListBarTab from '../lists/ListBarTab.vue'
 
 const { params } = useRequestParamsStore()
 const orderRequest = computed(() => ({

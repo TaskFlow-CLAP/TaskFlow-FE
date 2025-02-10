@@ -6,7 +6,7 @@ import type {
   TaskBoardParams
 } from '@/types/stores'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 export const useRequestParamsStore = defineStore('requestParams', () => {
   const params = ref<RequestParams>({
@@ -21,6 +21,24 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
     sortBy: 'REQUESTED_AT',
     sortDirection: 'DESC'
   })
+
+  watch(
+    () => ({
+      pageSize: params.value.pageSize,
+      term: params.value.term,
+      mainCategoryIds: params.value.mainCategoryIds,
+      categoryIds: params.value.categoryIds,
+      title: params.value.title,
+      nickName: params.value.nickName,
+      taskStatus: params.value.taskStatus,
+      sortBy: params.value.sortBy,
+      sortDirection: params.value.sortDirection
+    }),
+    () => {
+      params.value.page = 0
+    },
+    { deep: true }
+  )
 
   const $reset = () => {
     params.value.page = 0
@@ -40,40 +58,68 @@ export const useRequestParamsStore = defineStore('requestParams', () => {
 
 export const useMemberManagementParamsStore = defineStore('userManagementParams', () => {
   const params = ref<MemberManagementParams>({
-    name: '',
-    nickName: '',
-    department: '',
-    email: '',
-    role: '',
+    page: 0,
     pageSize: 20,
-    page: 1,
-    sortBy: 'REGISTERED_AT',
+    name: '',
+    email: '',
+    nickName: '',
+    departmentName: '',
+    role: '',
     sortDirection: 'DESC'
   })
+
+  watch(
+    () => ({
+      pageSize: params.value.pageSize,
+      name: params.value.name,
+      email: params.value.email,
+      nickName: params.value.nickName,
+      departmentName: params.value.departmentName,
+      role: params.value.role,
+      sortDirection: params.value.sortDirection
+    }),
+    () => {
+      params.value.page = 0
+    },
+    { deep: true }
+  )
 
   return { params }
 })
 
 export const useLogsParamsStore = defineStore('logsParams', () => {
   const params = ref<LogsParams>({
-    term: '',
-    division: '',
-    nickName: '',
-    ipAddress: '',
+    page: 0,
     pageSize: 20,
-    page: 1,
-    sortBy: 'CREATED_AT',
+    term: '',
+    logStatus: [],
+    nickName: '',
+    clientIp: '',
     sortDirection: 'DESC'
   })
 
+  watch(
+    () => ({
+      pageSize: params.value.pageSize,
+      term: params.value.term,
+      logStatus: params.value.logStatus,
+      nickName: params.value.nickName,
+      clientIp: params.value.clientIp,
+      sortDirection: params.value.sortDirection
+    }),
+    () => {
+      params.value.page = 0
+    },
+    { deep: true }
+  )
+
   const $reset = () => {
-    params.value.term = ''
-    params.value.division = ''
-    params.value.nickName = ''
-    params.value.ipAddress = ''
+    params.value.page = 0
     params.value.pageSize = 20
-    params.value.page = 1
-    params.value.sortBy = 'CREATED_AT'
+    params.value.term = ''
+    params.value.logStatus = []
+    params.value.nickName = ''
+    params.value.clientIp = ''
     params.value.sortDirection = 'DESC'
   }
 
@@ -82,10 +128,10 @@ export const useLogsParamsStore = defineStore('logsParams', () => {
 
 export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
   const params = ref<TeamBoardParams>({
-    order: 'CONTRIBUTION',
-    title: '',
+    sortBy: 'CONTRIBUTE',
     mainCategoryIds: [],
-    categoryIds: []
+    categoryIds: [],
+    taskTitle: ''
   })
 
   return { params }
@@ -93,13 +139,11 @@ export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
 
 export const useTaskBoardParamsStore = defineStore('taskBoardParams', () => {
   const params = ref<TaskBoardParams>({
-    division: '',
+    labelId: '',
     mainCategoryIds: [],
     categoryIds: [],
     title: '',
-    nickName: '',
-    pageSize: 20,
-    page: 1
+    requesterNickname: ''
   })
 
   return { params }
