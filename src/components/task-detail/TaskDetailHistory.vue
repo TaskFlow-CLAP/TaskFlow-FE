@@ -66,7 +66,6 @@ import TaskDetailHistoryFile from './TaskDetailHistoryFile.vue'
 import TaskDetailHistoryInput from './TaskDetailHistoryInput.vue'
 
 const { historyData, taskId, requestorName } = defineProps<TaskDetailHistoryProps>()
-console.log(historyData)
 
 let displayedDates = new Set<string>()
 
