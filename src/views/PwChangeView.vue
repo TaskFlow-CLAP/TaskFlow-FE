@@ -31,8 +31,7 @@
           :class="[
             'block w-full px-4 py-4 border rounded focus:outline-none',
             isInvalid ? 'border-red-1' : 'border-border-1'
-          ]"
-          @blur="validatePassword" />
+          ]" />
         <p
           v-show="isInvalid"
           class="text-red-1 text-xs font-bold mt-1">
@@ -110,7 +109,8 @@ const closeModal = () => {
 }
 
 const handleChange = () => {
-  if (newPw.value === checkPw.value) {
+  validatePassword()
+  if (isInvalid.value == false && newPw.value === checkPw.value) {
     patchPassword(newPw.value)
     pwChange()
     openModal()
