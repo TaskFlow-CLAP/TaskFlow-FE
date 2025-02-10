@@ -92,10 +92,6 @@
       <p class="text-body text-xs font-bold">알림 수신 여부</p>
       <div class="flex flex-col mt-2 gap-2">
         <FormCheckbox
-          v-model="agitCheck"
-          :checkButtonName="'아지트'"
-          :isChecked="agitCheck" />
-        <FormCheckbox
           v-model="kakaoWorkCheck"
           :checkButtonName="'카카오워크'"
           :isChecked="kakaoWorkCheck" />
@@ -139,7 +135,6 @@ const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 
 const name = ref(info.value.name)
-const agitCheck = ref(info.value.notificationSettingInfo.agit)
 const emailCheck = ref(info.value.notificationSettingInfo.email)
 const kakaoWorkCheck = ref(info.value.notificationSettingInfo.kakaoWork)
 const imageDelete = ref(info.value.profileImageUrl == null ? true : false)
@@ -157,7 +152,6 @@ const isWarnningModalVisible = ref(false)
 watchEffect(() => {
   if (info.value) {
     name.value = info.value.name
-    agitCheck.value = info.value.notificationSettingInfo.agit
     emailCheck.value = info.value.notificationSettingInfo.email
     kakaoWorkCheck.value = info.value.notificationSettingInfo.kakaoWork
   }
@@ -186,7 +180,6 @@ const handlePwChange = () => {
   if (
     selectedFile.value ||
     info.value.name != name.value ||
-    info.value.notificationSettingInfo.agit != agitCheck.value ||
     info.value.notificationSettingInfo.kakaoWork != kakaoWorkCheck.value ||
     info.value.notificationSettingInfo.email != emailCheck.value
   ) {
@@ -225,7 +218,6 @@ const handleSubmit = async () => {
     const memberInfo = {
       name: name.value,
       isProfileImageDeleted: imageDelete.value,
-      agitNotification: agitCheck.value,
       emailNotification: emailCheck.value,
       kakaoWorkNotification: kakaoWorkCheck.value
     }
