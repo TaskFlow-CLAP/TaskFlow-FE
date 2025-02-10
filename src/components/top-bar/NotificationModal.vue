@@ -2,7 +2,7 @@
   <div
     v-if="isOpen"
     @click.stop
-    class="absolute right-6 top-[calc(100%+16px)] h-60 w-80 bg-white rounded-lg shadow-custom overflow-hidden flex flex-col">
+    class="absolute right-6 top-[calc(100%+16px)] h-[400px] w-[400px] bg-white rounded-lg shadow-custom overflow-hidden flex flex-col">
     <div class="flex justify-between items-center px-4 pt-3 pb-2 border-b border-border-2">
       <p class="text-body font-bold text-xs">알림</p>
       <div class="flex items-center gap-2">
