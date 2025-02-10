@@ -15,20 +15,20 @@
         isProcessor ? 'items-end pr-4 pl-2' : 'items-start pl-4 pr-2'
       ]">
       <p class="text-xs">{{ history.details.commentDetails?.nickName }}</p>
-      <p
-        :class="[
-          'flex max-w-[400px] flex-wrap px-4 py-3 text-base text-black rounded-lg',
-          isProcessor ? 'bg-primary2' : 'bg-background-2'
-        ]">
-        {{ history.details.commentDetails?.comment }}
-      </p>
-    </div>
-    <div
-      :class="[
+      <div :class="['flex gap-2', isProcessor ? 'flex-row-reverse' : 'flex-row']">
+        <p
+          :class="[
+        'flex max-w-[400px] flex-wrap px-4 py-3 text-base text-black rounded-lg',
+        isProcessor ? 'bg-primary2' : 'bg-background-2'
+          ]">
+          {{ history.details.commentDetails?.comment }}
+        </p>
+        <div
+          :class="[
         'flex flex-col justify-end self-end text-xs font-bold text-body gap-1 relative',
         isProcessor ? 'order-1 items-end' : 'order-3 items-start'
-      ]">
-      <div
+          ]">
+          <div
         v-if="history.details.commentDetails?.nickName === info.nickname"
         class="relative cursor-pointer h-full">
         <CommonIcons
@@ -43,9 +43,11 @@
           ]">
           삭제
         </div>
-      </div>
-      <div class="flex flex-col gap-1 h-full justify-end font-bold">
+          </div>
+          <div class="flex flex-col gap-1 h-full justify-end font-bold">
         {{ formatOnlyTime(history.time) }}
+          </div>
+        </div>
       </div>
     </div>
   </div>

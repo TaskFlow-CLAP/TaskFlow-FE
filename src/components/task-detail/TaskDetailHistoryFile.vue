@@ -10,49 +10,51 @@
         'flex flex-col gap-2 pl-4 pr-2 order-2',
         isProcessor ? 'items-end pr-4 pl-2' : 'items-start pl-4 pr-2'
       ]">
-      <p>{{ history.details.commentFileDetails?.nickName }}</p>
-      <div
-        :class="[
-          'flex max-w-[400px] flex-wrap px-4 py-3 gap-4 items-center text-black rounded-lg',
-          isProcessor ? 'bg-primary2' : 'bg-background-2'
-        ]">
-        <a
-          class="w-10 h-10 flex items-center justify-center bg-white border border-border-2 rounded-lg"
-          :href="history.details.commentFileDetails?.url"
-          download>
-          <CommonIcons :name="fileIcon" />
-        </a>
-        <div class="flex flex-col gap-2">
-          <p>{{ history.details.commentFileDetails?.fileName }}</p>
-          <p class="text-xs font-bold text-body">
-            용량 : {{ history.details.commentFileDetails?.size }}
-          </p>
-        </div>
-      </div>
-    </div>
-    <div
-      :class="[
-        'flex flex-col justify-end self-end gap-1 text-xs font-bold text-body',
-        isProcessor ? 'order-1' : 'order-3'
-      ]">
-      <div
-        v-if="history.details.commentFileDetails?.nickName === info.nickname"
-        class="relative cursor-pointer">
-        <CommonIcons
-          :name="menuDotIcon"
-          @click="clickMenuDot" />
+      <p class="text-xs text-body">{{ history.details.commentFileDetails?.nickName }}</p>
+      <div :class="['flex gap-2', isProcessor ? 'flex-row-reverse' : 'flex-row']">
         <div
-          v-if="isClicked"
-          @click="handleModal"
           :class="[
-            'absolute shadow-custom bottom-0 w-20 h-[27px] rounded flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
-            isProcessor ? 'right-6' : 'left-6'
+            'flex max-w-[400px] flex-wrap px-4 py-3 gap-4 items-center text-black rounded-lg',
+            isProcessor ? 'bg-primary2' : 'bg-background-2'
           ]">
-          삭제
+          <a
+            class="w-10 h-10 flex items-center justify-center bg-white border border-border-2 rounded-lg"
+            :href="history.details.commentFileDetails?.url"
+            download>
+            <CommonIcons :name="fileIcon" />
+          </a>
+          <div class="flex flex-col gap-2">
+            <p>{{ history.details.commentFileDetails?.fileName }}</p>
+            <p class="text-xs font-bold text-body">
+              용량 : {{ history.details.commentFileDetails?.size }}
+            </p>
+          </div>
         </div>
-      </div>
-      <div>
-        {{ formatOnlyTime(history.time) }}
+        <div
+          :class="[
+            'flex flex-col justify-end self-end gap-1 text-xs font-bold text-body',
+            isProcessor ? 'order-1 items-end' : 'order-3'
+          ]">
+          <div
+            v-if="history.details.commentFileDetails?.nickName === info.nickname"
+            class="relative cursor-pointer">
+            <CommonIcons
+              :name="menuDotIcon"
+              @click="clickMenuDot" />
+            <div
+              v-if="isClicked"
+              @click="handleModal"
+              :class="[
+                'absolute shadow-custom bottom-0 w-20 h-[27px] rounded flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
+                isProcessor ? 'right-6' : 'left-6'
+              ]">
+              삭제
+            </div>
+          </div>
+          <div>
+            {{ formatOnlyTime(history.time) }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
