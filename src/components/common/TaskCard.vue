@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full max-w-80 border-l-8 bg-white py-4 pl-6 pr-4 flex flex-col gap-6 rounded-lg shadow-custom hover:bg-background-2 cursor-pointer"
+    class="w-full max-w-80 border-l-8 bg-white py-4 pl-4 pr-4 flex flex-col gap-6 rounded-lg shadow-custom hover:bg-background-2 cursor-pointer"
     :class="borderLeft"
     @click="handleModal(data.taskId)">
     <div class="flex flex-col gap-1">
@@ -34,12 +34,11 @@
         </div>
       </div>
     </div>
-    <TaskDetail
-      v-if="selectedID"
-      :is-approved="data.taskStatus !== 'REQUESTED'"
-      :selected-id="selectedID"
-      :close-task-detail="() => handleModal(null)" />
   </div>
+  <TaskDetail
+    v-if="selectedID"
+    :selected-id="selectedID"
+    :close-task-detail="() => handleModal(null)" />
 </template>
 
 <script setup lang="ts">
@@ -61,7 +60,7 @@ const borderLeft = computed(() => {
 })
 
 const handleModal = (id: number | null) => {
-  if (data.taskId) document.body.style.overflow = 'hidden'
+  if (id) document.body.style.overflow = 'hidden'
   else document.body.style.overflow = ''
   selectedID.value = id
 }
