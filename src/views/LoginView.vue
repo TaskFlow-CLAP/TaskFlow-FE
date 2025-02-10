@@ -105,8 +105,15 @@ const handleLogin = async () => {
       switch (error.response?.status) {
         case 401:
           isModalVisible.value = !isModalVisible.value
-          messageHeader.value = '일치하는 정보가 없습니다'
-          messageBody.value = '닉네임과 비밀번호를 다시 확인해 주세요'
+          console.log(error.response?.data)
+          if (error.response?.data == 'AUTH_015') {
+            messageHeader.value = '정지된 계정입니다'
+            messageBody.value =
+              '로그인 시도 5회 초과로 계정이 정지되었습니다\n 30분 후 다시 시도 해 주세요'
+          } else {
+            messageHeader.value = '일치하는 정보가 없습니다'
+            messageBody.value = '닉네임과 비밀번호를 다시 확인해 주세요'
+          }
           break
 
         case 404:

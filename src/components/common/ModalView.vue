@@ -26,7 +26,7 @@
 
             <div
               v-if="type != 'inputType'"
-              class="flex text-sm font-bold text-body justify-center">
+              class="flex text-sm font-bold text-body justify-center whitespace-pre-line text-center">
               <slot name="body"></slot>
             </div>
           </div>
