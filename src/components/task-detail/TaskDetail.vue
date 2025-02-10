@@ -45,7 +45,7 @@ import TaskDetailTopBar from './TaskDetailTopBar.vue'
 const { closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
 
 const memberStore = useMemberStore()
-const { info } = storeToRefs(memberStore)
+const { info, isLogined } = storeToRefs(memberStore)
 
 const { data } = useQuery<TaskDetailDatas>({
   queryKey: ['taskDetailUser', selectedId],
@@ -57,6 +57,7 @@ const { data } = useQuery<TaskDetailDatas>({
 
 const { data: historyData } = useQuery<TaskDetailHistoryData>({
   queryKey: ['historyData', selectedId],
-  queryFn: () => getHistory(selectedId)
+  queryFn: () => getHistory(selectedId),
+  enabled: isLogined
 })
 </script>
