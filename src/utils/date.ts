@@ -23,7 +23,9 @@ export const convertToISO = (dateStr: string, timeStr: string) => {
   if (dateStr === '') return null
   if (!timeStr) timeStr = '00:00'
   const date = new Date(`${dateStr}T${timeStr}:00`)
-  return date.toISOString()
+  const koreaOffset = 9 * 60
+  const utcDate = new Date(date.getTime() + koreaOffset * 60 * 1000)
+  return utcDate.toISOString()
 }
 
 export const formatDueDate = (dateString: string) => {
