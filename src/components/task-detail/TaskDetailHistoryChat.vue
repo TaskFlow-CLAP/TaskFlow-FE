@@ -36,7 +36,7 @@
           @click="clickMenuDot" />
         <div
           v-if="isClicked"
-          @click="deleteCommentText"
+          @click="handleModal"
           :class="[
             'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
             isProcessor ? 'right-6' : 'left-6'
@@ -50,6 +50,13 @@
       </div>
     </div>
   </div>
+  <ModalView
+    :isOpen="isModalOpen"
+    :type="'warningType'"
+    @click="deleteCommentText"
+    @close="closeModal">
+    <template #header> 댓글을 삭제하시겠습니까? </template>
+  </ModalView>
 </template>
 
 <script setup lang="ts">
@@ -63,21 +70,30 @@ import { storeToRefs } from 'pinia'
 import { computed, defineProps, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import ImageContainer from '../common/ImageContainer.vue'
+import ModalView from '../common/ModalView.vue'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 const isClicked = ref(false)
 const isProcessor = computed(() => history.details.commentDetails?.nickName !== requestorName)
 const queryClient = useQueryClient()
-
+const isModalOpen = ref(false)
 const { taskId, history, requestorName } = defineProps<TaskDetailHistoryChatProps>()
 
 const clickMenuDot = async () => {
   isClicked.value = !isClicked.value
 }
+const handleModal = () => {
+  isModalOpen.value = !isModalOpen.value
+}
+const closeModal = () => {
+  isClicked.value = !isClicked.value
+  isModalOpen.value = false
+}
 
 const deleteCommentText = async () => {
   isClicked.value = !isClicked.value
+  handleModal()
   if (history.details.commentDetails?.commentId !== undefined) {
     await deleteComment(history.details.commentDetails.commentId)
   }
