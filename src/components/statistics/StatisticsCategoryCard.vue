@@ -73,6 +73,7 @@ const mainSeries = computed(() => {
 })
 
 const fetchSubStatistics = async () => {
+  if (!isLogined.value) return
   const response = await axiosInstance.get('/api/tasks/statistics/subcategory', {
     params: {
       periodType: periodType.value,
