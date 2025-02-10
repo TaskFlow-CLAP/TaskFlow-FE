@@ -12,11 +12,6 @@ export const MEMBER_MANAGEMENT_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '처리', width: 180, justifyCenter: true }
 ]
 
-export const LOGIN_LOGS_DIVISION_LIST: Option[] = [
-  { content: '로그인 시도', value: 'LOGIN' },
-  { content: '로그아웃', value: 'LOGOUT' }
-]
-
 export const API_LOGS_DIVISION_LIST: Option[] = [
   { content: '요청 생성', value: 'REQUEST_CREATED' },
   { content: '요청 수정', value: 'REQUEST_UPDATED' },

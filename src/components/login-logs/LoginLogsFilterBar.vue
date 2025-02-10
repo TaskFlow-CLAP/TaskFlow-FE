@@ -5,11 +5,6 @@
       :option-list="TERM_LIST"
       :value="String(store.params.term)"
       @update:value="onParamsChange.onTermChange" />
-    <FilterDropdownMulti
-      title="구분"
-      :option-list="LOGIN_LOGS_DIVISION_LIST"
-      :value="store.params.logStatus"
-      @update:value="onParamsChange.onLogStatusChange" />
     <FilterInput
       title="아이디"
       width="full"
@@ -30,8 +25,6 @@ import FilterInput from '../filters/FilterInput.vue'
 import { useLogsParamsStore } from '@/stores/params'
 import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
 import FilterIpAddress from '../filters/FilterIpAddress.vue'
-import FilterDropdownMulti from '../filters/FilterDropdownMulti.vue'
-import { LOGIN_LOGS_DIVISION_LIST } from '@/constants/admin'
 import { useLogsParamsChange } from '@/hooks/useLogsParamsChange'
 
 const store = useLogsParamsStore()
