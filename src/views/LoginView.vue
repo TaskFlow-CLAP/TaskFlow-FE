@@ -76,11 +76,8 @@ const closeModal = () => {
 
 const handleLogin = async () => {
   try {
-    const loginData = {
-      nickname: nickname.value,
-      password: password.value
-    }
-    const res = await postLogin(loginData)
+    const name = nickname.value.toString()
+    const res = await postLogin(name, password.value)
     const role = await memberStore.updateMemberInfoWithToken()
 
     if (!Cookies.get('refreshToken')) {
