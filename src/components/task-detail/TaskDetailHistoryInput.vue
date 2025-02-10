@@ -61,9 +61,16 @@ const isPossible = computed(
 )
 
 const isSendable = computed(() => isPossible.value && messageText.value.trim() !== '')
-const placeHolderText = computed(() =>
-  isPossible.value ? '텍스트를 입력' : '요청 승인 후 작성할 수 있습니다'
-)
+
+const placeHolderText = computed(() => {
+  if (history.length === 0) {
+    return '요청 승인 후 작성할 수 있습니다'
+  } else if (info.value.role === 'ROLE_USER' && info.value.nickname !== requestorName) {
+    return '작성 권한이 없습니다'
+  } else {
+    return '텍스트를 입력'
+  }
+})
 
 const sendMessage = async () => {
   if (!isPossible.value || !messageText.value.trim()) return
