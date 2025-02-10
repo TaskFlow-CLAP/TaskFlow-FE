@@ -88,7 +88,7 @@ const handleLogin = async () => {
           router.push('/member-management')
           break
         case 'ROLE_MANAGER':
-          router.push('my-request')
+          router.push('my-task')
           break
         case 'ROLE_USER':
           router.push('/my-request')
