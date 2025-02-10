@@ -35,7 +35,7 @@
     :isOpen="isModalVisible"
     type="successType"
     @close="closeLogoutModal">
-    <template #header> 로그아웃 되었습니다. </template>
+    <template #header>로그아웃 되었습니다</template>
   </ModalView>
 </template>
 

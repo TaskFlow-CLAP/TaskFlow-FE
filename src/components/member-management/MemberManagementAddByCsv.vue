@@ -18,7 +18,7 @@
       :isOpen="isModalVisible"
       :type="'successType'"
       @close="handleCancel">
-      <template #header> 회원이 추가되었습니다 </template>
+      <template #header>회원이 추가되었습니다</template>
     </ModalView>
   </div>
 </template>

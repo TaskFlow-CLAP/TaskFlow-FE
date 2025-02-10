@@ -4,7 +4,7 @@
       :isOpen="isModalVisible"
       :type="'successType'"
       @close="handleCancel">
-      <template #header> 정보가 수정되었습니다 </template>
+      <template #header>정보가 수정되었습니다</template>
     </ModalView>
 
     <ModalView
@@ -12,8 +12,8 @@
       :type="'warningType'"
       @click="changePw"
       @close="warningModalToggle">
-      <template #header> 정보가 저장되지 않았습니다 </template>
-      <template #body> 수정 사항을 삭제하고 이동하시겠습니까? </template>
+      <template #header>정보가 저장되지 않았습니다</template>
+      <template #body>수정 사항을 삭제하고 이동하시겠습니까?</template>
     </ModalView>
 
     <div class="profile">

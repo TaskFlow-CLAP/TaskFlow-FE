@@ -4,8 +4,8 @@
       :isOpen="isModalOpen"
       type="successType"
       @close="closeModal">
-      <template #header> 비밀번호가 변경 되었습니다 </template>
-      <template #body> 다시 로그인 해주세요 </template>
+      <template #header>비밀번호가 변경 되었습니다</template>
+      <template #body>다시 로그인 해주세요</template>
     </ModalView>
     <div class="py-16">
       <TitleContainer
@@ -36,7 +36,7 @@
         <p
           v-show="isInvalid"
           class="text-red-1 text-xs font-bold mt-1">
-          대문자, 소문자, 숫자, 특수문자 포함 8자-20자 입력해주세요
+          대문자, 소문자, 숫자, 특수문자를 모두 포함한 8자-20자로 입력해주세요
         </p>
       </div>
       <div class="mb-8">
@@ -54,7 +54,7 @@
         <p
           v-show="isDifferent"
           class="text-red-1 text-xs font-bold mt-1">
-          비밀번호가 일치하지 않아요
+          비밀번호가 일치하지 않습니다
         </p>
       </div>
       <button

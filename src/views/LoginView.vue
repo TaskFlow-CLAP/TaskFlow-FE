@@ -103,13 +103,13 @@ const handleLogin = async () => {
         case 401:
           isModalVisible.value = !isModalVisible.value
           messageHeader.value = '일치하는 정보가 없습니다'
-          messageBody.value = '닉네임과 비밀번호를 다시 확인해 주세요'
+          messageBody.value = '닉네임과 비밀번호를 다시 확인해주세요'
           break
 
         case 500:
           isModalVisible.value = !isModalVisible.value
           messageHeader.value = '서버에 문제가 발생했습니다'
-          messageBody.value = '잠시후 다시 이용해주세요'
+          messageBody.value = '잠시 후 다시 이용해주세요'
           break
       }
     }
