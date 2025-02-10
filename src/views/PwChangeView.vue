@@ -112,7 +112,7 @@ const handleChange = () => {
   if (newPw.value != checkPw.value) {
     isDifferent.value = true
     checkPwInput.value?.focus()
-  } else if (newPw.value != checkPw.value) {
+  } else if (newPw.value == checkPw.value) {
     isDifferent.value = false
   }
   validatePassword()
