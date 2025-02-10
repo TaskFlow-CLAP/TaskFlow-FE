@@ -29,6 +29,10 @@ jobs:
       - name: Build with npm
         run: npm run build-only
 
+      - name: Create nginxfile.conf
+        run: touch ./nginxfile.conf
+      - run: echo "${{ secrets.NGINX_FILE_CONF }}" > ./nginxfile.conf
+
       - name: Create nginx.conf
         run: touch ./nginx.conf
       - run: echo "${{ secrets.NGINX_CONF }}" > ./nginx.conf
