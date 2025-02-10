@@ -6,12 +6,12 @@
     </div>
     <div>
       <p class="task-detail">요청일</p>
-      <p class="text-sm text-black">{{ formatDate(data.requestedAt) }}</p>
+      <p class="text-sm text-black">{{ formatDateAndTime(data.requestedAt) }}</p>
     </div>
     <div>
       <p class="task-detail">종료일</p>
       <p class="text-sm text-black">
-        {{ (data.finishedAt && formatDate(data.finishedAt)) || '-' }}
+        {{ (data.finishedAt && formatDateAndTime(data.finishedAt)) || '-' }}
       </p>
     </div>
     <div>
@@ -79,7 +79,7 @@ import { changeProcessor } from '@/api/user'
 import { useMemberStore } from '@/stores/member'
 import type { ManagerTypes } from '@/types/manager'
 import type { TaskDetailDatas } from '@/types/user'
-import { formatDate, formatDaysBefore, formatDueDate } from '@/utils/date'
+import { formatDateAndTime, formatDaysBefore, formatDueDate } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import { defineProps, ref, watch } from 'vue'
