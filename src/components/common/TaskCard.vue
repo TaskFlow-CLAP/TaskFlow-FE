@@ -21,9 +21,9 @@
       <span class="text-xs text-body">{{ data.mainCategoryName }} - {{ data.categoryName }}</span>
     </div>
     <div class="flex justify-between items-end">
-      <span class="text-xs font-bold text-black whitespace-nowrap overflow-hidden text-ellipsis">{{
-        data.taskCode
-      }}</span>
+      <span class="text-xs font-bold text-black whitespace-nowrap overflow-hidden text-ellipsis">
+        {{ data.taskCode }}
+      </span>
       <div class="flex flex-col gap-1 items-end">
         <span class="text-xs font-bold text-body">{{ data.requesterDepartment }}</span>
         <div class="flex items-center gap-1.5">
