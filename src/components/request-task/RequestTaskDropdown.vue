@@ -1,12 +1,8 @@
 <template>
   <div>
-    <div class="flex text-xs gap-x-1 mb-2">
+    <div class="flex text-xs text-red-1 gap-x-1 mb-2">
       <p class="text-body font-bold">{{ labelName }}</p>
-      <p
-        v-if="!isLabel"
-        class="text-red-1">
-        *
-      </p>
+      <p v-if="!isLabel">*</p>
     </div>
     <div class="relative flex">
       <div

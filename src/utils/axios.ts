@@ -72,7 +72,11 @@ const setInterceptors = (instance: AxiosInstance) => {
             break
           }
           case 400:
-            return Promise.reject(new Error('MEMBER_DUPLICATED'))
+            if (error.response.data === 'MEMBER_013') {
+              return Promise.reject(new Error('MEMBER_REVIEWER'))
+            } else if (error.response.data === 'MEMBER_012') {
+              return Promise.reject(new Error('MEMBER_DUPLICATED'))
+            }
           case 404:
             console.error('요청한 자원을 찾을 수 없습니다.')
             break

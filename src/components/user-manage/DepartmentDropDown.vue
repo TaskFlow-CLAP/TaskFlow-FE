@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div class="flex text-xs gap-x-1 mb-2">
+    <div class="flex text-xs gap-x-1 mb-2 text-red-1">
       <p class="text-body font-bold">부서</p>
-      <p class="text-red-1">*</p>
+      <p>*</p>
+      <p v-if="isInvalidateState === 'reviewer'">담당자 권한이 없는 부서입니다</p>
     </div>
     <div class="relative flex">
       <div
@@ -34,13 +35,14 @@
 import { getDepartmentsAdmin } from '@/api/admin'
 import { dropdownIcon } from '@/constants/iconPath'
 import type { DepartmentType } from '@/types/admin'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
 const dePartments = ref<DepartmentType[]>([])
 const dropdownOpen = ref(false)
 const emit = defineEmits(['update:modelValue'])
-const { modelValue } = defineProps<{ modelValue: number }>()
+const { modelValue, isInvalidate } = defineProps<{ modelValue: number; isInvalidate: string }>()
+const isInvalidateState = computed(() => isInvalidate)
 
 const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value

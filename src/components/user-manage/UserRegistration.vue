@@ -12,7 +12,7 @@
       :labelName="'이름'" />
     <RequestTaskInput
       v-model="userRegistrationForm.nickname"
-      :is-invalidate="isDuplicate"
+      :is-invalidate="isInvalidate"
       :placeholderText="'회원의 아이디를 입력해주세요'"
       :labelName="'아이디'" />
     <div class="flex w-full gap-2">
@@ -27,10 +27,14 @@
         :label-name="'도메인'"
         :is-not-required="false" />
     </div>
+    <DepartmentDropDown
+      v-model="userRegistrationForm.departmentId"
+      :is-invalidate="isInvalidate" />
     <RequestTaskDropdown
       v-model="userRegistrationForm.role"
       :options="RoleKeys"
       :label-name="'역할'"
+      :is-invalidate="isInvalidate"
       :placeholderText="'회원의 역할을 선택해주세요'" />
     <FormCheckbox
       v-if="isManager"
@@ -39,7 +43,6 @@
       :checkButtonName="'허용'"
       :isDisabled="!isManager"
       :isChecked="userRegistrationForm.isReviewer" />
-    <DepartmentDropDown v-model="userRegistrationForm.departmentId" />
     <RequestTaskInput
       v-model="userRegistrationForm.departmentRole"
       :placeholderText="'회원의 직무를 입력해주세요'"
@@ -68,7 +71,7 @@ import DepartmentDropDown from './DepartmentDropDown.vue'
 const router = useRouter()
 const isModalVisible = ref(false)
 const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
-const isDuplicate = ref('')
+const isInvalidate = ref('')
 const isError = ref(false)
 const isManager = computed(() => userRegistrationForm.value.role === '담당자')
 
@@ -93,7 +96,9 @@ const handleSubmit = async () => {
     isModalVisible.value = true
   } catch (error) {
     if (error instanceof Error && error.message === 'MEMBER_DUPLICATED') {
-      isDuplicate.value = 'duplicate'
+      isInvalidate.value = 'duplicate'
+    } else if (error instanceof Error && error.message === 'MEMBER_REVIEWER') {
+      isInvalidate.value = 'reviewer'
     } else {
       isError.value = true
     }

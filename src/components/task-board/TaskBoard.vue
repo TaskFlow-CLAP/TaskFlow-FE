@@ -98,16 +98,16 @@
 </template>
 
 <script setup lang="ts">
+import { useParseParams } from '@/hooks/useParseParams'
 import { useMemberStore } from '@/stores/member'
 import { useTaskBoardParamsStore } from '@/stores/params'
 import type { Status } from '@/types/common'
 import type { DraggableEvent, TaskCardList } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery, useQueryClient } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import draggableComponent from 'vuedraggable'
-import { storeToRefs } from 'pinia'
-import { useParseParams } from '@/hooks/useParseParams'
 import TaskCard from '../common/TaskCard.vue'
 
 const queryClient = useQueryClient()
