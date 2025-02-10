@@ -24,7 +24,7 @@
             <CommonIcons :name="fileIcon" />
           </a>
           <div class="flex flex-col gap-2">
-            <p>{{ history.details.commentFileDetails?.fileName }}</p>
+            <p class="font-normal">{{ history.details.commentFileDetails?.fileName }}</p>
             <p class="text-xs font-bold text-body">
               용량 : {{ history.details.commentFileDetails?.size }}
             </p>

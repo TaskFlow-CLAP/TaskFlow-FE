@@ -15,7 +15,7 @@
           class="flex px-4 h-7 items-center justify-center bg-primary1 rounded-full text-white text-xs font-bold">
           {{ formatDateWithDay(item.date) }}
         </div>
-        <div class="flex flex-col w-full items-center gap-1">
+        <div class="flex flex-col w-full items-center gap-1 font-bold">
           <div
             v-if="item.taskHistoryType !== 'COMMENT' && item.taskHistoryType !== 'COMMENT_FILE'"
             class="text-xs font-bold text-body">
