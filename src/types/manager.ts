@@ -107,7 +107,7 @@ export interface TaskDetailTopBarProps {
   isApproved: boolean
   closeTaskDetail: () => void
   id: number
-  isProcessor: boolean
+  isReviewer: boolean
   isRequestor: boolean
 }
 

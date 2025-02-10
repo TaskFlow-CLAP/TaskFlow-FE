@@ -23,7 +23,9 @@ export const convertToISO = (dateStr: string, timeStr: string) => {
   if (dateStr === '') return null
   if (!timeStr) timeStr = '00:00'
   const date = new Date(`${dateStr}T${timeStr}:00`)
-  return date.toISOString()
+  const koreaOffset = 9 * 60
+  const utcDate = new Date(date.getTime() + koreaOffset * 60 * 1000)
+  return utcDate.toISOString()
 }
 
 export const formatDueDate = (dateString: string) => {
@@ -41,6 +43,9 @@ export const formatDueDate = (dateString: string) => {
 export const formatDaysBefore = (dateString: string) => {
   const date = new Date(dateString)
   const today = new Date()
+
+  date.setHours(0, 0, 0, 0)
+  today.setHours(0, 0, 0, 0)
 
   const diffTime = today.getTime() - date.getTime()
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
@@ -81,4 +86,36 @@ export const formatFullDateTime = (dateString: string) => {
   hours = hours % 12 || 12
 
   return `${year}.${month}.${day} ${period} ${hours}:${minutes}:${seconds}`
+}
+
+export const isAfterNow = (dateString: string, timeString: string) => {
+  const date = new Date(`${dateString}T${timeString}`)
+  const now = new Date()
+
+  return date > now
+}
+
+export const formatDateAndTime = (dateString: string) => {
+  const date = new Date(dateString)
+
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+
+  let hours = date.getHours()
+  const minutes = String(date.getMinutes()).padStart(2, '0')
+
+  const period = hours < 12 ? '오전' : '오후'
+  hours = hours % 12 || 12
+
+  return `${year}.${month}.${day} ${period} ${hours}시 ${minutes}분`
+}
+
+export const formatOnlyTime = (timeString: string) => {
+  const [hours, minutes] = timeString.split(':').map(Number)
+
+  const period = hours < 12 ? '오전' : '오후'
+  const formattedHours = hours % 12 || 12
+
+  return `${period} ${formattedHours}시 ${String(minutes).padStart(2, '0')}분`
 }

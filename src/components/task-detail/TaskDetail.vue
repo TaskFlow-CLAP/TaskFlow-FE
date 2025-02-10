@@ -9,7 +9,7 @@
       :is-approved="data.taskStatus !== 'REQUESTED'"
       :close-task-detail="closeTaskDetail"
       :id="data?.taskId || 0"
-      :isProcessor="data?.processorNickName === info.nickname || info.role === 'ROLE_MANAGER'"
+      :isReviewer="info.isReviewer"
       :isRequestor="data?.requesterNickName === info.nickname" />
     <div
       v-if="data"
@@ -25,7 +25,7 @@
       <div class="w-[1px] bg-border-1"></div>
       <TaskDetailRight
         :data
-        :isProcessor="data?.processorNickName === info.nickname" />
+        :isProcessor="info.role !== 'ROLE_USER'" />
     </div>
   </div>
 </template>
@@ -51,7 +51,9 @@ const { data } = useQuery<TaskDetailDatas>({
   queryFn:
     info.value.role === 'ROLE_USER'
       ? () => getTaskDetailUser(selectedId)
-      : () => getTaskDetailManager(selectedId)
+      : () => getTaskDetailManager(selectedId),
+  refetchOnWindowFocus: false,
+  staleTime: 1000 * 60 * 5
 })
 
 const { data: historyData } = useQuery<TaskDetailHistoryData>({

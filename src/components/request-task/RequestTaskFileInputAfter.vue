@@ -7,7 +7,7 @@
         <div class="flex gap-6">
           <p class="w-[60px]">용량</p>
           <p class="w-36">최종 업로드 시각</p>
-          <p class="w-10">다운로드</p>
+          <p class="w-10">파일삭제</p>
         </div>
       </div>
       <div

@@ -3,7 +3,7 @@
     <ModalView
       :is-open="isModalVisible.reject"
       @update:model-value="value => (rejectReason = value || '')"
-      type="inputType"
+      type="terminate"
       @close="closeModal"
       @click="rejectRequest">
       <template #header>종료 사유를 입력해주세요</template>
@@ -91,12 +91,16 @@ const bgColor = (taskStatus: Status) => {
 const rejectRequest = async () => {
   if (rejectReason.value.length === 0) {
     toggleModal('fail')
+
     modalError.value = '종료 사유를 입력해주세요'
     return
   }
   try {
     await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, rejectReason)
     toggleModal('success')
+    emit('update:status', 'TERMINATED')
+    currentStatus.value = 'TERMINATED'
+    queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   } catch {
     toggleModal('fail')
     modalError.value = '작업 종료에 실패했습니다'
@@ -107,17 +111,18 @@ const changeStatus = async (newStatus: Status) => {
   if (currentStatus.value === newStatus) {
     return
   }
-  currentStatus.value = newStatus
-  emit('update:status', newStatus)
   if (newStatus === 'TERMINATED') {
     toggleModal('reject')
     return
-  }
-  try {
-    await patchChangeStatus(taskId || 0, newStatus)
-    queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
-  } catch (error) {
-    console.error('Failed to update status:', error)
+  } else {
+    emit('update:status', newStatus)
+    try {
+      currentStatus.value = newStatus
+      await patchChangeStatus(taskId || 0, newStatus)
+      queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
+    } catch (error) {
+      console.error('Failed to update status:', error)
+    }
   }
 }
 </script>

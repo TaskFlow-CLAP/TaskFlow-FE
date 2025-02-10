@@ -23,22 +23,26 @@
       :placeholderText="'담당자를 선택해주세요'"
       :is-invalidate="isInvalidate" />
     <div class="flex flex-col gap-2">
-      <div class="flex gap-1">
+      <div class="flex gap-2">
         <p class="text-body text-xs font-bold">마감기한</p>
         <p
-          v-if="isInvalidate === 'date'"
+          v-if="!isDueDateValid && approveData.dueDate && approveData.dueTime"
+          class="text-red-1 text-xs">
+          현재 시간 이후로 설정해주세요
+        </p>
+        <p
+          v-else-if="isInvalidate === 'date'"
           class="text-red-1 text-xs">
           기한정보를 모두 입력하세요
         </p>
       </div>
+
       <div class="flex w-full justify-center gap-6">
         <DueDateInput
           v-model="approveData.dueDate"
-          :is-invalidate="isInvalidate"
           inputType="date" />
         <DueDateInput
           v-model="approveData.dueTime"
-          :is-invalidate="isInvalidate"
           inputType="time" />
       </div>
     </div>
@@ -58,15 +62,15 @@ import { getMainCategory, getSubCategory } from '@/api/common'
 import { getTaskDetailUser, postTaskApprove } from '@/api/user'
 import { INITIAL_REQUEST_APPROVE_DATA } from '@/constants/manager'
 import type { Category, SubCategory } from '@/types/common'
-import { convertToISO } from '@/utils/date'
-import { onMounted, ref, watch } from 'vue'
+import { convertToISO, isAfterNow } from '@/utils/date'
+import { computed, onMounted, ref, watch } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
+import ModalView from '../common/ModalView.vue'
 import CategoryDropDown from '../request-task/CategoryDropDown.vue'
 import DueDateInput from './DueDateInput.vue'
 import LabelDropdown from './LabelDropdown.vue'
 import ManagerDropdown from './ManagerDropdown.vue'
-import ModalView from '../common/ModalView.vue'
 
 const isModalVisible = ref(false)
 const category1 = ref<Category | null>(null)
@@ -75,7 +79,6 @@ const mainCategoryArr = ref<Category[]>([])
 const subCategoryArr = ref<SubCategory[]>([])
 const afterSubCategoryArr = ref<SubCategory[]>([])
 const approveData = ref(INITIAL_REQUEST_APPROVE_DATA)
-
 const isInvalidate = ref('')
 const isFirst = ref(true)
 
@@ -84,6 +87,21 @@ const route = useRouter().currentRoute.value
 const requestId = Array.isArray(route.query.requestId)
   ? Number(route.query.requestId[0])
   : Number(route.query.requestId)
+
+const isTimeFilled = computed(() => {
+  return (
+    (approveData.value.dueDate && !approveData.value.dueTime) ||
+    (!approveData.value.dueDate && approveData.value.dueTime)
+  )
+})
+
+const isTimeComplete = computed(() => {
+  return approveData.value.dueDate && approveData.value.dueTime
+})
+
+const isDueDateValid = computed(() => {
+  return isAfterNow(approveData.value.dueDate, approveData.value.dueTime)
+})
 
 onBeforeRouteLeave((to, from, next) => {
   approveData.value = INITIAL_REQUEST_APPROVE_DATA
@@ -103,11 +121,8 @@ onMounted(async () => {
 })
 
 watch(category1, async newValue => {
-  if (isFirst.value) {
-    isFirst.value = false
-  } else {
-    category2.value = null
-  }
+  if (isFirst.value) isFirst.value = false
+  else category2.value = null
   afterSubCategoryArr.value = subCategoryArr.value.filter(
     subCategory => subCategory.mainCategoryId === newValue?.id
   )
@@ -127,21 +142,22 @@ const handleSubmit = async () => {
     isInvalidate.value = 'manager'
     return
   }
-  if (
-    (approveData.value.dueDate && !approveData.value.dueTime) ||
-    (!approveData.value.dueDate && approveData.value.dueTime)
-  ) {
+  if (isTimeFilled.value) {
     isInvalidate.value = 'date'
     return
   }
-
+  if (isTimeComplete.value && !isDueDateValid.value) {
+    isInvalidate.value = ''
+    return
+  }
   const requestData = {
     categoryId: category2.value.id,
     processorId: approveData.value.processor.memberId,
-    dueDate: convertToISO(approveData.value.dueDate, approveData.value.dueTime),
+    dueDate: isTimeFilled.value
+      ? convertToISO(approveData.value.dueDate, approveData.value.dueTime)
+      : null,
     labelId: approveData.value.label?.labelId || null
   }
-
   try {
     await postTaskApprove(requestId, requestData)
     isModalVisible.value = true
