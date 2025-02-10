@@ -1,5 +1,5 @@
 <template>
-  <div class="py-1 px-2 rounded">
+  <div class="py-1 px-2 rounded hover:bg-background-2">
     <input
       class="hidden"
       type="file"
