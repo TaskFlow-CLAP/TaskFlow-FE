@@ -117,6 +117,7 @@ watch(newManager, async newValue => {
       await changeProcessor(data.taskId, newValue.memberId)
       selectedManager.value = newValue
       queryClient.invalidateQueries({ queryKey: ['historyData', data.taskId] })
+      queryClient.invalidateQueries({ queryKey: ['taskDetailUser', data.taskId] })
     } catch (error) {
       console.error('Error updating processor', error)
     }
