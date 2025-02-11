@@ -34,7 +34,9 @@ jobs:
         run: |
           echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
           echo ${{ steps.version.outputs.VERSION }}
-          echo $GITHUB_OUTPUT
+          echo ${{GITHUB_OUTPUT}}
+          echo ${GITHUB_REF#refs/tags/}
+          echo ${GITHUB_OUTPUT}
 
       - name: Install Dependencies
         run: npm install
