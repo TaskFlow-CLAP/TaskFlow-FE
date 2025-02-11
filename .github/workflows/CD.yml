@@ -3,7 +3,8 @@ name: CD for front using github actions
 
 on:
   release:
-    types: [created, edited]
+    types: [created, edited, published, released, prereleased]
+
 
 permissions:
   contents: read
