@@ -33,8 +33,8 @@
       :label-name="`${categoryStep}차 카테고리명`" />
     <RequestTaskInput
       v-model="categoryForm.code"
-      placeholder-text="카테고리의 고유코드를 입력해주세요"
-      label-name="고유코드 (대문자 영어 2글자까지)"
+      placeholder-text="카테고리의 작업코드를 입력해주세요"
+      label-name="작업코드 (대문자 영어 2글자까지)"
       :is-invalidate="isCodeInvalidate" />
 
     <div

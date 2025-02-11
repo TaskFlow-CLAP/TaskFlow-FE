@@ -3,12 +3,12 @@
     class="flex flex-col w-full h-[480px] border border-border-1 rounded-lg bg-background-1 overflow-hidden">
     <div class="flex w-full">
       <div class="task-management-title rounded-tl-lg">
-        <p>고유코드</p>
+        <p>작업코드</p>
         <p>1차 카테고리</p>
       </div>
       <div class="w-0.5 bg-border-1"></div>
       <div class="task-management-title rounded-tr-lg">
-        <p>고유코드</p>
+        <p>작업코드</p>
         <p>2차 카테고리</p>
       </div>
     </div>

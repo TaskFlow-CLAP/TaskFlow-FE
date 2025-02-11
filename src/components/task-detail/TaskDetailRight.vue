@@ -1,7 +1,7 @@
 <template>
   <div class="sticky top-0 w-[280px] shrink-0 flex flex-col gap-y-6 overflow-y-auto p-6">
     <div>
-      <p class="task-detail">고유코드</p>
+      <p class="task-detail">작업코드</p>
       <p class="text-sm">{{ data.taskCode || '-' }}</p>
     </div>
     <div>
