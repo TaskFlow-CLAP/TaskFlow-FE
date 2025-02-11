@@ -47,9 +47,8 @@ jobs:
       - name: Docker build & push
         run: |
           docker login clap.kr-central-2.kcr.dev -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -t ${{ secrets.DOCKER_REPO }}${{ steps.version.outputs.VERSION }} -t ${{ secrets.DOCKER_REPO }}:latest .
+          docker build -t ${{ secrets.DOCKER_REPO }}${{ steps.version.outputs.VERSION }} .
           docker push ${{ secrets.DOCKER_REPO }}${{ steps.version.outputs.VERSION }}
-          docker push ${{ secrets.DOCKER_REPO }}:latest
       ## deploy
       - name: Deploy
         uses: appleboy/ssh-action@master
