@@ -7,7 +7,7 @@
     <template #listCards>
       <MyTaskListCard
         v-for="info in data?.content"
-        :key="info.taskId"
+        :key="info.taskStatus + info.taskId"
         :info="info" />
       <NoContent v-if="data?.content.length === 0" />
     </template>
