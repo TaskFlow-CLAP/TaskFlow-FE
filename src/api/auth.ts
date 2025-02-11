@@ -33,7 +33,7 @@ export const postLogin = async (nickName: string, password: string) => {
 }
 
 export const patchPassword = async (password: string) => {
-  const request = { password: password }
+  const request = { password }
   const response = await axiosInstance.patch('/api/members/password', request)
   return response.data
 }

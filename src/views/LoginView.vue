@@ -14,8 +14,8 @@
     </div>
     <form
       @submit.prevent="handleLogin"
-      class="mb-2">
-      <div class="mb-7">
+      class="flex flex-col gap-8">
+      <div class="relative">
         <input
           type="text"
           id="id"
@@ -24,7 +24,7 @@
           required
           class="input-box" />
       </div>
-      <div class="mb-8">
+      <div class="relative">
         <input
           type="password"
           id="password"
@@ -33,19 +33,19 @@
           required
           class="input-box" />
       </div>
-      <button
-        type="submit"
-        class="button-large-primary">
-        로그인
-      </button>
+      <div class="flex flex-col gap-2 items-center">
+        <button
+          type="submit"
+          class="button-large-primary">
+          로그인
+        </button>
+        <RouterLink
+          class="flex justify-center text-body font-bold text-xs hover:underline"
+          to="/pw-change-email">
+          비밀번호 재설정
+        </RouterLink>
+      </div>
     </form>
-    <div class="flex w-full justify-center">
-      <RouterLink
-        class="text-body font-bold text-[12px] hover:underline"
-        to="/pw-change-email"
-        >비밀번호 재설정</RouterLink
-      >
-    </div>
   </div>
 </template>
 
@@ -85,16 +85,16 @@ const handleLogin = async () => {
     } else if (res && role && Cookies.get('refreshToken')) {
       switch (role) {
         case 'ROLE_ADMIN':
-          router.replace('/member-management')
+          router.push('/member-management')
           break
         case 'ROLE_MANAGER':
-          router.replace('my-task')
+          router.push('my-task')
           break
         case 'ROLE_USER':
-          router.replace('/my-request')
+          router.push('/my-request')
           break
         default:
-          router.replace('/')
+          router.push('/')
       }
     }
   } catch (error) {

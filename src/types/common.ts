@@ -14,14 +14,14 @@ export interface Option {
 }
 
 export interface Category {
-  id: number
+  mainCategoryId: number
   name: string
   code: string
   subCategory?: SubCategory[]
 }
 
 export interface SubCategory {
-  id: number
+  subCategoryId: number
   mainCategoryId: number
   name: string
   code: string
