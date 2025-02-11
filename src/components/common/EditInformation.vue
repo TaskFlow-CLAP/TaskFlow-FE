@@ -70,14 +70,9 @@
         @blur="validateName" />
       <div class="mb-1">
         <span
-          v-show="isInvalid"
+          v-show="isInvalid || isFull"
           class="absolute text-red-1 text-xs font-bold mt-1"
-          >이름에는 특수문자가 포함될 수 없습니다.</span
-        >
-        <span
-          v-show="isFull"
-          class="absolute text-red-1 text-xs font-bold mt-1"
-          >이름은 1글자 이상, 10글자이하만 가능합니다.</span
+          >{{ nameError }}</span
         >
       </div>
     </div>
@@ -164,6 +159,8 @@ const isFailModalVisible = ref(false)
 const failHeader = ref('')
 const failBody = ref('')
 
+const nameError = ref('')
+
 watchEffect(() => {
   if (info.value) {
     name.value = info.value.name
@@ -173,10 +170,14 @@ watchEffect(() => {
 })
 
 const validateName = () => {
-  const regex = /[!@#$%^&*(),.?":{}|<>]/g
+  const regex = /[!@#$%^&*(),.?":{}|<>\p{Emoji}]/gu
   isInvalid.value = regex.test(name.value)
+  if (isInvalid.value == true) {
+    nameError.value = '이름에는 특수문자가 포함될 수 없습니다.'
+  }
   if (name.value.length > 10 || name.value.length < 1) {
     isFull.value = true
+    nameError.value = '이름은 1글자 이상, 10글자이하만 가능합니다.'
   } else {
     isFull.value = false
   }
