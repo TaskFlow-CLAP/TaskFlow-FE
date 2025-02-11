@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskflow-front
+  annotations:
+    service.beta.kubernetes.io/openstack-internal-load-balancer: 'false'
+    loadbalancer.ke.kakaocloud.com/load-balancer-type: 'ALB'
+    loadbalancer.openstack.org/default-tls-container-ref: 'https://key-manager.kr-central-2.kakaoi.io/v1/secrets/69d8713f-192c-4bf1-8677-da9abc4b6447'
+spec:
+  selector:
+    app: taskflow-front
+  ports:
+    - protocol: TCP
+      port: 443
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskflow-front
+  labels:
+    app: taskflow-front
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: taskflow-front
+  template:
+    metadata:
+      labels:
+        app: taskflow-front
+    spec:
+      containers:
+        - name: taskflow-front
+          image: clap.kr-central-2.kcr.dev/taskflow/taskflow-front:${IMAGE_TAG}
+          imagePullPolicy: Always
+          command: ["nginx", "-g", "daemon off;"]
+          env:
+            - name: TZ
+              value: "Asia/Seoul"
+          ports:
+            - containerPort: 80
+      restartPolicy: Always
+      nodeSelector:
+        label: "front"
+      imagePullSecrets:
+        - name: kc-cr-secret
