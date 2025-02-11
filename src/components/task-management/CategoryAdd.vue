@@ -4,14 +4,14 @@
       :is-open="isModalVisible.add"
       type="successType"
       @close="handleAddModal">
-      <template #header>카테고리가 {{ route.params.id ? '수정' : '등록' }}되었습니다</template>
+      <template #header>카테고리가 {{ route.params.id ? '수정' : '추가' }}되었습니다</template>
     </ModalView>
     <ModalView
       :is-open="isModalVisible.cancel"
       type="warningType"
       @close="handleCancelModal"
       @click="handleGoBack">
-      <template #header>{{ route.params.id ? '수정' : '생성' }}을 취소 하시겠습니까?</template>
+      <template #header>{{ route.params.id ? '수정을' : '추가를' }} 취소 하시겠습니까?</template>
       <template #body>작성하신 내용은 사라집니다</template>
     </ModalView>
     <ModalView
