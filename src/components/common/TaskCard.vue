@@ -42,18 +42,22 @@
 
 <script setup lang="ts">
 import { bentoIcon } from '@/constants/iconPath'
+import { useTeamBoardParamsStore } from '@/stores/params'
 import type { Status } from '@/types/common'
 import type { TaskCardProps } from '@/types/manager'
 import { statusAsColor } from '@/utils/statusAsColor'
+import { useQueryClient } from '@tanstack/vue-query'
 import { computed, ref } from 'vue'
-import CommonIcons from './CommonIcons.vue'
-import TaskLabel from './TaskLabel.vue'
-import ImageContainer from './ImageContainer.vue'
 import TaskDetail from '../task-detail/TaskDetail.vue'
+import CommonIcons from './CommonIcons.vue'
+import ImageContainer from './ImageContainer.vue'
+import TaskLabel from './TaskLabel.vue'
 
 const { data } = defineProps<{ data: TaskCardProps; draggable?: boolean }>()
 const emit = defineEmits(['toggleModal'])
 const selectedID = ref<number | null>(null)
+const queryClient = useQueryClient()
+const { params } = useTeamBoardParamsStore()
 
 const borderLeft = computed(() => {
   return `border-${statusAsColor(data.taskStatus as Status)}-1`
@@ -61,7 +65,15 @@ const borderLeft = computed(() => {
 
 const handleModal = (id: number | null) => {
   if (id) document.body.style.overflow = 'hidden'
-  else document.body.style.overflow = ''
+  else {
+    queryClient.invalidateQueries({
+      queryKey: ['taskBoard']
+    })
+    queryClient.invalidateQueries({
+      queryKey: ['teamStatus', params]
+    })
+    document.body.style.overflow = ''
+  }
   emit('toggleModal')
   selectedID.value = id
 }

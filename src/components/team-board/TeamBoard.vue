@@ -16,17 +16,17 @@
 </template>
 
 <script setup lang="ts">
-import TeamBoardCard from './TeamBoardCard.vue'
-import CurrentTaskRatio from './CurrentTaskRatio.vue'
-import { axiosInstance } from '@/utils/axios'
+import { useParseParams } from '@/hooks/useParseParams'
+import { useMemberStore } from '@/stores/member'
 import { useTeamBoardParamsStore } from '@/stores/params'
-import { useQuery } from '@tanstack/vue-query'
 import type { TeamBoardResponse } from '@/types/manager'
+import { axiosInstance } from '@/utils/axios'
+import { useQuery } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import NoContent from '../lists/NoContent.vue'
-import { useMemberStore } from '@/stores/member'
-import { storeToRefs } from 'pinia'
-import { useParseParams } from '@/hooks/useParseParams'
+import CurrentTaskRatio from './CurrentTaskRatio.vue'
+import TeamBoardCard from './TeamBoardCard.vue'
 
 const { params } = useTeamBoardParamsStore()
 
