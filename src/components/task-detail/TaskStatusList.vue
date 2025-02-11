@@ -21,7 +21,7 @@
       <template #header>{{ modalError }}</template>
     </ModalView>
     <div
-      v-for="statusItem in TASK_STATUS_LIST"
+      v-for="statusItem in TASK_STATUS_LIST.slice(1)"
       :key="statusItem.content"
       class="flex px-3 py-1 rounded-[45px]"
       :class="[bgColor(statusItem.value), isProcessor ? 'cursor-pointer' : '']"
