@@ -4,6 +4,9 @@ name: CD for front using github actions
 on:
   release:
     types: [created, edited, published, released, prereleased]
+  push:
+    branches:
+      - "CLAP-234"
 
 
 permissions:
