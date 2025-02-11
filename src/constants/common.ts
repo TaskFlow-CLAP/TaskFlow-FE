@@ -9,6 +9,7 @@ export const TERM_LIST = [
   { value: '2190', content: '3개월 이내' }
 ]
 export const TASK_STATUS_LIST: TaskStatusListTypes[] = [
+  { value: 'REQUESTED', content: '요청' },
   { value: 'IN_PROGRESS', content: '진행 중' },
   { value: 'IN_REVIEWING', content: '검토 중' },
   { value: 'COMPLETED', content: '완료' },

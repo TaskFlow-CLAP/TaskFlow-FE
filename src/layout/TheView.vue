@@ -30,7 +30,6 @@ watch(
 const handleModal = (id: string | null) => {
   selectedID.value = id
   if (id === null) {
-    document.body.style.overflow = ''
     router.push({ query: {} })
   }
 }

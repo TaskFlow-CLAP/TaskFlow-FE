@@ -67,7 +67,6 @@ import axios from 'axios'
 import { ref } from 'vue'
 import ModalView from '@/components/common/ModalView.vue'
 import { useRouter } from 'vue-router'
-import { preventEnter } from '@/utils/preventEnter'
 
 const messageHeader = ref('')
 const messageBody = ref('')
@@ -80,9 +79,6 @@ const email = ref('')
 const router = useRouter()
 
 const closeModal = () => {
-  isModalVisible.value = !isModalVisible.value
-  document.body.style.overflow = ''
-  window.removeEventListener('keydown', preventEnter)
   router.push('/login')
 }
 const closeFailModal = () => {
@@ -93,8 +89,6 @@ const handleCheck = async () => {
   try {
     await postPasswordEmailSend(name.value, email.value)
     isModalVisible.value = !isModalVisible.value
-    document.body.style.overflow = 'hidden'
-    window.addEventListener('keydown', preventEnter)
   } catch (error) {
     if (axios.isAxiosError(error)) {
       switch (error?.response?.status) {

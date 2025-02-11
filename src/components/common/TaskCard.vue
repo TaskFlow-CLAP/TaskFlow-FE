@@ -60,8 +60,6 @@ const borderLeft = computed(() => {
 })
 
 const handleModal = (id: number | null) => {
-  if (id) document.body.style.overflow = 'hidden'
-  else document.body.style.overflow = ''
   emit('toggleModal')
   selectedID.value = id
 }

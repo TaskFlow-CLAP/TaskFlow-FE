@@ -81,8 +81,9 @@
 import { failIcon, successIcon, warningIcon } from '@/constants/iconPath'
 import { ref, watch } from 'vue'
 import CommonIcons from './CommonIcons.vue'
+import { preventEnter } from '@/utils/preventEnter'
 
-const props = defineProps<{
+const { isOpen, type, modelValue } = defineProps<{
   isOpen: boolean
   type?: string
   modelValue?: string
@@ -94,7 +95,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void
 }>()
 
-const textValue = ref(props.modelValue || '')
+const textValue = ref(modelValue || '')
 
 watch(textValue, newValue => {
   emit('update:modelValue', newValue)
@@ -108,4 +109,17 @@ const closeModal = () => {
 const confirmModal = () => {
   emit('click')
 }
+
+watch(
+  () => isOpen,
+  () => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+      window.addEventListener('keydown', preventEnter)
+    } else {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', preventEnter)
+    }
+  }
+)
 </script>

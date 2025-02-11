@@ -111,7 +111,6 @@ import axios from 'axios'
 import { nextTick, ref } from 'vue'
 import ModalView from '@/components/common/ModalView.vue'
 import { useRouter } from 'vue-router'
-import { preventEnter } from '@/utils/preventEnter'
 
 const isErrorVisible = ref(false)
 
@@ -177,8 +176,6 @@ const validatePassword = () => {
 }
 
 const openModal = () => {
-  document.body.style.overflow = 'hidden'
-  window.addEventListener('keydown', preventEnter)
   isModalVisible.value = !isModalVisible.value
 }
 
@@ -206,9 +203,7 @@ const handleChange = async () => {
 }
 
 const closeModal = () => {
-  document.body.style.overflow = ''
   isModalVisible.value = !isModalVisible.value
-  window.removeEventListener('keydown', preventEnter)
   router.replace('/edit-information')
 }
 const closeError = () => {
