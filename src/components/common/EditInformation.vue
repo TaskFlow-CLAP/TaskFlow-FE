@@ -16,6 +16,15 @@
       <template #body>수정 사항을 삭제하고 이동하시겠습니까?</template>
     </ModalView>
 
+    <ModalView
+      :isOpen="isFailModalVisible"
+      :type="'failType'"
+      @click="failModalToggle"
+      @close="failModalToggle">
+      <template #header>{{ failHeader }}</template>
+      <template #body>{{ failBody }}</template>
+    </ModalView>
+
     <div class="profile">
       <p class="text-body text-xs font-bold">프로필 사진</p>
       <ImageContainer
@@ -61,14 +70,9 @@
         @blur="validateName" />
       <div class="mb-1">
         <span
-          v-show="isInvalid"
+          v-show="isInvalid || isFull"
           class="absolute text-red-1 text-xs font-bold mt-1"
-          >이름에는 특수문자가 포함될 수 없습니다.</span
-        >
-        <span
-          v-show="isFull"
-          class="absolute text-red-1 text-xs font-bold mt-1"
-          >이름은 1글자 이상, 10글자이하만 가능합니다.</span
+          >{{ nameError }}</span
         >
       </div>
     </div>
@@ -150,6 +154,12 @@ const nameInput = ref<HTMLInputElement | null>(null)
 
 const isModalVisible = ref(false)
 const isWarnningModalVisible = ref(false)
+const isFailModalVisible = ref(false)
+
+const failHeader = ref('')
+const failBody = ref('')
+
+const nameError = ref('')
 
 watchEffect(() => {
   if (info.value) {
@@ -160,10 +170,14 @@ watchEffect(() => {
 })
 
 const validateName = () => {
-  const regex = /[!@#$%^&*(),.?":{}|<>]/g
+  const regex = /[!@#$%^&*(),.?":{}|<>\p{Emoji}]/gu
   isInvalid.value = regex.test(name.value)
+  if (isInvalid.value == true) {
+    nameError.value = '이름에는 특수문자가 포함될 수 없습니다.'
+  }
   if (name.value.length > 10 || name.value.length < 1) {
     isFull.value = true
+    nameError.value = '이름은 1글자 이상, 10글자이하만 가능합니다.'
   } else {
     isFull.value = false
   }
@@ -199,13 +213,53 @@ const warningModalToggle = () => {
   isWarnningModalVisible.value = !isWarnningModalVisible.value
 }
 
+const failModalToggle = () => {
+  isFailModalVisible.value = !isFailModalVisible.value
+}
+
 const handleFileUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
   if (target.files && target.files[0]) {
-    selectedFile.value = target.files[0]
-    previewUrl.value = URL.createObjectURL(selectedFile.value)
+    const file = target.files[0]
+
+    const allowedMimeTypes = [
+      'image/jpeg',
+      'image/pjpeg',
+      'image/png',
+      'image/gif',
+      'image/bmp',
+      'image/x-windows-bmp'
+    ]
+    const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp']
+
+    const fileName = file.name.toLowerCase()
+    const fileExtension = fileName.split('.').pop()
+
+    if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+      failHeader.value = '지원하지 않는 파일입니다'
+      failBody.value = 'jpg, jpeg, png, gif, bmp 파일만 업로드 가능합니다'
+      failModalToggle()
+      return
+    }
+    if (!allowedMimeTypes.includes(file.type)) {
+      failHeader.value = '파일 타입을 확인해주세요'
+      failBody.value = '파일 타입과 확장자명이 일치해야합니다'
+      failModalToggle()
+      return
+    }
+
+    const newFiles = Array.from(target.files).filter(file => file.size <= 5 * 1024 * 1024)
+    if (newFiles.length !== target.files.length) {
+      failHeader.value = '이미지 용량을 확인해주세요'
+      failBody.value = '이미지 용량은 5mb까지 가능합니다'
+      failModalToggle()
+      return
+    }
+
+    selectedFile.value = file
+    previewUrl.value = URL.createObjectURL(file)
+    imageDelete.value = false
   }
-  imageDelete.value = false
 }
 
 const handleFileDelete = () => {
