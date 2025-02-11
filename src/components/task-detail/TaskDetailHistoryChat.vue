@@ -1,9 +1,9 @@
 <template>
-  <div :class="['flex w-full', isProcessor ? 'justify-end' : 'justify-start']">
+  <div :class="['flex w-full', isRequestor ? 'justify-start' : 'justify-end']">
     <div
       :class="[
         'flex justify-center items-center w-10 h-10 shrink-0 rounded-full overflow-hidden mt-1.5',
-        isProcessor ? 'order-3' : 'order-1'
+        isRequestor ? 'order-1' : 'order-3'
       ]">
       <ImageContainer
         :url="history.details.commentDetails?.profileImageUrl"
@@ -12,21 +12,21 @@
     <div
       :class="[
         'flex flex-col gap-2 order-2 font-bold',
-        isProcessor ? 'items-end pr-4 pl-2' : 'items-start pl-4 pr-2'
+        isRequestor ? 'items-start pl-4 pr-2' : 'items-end pr-4 pl-2'
       ]">
       <p class="text-xs text-body">{{ history.details.commentDetails?.nickName }}</p>
-      <div :class="['flex gap-2', isProcessor ? 'flex-row-reverse' : 'flex-row']">
+      <div :class="['flex gap-2', isRequestor ? 'flex-row' : 'flex-row-reverse']">
         <p
           :class="[
             'flex max-w-[400px] flex-wrap px-4 py-3 text-base rounded-lg font-normal',
-            isProcessor ? 'bg-primary2' : 'bg-background-2'
+            isRequestor ? 'bg-background-2' : 'bg-primary2'
           ]">
           {{ history.details.commentDetails?.comment }}
         </p>
         <div
           :class="[
             'flex flex-col justify-end self-end text-xs font-bold text-body gap-1 relative',
-            isProcessor ? 'order-1 items-end' : 'order-3 items-start'
+            isRequestor ? 'order-3 items-start' : 'order-1 items-end'
           ]">
           <div
             v-if="history.details.commentDetails?.nickName === info.nickname"
@@ -39,13 +39,13 @@
               @click="handleModal"
               :class="[
                 'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1 rounded',
-                isProcessor ? 'right-6' : 'left-6'
+                isRequestor ? 'left-6' : 'right-6'
               ]">
               삭제
             </div>
           </div>
           <div class="flex flex-col gap-1 h-full justify-end font-bold">
-            {{ formatOnlyTime(history.time) }}
+            {{ formatTimeShort(history.time) }}
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@ import { deleteComment } from '@/api/user'
 import { menuDotIcon } from '@/constants/iconPath'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailHistoryChatProps } from '@/types/common'
-import { formatOnlyTime } from '@/utils/date'
+import { formatTimeShort } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import { computed, defineProps, ref } from 'vue'
@@ -76,9 +76,13 @@ import ModalView from '../common/ModalView.vue'
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 const isClicked = ref(false)
-const isProcessor = computed(() => history.details.commentDetails?.nickName !== requestorName)
-const queryClient = useQueryClient()
 const isModalOpen = ref(false)
+const isRequestor = computed(
+  () =>
+    history.details.commentDetails?.nickName === requestorName ||
+    history.details.commentFileDetails?.nickName === requestorName
+)
+const queryClient = useQueryClient()
 const { taskId, history, requestorName } = defineProps<TaskDetailHistoryChatProps>()
 
 const clickMenuDot = async () => {
