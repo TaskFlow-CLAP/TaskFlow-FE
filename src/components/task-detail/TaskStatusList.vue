@@ -100,6 +100,7 @@ const rejectRequest = async () => {
     toggleModal('success')
     emit('update:status', 'TERMINATED')
     currentStatus.value = 'TERMINATED'
+    queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
     queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   } catch {
     toggleModal('fail')
@@ -119,6 +120,7 @@ const changeStatus = async (newStatus: Status) => {
     try {
       currentStatus.value = newStatus
       await patchChangeStatus(taskId || 0, newStatus)
+      queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
       queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
     } catch (error) {
       console.error('Failed to update status:', error)
