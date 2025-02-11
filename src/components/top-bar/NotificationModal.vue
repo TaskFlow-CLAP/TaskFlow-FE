@@ -30,7 +30,8 @@
           :type="notification.notificationType"
           :title="notification.taskTitle"
           :message="notification.message"
-          :is-read="notification.isRead">
+          :is-read="notification.isRead"
+          :createdAt="notification.createdAt">
         </NotificationMessage>
       </template>
       <template v-else>

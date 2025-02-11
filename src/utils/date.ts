@@ -119,3 +119,32 @@ export const formatOnlyTime = (timeString: string) => {
 
   return `${period} ${formattedHours}시 ${String(minutes).padStart(2, '0')}분`
 }
+
+export const formatTimeAgo = (createdAt: string) => {
+  const now = new Date()
+  const createdDate = new Date(createdAt)
+  const diffInSeconds = Math.floor((now.getTime() - createdDate.getTime()) / 1000)
+
+  const diffInMinutes = Math.floor(diffInSeconds / 60)
+  const diffInHours = Math.floor(diffInMinutes / 60)
+  const diffInDays = Math.floor(diffInHours / 24)
+  const diffInWeeks = Math.floor(diffInDays / 7)
+  const diffInMonths = Math.floor(diffInDays / 30)
+  const diffInYears = Math.floor(diffInDays / 365)
+
+  if (diffInSeconds < 60) {
+    return `${diffInSeconds}초 전`
+  } else if (diffInMinutes < 60) {
+    return `${diffInMinutes}분 전`
+  } else if (diffInHours < 24) {
+    return `${diffInHours}시간 전`
+  } else if (diffInDays < 7) {
+    return `${diffInDays}일 전`
+  } else if (diffInWeeks < 5) {
+    return `${diffInWeeks}주 전`
+  } else if (diffInMonths < 12) {
+    return `${diffInMonths}달 전`
+  } else {
+    return `${diffInYears}년 전`
+  }
+}
