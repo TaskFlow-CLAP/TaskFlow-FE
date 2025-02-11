@@ -85,7 +85,7 @@ onMounted(async () => {
   } else if (info.value.role === 'ROLE_ADMIN') {
     if (!PERMITTED_URL.ROLE_ADMIN.includes(originUrl)) router.replace('/member-management')
   } else {
-    if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) router.replace('/login')
+    if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) router.push('/login')
   }
 })
 
