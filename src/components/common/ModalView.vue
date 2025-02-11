@@ -79,7 +79,7 @@
 
 <script setup lang="ts">
 import { failIcon, successIcon, warningIcon } from '@/constants/iconPath'
-import { ref, watch } from 'vue'
+import { onUnmounted, ref, watch } from 'vue'
 import CommonIcons from './CommonIcons.vue'
 import { preventEnter } from '@/utils/preventEnter'
 
@@ -122,4 +122,9 @@ watch(
     }
   }
 )
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
+  window.removeEventListener('keydown', preventEnter)
+})
 </script>
