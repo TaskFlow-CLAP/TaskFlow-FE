@@ -28,7 +28,7 @@
       </div>
       <label
         for="file"
-        class="button-medium-primary">
+        class="button-medium-primary !h-fit">
         <CommonIcons :name="uploadIcon" />
         <p>파일 선택</p>
       </label>

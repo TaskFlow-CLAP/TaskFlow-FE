@@ -51,7 +51,7 @@ body {
 }
 
 .button-medium {
-  @apply flex items-center justify-center rounded px-4 py-2 font-bold gap-1 text-xs cursor-pointer shrink-0;
+  @apply flex items-center justify-center rounded px-4 py-2 font-bold gap-1 text-xs cursor-pointer shrink-0 h-full;
 }
 .button-medium-primary {
   @apply button-medium bg-primary1 text-white hover:bg-[#6869DE];
@@ -64,6 +64,9 @@ body {
 }
 .button-medium-red {
   @apply button-medium bg-white border border-red-1 text-red-1 hover:bg-red-2;
+}
+.button-medium-disabled {
+  @apply button-medium text-disabled bg-background-1;
 }
 
 .button-small {

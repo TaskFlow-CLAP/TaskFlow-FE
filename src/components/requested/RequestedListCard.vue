@@ -16,21 +16,13 @@
         @click.stop="
           userInfo.isReviewer && router.push(`/request-approve?requestId=${info.taskId}`)
         "
-        :class="
-          userInfo.isReviewer
-            ? 'button-medium-primary'
-            : 'button-medium text-disabled bg-background-1'
-        ">
+        :class="userInfo.isReviewer ? 'button-medium-primary' : 'button-medium-disabled'">
         승인
       </button>
       <button
         type="button"
         @click.stop="userInfo.isReviewer && toggleModal('reject')"
-        :class="
-          userInfo.isReviewer
-            ? 'button-medium-default'
-            : 'button-medium text-disabled bg-background-1'
-        ">
+        :class="userInfo.isReviewer ? 'button-medium-default' : 'button-medium-disabled'">
         반려
       </button>
     </div>
