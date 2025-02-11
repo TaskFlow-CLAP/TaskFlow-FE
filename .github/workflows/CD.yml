@@ -23,6 +23,10 @@ jobs:
           cache: npm # setup-node 의 캐시 기능을 사용함
           cache-dependency-path: package-lock.json # 캐시 기능을 사용할 때 캐시의 기준이 될 파일을 지정
 
+      - name: Extract release version
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
       - name: Install Dependencies
         run: npm install
 
