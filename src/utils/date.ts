@@ -119,3 +119,12 @@ export const formatOnlyTime = (timeString: string) => {
 
   return `${period} ${formattedHours}시 ${String(minutes).padStart(2, '0')}분`
 }
+
+export const formatTimeShort = (timeString: string) => {
+  const [hours, minutes] = timeString.split(':').map(Number)
+
+  const period = hours < 12 ? '오전' : '오후'
+  const formattedHours = hours % 12 || 12
+
+  return `${period} ${formattedHours}:${String(minutes).padStart(2, '0')}`
+}
