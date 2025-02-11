@@ -40,20 +40,19 @@
     :is-approved="true"
     :selected-id="selectedID"
     :close-task-detail="() => handleModal(null)" />
-
   <ModalView
     :is-open="isModalVisible.reject"
     @update:model-value="value => (rejectReason = value || '')"
     type="inputType"
     @close="closeModal"
     @click="rejectRequest">
-    <template #header>거부 사유를 입력해주세요</template>
+    <template #header>반려 사유를 입력해주세요</template>
   </ModalView>
   <ModalView
     :is-open="isModalVisible.success"
     type="successType"
     @close="closeModal">
-    <template #header>거부가 완료되었습니다</template>
+    <template #header>반려가 완료되었습니다</template>
   </ModalView>
   <ModalView
     :is-open="isModalVisible.fail"
@@ -64,6 +63,7 @@
 </template>
 
 <script setup lang="ts">
+import { useMemberStore } from '@/stores/member'
 import type { ListCardProps } from '@/types/common'
 import type { RequestedListData } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
@@ -71,10 +71,9 @@ import { formatDate } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import ModalView from '../common/ModalView.vue'
 import ListCardTab from '../lists/ListCardTab.vue'
 import TaskDetail from '../task-detail/TaskDetail.vue'
-import { useMemberStore } from '@/stores/member'
-import ModalView from '../common/ModalView.vue'
 
 const { info } = defineProps<{ info: RequestedListData }>()
 const requestedTabList: ListCardProps[] = [
@@ -118,7 +117,7 @@ const closeModal = () => {
 const rejectRequest = async () => {
   if (rejectReason.value.length === 0) {
     toggleModal('fail')
-    modalError.value = '거부 사유를 입력해주세요'
+    modalError.value = '반려 사유를 입력해주세요'
     return
   }
   try {
@@ -126,7 +125,7 @@ const rejectRequest = async () => {
     toggleModal('success')
   } catch {
     toggleModal('fail')
-    modalError.value = '작업 거부에 실패했습니다'
+    modalError.value = '작업 반려에 실패했습니다'
   }
 }
 
