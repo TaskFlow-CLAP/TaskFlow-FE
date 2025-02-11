@@ -68,7 +68,7 @@ const email = ref('')
 
 const closeModal = () => {
   isModalVisible.value = !isModalVisible.value
-  router.replace('/login')
+  router.push('/login')
 }
 const closeFailModal = () => {
   isFailModalVisible.value = !isFailModalVisible.value

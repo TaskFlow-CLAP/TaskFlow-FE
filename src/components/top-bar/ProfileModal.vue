@@ -76,7 +76,7 @@ const openLogoutModal = () => {
 const closeLogoutModal = () => {
   isModalVisible.value = false
   isLogined.value = false
-  router.replace('/login')
+  router.push('/login')
 }
 
 const handleLogout = async () => {
