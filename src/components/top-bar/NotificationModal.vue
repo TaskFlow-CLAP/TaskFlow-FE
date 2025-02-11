@@ -45,6 +45,11 @@
             알림을 전부 확인했습니다
           </span>
         </template>
+        <template v-slot:error>
+          <span class="flex py-4 items-center justify-center text-xs text-primary1">
+            데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해 주세요.
+          </span>
+        </template>
       </InfiniteLoading>
     </div>
   </div>
@@ -83,7 +88,6 @@ interface InfiniteLoadingState {
 const loadMoreNotifications = async ($state: InfiniteLoadingState) => {
   try {
     const response = await getNotification(page.value, pageSize)
-
     if (response.isFirst) {
       notifications.value = response.content
     } else {
