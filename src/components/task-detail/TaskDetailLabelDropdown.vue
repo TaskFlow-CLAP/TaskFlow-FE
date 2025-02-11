@@ -35,6 +35,7 @@ import { dropdownIcon } from '@/constants/iconPath'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 import type { LabelDataTypes } from '@/types/common'
 import type { LabelDropdownProps } from '@/types/user'
+import { useQueryClient } from '@tanstack/vue-query'
 import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
@@ -43,6 +44,7 @@ const emit = defineEmits(['update:modelValue'])
 const dropdownOpen = ref(false)
 
 const labelArr = ref<LabelDataTypes[]>([])
+const queryClient = useQueryClient()
 
 onMounted(async () => {
   labelArr.value = await getLabelsManager()
@@ -54,6 +56,7 @@ const toggleDropdown = () => {
 const selectOption = async (option: LabelDataTypes) => {
   emit('update:modelValue', option)
   await changeLabel(taskId || 0, option.labelId || 0)
+  queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
   dropdownOpen.value = false
 }
 
