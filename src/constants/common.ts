@@ -40,32 +40,31 @@ export const COLOR_LIST = [
 ]
 
 export const PERMITTED_URL = {
-  UNKNOWN: ['login', 'pw-change-email', 'pw-change'],
-  ROLE_USER: ['my-request', 'task-request', 'edit-information', 'pw-check', 'pw-change'],
+  UNKNOWN: ['login', 'pw-change-email'],
+  ROLE_USER: ['my-request', 'task-request', 'edit-information', 'pw-change'],
   ROLE_MANAGER: [
-    'my-request',
-    'task-request',
-    'requested',
-    'request-history',
     'my-task',
     'task-board',
     'team-board',
     'statistics',
-    'task-detail',
+    'my-request',
+    'task-request',
+    'requested',
+    'request-approve',
+    'request-history',
     'edit-information',
-    'pw-check',
     'pw-change'
   ],
   ROLE_ADMIN: [
     'member-management',
-    'edit-information',
+    'user-registration',
+    'user-update',
     'task-management',
     'category-first',
     'category-second',
     'login-logs',
     'api-logs',
     'edit-information',
-    'pw-check',
     'pw-change'
   ]
 }

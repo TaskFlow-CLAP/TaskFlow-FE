@@ -1,3 +1,6 @@
+import { PERMITTED_URL } from '@/constants/common'
+import { useErrorStore } from '@/stores/error'
+import { useMemberStore } from '@/stores/member'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -131,6 +134,57 @@ const router = createRouter({
       component: () => import('../views/NotFoundView.vue')
     }
   ]
+})
+
+router.beforeEach(async (to, from, next) => {
+  const memberStore = useMemberStore()
+  const { setError } = useErrorStore()
+
+  await memberStore.updateMemberInfoWithToken()
+  const { info } = memberStore
+
+  const originUrl = to.path.split('/')[1]
+
+  const redirectMap = {
+    ROLE_USER: '/my-request',
+    ROLE_MANAGER: '/my-task',
+    ROLE_ADMIN: '/member-management'
+  }
+
+  if (info.role && to.path === '/login') {
+    return next(redirectMap[info.role])
+  }
+
+  if (!info.role) {
+    if (PERMITTED_URL.UNKNOWN.includes(originUrl)) {
+      return next()
+    }
+    if (to.path === '/login') {
+      return next()
+    }
+    setError('로그인이 필요합니다')
+    return next('/login')
+  }
+
+  const permittedUrlMap = {
+    ROLE_USER: PERMITTED_URL.ROLE_USER,
+    ROLE_MANAGER: PERMITTED_URL.ROLE_MANAGER,
+    ROLE_ADMIN: PERMITTED_URL.ROLE_ADMIN
+  }
+
+  if (from.path === redirectMap[info.role] && !permittedUrlMap[info.role].includes(originUrl)) {
+    return false
+  }
+
+  if (!permittedUrlMap[info.role].includes(originUrl)) {
+    if (to.path === redirectMap[info.role]) {
+      return next()
+    }
+    setError('권한이 없는 페이지입니다')
+    return next(redirectMap[info.role])
+  }
+
+  return next()
 })
 
 export default router

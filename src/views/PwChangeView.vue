@@ -42,8 +42,8 @@
         </button>
         <button
           type="button"
-          class="flex w-full justify-center text-xs font-bold text-body hover:underline"
-          @click="router.back()">
+          class="flex justify-center text-xs font-bold text-body hover:underline"
+          @click="router.replace('/edit-information')">
           이전으로
         </button>
       </div>
@@ -94,11 +94,12 @@
           class="button-large-primary">
           비밀번호 재설정
         </button>
-        <RouterLink
+        <button
+          type="button"
           class="flex justify-center text-xs font-bold text-body hover:underline"
-          to="/edit-information">
+          @click="router.replace('/edit-information')">
           취소
-        </RouterLink>
+        </button>
       </div>
     </form>
   </div>
