@@ -1,12 +1,12 @@
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 bg-black bg-opacity-15 flex justify-center items-center z-50"
+    class="fixed inset-0 bg-black bg-opacity-15 flex justify-center items-center z-[99]"
     @click.self="closeModal" />
   <Transition name="modal">
     <div
       v-if="isOpen"
-      class="bg-white rounded-lg shadow-lg px-8 py-8 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+      class="bg-white rounded-lg shadow-lg px-8 py-8 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[99]">
       <div class="flex flex-col gap-8 w-[300px]">
         <div class="flex flex-col gap-6">
           <div class="flex flex-col items-center gap-2">
