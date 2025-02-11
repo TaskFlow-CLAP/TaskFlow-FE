@@ -4,7 +4,9 @@
       <p class="text-body font-bold">{{ labelName }}</p>
       <p v-if="!isLabel">*</p>
     </div>
-    <div class="relative flex">
+    <div
+      ref="htmlRef"
+      class="relative flex">
       <div
         class="flex w-full h-11 items-center rounded p-4 border border-border-1"
         :class="disabled ? 'bg-background-1 text-disabled' : 'bg-white cursor-pointer'"
@@ -36,6 +38,7 @@ import { dropdownIcon } from '@/constants/iconPath'
 import type { RequestTaskDropdownProps } from '@/types/user'
 import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 const { placeholderText, options, labelName, modelValue, isLabel, disabled } =
   defineProps<RequestTaskDropdownProps>()
@@ -50,4 +53,6 @@ const selectOption = (option: string) => {
   emit('update:modelValue', option)
   dropdownOpen.value = false
 }
+
+const { htmlRef } = useOutsideClick(() => dropdownOpen.value && toggleDropdown())
 </script>

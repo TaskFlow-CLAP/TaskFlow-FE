@@ -18,7 +18,7 @@
       :is-open="isModalVisible.fail"
       type="failType"
       @close="handleFailModal">
-      <template #header>카테고리 정보를 확인해주세요</template>
+      <template #header>{{ errorMessage }}</template>
     </ModalView>
     <RequestTaskDropdown
       v-model="mainCategory"
@@ -53,7 +53,7 @@
       :handle-cancel="handleCancel"
       :handle-submit="handleSubmit"
       cancel-text="취소"
-      :submit-text="route.params.id ? '수정' : '등록'" />
+      :submit-text="route.params.id ? '수정' : '추가'" />
   </div>
 </template>
 
@@ -68,6 +68,7 @@ import { axiosInstance } from '@/utils/axios'
 import { getMainCategory } from '@/api/common'
 import type { Category, CategoryForm } from '@/types/common'
 import ModalView from '../common/ModalView.vue'
+import axios from 'axios'
 
 const router = useRouter()
 const route = useRoute()
@@ -77,6 +78,7 @@ const { categoryStep } = defineProps<{
 }>()
 
 const isModalVisible = ref({ add: false, cancel: false, fail: false })
+const errorMessage = ref('')
 
 const categoryForm = ref<CategoryForm>(CATEGORY_FORM)
 
@@ -87,7 +89,8 @@ const handleAddModal = () => {
 const handleCancelModal = () => {
   isModalVisible.value.cancel = !isModalVisible.value.cancel
 }
-const handleFailModal = () => {
+const handleFailModal = (message: string = '카테고리 정보를 확인해주세요') => {
+  errorMessage.value = message
   isModalVisible.value.fail = !isModalVisible.value.fail
 }
 
@@ -121,8 +124,14 @@ const handleSubmit = async () => {
       await axiosInstance.post(postUrl, categoryForm.value)
     }
     isModalVisible.value.add = true
-  } catch {
-    handleFailModal()
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.data === 'TASK_013') {
+        handleFailModal('중복된 카테고리명\n혹은 고유코드입니다')
+      } else {
+        handleFailModal()
+      }
+    }
   }
 }
 
@@ -134,7 +143,7 @@ const isCodeInvalidate = computed(() => {
   return isInvalidate ? 'code' : ''
 })
 
-const mainCategory = ref('')
+const mainCategory = ref('1차 카테고리를 선택해주세요')
 const categoryOptions = ref<Category[]>([])
 onMounted(async () => {
   const id = Number(route.params.id)

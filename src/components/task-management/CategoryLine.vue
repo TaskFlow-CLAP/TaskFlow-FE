@@ -12,7 +12,7 @@
           <div
             v-if="index === 0"
             class="flex gap-4 items-center w-[200px]">
-            <p class="text-xs text-body w-[60px] text-center">{{ main.code }}</p>
+            <p class="text-xs text-body font-bold w-[60px] text-center">{{ main.code }}</p>
             <p>{{ main.name }}</p>
           </div>
           <div class="flex gap-2 text-xs font-bold">
