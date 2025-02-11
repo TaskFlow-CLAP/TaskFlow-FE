@@ -151,7 +151,7 @@ onMounted(async () => {
   if (categoryStep === '1') {
     if (id) {
       const mainCategories: Category[] = await getMainCategory()
-      const initialValue = mainCategories.find(el => el.id === id)
+      const initialValue = mainCategories.find(el => el.mainCategoryId === id)
       if (initialValue) {
         categoryForm.value = { name: initialValue.name, code: initialValue.code }
       }
@@ -168,7 +168,8 @@ onMounted(async () => {
           descriptionExample: initialValue.descriptionExample
         }
         mainCategory.value =
-          categoryOptions.value.find(el => el.id === initialValue.mainCategoryId)?.name || ''
+          categoryOptions.value.find(el => el.mainCategoryId === initialValue.mainCategoryId)
+            ?.name || ''
       }
     }
   }
@@ -176,7 +177,7 @@ onMounted(async () => {
 watch(mainCategory, () => {
   categoryForm.value.mainCategoryId = categoryOptions.value.find(
     el => el.name === mainCategory.value
-  )?.id
+  )?.mainCategoryId
 })
 
 const onValueChange = (event: Event) => {

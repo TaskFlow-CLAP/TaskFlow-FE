@@ -2,7 +2,7 @@
   <div class="w-full">
     <div
       v-for="main in categories"
-      :key="main.id"
+      :key="main.mainCategoryId"
       class="flex w-full flex-col">
       <div
         v-for="(sub, index) in (main.subCategory?.length || 0) + 1"
@@ -18,13 +18,13 @@
           <div class="flex gap-2 text-xs font-bold">
             <button
               type="button"
-              @click="router.push(`/category-first/${main.id}`)"
+              @click="router.push(`/category-first/${main.mainCategoryId}`)"
               class="text-primary1 hover:underline">
               수정
             </button>
             <button
               type="button"
-              @click="openModal(main.id)"
+              @click="openModal(main.mainCategoryId)"
               class="text-red-1 hover:underline">
               삭제
             </button>
