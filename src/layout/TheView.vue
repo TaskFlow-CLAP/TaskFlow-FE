@@ -30,7 +30,7 @@ watch(
 const handleModal = (id: string | null) => {
   selectedID.value = id
   if (id === null) {
-    router.push({ query: {} })
+    router.replace({ query: {} })
   }
 }
 </script>

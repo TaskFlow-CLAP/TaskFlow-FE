@@ -107,7 +107,7 @@ const loadMoreNotifications = async ($state: InfiniteLoadingState) => {
 const readNotifi = async (id: number, taskId: number) => {
   await patchNotificationRead(id)
   emit('close')
-  router.push({ query: { taskId } })
+  router.replace({ query: { taskId } })
 }
 
 const emit = defineEmits<{
