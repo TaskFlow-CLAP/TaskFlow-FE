@@ -4,7 +4,11 @@
       :isOpen="isModalVisible"
       type="successType"
       @close="closeModal">
-      <template #header>새로운 비밀번호가 전송되었습니다</template>
+      <template #header>
+        <span class="whitespace-pre-wrap text-center">
+          {{ '새로운 비밀번호가\n전송되었습니다' }}
+        </span>
+      </template>
       <template #body>이메일을 확인해주세요</template>
     </ModalView>
     <ModalView
@@ -21,8 +25,8 @@
     </div>
     <form
       @submit.prevent="handleCheck"
-      class="mb-2">
-      <div class="mb-7">
+      class="flex flex-col gap-8">
+      <div class="relative">
         <input
           type="email"
           id="email"
@@ -31,7 +35,7 @@
           required
           class="input-box" />
       </div>
-      <div class="relative mb-8">
+      <div class="relative">
         <input
           type="text"
           id="name"
@@ -40,13 +44,19 @@
           required
           class="input-box" />
       </div>
-      <button
-        type="submit"
-        class="button-large-primary">
-        확인
-      </button>
+      <div class="flex flex-col gap-2 items-center">
+        <button
+          type="submit"
+          class="button-large-primary">
+          확인
+        </button>
+        <RouterLink
+          class="flex justify-center text-xs font-bold text-body hover:underline"
+          to="/login">
+          로그인
+        </RouterLink>
+      </div>
     </form>
-    <div class="flex w-full justify-center"></div>
   </div>
 </template>
 
@@ -55,8 +65,8 @@ import { postPasswordEmailSend } from '@/api/auth'
 import TitleContainer from '@/components/common/TitleContainer.vue'
 import axios from 'axios'
 import { ref } from 'vue'
-import router from '../router/index'
 import ModalView from '@/components/common/ModalView.vue'
+import { useRouter } from 'vue-router'
 
 const messageHeader = ref('')
 const messageBody = ref('')
@@ -66,8 +76,9 @@ const isFailModalVisible = ref(false)
 const name = ref('')
 const email = ref('')
 
+const router = useRouter()
+
 const closeModal = () => {
-  isModalVisible.value = !isModalVisible.value
   router.push('/login')
 }
 const closeFailModal = () => {

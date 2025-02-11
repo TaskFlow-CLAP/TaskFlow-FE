@@ -21,7 +21,7 @@
       <template #header>{{ modalError }}</template>
     </ModalView>
     <div
-      v-for="statusItem in TASK_STATUS_LIST"
+      v-for="statusItem in TASK_STATUS_LIST.slice(1)"
       :key="statusItem.content"
       class="flex px-3 py-1 rounded-[45px]"
       :class="[bgColor(statusItem.value), isProcessor ? 'cursor-pointer' : '']"
@@ -91,7 +91,6 @@ const bgColor = (taskStatus: Status) => {
 const rejectRequest = async () => {
   if (rejectReason.value.length === 0) {
     toggleModal('fail')
-
     modalError.value = '종료 사유를 입력해주세요'
     return
   }
@@ -100,6 +99,7 @@ const rejectRequest = async () => {
     toggleModal('success')
     emit('update:status', 'TERMINATED')
     currentStatus.value = 'TERMINATED'
+    queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
     queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   } catch {
     toggleModal('fail')
@@ -119,6 +119,7 @@ const changeStatus = async (newStatus: Status) => {
     try {
       currentStatus.value = newStatus
       await patchChangeStatus(taskId || 0, newStatus)
+      queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
       queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
     } catch (error) {
       console.error('Failed to update status:', error)

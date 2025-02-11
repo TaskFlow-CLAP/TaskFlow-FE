@@ -40,6 +40,7 @@ import TaskDetailHistory from './TaskDetailHistory.vue'
 import TaskDetailLeft from './TaskDetailLeft.vue'
 import TaskDetailRight from './TaskDetailRight.vue'
 import TaskDetailTopBar from './TaskDetailTopBar.vue'
+import { onMounted, onUnmounted } from 'vue'
 
 const { closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
 
@@ -51,14 +52,19 @@ const { data } = useQuery<TaskDetailDatas>({
   queryFn:
     info.value.role === 'ROLE_USER'
       ? () => getTaskDetailUser(selectedId)
-      : () => getTaskDetailManager(selectedId),
-  refetchOnWindowFocus: false,
-  staleTime: 1000 * 60 * 5
+      : () => getTaskDetailManager(selectedId)
 })
 
 const { data: historyData } = useQuery<TaskDetailHistoryData>({
   queryKey: ['historyData', selectedId],
   queryFn: () => getHistory(selectedId),
   enabled: isLogined
+})
+
+onMounted(() => {
+  document.body.style.overflow = 'hidden'
+})
+onUnmounted(() => {
+  document.body.style.overflow = ''
 })
 </script>

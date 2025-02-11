@@ -74,7 +74,7 @@ import ManagerDropdown from './ManagerDropdown.vue'
 
 const isModalVisible = ref(false)
 const category1 = ref<Category | null>(null)
-const category2 = ref<Category | null>(null)
+const category2 = ref<SubCategory | null>(null)
 const mainCategoryArr = ref<Category[]>([])
 const subCategoryArr = ref<SubCategory[]>([])
 const afterSubCategoryArr = ref<SubCategory[]>([])
@@ -116,7 +116,7 @@ onMounted(async () => {
   category1.value = selected
   category2.value = subCategoryArr.value.find(ct => ct.name === data.categoryName) || null
   afterSubCategoryArr.value = subCategoryArr.value.filter(
-    subCategory => subCategory.mainCategoryId === selected?.id
+    subCategory => subCategory.mainCategoryId === selected?.mainCategoryId
   )
 })
 
@@ -124,7 +124,7 @@ watch(category1, async newValue => {
   if (isFirst.value) isFirst.value = false
   else category2.value = null
   afterSubCategoryArr.value = subCategoryArr.value.filter(
-    subCategory => subCategory.mainCategoryId === newValue?.id
+    subCategory => subCategory.mainCategoryId === newValue?.mainCategoryId
   )
 })
 
@@ -151,7 +151,7 @@ const handleSubmit = async () => {
     return
   }
   const requestData = {
-    categoryId: category2.value.id,
+    categoryId: category2.value.subCategoryId,
     processorId: approveData.value.processor.memberId,
     dueDate: isTimeFilled.value
       ? convertToISO(approveData.value.dueDate, approveData.value.dueTime)

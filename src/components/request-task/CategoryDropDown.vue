@@ -32,7 +32,7 @@
         class="absolute w-full max-h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2">
         <div
           v-for="option in options"
-          :key="option.id"
+          :key="'subCategoryId' in option ? option.subCategoryId : option.mainCategoryId"
           class="w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer"
           @click="selectOption(option)">
           {{ option.name }}
@@ -45,7 +45,7 @@
 <script lang="ts" setup>
 import { dropdownIcon } from '@/constants/iconPath'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
-import type { Category, CategoryDropdownProps } from '@/types/common'
+import type { Category, CategoryDropdownProps, SubCategory } from '@/types/common'
 import { computed, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
@@ -62,7 +62,7 @@ const toggleDropdown = () => {
   dropdownOpen.value = !dropdownOpen.value
 }
 
-const selectOption = (option: Category) => {
+const selectOption = (option: Category | SubCategory) => {
   emit('update:modelValue', option)
   dropdownOpen.value = false
 }

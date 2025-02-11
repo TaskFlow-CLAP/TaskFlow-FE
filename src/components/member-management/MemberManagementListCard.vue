@@ -23,8 +23,10 @@
       </button>
       <button
         type="button"
-        class="button-medium-secondary"
-        @click="onMemberInvite(info.memberId)">
+        :class="
+          info.memberStatus !== 'ACTIVE' ? 'button-medium-secondary' : 'button-medium-disabled'
+        "
+        @click="info.memberStatus !== 'ACTIVE' && onMemberInvite(info.memberId)">
         초대
       </button>
     </div>

@@ -2,7 +2,7 @@
   <div class="w-full">
     <div
       v-for="main in categories"
-      :key="main.id"
+      :key="main.mainCategoryId"
       class="flex w-full flex-col">
       <div
         v-for="(sub, index) in (main.subCategory?.length || 0) + 1"
@@ -12,19 +12,19 @@
           <div
             v-if="index === 0"
             class="flex gap-4 items-center w-[200px]">
-            <p class="text-xs text-body w-[60px] text-center">{{ main.code }}</p>
+            <p class="text-xs text-body font-bold w-[60px] text-center">{{ main.code }}</p>
             <p>{{ main.name }}</p>
           </div>
           <div class="flex gap-2 text-xs font-bold">
             <button
               type="button"
-              @click="router.push(`/category-first/${main.id}`)"
+              @click="router.push(`/category-first/${main.mainCategoryId}`)"
               class="text-primary1 hover:underline">
               수정
             </button>
             <button
               type="button"
-              @click="openModal(main.id)"
+              @click="openModal(main.mainCategoryId)"
               class="text-red-1 hover:underline">
               삭제
             </button>
@@ -52,9 +52,11 @@ import type { CategoryAllData } from '@/types/admin'
 import { defineProps, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from '../common/ModalView.vue'
+import { useQueryClient } from '@tanstack/vue-query'
 
 const { categories } = defineProps<CategoryAllData>()
 const router = useRouter()
+const queryClient = useQueryClient()
 
 const isModalVisible = ref(false)
 const selectedCategoryId = ref<number | null>(null)
@@ -71,6 +73,7 @@ const openModal = (id: number) => {
 const handleDelete = async (id: number | null) => {
   if (id !== null) {
     await deleteCategoryAdmin(id)
+    queryClient.invalidateQueries({ queryKey: ['category'] })
     handleModal()
   }
 }
