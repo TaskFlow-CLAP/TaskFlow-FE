@@ -12,12 +12,12 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import TaskDetail from '@/components/task-detail/TaskDetail.vue'
-import router from '@/router'
 
 const route = useRoute()
+const router = useRouter()
 const selectedID = ref(route.query?.taskId || null)
 
 watch(

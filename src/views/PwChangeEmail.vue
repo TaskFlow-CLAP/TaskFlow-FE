@@ -4,7 +4,11 @@
       :isOpen="isModalVisible"
       type="successType"
       @close="closeModal">
-      <template #header>새로운 비밀번호가 전송되었습니다</template>
+      <template #header>
+        <span class="whitespace-pre-wrap text-center">
+          {{ '새로운 비밀번호가\n전송되었습니다' }}
+        </span>
+      </template>
       <template #body>이메일을 확인해주세요</template>
     </ModalView>
     <ModalView
@@ -61,8 +65,9 @@ import { postPasswordEmailSend } from '@/api/auth'
 import TitleContainer from '@/components/common/TitleContainer.vue'
 import axios from 'axios'
 import { ref } from 'vue'
-import router from '../router/index'
 import ModalView from '@/components/common/ModalView.vue'
+import { useRouter } from 'vue-router'
+import { preventEnter } from '@/utils/preventEnter'
 
 const messageHeader = ref('')
 const messageBody = ref('')
@@ -72,8 +77,12 @@ const isFailModalVisible = ref(false)
 const name = ref('')
 const email = ref('')
 
+const router = useRouter()
+
 const closeModal = () => {
   isModalVisible.value = !isModalVisible.value
+  document.body.style.overflow = ''
+  window.removeEventListener('keydown', preventEnter)
   router.push('/login')
 }
 const closeFailModal = () => {
@@ -84,6 +93,8 @@ const handleCheck = async () => {
   try {
     await postPasswordEmailSend(name.value, email.value)
     isModalVisible.value = !isModalVisible.value
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', preventEnter)
   } catch (error) {
     if (axios.isAxiosError(error)) {
       switch (error?.response?.status) {

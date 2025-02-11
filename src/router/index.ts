@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -132,23 +131,6 @@ const router = createRouter({
       component: () => import('../views/NotFoundView.vue')
     }
   ]
-})
-
-router.beforeEach((to, from, next) => {
-  if (to.path === '/pw-change') {
-    if (
-      from.path === '/pw-check' ||
-      from.path === '/pw-change-email' ||
-      (from.path === '/login' && Cookies.get('accessToken'))
-    ) {
-      next()
-    } else {
-      next('/login')
-      return
-    }
-  } else {
-    next()
-  }
 })
 
 export default router
