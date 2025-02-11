@@ -1,0 +1,202 @@
+<template>
+  <div class="max-w-400">
+    <div class="py-16">
+      <ModalView
+        :is-open="isErrorVisible"
+        type="failType"
+        @close="closeError">
+        <template #header>{{ messageHeader }}</template>
+        <template #body>{{ messageBody }}</template>
+      </ModalView>
+      <ModalView
+        :isOpen="isModalVisible"
+        type="successType"
+        @close="closeModal">
+        <template #header>비밀번호가 변경 되었습니다</template>
+      </ModalView>
+      <TitleContainer
+        v-if="!isConfirmed"
+        :title="'비밀번호\n재설정'"
+        :content="'비밀번호 재설정을 위해\n현재 비밀번호를 입력해주세요'" />
+      <TitleContainer
+        v-else
+        :title="'비밀번호\n재설정'"
+        content="새로운 비밀번호를 입력해주세요" />
+    </div>
+    <form
+      v-if="!isConfirmed"
+      @submit.prevent="handleCheck"
+      class="flex flex-col gap-8">
+      <input
+        type="password"
+        id="pw"
+        v-model="pw"
+        placeholder="비밀번호를 입력해주세요"
+        required
+        class="input-box" />
+      <div class="flex flex-col gap-2">
+        <button
+          type="submit"
+          class="button-large-primary">
+          확인
+        </button>
+        <button
+          type="button"
+          class="flex w-full justify-center text-xs font-bold text-body hover:underline"
+          @click="router.back()">
+          이전으로
+        </button>
+      </div>
+    </form>
+    <form
+      v-else
+      @submit.prevent="handleChange"
+      class="flex flex-col gap-8">
+      <div class="relative">
+        <input
+          type="password"
+          id="newPw"
+          v-model="newPw"
+          placeholder="새 비밀번호를 입력해주세요"
+          required
+          ref="passwordInput"
+          :class="[
+            'block w-full px-4 py-4 border rounded focus:outline-none',
+            isInvalid ? 'border-red-1' : 'border-border-1'
+          ]" />
+        <p
+          v-show="isInvalid"
+          class="absolute text-red-1 text-xs font-bold mt-1">
+          대문자, 소문자, 숫자, 특수문자 포함 8자-20자 입력해주세요
+        </p>
+      </div>
+      <div class="relative">
+        <input
+          type="password"
+          id="checkPw"
+          v-model="checkPw"
+          ref="checkPwInput"
+          placeholder="새 비밀번호를 다시 입력해주세요"
+          required
+          :class="[
+            'block w-full px-4 py-4 border rounded focus:outline-none',
+            isDifferent ? 'border-red-1' : 'border-border-1'
+          ]" />
+        <p
+          v-show="isDifferent"
+          class="absolute text-red-1 text-xs font-bold mt-1">
+          비밀번호가 일치하지 않아요
+        </p>
+      </div>
+      <div class="flex flex-col gap-2 items-center">
+        <button
+          type="submit"
+          class="button-large-primary">
+          비밀번호 재설정
+        </button>
+        <RouterLink
+          class="flex justify-center text-xs font-bold text-body hover:underline"
+          to="/edit-information">
+          취소
+        </RouterLink>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { patchPassword, postPasswordCheck } from '@/api/auth'
+import TitleContainer from '@/components/common/TitleContainer.vue'
+import axios from 'axios'
+import { nextTick, ref } from 'vue'
+import ModalView from '@/components/common/ModalView.vue'
+import { useRouter } from 'vue-router'
+
+const isErrorVisible = ref(false)
+
+const messageHeader = ref('')
+const messageBody = ref('')
+
+const pw = ref('')
+const isConfirmed = ref(false)
+
+const handleCheck = async () => {
+  try {
+    await postPasswordCheck(pw.value)
+    isConfirmed.value = true
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      switch (error?.response?.status) {
+        case 400:
+          isErrorVisible.value = !isErrorVisible.value
+          messageHeader.value = '비밀번호가 일치하지 않습니다'
+          messageBody.value = '다시 확인해주세요'
+          break
+
+        case 401:
+          isErrorVisible.value = !isErrorVisible.value
+          messageHeader.value = '비밀번호가 일치하지 않습니다'
+          messageBody.value = '다시 확인해주세요'
+          break
+
+        case 500:
+          isErrorVisible.value = !isErrorVisible.value
+          messageHeader.value = '서버에 문제가 발생했습니다'
+          messageBody.value = '잠시 후 다시 이용해주세요'
+          break
+
+        default:
+          isErrorVisible.value = !isErrorVisible.value
+          messageHeader.value = '문제가 발생했습니다'
+          messageBody.value = '잠시 후 다시 이용해주세요'
+          break
+      }
+    }
+  }
+}
+
+const newPw = ref('')
+const checkPw = ref('')
+const isDifferent = ref(false)
+const checkPwInput = ref<HTMLInputElement | null>(null)
+const isInvalid = ref(false)
+const passwordInput = ref<HTMLInputElement | null>(null)
+const isModalVisible = ref(false)
+const router = useRouter()
+
+const validatePassword = () => {
+  const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-]).{8,20}$/
+  isInvalid.value = !regex.test(newPw.value)
+
+  if (isInvalid.value) {
+    nextTick(() => {
+      passwordInput.value?.focus()
+    })
+  }
+}
+
+const handleChange = () => {
+  if (newPw.value != checkPw.value) {
+    isDifferent.value = true
+    checkPwInput.value?.focus()
+  } else if (newPw.value == checkPw.value) {
+    isDifferent.value = false
+  }
+  validatePassword()
+  if (isInvalid.value == false && newPw.value === checkPw.value) {
+    patchPassword(newPw.value)
+    openModal()
+  }
+}
+
+const openModal = () => {
+  isModalVisible.value = !isModalVisible.value
+}
+const closeModal = () => {
+  isModalVisible.value = !isModalVisible.value
+  router.push('/edit-information')
+}
+const closeError = () => {
+  isErrorVisible.value = !isErrorVisible.value
+}
+</script>
