@@ -30,10 +30,17 @@
       cancelText="취소"
       submitText="요청" />
     <ModalView
-      :isOpen="isModalVisible"
+      :isOpen="isModalVisible === 'success'"
       :type="'successType'"
       @close="handleCancel">
       <template #header>작업이 요청되었습니다</template>
+    </ModalView>
+    <ModalView
+      :isOpen="isModalVisible === 'fail'"
+      :type="'failType'"
+      @close="handleCancel">
+      <template #header>작업요청을 실패했습니다</template>
+      <template #body>잠시후 시도해주세요</template>
     </ModalView>
   </div>
 </template>
@@ -58,7 +65,7 @@ const title = ref('')
 const description = ref('')
 const file = ref(null as File[] | null)
 const isInvalidate = ref('')
-const isModalVisible = ref(false)
+const isModalVisible = ref('')
 
 const mainCategoryArr = ref<Category[]>([])
 const subCategoryArr = ref<SubCategory[]>([])
@@ -92,10 +99,15 @@ const handleCancel = () => {
   title.value = ''
   description.value = ''
   file.value = []
+  isModalVisible.value = ''
   router.back()
 }
 
+const isSubmitting = ref(false)
+
 const handleSubmit = async () => {
+  if (isSubmitting.value || isModalVisible.value) return
+
   if (!category1.value || !category2.value) {
     isInvalidate.value = 'category'
     return
@@ -109,16 +121,17 @@ const handleSubmit = async () => {
     isInvalidate.value = 'description'
     return
   }
+
+  isSubmitting.value = true
+
   const formData = new FormData()
   const taskInfo = {
     categoryId: category2.value.id,
     title: title.value,
     description: description.value
   }
-
   const jsonTaskInfo = JSON.stringify(taskInfo)
   const newBlob = new Blob([jsonTaskInfo], { type: 'application/json' })
-
   formData.append('taskInfo', newBlob)
 
   if (file.value && file.value.length > 0) {
@@ -126,9 +139,12 @@ const handleSubmit = async () => {
   }
   try {
     await postTaskRequest(formData)
-    isModalVisible.value = true
-  } catch (error) {
-    console.error('요청 실패:', error)
+    isModalVisible.value = 'success'
+  } catch (e) {
+    console.error(e)
+    isModalVisible.value = 'fail'
+  } finally {
+    isSubmitting.value = false
   }
 }
 </script>
