@@ -105,7 +105,6 @@ const loadMoreNotifications = async ($state: InfiniteLoadingState) => {
 }
 
 const readNotifi = async (id: number, taskId: number) => {
-  document.body.style.overflow = 'hidden'
   await patchNotificationRead(id)
   emit('close')
   router.push({ query: { taskId } })
