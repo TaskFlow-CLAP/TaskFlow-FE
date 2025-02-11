@@ -7,7 +7,7 @@
     <template #listCards>
       <MyRequestListCard
         v-for="info in data?.content"
-        :key="info.taskId"
+        :key="info.taskStatus + info.processorName + info.taskId"
         :info="info" />
       <NoContent v-if="data?.content.length === 0" />
     </template>
@@ -22,19 +22,19 @@
 </template>
 
 <script setup lang="ts">
+import { useParseParams } from '@/hooks/useParseParams'
+import { useMemberStore } from '@/stores/member'
 import { useRequestParamsStore } from '@/stores/params'
 import type { MyRequestResponse } from '@/types/user'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import ListContainer from '../lists/ListContainer.vue'
 import ListPagination from '../lists/ListPagination.vue'
 import NoContent from '../lists/NoContent.vue'
 import MyRequestListBar from './MyRequestListBar.vue'
 import MyRequestListCard from './MyRequestListCard.vue'
-import { useMemberStore } from '@/stores/member'
-import { storeToRefs } from 'pinia'
-import { useParseParams } from '@/hooks/useParseParams'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {

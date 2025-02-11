@@ -38,8 +38,7 @@ const handleModal = (id: number | null) => {
     document.body.style.overflow = 'hidden'
   } else {
     queryClient.invalidateQueries({
-      queryKey: ['requestHistory', params],
-      refetchType: 'all'
+      queryKey: ['requestHistory', params]
     })
     document.body.style.overflow = ''
   }
