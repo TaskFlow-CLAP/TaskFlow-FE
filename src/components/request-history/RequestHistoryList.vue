@@ -7,7 +7,7 @@
     <template #listCards>
       <RequestHistoryListCard
         v-for="info in data?.content"
-        :key="info.taskId"
+        :key="info.taskStatus + info.processorName + info.taskId"
         :info="info" />
       <NoContent v-if="data?.content.length === 0" />
     </template>
@@ -22,19 +22,19 @@
 </template>
 
 <script setup lang="ts">
-import ListPagination from '../lists/ListPagination.vue'
-import ListContainer from '../lists/ListContainer.vue'
+import { useParseParams } from '@/hooks/useParseParams'
+import { useMemberStore } from '@/stores/member'
 import { useRequestParamsStore } from '@/stores/params'
-import RequestHistoryListBar from './RequestHistoryListBar.vue'
-import RequestHistoryListCard from './RequestHistoryListCard.vue'
+import type { RequestHistoryResponse } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
-import { computed } from 'vue'
-import type { RequestHistoryResponse } from '@/types/manager'
-import NoContent from '../lists/NoContent.vue'
-import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
-import { useParseParams } from '@/hooks/useParseParams'
+import { computed } from 'vue'
+import ListContainer from '../lists/ListContainer.vue'
+import ListPagination from '../lists/ListPagination.vue'
+import NoContent from '../lists/NoContent.vue'
+import RequestHistoryListBar from './RequestHistoryListBar.vue'
+import RequestHistoryListCard from './RequestHistoryListCard.vue'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {
