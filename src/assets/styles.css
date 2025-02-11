@@ -57,13 +57,13 @@ body {
   @apply button-medium bg-primary1 text-white hover:bg-[#6869DE];
 }
 .button-medium-secondary {
-  @apply button-medium bg-white border border-primary1 text-primary1 hover:bg-background-2;
+  @apply button-medium bg-white border border-primary1 text-primary1 hover:bg-primary2;
 }
 .button-medium-default {
   @apply button-medium bg-white border border-border-1 text-disabled hover:bg-background-2;
 }
 .button-medium-red {
-  @apply button-medium bg-white border border-red-1 text-red-1 hover:bg-background-2;
+  @apply button-medium bg-white border border-red-1 text-red-1 hover:bg-red-2;
 }
 
 .button-small {

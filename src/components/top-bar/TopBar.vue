@@ -12,12 +12,13 @@
       </div>
       <div
         v-if="isLogined"
-        class="flex items-center gap-6">
+        class="flex items-center gap-5">
         <div
           :key="isNotifiVisible + ''"
           ref="notifiRef"
           class="flex">
           <button
+            class="p-1 hover:bg-background-2 rounded"
             type="button"
             @click="toggleNotifi">
             <NotificationIcon :new-notification="countNotifi" />
