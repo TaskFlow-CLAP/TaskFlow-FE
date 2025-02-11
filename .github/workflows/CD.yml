@@ -31,7 +31,9 @@ jobs:
 
       - name: Extract release version
         id: version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        run: |
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          echo "VERSION=${{ steps.version.outputs.VERSION }}"
 
       - name: Install Dependencies
         run: npm install
