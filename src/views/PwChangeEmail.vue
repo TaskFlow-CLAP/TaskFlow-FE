@@ -21,8 +21,8 @@
     </div>
     <form
       @submit.prevent="handleCheck"
-      class="mb-2">
-      <div class="mb-7">
+      class="flex flex-col gap-8">
+      <div class="relative">
         <input
           type="email"
           id="email"
@@ -31,7 +31,7 @@
           required
           class="input-box" />
       </div>
-      <div class="relative mb-8">
+      <div class="relative">
         <input
           type="text"
           id="name"
@@ -40,13 +40,19 @@
           required
           class="input-box" />
       </div>
-      <button
-        type="submit"
-        class="button-large-primary">
-        확인
-      </button>
+      <div class="flex flex-col gap-2 items-center">
+        <button
+          type="submit"
+          class="button-large-primary">
+          확인
+        </button>
+        <RouterLink
+          class="flex justify-center text-xs font-bold text-body hover:underline"
+          to="/login">
+          로그인
+        </RouterLink>
+      </div>
     </form>
-    <div class="flex w-full justify-center"></div>
   </div>
 </template>
 
@@ -68,7 +74,7 @@ const email = ref('')
 
 const closeModal = () => {
   isModalVisible.value = !isModalVisible.value
-  router.replace('/login')
+  router.push('/login')
 }
 const closeFailModal = () => {
   isFailModalVisible.value = !isFailModalVisible.value

@@ -67,7 +67,7 @@ const emit = defineEmits<{
 }>()
 
 const handleEdit = () => {
-  router.replace('/edit-information')
+  router.push('/edit-information')
   emit('close')
 }
 const openLogoutModal = () => {
@@ -76,7 +76,7 @@ const openLogoutModal = () => {
 const closeLogoutModal = () => {
   isModalVisible.value = false
   isLogined.value = false
-  router.replace('/login')
+  router.push('/login')
 }
 
 const handleLogout = async () => {

@@ -10,7 +10,7 @@
       </ModalView>
       <TitleContainer
         :title="'비밀번호\n재설정'"
-        :content="'비밀번호 재설정을 위해\n 현재 비밀번호를 입력해주세요'" />
+        :content="'비밀번호 재설정을 위해\n현재 비밀번호를 입력해주세요'" />
     </div>
     <form
       @submit.prevent="handleCheck"
@@ -22,13 +22,20 @@
         placeholder="비밀번호를 입력해주세요"
         required
         class="input-box" />
-      <button
-        type="submit"
-        class="button-large-primary">
-        확인
-      </button>
+      <div class="flex flex-col gap-2">
+        <button
+          type="submit"
+          class="button-large-primary">
+          확인
+        </button>
+        <button
+          type="button"
+          class="flex w-full justify-center text-xs font-bold text-body hover:underline"
+          @click="router.back()">
+          이전으로
+        </button>
+      </div>
     </form>
-    <div class="flex w-full justify-center"></div>
   </div>
 </template>
 

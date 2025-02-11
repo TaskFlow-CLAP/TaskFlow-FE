@@ -22,15 +22,20 @@
       </div>
     </div>
     <div class="grow h-full flex flex-col overflow-y-auto">
-      <NotificationMessage
-        v-for="notification in notifications"
-        :key="notification.notificationId"
-        @click="readNotifi(notification.notificationId, notification.taskId)"
-        :type="notification.notificationType"
-        :title="notification.taskTitle"
-        :message="notification.message"
-        :is-read="notification.isRead">
-      </NotificationMessage>
+      <template v-if="notifications">
+        <NotificationMessage
+          v-for="notification in notifications"
+          :key="notification.notificationId"
+          @click="readNotifi(notification.notificationId, notification.taskId)"
+          :type="notification.notificationType"
+          :title="notification.taskTitle"
+          :message="notification.message"
+          :is-read="notification.isRead">
+        </NotificationMessage>
+      </template>
+      <template v-else>
+        <NoContent title="전달 받은 알림이 없습니다" />
+      </template>
       <InfiniteLoading
         @infinite="loadMoreNotifications"
         class="flex items-center justify-center">
@@ -55,6 +60,7 @@ import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import NotificationMessage from './NotificationMessage.vue'
 import { useRouter } from 'vue-router'
+import NoContent from '../lists/NoContent.vue'
 
 const { isOpen } = defineProps<{
   isOpen: boolean

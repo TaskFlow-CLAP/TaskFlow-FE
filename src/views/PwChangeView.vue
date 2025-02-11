@@ -56,13 +56,19 @@
           비밀번호가 일치하지 않아요
         </p>
       </div>
-      <button
-        type="submit"
-        class="button-large-primary">
-        비밀번호 재설정
-      </button>
+      <div class="flex flex-col gap-2 items-center">
+        <button
+          type="submit"
+          class="button-large-primary">
+          비밀번호 재설정
+        </button>
+        <RouterLink
+          class="flex justify-center text-xs font-bold text-body hover:underline"
+          to="/edit-information">
+          취소
+        </RouterLink>
+      </div>
     </form>
-    <div class="flex w-full justify-center"></div>
   </div>
 </template>
 

@@ -192,7 +192,7 @@ const handlePwChange = () => {
 }
 
 const changePw = () => {
-  router.replace('/pw-check')
+  router.push('/pw-check')
 }
 
 const warningModalToggle = () => {
