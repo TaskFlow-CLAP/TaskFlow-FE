@@ -18,7 +18,7 @@
     <p
       v-if="isInvalidateState === 'code'"
       class="text-red-1 text-xs absolute top-[calc(100%+4px)]">
-      사용할 수 없는 고유코드입니다.
+      사용할 수 없는 작업코드입니다.
     </p>
   </div>
 </template>

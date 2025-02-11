@@ -59,10 +59,10 @@ import ModalView from '../common/ModalView.vue'
 
 const { categories } = defineProps<CategoryAllData>()
 const router = useRouter()
+const queryClient = useQueryClient()
 
 const isModalVisible = ref(false)
 const selectedId = ref<number | null>(null)
-const queryClient = useQueryClient()
 
 const openModal = (id: number) => {
   selectedId.value = id

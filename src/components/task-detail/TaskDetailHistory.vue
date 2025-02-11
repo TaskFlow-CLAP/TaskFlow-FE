@@ -19,7 +19,7 @@
           <div
             v-if="item.taskHistoryType !== 'COMMENT' && item.taskHistoryType !== 'COMMENT_FILE'"
             class="text-xs font-bold text-body">
-            {{ formatOnlyTime(item.time) }}
+            {{ formatTimeShort(item.time) }}
           </div>
           <div class="flex w-full gap-1 justify-center text-body text-sm">
             <p>{{ HistoryMessageBefore[item.taskHistoryType] }}</p>
@@ -59,7 +59,7 @@
 <script setup lang="ts">
 import { HistoryMessageAfter, HistoryMessageBefore } from '@/constants/user'
 import type { TaskDetailHistoryProps } from '@/types/common'
-import { formatDateWithDay, formatOnlyTime } from '@/utils/date'
+import { formatDateWithDay, formatTimeShort } from '@/utils/date'
 import { watch } from 'vue'
 import TaskDetailHistoryChat from './TaskDetailHistoryChat.vue'
 import TaskDetailHistoryFile from './TaskDetailHistoryFile.vue'

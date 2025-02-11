@@ -19,17 +19,26 @@
 </template>
 
 <script setup lang="ts">
+import { useRequestParamsStore } from '@/stores/params'
 import type { ListCardProps } from '@/types/common'
 import type { MyTaskListData } from '@/types/manager'
 import { formatDate } from '@/utils/date'
+import { useQueryClient } from '@tanstack/vue-query'
 import { ref } from 'vue'
 import ListCardTab from '../lists/ListCardTab.vue'
 import TaskDetail from '../task-detail/TaskDetail.vue'
 
 const { info } = defineProps<{ info: MyTaskListData }>()
 const selectedID = ref<number | null>(null)
+const queryClient = useQueryClient()
+const { params } = useRequestParamsStore()
 
 const handleModal = (id: number | null) => {
+  if (!id) {
+    queryClient.invalidateQueries({
+      queryKey: ['myTask', params]
+    })
+  }
   selectedID.value = id
 }
 const myRequestTabList: ListCardProps[] = [

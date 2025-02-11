@@ -38,7 +38,7 @@
       type="failType"
       @close="handleModal">
       <template #header>파일추가를 실패했습니다</template>
-      <template #body>최대 5개, 각 5mb까지 가능합니다.</template>
+      <template #body>최대 5개, 각 5mb까지 가능합니다</template>
     </ModalView>
   </div>
 </template>

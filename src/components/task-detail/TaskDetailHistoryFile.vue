@@ -1,6 +1,6 @@
 <template>
-  <div :class="['flex w-full', isProcessor ? 'justify-end' : 'justify-start']">
-    <div :class="['w-10 h-10 rounded-full pt-1.5', isProcessor ? 'order-3' : 'order-1']">
+  <div :class="['flex w-full', isRequestor ? 'justify-start' : 'justify-end']">
+    <div :class="['w-10 h-10 rounded-full pt-1.5', isRequestor ? 'order-1' : 'order-3']">
       <ImageContainer
         :size="40"
         :url="history.details.commentFileDetails?.profileImageUrl" />
@@ -8,23 +8,23 @@
     <div
       :class="[
         'flex flex-col gap-2 pl-4 pr-2 order-2',
-        isProcessor ? 'items-end pr-4 pl-2' : 'items-start pl-4 pr-2'
+        isRequestor ? 'items-start pr-4 pl-2' : 'items-end pl-2 pr-4'
       ]">
       <p class="text-xs text-body">{{ history.details.commentFileDetails?.nickName }}</p>
-      <div :class="['flex gap-2', isProcessor ? 'flex-row-reverse' : 'flex-row']">
+      <div :class="['flex gap-2', isRequestor ? 'flex-row' : 'flex-row-reverse']">
         <div
-          :class="[
-            'flex max-w-[400px] flex-wrap px-4 py-3 gap-4 items-center rounded-lg',
-            isProcessor ? 'bg-primary2' : 'bg-background-2'
-          ]">
+          class="flex max-w-[400px] px-4 py-3 gap-4 items-center rounded-lg"
+          :class="isRequestor ? 'bg-background-2' : 'bg-primary2'">
           <a
             class="w-10 h-10 flex items-center justify-center bg-white border border-border-2 rounded-lg shrink-0 hover:bg-primary2"
             :href="history.details.commentFileDetails?.url"
             download>
             <CommonIcons :name="fileIcon" />
           </a>
-          <div class="flex flex-col gap-2">
-            <p class="font-normal">{{ history.details.commentFileDetails?.fileName }}</p>
+          <div class="flex flex-col gap-2 flex-1 min-w-0">
+            <p class="font-normal w-full overflow-hidden whitespace-nowrap text-ellipsis">
+              {{ history.details.commentFileDetails?.fileName }}
+            </p>
             <p class="text-xs font-bold text-body">
               용량 : {{ history.details.commentFileDetails?.size }}
             </p>
@@ -33,7 +33,7 @@
         <div
           :class="[
             'flex flex-col justify-end self-end gap-1 text-xs font-bold text-body',
-            isProcessor ? 'order-1 items-end' : 'order-3'
+            isRequestor ? 'order-3' : ' items-end order-1'
           ]">
           <div
             v-if="history.details.commentFileDetails?.nickName === info.nickname"
@@ -46,7 +46,7 @@
               @click="handleModal"
               :class="[
                 'absolute shadow-custom bottom-0 w-20 h-[27px] rounded flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
-                isProcessor ? 'right-6' : 'left-6'
+                isRequestor ? 'left-6' : 'right-6'
               ]">
               삭제
             </div>
@@ -87,6 +87,12 @@ const { info } = storeToRefs(memberStore)
 const isClicked = ref(false)
 const isModalOpen = ref(false)
 const queryClient = useQueryClient()
+const isRequestor = computed(
+  () =>
+    history.details.commentDetails?.nickName === requestorName ||
+    history.details.commentFileDetails?.nickName === requestorName
+)
+
 const clickMenuDot = async () => {
   isClicked.value = !isClicked.value
 }
@@ -104,6 +110,4 @@ const deleteCommentFile = async () => {
   }
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
 }
-
-const isProcessor = computed(() => info.value.nickname !== requestorName)
 </script>

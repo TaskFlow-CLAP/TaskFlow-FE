@@ -52,9 +52,7 @@ const { data } = useQuery<TaskDetailDatas>({
   queryFn:
     info.value.role === 'ROLE_USER'
       ? () => getTaskDetailUser(selectedId)
-      : () => getTaskDetailManager(selectedId),
-  refetchOnWindowFocus: false,
-  staleTime: 1000 * 60 * 5
+      : () => getTaskDetailManager(selectedId)
 })
 
 const { data: historyData } = useQuery<TaskDetailHistoryData>({
