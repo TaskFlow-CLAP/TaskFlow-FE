@@ -64,8 +64,7 @@ const borderLeft = computed(() => {
 })
 
 const handleModal = (id: number | null) => {
-  if (id) document.body.style.overflow = 'hidden'
-  else {
+  if (!id) {
     queryClient.invalidateQueries({
       queryKey: ['taskBoard']
     })

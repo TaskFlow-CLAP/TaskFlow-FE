@@ -34,12 +34,10 @@ const queryClient = useQueryClient()
 const { params } = useRequestParamsStore()
 
 const handleModal = (id: number | null) => {
-  if (id) document.body.style.overflow = 'hidden'
-  else {
+  if (!id) {
     queryClient.invalidateQueries({
       queryKey: ['myTask', params]
     })
-    document.body.style.overflow = ''
   }
   selectedID.value = id
 }

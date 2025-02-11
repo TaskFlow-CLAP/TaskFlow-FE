@@ -1,12 +1,12 @@
 <template>
   <div
     v-if="isOpen"
-    class="fixed inset-0 bg-black bg-opacity-15 flex justify-center items-center z-50"
+    class="fixed inset-0 bg-black bg-opacity-15 flex justify-center items-center z-[99]"
     @click.self="closeModal" />
   <Transition name="modal">
     <div
       v-if="isOpen"
-      class="bg-white rounded-lg shadow-lg px-8 py-8 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+      class="bg-white rounded-lg shadow-lg px-8 py-8 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[99]">
       <div class="flex flex-col gap-8 w-[300px]">
         <div class="flex flex-col gap-6">
           <div class="flex flex-col items-center gap-2">
@@ -20,13 +20,15 @@
               v-if="type == 'warningType'"
               :name="warningIcon" />
 
-            <div class="flex text-2xl font-bold justify-center">
+            <div
+              v-if="$slots.header"
+              class="flex text-2xl font-bold justify-center whitespace-pre-wrap text-center">
               <slot name="header"></slot>
             </div>
 
             <div
-              v-if="type != 'inputType'"
-              class="flex text-sm font-bold text-body justify-center whitespace-pre-line text-center">
+              v-if="type != 'inputType' && $slots.header"
+              class="flex text-sm font-bold text-body justify-center whitespace-pre-wrap text-center">
               <slot name="body"></slot>
             </div>
           </div>
@@ -79,10 +81,11 @@
 
 <script setup lang="ts">
 import { failIcon, successIcon, warningIcon } from '@/constants/iconPath'
-import { ref, watch } from 'vue'
+import { onUnmounted, ref, watch } from 'vue'
 import CommonIcons from './CommonIcons.vue'
+import { preventEnter } from '@/utils/preventEnter'
 
-const props = defineProps<{
+const { isOpen, type, modelValue } = defineProps<{
   isOpen: boolean
   type?: string
   modelValue?: string
@@ -94,7 +97,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void
 }>()
 
-const textValue = ref(props.modelValue || '')
+const textValue = ref(modelValue || '')
 
 watch(textValue, newValue => {
   emit('update:modelValue', newValue)
@@ -108,4 +111,22 @@ const closeModal = () => {
 const confirmModal = () => {
   emit('click')
 }
+
+watch(
+  () => isOpen,
+  () => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+      window.addEventListener('keydown', preventEnter)
+    } else {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', preventEnter)
+    }
+  }
+)
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
+  window.removeEventListener('keydown', preventEnter)
+})
 </script>

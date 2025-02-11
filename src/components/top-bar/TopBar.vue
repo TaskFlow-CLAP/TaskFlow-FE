@@ -12,12 +12,13 @@
       </div>
       <div
         v-if="isLogined"
-        class="flex items-center gap-6">
+        class="flex items-center gap-5">
         <div
           :key="isNotifiVisible + ''"
           ref="notifiRef"
           class="flex">
           <button
+            class="p-1 hover:bg-background-2 rounded"
             type="button"
             @click="toggleNotifi">
             <NotificationIcon :new-notification="countNotifi" />
@@ -60,32 +61,15 @@ import { useMemberStore } from '@/stores/member'
 import NotificationModal from './NotificationModal.vue'
 import ProfileModal from './ProfileModal.vue'
 import { getNotifiCount } from '@/api/common'
-import { useRoute, useRouter } from 'vue-router'
-import { PERMITTED_URL } from '@/constants/common'
 import ImageContainer from '../common/ImageContainer.vue'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)
 
-const route = useRoute()
-const router = useRouter()
 onMounted(async () => {
-  await memberStore.updateMemberInfoWithToken()
-
   if (isLogined.value) {
     await fetchNotificationCount()
-  }
-
-  const originUrl = route.path.split('/')[1]
-  if (info.value.role === 'ROLE_USER') {
-    if (!PERMITTED_URL.ROLE_USER.includes(originUrl)) router.replace('/my-request')
-  } else if (info.value.role === 'ROLE_MANAGER') {
-    if (!PERMITTED_URL.ROLE_MANAGER.includes(originUrl)) router.replace('/my-task')
-  } else if (info.value.role === 'ROLE_ADMIN') {
-    if (!PERMITTED_URL.ROLE_ADMIN.includes(originUrl)) router.replace('/member-management')
-  } else {
-    if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) router.push('/login')
   }
 })
 

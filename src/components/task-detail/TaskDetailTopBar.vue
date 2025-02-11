@@ -105,7 +105,6 @@ const finishCancel = async () => {
 }
 
 const onButtonClick = (url: string) => {
-  document.body.style.overflow = ''
   router.push(url)
 }
 </script>

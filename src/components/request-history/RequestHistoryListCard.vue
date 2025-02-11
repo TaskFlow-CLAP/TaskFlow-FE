@@ -34,13 +34,10 @@ const { params } = useRequestParamsStore()
 const queryClient = useQueryClient()
 
 const handleModal = (id: number | null) => {
-  if (id) {
-    document.body.style.overflow = 'hidden'
-  } else {
+  if (!id) {
     queryClient.invalidateQueries({
       queryKey: ['requestHistory', params]
     })
-    document.body.style.overflow = ''
   }
   selectedID.value = id
 }

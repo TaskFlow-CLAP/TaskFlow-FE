@@ -59,7 +59,7 @@ import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
 
 const category1 = ref<Category | null>(null)
-const category2 = ref<Category | null>(null)
+const category2 = ref<SubCategory | null>(null)
 
 const title = ref('')
 const description = ref('')
@@ -81,13 +81,13 @@ onMounted(async () => {
 watch(category1, async newValue => {
   category2.value = null
   afterSubCategoryArr.value = subCategoryArr.value.filter(
-    subCategory => subCategory.mainCategoryId === newValue?.id
+    subCategory => subCategory.mainCategoryId === newValue?.mainCategoryId
   )
 })
 
 watch(category2, async newVal => {
   if (newVal) {
-    const res = await getSubCategoryDetail(newVal.id)
+    const res = await getSubCategoryDetail(newVal.subCategoryId)
     description.value = res.descriptionExample
   }
 })
@@ -126,7 +126,7 @@ const handleSubmit = async () => {
 
   const formData = new FormData()
   const taskInfo = {
-    categoryId: category2.value.id,
+    categoryId: category2.value.subCategoryId,
     title: title.value,
     description: description.value
   }

@@ -2,11 +2,11 @@
   <div class="w-full">
     <div
       v-for="main in categories"
-      :key="main.id"
+      :key="main.mainCategoryId"
       class="flex w-full flex-col">
       <div
         v-for="sub in main.subCategory"
-        :key="sub.id"
+        :key="sub.subCategoryId"
         class="flex w-full flex-col">
         <div class="category-management-line justify-between bg-white">
           <div class="flex gap-4 items-center">
@@ -16,13 +16,13 @@
           <div class="flex gap-2 text-xs font-bold">
             <button
               type="button"
-              @click="router.push(`/category-second/${sub.id}`)"
+              @click="router.push(`/category-second/${sub.subCategoryId}`)"
               class="text-primary1 hover:underline">
               수정
             </button>
             <button
               type="button"
-              @click="openModal(sub.id)"
+              @click="openModal(sub.subCategoryId)"
               class="text-red-1 hover:underline">
               삭제
             </button>
@@ -30,8 +30,8 @@
         </div>
         <ModalView
           type="warningType"
-          :is-open="isModalVisible && selectedId === sub.id"
-          @click="deleteCategory(sub.id)"
+          :is-open="isModalVisible && selectedId === sub.subCategoryId"
+          @click="deleteCategory(sub.subCategoryId)"
           @close="closeModal">
           <template #header>카테고리를 삭제 하시겠습니까?</template>
           <template #body>삭제된 카테고리는 복구할 수 없습니다</template>

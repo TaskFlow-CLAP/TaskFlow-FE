@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-y-auto">
+  <div class="overflow-y-auto grow">
     <div class="w-full grid grid-cols-3 gap-12 sticky top-0 bg-white z-30">
       <div class="flex bg-primary2 rounded-t-lg">
         <span class="text-xs font-bold text-body p-4">

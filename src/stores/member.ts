@@ -3,7 +3,6 @@ import { axiosInstance } from '@/utils/axios'
 import { ref } from 'vue'
 import type { User } from '@/types/auth'
 import Cookies from 'js-cookie'
-import { useRouter } from 'vue-router'
 
 export const useMemberStore = defineStore('memberInfo', () => {
   const INITIAL_INFO: User = {
@@ -24,13 +23,11 @@ export const useMemberStore = defineStore('memberInfo', () => {
 
   const info = ref<User>(INITIAL_INFO)
   const isLogined = ref(false)
-  const router = useRouter()
 
   async function updateMemberInfoWithToken() {
-    if (!Cookies.get('accessToken')) {
-      router.push('/login')
-      return
-    }
+    const token = Cookies.get('accessToken')
+    if (!token) return
+
     try {
       const { data }: { data: User } = await axiosInstance.get('/api/members/info')
       info.value = data

@@ -206,7 +206,7 @@ const handlePwChange = () => {
 }
 
 const changePw = () => {
-  router.replace('/pw-check')
+  router.replace('/pw-change')
 }
 
 const warningModalToggle = () => {

@@ -40,6 +40,7 @@ import TaskDetailHistory from './TaskDetailHistory.vue'
 import TaskDetailLeft from './TaskDetailLeft.vue'
 import TaskDetailRight from './TaskDetailRight.vue'
 import TaskDetailTopBar from './TaskDetailTopBar.vue'
+import { onMounted, onUnmounted } from 'vue'
 
 const { closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
 
@@ -58,5 +59,12 @@ const { data: historyData } = useQuery<TaskDetailHistoryData>({
   queryKey: ['historyData', selectedId],
   queryFn: () => getHistory(selectedId),
   enabled: isLogined
+})
+
+onMounted(() => {
+  document.body.style.overflow = 'hidden'
+})
+onUnmounted(() => {
+  document.body.style.overflow = ''
 })
 </script>
