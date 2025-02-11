@@ -30,10 +30,17 @@
       cancelText="취소"
       submitText="수정" />
     <ModalView
-      :isOpen="isModalVisible"
+      :isOpen="isModalVisible === 'success'"
       :type="'successType'"
       @close="handleCancel">
       <template #header>작업이 수정되었습니다</template>
+    </ModalView>
+    <ModalView
+      :isOpen="isModalVisible === 'fail'"
+      :type="'failType'"
+      @close="handleCancel">
+      <template #header>작업요청을 실패했습니다</template>
+      <template #body>잠시후 시도해주세요</template>
     </ModalView>
   </div>
 </template>
@@ -59,7 +66,8 @@ const title = ref('')
 const description = ref('')
 const file = ref(null as File[] | null)
 const isInvalidate = ref('')
-const isModalVisible = ref(false)
+const isModalVisible = ref('')
+const isSubmitting = ref(false)
 
 const mainCategoryArr = ref<Category[]>([])
 const subCategoryArr = ref<SubCategory[]>([])
@@ -105,6 +113,7 @@ watch(category1, async newValue => {
 })
 
 const handleSubmit = async () => {
+  if (isSubmitting.value || isModalVisible.value) return
   if (!category2.value) {
     isInvalidate.value = 'category'
     return
@@ -158,9 +167,12 @@ const handleSubmit = async () => {
     } else {
       await patchTaskRequest(id, formData)
     }
-    isModalVisible.value = true
-  } catch (error) {
-    console.error('요청 실패:', error)
+    isModalVisible.value = 'success'
+  } catch (e) {
+    isModalVisible.value = 'fail'
+    console.error('요청 실패:', e)
+  } finally {
+    isSubmitting.value = false
   }
 }
 </script>

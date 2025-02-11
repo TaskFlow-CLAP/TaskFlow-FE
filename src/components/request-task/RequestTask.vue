@@ -66,6 +66,7 @@ const description = ref('')
 const file = ref(null as File[] | null)
 const isInvalidate = ref('')
 const isModalVisible = ref('')
+const isSubmitting = ref(false)
 
 const mainCategoryArr = ref<Category[]>([])
 const subCategoryArr = ref<SubCategory[]>([])
@@ -103,7 +104,6 @@ const handleCancel = () => {
   router.back()
 }
 
-const isSubmitting = ref(false)
 
 const handleSubmit = async () => {
   if (isSubmitting.value || isModalVisible.value) return
