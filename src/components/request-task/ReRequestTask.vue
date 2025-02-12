@@ -6,14 +6,14 @@
       :label-name="'1차 카테고리'"
       :placeholderText="'1차 카테고리를 선택해주세요'"
       :isDisabled="false"
-      :is-invalidate="isInvalidate" />
+      :is-invalidate="isInvalidate === 'category1' ? 'category' : ''" />
     <CategoryDropDown
       v-model="category2"
       :options="afterSubCategoryArr"
       :label-name="'2차 카테고리'"
       :placeholderText="'2차 카테고리를 선택해주세요'"
       :isDisabled="!category1"
-      :is-invalidate="isInvalidate" />
+      :is-invalidate="isInvalidate === 'category2' ? 'category' : ''" />
     <RequestTaskInput
       v-model="title"
       :placeholderText="'제목을 입력해주세요'"
@@ -114,8 +114,12 @@ watch(category1, async newValue => {
 
 const handleSubmit = async () => {
   if (isSubmitting.value || isModalVisible.value) return
-  if (!category2.value) {
-    isInvalidate.value = 'category'
+
+  if (!category1.value) {
+    isInvalidate.value = 'category1'
+    return
+  } else if (!category2.value) {
+    isInvalidate.value = 'category2'
     return
   } else if (!title.value) {
     isInvalidate.value = 'input'
