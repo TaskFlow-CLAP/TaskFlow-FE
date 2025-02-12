@@ -5,7 +5,7 @@
         <ImageContainer
           :url="info.imageUrl"
           :size="24" />
-        <span class="text-black">{{ info.nickname }}</span>
+        <span>{{ info.nickname }}</span>
       </div>
       <span class="text-xs font-bold text-body">{{ info.department }}</span>
     </div>

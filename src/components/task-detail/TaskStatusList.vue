@@ -3,7 +3,7 @@
     <ModalView
       :is-open="isModalVisible.reject"
       @update:model-value="value => (rejectReason = value || '')"
-      type="inputType"
+      type="terminate"
       @close="closeModal"
       @click="rejectRequest">
       <template #header>종료 사유를 입력해주세요</template>
@@ -21,7 +21,7 @@
       <template #header>{{ modalError }}</template>
     </ModalView>
     <div
-      v-for="statusItem in TASK_STATUS_LIST"
+      v-for="statusItem in TASK_STATUS_LIST.slice(1)"
       :key="statusItem.content"
       class="flex px-3 py-1 rounded-[45px]"
       :class="[bgColor(statusItem.value), isProcessor ? 'cursor-pointer' : '']"
@@ -79,13 +79,13 @@ const closeModal = () => {
 }
 
 const textColor = (taskStatus: Status) => {
-  return currentStatus.value === taskStatus ? 'text-white' : `text-gray-1`
+  return currentStatus.value === taskStatus ? 'text-white' : `text-zinc-400`
 }
 
 const bgColor = (taskStatus: Status) => {
   return currentStatus.value === taskStatus
     ? `bg-${statusAsColor(taskStatus)}-1`
-    : `bg-gray-2${isProcessor ? ' hover:bg-background-1' : ''}`
+    : `bg-zinc-100${isProcessor ? ' hover:bg-zinc-200' : ''}`
 }
 
 const rejectRequest = async () => {
@@ -97,6 +97,10 @@ const rejectRequest = async () => {
   try {
     await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, rejectReason)
     toggleModal('success')
+    emit('update:status', 'TERMINATED')
+    currentStatus.value = 'TERMINATED'
+    queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
+    queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   } catch {
     toggleModal('fail')
     modalError.value = '작업 종료에 실패했습니다'
@@ -107,17 +111,19 @@ const changeStatus = async (newStatus: Status) => {
   if (currentStatus.value === newStatus) {
     return
   }
-  currentStatus.value = newStatus
-  emit('update:status', newStatus)
   if (newStatus === 'TERMINATED') {
     toggleModal('reject')
     return
-  }
-  try {
-    await patchChangeStatus(taskId || 0, newStatus)
-    queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
-  } catch (error) {
-    console.error('Failed to update status:', error)
+  } else {
+    emit('update:status', newStatus)
+    try {
+      currentStatus.value = newStatus
+      await patchChangeStatus(taskId || 0, newStatus)
+      queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
+      queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
+    } catch (error) {
+      console.error('Failed to update status:', error)
+    }
   }
 }
 </script>

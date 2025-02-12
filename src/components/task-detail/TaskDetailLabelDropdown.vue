@@ -1,9 +1,9 @@
 <template>
   <div
     ref="htmlRef"
-    class="relative flex text-base">
+    class="relative flex">
     <div
-      class="flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-sm text-black"
+      class="flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 cursor-pointer text-sm"
       @click="toggleDropdown">
       <p :class="{ 'text-disabled': !modelValue?.labelName }">
         {{ modelValue?.labelName || placeholderText }}
@@ -14,13 +14,16 @@
     </div>
     <div
       v-if="dropdownOpen"
-      class="absolute w-full h-32 overflow-y-auto top-12 flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom text-black">
+      class="absolute w-full pb-6 top-12">
       <div
-        v-for="option in labelArr"
-        :key="option.labelId"
-        class="w-full flex text-sm items-center h-10 p-1.5 rounded hover:bg-background-2 cursor-pointer"
-        @click="selectOption(option)">
-        {{ option.labelName }}
+        class="w-full h-32 overflow-y-auto flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom">
+        <div
+          v-for="option in labelArr"
+          :key="option.labelId"
+          class="w-full flex text-sm items-center h-10 p-1.5 rounded hover:bg-background-2 cursor-pointer"
+          @click="selectOption(option)">
+          {{ option.labelName }}
+        </div>
       </div>
     </div>
   </div>
@@ -32,6 +35,7 @@ import { dropdownIcon } from '@/constants/iconPath'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 import type { LabelDataTypes } from '@/types/common'
 import type { LabelDropdownProps } from '@/types/user'
+import { useQueryClient } from '@tanstack/vue-query'
 import { onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
@@ -40,6 +44,7 @@ const emit = defineEmits(['update:modelValue'])
 const dropdownOpen = ref(false)
 
 const labelArr = ref<LabelDataTypes[]>([])
+const queryClient = useQueryClient()
 
 onMounted(async () => {
   labelArr.value = await getLabelsManager()
@@ -51,6 +56,7 @@ const toggleDropdown = () => {
 const selectOption = async (option: LabelDataTypes) => {
   emit('update:modelValue', option)
   await changeLabel(taskId || 0, option.labelId || 0)
+  queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
   dropdownOpen.value = false
 }
 

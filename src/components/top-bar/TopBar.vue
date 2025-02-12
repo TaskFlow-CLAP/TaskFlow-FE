@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed w-full bg-white text-black py-2 border-b border-border-1 z-50">
+  <div class="fixed w-full bg-white py-2 border-b border-border-1 z-50">
     <div class="max-w-[1200px] mx-auto px-6 flex w-full justify-between items-center relative">
       <div class="flex justify-center items-center gap-6 h-full">
         <button
@@ -12,12 +12,13 @@
       </div>
       <div
         v-if="isLogined"
-        class="flex items-center gap-6">
+        class="flex items-center gap-5">
         <div
           :key="isNotifiVisible + ''"
           ref="notifiRef"
           class="flex">
           <button
+            class="p-1 hover:bg-background-2 rounded"
             type="button"
             @click="toggleNotifi">
             <NotificationIcon :new-notification="countNotifi" />
@@ -60,32 +61,15 @@ import { useMemberStore } from '@/stores/member'
 import NotificationModal from './NotificationModal.vue'
 import ProfileModal from './ProfileModal.vue'
 import { getNotifiCount } from '@/api/common'
-import { useRoute, useRouter } from 'vue-router'
-import { PERMITTED_URL } from '@/constants/common'
 import ImageContainer from '../common/ImageContainer.vue'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)
 
-const route = useRoute()
-const router = useRouter()
 onMounted(async () => {
-  await memberStore.updateMemberInfoWithToken()
-
   if (isLogined.value) {
     await fetchNotificationCount()
-  }
-
-  const originUrl = route.path.split('/')[1]
-  if (info.value.role === 'ROLE_USER') {
-    if (!PERMITTED_URL.ROLE_USER.includes(originUrl)) router.push('/my-request')
-  } else if (info.value.role === 'ROLE_MANAGER') {
-    if (!PERMITTED_URL.ROLE_MANAGER.includes(originUrl)) router.push('/my-task')
-  } else if (info.value.role === 'ROLE_ADMIN') {
-    if (!PERMITTED_URL.ROLE_ADMIN.includes(originUrl)) router.push('/member-management')
-  } else {
-    if (!PERMITTED_URL.UNKNOWN.includes(originUrl)) router.push('/login')
   }
 })
 

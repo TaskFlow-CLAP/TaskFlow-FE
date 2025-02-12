@@ -7,17 +7,28 @@
       id="file"
       multiple
       @change="handleFileUpload" />
-    <RequestTaskFileInputAfter
+    <label
       v-if="hasFiles"
-      :files="modelValue"
-      :removeFile="removeFile" />
+      for="file">
+      <RequestTaskFileInputAfter
+        :files="modelValue"
+        :removeFile="removeFile" />
+    </label>
     <div
       v-else
-      class="w-full h-32 flex flex-col gap-4 items-center justify-center mt-2 rounded py-[31px] bg-white border-2 border-border-1 border-dashed">
-      <div class="text-sm text-disabled font-bold">첨부할 파일을 끌어 놓으세요</div>
+      :class="[
+        'w-full h-32 flex flex-col gap-4 items-center justify-center mt-2 rounded py-[31px] bg-white border-2 border-dashed',
+        isDragging ? 'border-primary1' : 'border-border-1'
+      ]"
+      @dragover.prevent="isDragging = true"
+      @dragleave.prevent="isDragging = false"
+      @drop.prevent="handleDrop">
+      <div :class="['text-sm font-bold', isDragging ? 'text-primary1' : 'text-disabled']">
+        첨부할 파일을 끌어 놓으세요
+      </div>
       <label
         for="file"
-        class="button-medium-primary">
+        class="button-medium-primary !h-fit">
         <CommonIcons :name="uploadIcon" />
         <p>파일 선택</p>
       </label>
@@ -27,7 +38,7 @@
       type="failType"
       @close="handleModal">
       <template #header>파일추가를 실패했습니다</template>
-      <template #body>최대 5개, 각 5mb까지 가능합니다.</template>
+      <template #body>최대 5개, 각 5mb까지 가능합니다</template>
     </ModalView>
   </div>
 </template>
@@ -36,8 +47,8 @@
 import CommonIcons from '@/components/common/CommonIcons.vue'
 import { uploadIcon } from '@/constants/iconPath'
 import { computed, ref } from 'vue'
-import RequestTaskFileInputAfter from './RequestTaskFileInputAfter.vue'
 import ModalView from '../common/ModalView.vue'
+import RequestTaskFileInputAfter from './RequestTaskFileInputAfter.vue'
 
 const { modelValue } = defineProps<{
   modelValue: File[] | null
@@ -45,6 +56,7 @@ const { modelValue } = defineProps<{
 const emit = defineEmits(['update:modelValue'])
 
 const hasFiles = computed(() => modelValue && modelValue.length > 0)
+const isDragging = ref(false)
 const isModalVisible = ref(false)
 
 const handleModal = () => {
@@ -56,6 +68,23 @@ const handleFileUpload = (event: Event) => {
   if (target.files && target.files.length > 0) {
     const newFiles = Array.from(target.files).filter(file => file.size <= 5 * 1024 * 1024)
     if (newFiles.length !== target.files.length) {
+      handleModal()
+      return
+    }
+    const updatedFiles = modelValue ? [...modelValue, ...newFiles] : newFiles
+    if (updatedFiles.length > 5) {
+      handleModal()
+      return
+    }
+    emit('update:modelValue', updatedFiles.length === 1 ? [updatedFiles[0]] : updatedFiles)
+  }
+}
+
+const handleDrop = (event: DragEvent) => {
+  const files = event.dataTransfer?.files
+  if (files && files.length > 0) {
+    const newFiles = Array.from(files).filter(file => file.size <= 5 * 1024 * 1024)
+    if (newFiles.length !== files.length) {
       handleModal()
       return
     }

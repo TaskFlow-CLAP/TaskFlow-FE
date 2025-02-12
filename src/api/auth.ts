@@ -1,6 +1,6 @@
 import { axiosInstance } from '@/utils/axios'
 import Cookies from 'js-cookie'
-import type { loginDataTypes } from '@/types/auth'
+
 import { useMemberStore } from '@/stores/member'
 
 export const postPasswordEmailSend = async (name: string, email: string) => {
@@ -17,8 +17,10 @@ export const postPasswordCheck = async (password: string) => {
   return response.data
 }
 
-export const postLogin = async (loginData: loginDataTypes) => {
-  const response = await axiosInstance.post('/api/auths/login', loginData)
+export const postLogin = async (nickName: string, password: string) => {
+  const response = await axiosInstance.post(`/api/auths/login?nickname=${nickName}`, {
+    password: password
+  })
   Cookies.set('accessToken', response.data.accessToken, {
     path: '/',
     sameSite: 'strict'
@@ -31,7 +33,7 @@ export const postLogin = async (loginData: loginDataTypes) => {
 }
 
 export const patchPassword = async (password: string) => {
-  const request = { password: password }
+  const request = { password }
   const response = await axiosInstance.patch('/api/members/password', request)
   return response.data
 }

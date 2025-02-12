@@ -1,8 +1,7 @@
 <template>
   <div class="filter-container w-36">
     <span class="filter-title">IP 주소</span>
-    <div
-      class="w-full h-8 border-b border-border-1 text-xs text-black flex items-center gap-1 px-2">
+    <div class="w-full h-8 border-b border-border-1 text-xs flex items-center gap-1 px-2">
       <template
         v-for="(block, index) in blocks"
         :key="index">

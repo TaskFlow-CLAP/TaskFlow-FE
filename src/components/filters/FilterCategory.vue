@@ -17,11 +17,11 @@
           <li
             class="filter-dropdown-option"
             v-for="category in categoryList"
-            :key="category.id"
+            :key="category.mainCategoryId"
             :class="
-              (main as number[]).includes(category.id)
+              (main as number[]).includes(category.mainCategoryId)
                 ? 'bg-primary1 text-white font-bold'
-                : 'hover:bg-background-2 text-black'
+                : 'hover:bg-background-2'
             "
             @click="() => onMainClick(category)">
             {{ category.name }}
@@ -34,7 +34,7 @@
       <div
         ref="subRef"
         class="filter-dropdown"
-        :class="isDisabled ? 'bg-background-2 text-disabled' : 'text-black'"
+        :class="isDisabled ? 'bg-background-2 text-disabled' : ''"
         @click="!isDisabled && toggleDropdown('sub')">
         <span class="grow text-center">선택</span>
         <CommonIcons
@@ -58,13 +58,13 @@
             <li
               class="filter-dropdown-option"
               v-for="subCategory in category.subCategory"
-              :key="subCategory.id"
+              :key="subCategory.subCategoryId"
               :class="
-                (sub as number[]).includes(subCategory.id)
+                (sub as number[]).includes(subCategory.subCategoryId)
                   ? 'bg-primary1 text-white font-bold'
-                  : 'hover:bg-background-2 text-black'
+                  : 'hover:bg-background-2'
               "
-              @click="() => onSubClick(subCategory.id)">
+              @click="() => onSubClick(subCategory.subCategoryId)">
               {{ subCategory.name }}
             </li>
           </ul>
@@ -76,7 +76,7 @@
 
 <script setup lang="ts">
 import { dropdownIcon } from '@/constants/iconPath'
-import type { Category, FilterCategoryProps } from '@/types/common'
+import type { Category, FilterCategoryProps, SubCategory } from '@/types/common'
 import { computed, ref, watchEffect } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
@@ -91,7 +91,7 @@ const toggleDropdown = (type: 'main' | 'sub') =>
     ? (isMainOpened.value = !isMainOpened.value)
     : (isSubOpened.value = !isSubOpened.value)
 
-const selectedCategoryList = ref<{ name: string; subCategory: Category[] }[]>([])
+const selectedCategoryList = ref<{ name: string; subCategory: SubCategory[] }[]>([])
 const isDisabled = computed(() => {
   return selectedCategoryList.value.length === 0
 })
@@ -106,8 +106,8 @@ const onMainClick = (category: Category) => {
     )
     if (category.subCategory) {
       category.subCategory.forEach(el => {
-        if ((sub as number[]).includes(el.id)) {
-          emit('update:sub', el.id)
+        if ((sub as number[]).includes(el.subCategoryId)) {
+          emit('update:sub', el.subCategoryId)
         }
       })
     }
@@ -119,7 +119,7 @@ const onMainClick = (category: Category) => {
       })
     }
   }
-  emit('update:main', category.id)
+  emit('update:main', category.mainCategoryId)
 }
 const onSubClick = (value: number) => {
   emit('update:sub', value)

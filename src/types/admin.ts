@@ -10,6 +10,7 @@ export interface MemberManagementListData {
   role: Role
   isReviewer: boolean
   createdAt: string
+  memberStatus: string
 }
 
 export interface LoginLogsListData {
