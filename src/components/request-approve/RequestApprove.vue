@@ -24,7 +24,7 @@
       :is-invalidate="isInvalidate" />
     <div class="flex flex-col gap-2">
       <div class="flex gap-2">
-        <p class="text-body text-xs font-bold">마감기한</p>
+        <p class="text-body text-xs font-semibold">마감기한</p>
         <p
           v-if="!isDueDateValid && approveData.dueDate && approveData.dueTime"
           class="text-red-1 text-xs">
@@ -71,6 +71,8 @@ import CategoryDropDown from '../request-task/CategoryDropDown.vue'
 import DueDateInput from './DueDateInput.vue'
 import LabelDropdown from './LabelDropdown.vue'
 import ManagerDropdown from './ManagerDropdown.vue'
+import { useErrorStore } from '@/stores/error'
+import { redirectToLogin } from '@/utils/redirectToLogin'
 
 const isModalVisible = ref(false)
 const category1 = ref<Category | null>(null)
@@ -109,6 +111,11 @@ onBeforeRouteLeave((to, from, next) => {
 })
 
 onMounted(async () => {
+  const { setError } = useErrorStore()
+  if (!requestId) {
+    setError('존재하지 않는 요청입니다', '', () => redirectToLogin('/requested'))
+    return
+  }
   mainCategoryArr.value = await getMainCategory()
   subCategoryArr.value = await getSubCategory()
   const data = await getTaskDetailUser(requestId)
@@ -158,11 +165,7 @@ const handleSubmit = async () => {
       : null,
     labelId: approveData.value.label?.labelId || null
   }
-  try {
-    await postTaskApprove(requestId, requestData)
-    isModalVisible.value = true
-  } catch (error) {
-    console.error('API 요청 실패:', error)
-  }
+  await postTaskApprove(requestId, requestData)
+  isModalVisible.value = true
 }
 </script>

@@ -20,7 +20,7 @@
             :key="category.mainCategoryId"
             :class="
               (main as number[]).includes(category.mainCategoryId)
-                ? 'bg-primary1 text-white font-bold'
+                ? 'bg-primary1 text-white font-semibold'
                 : 'hover:bg-background-2'
             "
             @click="() => onMainClick(category)">
@@ -50,7 +50,7 @@
             :key="category.name">
             <div class="w-full flex items-center gap-2">
               <div class="h-[1px] grow bg-border-2" />
-              <span class="text-[10px] font-bold text-disabled">
+              <span class="text-[10px] font-semibold text-disabled">
                 {{ category.name }}
               </span>
               <div class="h-[1px] grow bg-border-2" />
@@ -61,7 +61,7 @@
               :key="subCategory.subCategoryId"
               :class="
                 (sub as number[]).includes(subCategory.subCategoryId)
-                  ? 'bg-primary1 text-white font-bold'
+                  ? 'bg-primary1 text-white font-semibold'
                   : 'hover:bg-background-2'
               "
               @click="() => onSubClick(subCategory.subCategoryId)">

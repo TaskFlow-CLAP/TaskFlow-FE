@@ -11,7 +11,7 @@
     </div>
     <div
       :class="[
-        'flex flex-col gap-2 order-2 font-bold',
+        'flex flex-col gap-2 order-2 font-semibold',
         isRequestor ? 'items-start pl-4 pr-2' : 'items-end pr-4 pl-2'
       ]">
       <p class="text-xs text-body">{{ history.details.commentDetails?.nickName }}</p>
@@ -25,7 +25,7 @@
         </p>
         <div
           :class="[
-            'flex flex-col justify-end self-end text-xs font-bold text-body gap-1 relative',
+            'flex flex-col justify-end self-end text-xs font-semibold text-body gap-1 relative',
             isRequestor ? 'order-3 items-start' : 'order-1 items-end'
           ]">
           <div
@@ -44,7 +44,7 @@
               삭제
             </div>
           </div>
-          <div class="flex flex-col gap-1 h-full justify-end font-bold">
+          <div class="flex flex-col gap-1 h-full justify-end font-semibold">
             {{ formatTimeShort(history.time) }}
           </div>
         </div>

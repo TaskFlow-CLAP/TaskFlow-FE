@@ -3,7 +3,7 @@
     class="flex px-3 py-1 rounded-full"
     :class="bgColor">
     <span
-      class="text-xs font-bold"
+      class="text-xs font-semibold"
       :class="textColor">
       {{ statusAsText(status) }}
     </span>

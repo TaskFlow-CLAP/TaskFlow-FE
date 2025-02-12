@@ -38,7 +38,7 @@ body {
 }
 
 .button-large {
-  @apply flex w-full py-3 font-bold border rounded items-center justify-center min-w-[138px];
+  @apply flex w-full py-3 font-semibold border rounded items-center justify-center min-w-[138px];
 }
 .button-large-default {
   @apply button-large bg-white text-disabled border-border-1 hover:bg-background-2;
@@ -51,7 +51,7 @@ body {
 }
 
 .button-medium {
-  @apply flex items-center justify-center rounded px-4 py-2 font-bold gap-1 text-xs cursor-pointer shrink-0 h-full;
+  @apply flex items-center justify-center rounded px-4 py-2 font-semibold gap-1 text-xs cursor-pointer shrink-0 h-full max-h-[34px];
 }
 .button-medium-primary {
   @apply button-medium bg-primary1 text-white hover:bg-[#6869DE];
@@ -70,7 +70,7 @@ body {
 }
 
 .button-small {
-  @apply flex items-center gap-1 text-xs font-bold;
+  @apply flex items-center gap-1 text-xs font-semibold;
 }
 .button-small-primary {
   @apply text-primary1;
@@ -93,7 +93,7 @@ body {
   @apply flex flex-col gap-1 shrink-0;
 }
 .filter-title {
-  @apply text-[10px] font-bold text-body;
+  @apply text-[10px] font-semibold text-body;
 }
 .filter-dropdown {
   @apply flex justify-center items-center w-full h-8 px-2 border-b border-border-1 relative text-xs cursor-pointer;
@@ -110,7 +110,7 @@ body {
 }
 
 .task-detail {
-  @apply text-xs text-body font-bold mb-2;
+  @apply text-xs text-body font-semibold mb-2;
 }
 
 .request-task-dropdown {
@@ -131,7 +131,7 @@ body {
   @apply max-w-1200 min-h-screen flex flex-col gap-6;
 }
 .task-management-title {
-  @apply flex w-full h-8 pl-6 gap-6 items-center text-xs bg-background-2 text-body font-bold border-b border-b-border-1;
+  @apply flex w-full h-8 pl-6 gap-6 items-center text-xs bg-background-2 text-body font-semibold border-b border-b-border-1;
 }
 .category-management-line {
   @apply flex items-center px-4 w-full h-11 border-b border-b-border-1;

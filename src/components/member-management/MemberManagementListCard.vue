@@ -96,16 +96,10 @@ const closeModal = () => {
 }
 
 const onMemberDelete = async (memberId: number) => {
-  try {
-    await axiosInstance.delete(`/api/managements/members`, { data: { memberId } })
-    resultModalType.value = 'successType'
-    message.value = '회원을 삭제했습니다'
-    toggleModal('result')
-  } catch {
-    resultModalType.value = 'failType'
-    message.value = '회원 삭제에 실패했습니다'
-    toggleModal('result')
-  }
+  await axiosInstance.delete(`/api/managements/members`, { data: { memberId } })
+  resultModalType.value = 'successType'
+  message.value = '회원을 삭제했습니다'
+  toggleModal('result')
 }
 
 const onMemberInvite = async (memberId: number) => {

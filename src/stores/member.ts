@@ -28,14 +28,10 @@ export const useMemberStore = defineStore('memberInfo', () => {
     const token = Cookies.get('accessToken')
     if (!token) return
 
-    try {
-      const { data }: { data: User } = await axiosInstance.get('/api/members/info')
-      info.value = data
-      isLogined.value = true
-      return data.role
-    } catch (e) {
-      console.log(e)
-    }
+    const { data }: { data: User } = await axiosInstance.get('/api/members/info')
+    info.value = data
+    isLogined.value = true
+    return data.role
   }
 
   function logout() {

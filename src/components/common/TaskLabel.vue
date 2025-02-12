@@ -1,6 +1,6 @@
 <template>
   <span
-    class="px-2 py-0.5 text-[10px] font-bold border-2 rounded-full whitespace-nowrap"
+    class="px-2 py-0.5 text-[10px] font-semibold border-2 rounded-full whitespace-nowrap"
     :style="{ borderColor, backgroundColor }">
     {{ content }}
   </span>

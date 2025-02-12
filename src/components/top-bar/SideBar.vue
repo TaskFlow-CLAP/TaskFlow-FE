@@ -19,7 +19,7 @@
           <div
             v-for="menuGroup in filteredMenu"
             :key="menuGroup.groupId">
-            <span class="flex text-xs text-disabled font-bold px-6 py-2">
+            <span class="flex text-xs text-disabled font-semibold px-6 py-2">
               {{ menuGroup.groupTitle }}
             </span>
             <div
@@ -30,7 +30,7 @@
                 class="flex items-center w-full h-[52px] hover:bg-background-2"
                 :class="
                   menuItem.link === route.path
-                    ? 'px-4 border-l-8 border-primary1 font-bold'
+                    ? 'px-4 border-l-8 border-primary1 font-semibold'
                     : 'px-6'
                 "
                 @click="$emit('close')">
@@ -47,14 +47,14 @@
             :url="info.profileImageUrl"
             :size="40" />
           <div class="flex flex-col gap-1">
-            <p class="text-xs text-body font-bold">{{ name }}</p>
+            <p class="text-xs text-body font-semibold">{{ name }}</p>
             <p class="text-sm">{{ nickname }}</p>
           </div>
         </div>
         <div class="flex items-end whitespace-nowrap">
           <RouterLink
             to="/edit-information"
-            class="text-primary1 text-sm font-bold"
+            class="text-primary1 text-sm font-semibold"
             @click="$emit('close')">
             내 정보 수정
           </RouterLink>

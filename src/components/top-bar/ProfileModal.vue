@@ -11,7 +11,7 @@
           :size="96" />
         <div>
           <div class="flex flex-col justify-center items-center w-[172px]">
-            <p class="text-xs text-body font-bold">{{ name }}</p>
+            <p class="text-xs text-body font-semibold">{{ name }}</p>
 
             <p>{{ nickname }}</p>
           </div>
@@ -21,13 +21,13 @@
     <button
       @click="handleEdit"
       type="button"
-      class="flex w-full py-4 px-6 text-sm font-bold border-b border-border-2 hover:bg-background-2">
+      class="flex w-full py-4 px-6 text-sm font-semibold border-b border-border-2 hover:bg-background-2">
       내 정보 수정
     </button>
     <button
       @click="handleLogout"
       type="button"
-      class="flex w-full py-4 px-6 text-sm text-red-1 font-bold hover:bg-background-2">
+      class="flex w-full py-4 px-6 text-sm text-red-1 font-semibold hover:bg-background-2">
       로그아웃
     </button>
   </div>

@@ -57,14 +57,26 @@ const teamData = {
   ]
 }
 
+const calculateStepSize = (data: number[]) => {
+  const max = Math.max(...data)
+  const min = Math.min(...data)
+  const range = max - min
+
+  if (range <= 10) return 1
+  if (range <= 100) return 5
+  if (range <= 1000) return 50
+  return Math.ceil(range / 10)
+}
+
 const options = {
   responsive: true,
   maintainAspectRatio: false,
   scales: {
     y: {
-      beginAtZero: true,
       ticks: {
-        stepSize: 1
+        stepSize: calculateStepSize(series),
+        maxTicksLimit: 10,
+        autoSkip: true
       },
       suggestedMax: Math.max(...series) + 1
     }

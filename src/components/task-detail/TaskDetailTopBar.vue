@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex justify-between items-center bg-white px-6">
-    <div class="flex gap-2 text-sm font-bold">
+    <div class="flex gap-2 text-sm font-semibold">
       <div
         v-if="isApproved && isRequestor"
         @click="onButtonClick(`/task-request?requestType=re&id=${id}`)"

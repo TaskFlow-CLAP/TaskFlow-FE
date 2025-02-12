@@ -36,7 +36,6 @@
       v-model="userRegistrationForm.role"
       :options="RoleKeys"
       :label-name="'역할'"
-      :is-invalidate="isInvalidate"
       :placeholderText="'회원의 역할을 선택해주세요'" />
     <FormCheckbox
       v-if="isManager"

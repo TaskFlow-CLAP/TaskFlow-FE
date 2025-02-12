@@ -61,7 +61,7 @@
         <div class="w-full flex justify-between items-center">
           <p class="text-sm">{{ formatDueDate(data.dueDate) || '-' }}</p>
         </div>
-        <p class="text-red-1 text-xs font-bold">{{ formatDaysBefore(data.dueDate) }}</p>
+        <p class="text-red-1 text-xs font-semibold">{{ formatDaysBefore(data.dueDate) }}</p>
       </div>
       <div v-else>-</div>
     </div>
@@ -117,14 +117,10 @@ watchEffect(() => {
 
 watch(newManager, async newValue => {
   if (newValue?.nickname !== selectedManager.value.nickname && newValue) {
-    try {
-      await changeProcessor(data.taskId, newValue.memberId)
-      selectedManager.value = newValue
-      queryClient.invalidateQueries({ queryKey: ['historyData', data.taskId] })
-      queryClient.invalidateQueries({ queryKey: ['taskDetailUser', data.taskId] })
-    } catch (error) {
-      console.error('Error updating processor', error)
-    }
+    await changeProcessor(data.taskId, newValue.memberId)
+    selectedManager.value = newValue
+    queryClient.invalidateQueries({ queryKey: ['historyData', data.taskId] })
+    queryClient.invalidateQueries({ queryKey: ['taskDetailUser', data.taskId] })
   }
 })
 </script>

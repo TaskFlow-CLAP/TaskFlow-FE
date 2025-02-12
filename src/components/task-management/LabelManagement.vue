@@ -39,7 +39,7 @@
             placeholder="새로운 구분명을 입력"
             class="w-full flex focus:outline-none" />
         </div>
-        <div class="flex gap-2 text-xs font-bold">
+        <div class="flex gap-2 text-xs font-semibold">
           <button
             type="button"
             @click="addNewLabel"

@@ -13,7 +13,6 @@
   </div>
   <TaskDetail
     v-if="selectedID"
-    :is-approved="info.taskStatus !== 'REQUESTED'"
     :selected-id="selectedID"
     :close-task-detail="() => handleModal(null)" />
 </template>
@@ -48,7 +47,7 @@ const myRequestTabList: ListCardProps[] = [
   { content: info.categoryName, width: 80 },
   { content: info.title },
   { content: info.requesterName, width: 120, profileImg: info.requesterImg },
-  { content: info.taskStatus, width: 64, isStatus: true },
+  { content: info.taskStatus, width: 80, isStatus: true },
   { content: info.finishedAt ? formatDate(info.finishedAt) : '', width: 80 }
 ]
 </script>

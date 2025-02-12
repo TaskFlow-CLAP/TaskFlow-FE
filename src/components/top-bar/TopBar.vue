@@ -81,12 +81,9 @@ const isProfileVisible = ref(false)
 
 const fetchNotificationCount = async () => {
   if (!info.value.role) return
-  try {
-    const data = await getNotifiCount()
-    countNotifi.value = data.count
-  } catch (error) {
-    console.error('알림 개수 불러오기 실패:', error)
-  }
+
+  const data = await getNotifiCount()
+  countNotifi.value = data.count
 }
 
 const toggleNotifi = async () => {

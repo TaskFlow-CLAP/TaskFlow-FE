@@ -1,5 +1,5 @@
 <template>
-  <div class="text-xs font-bold">
+  <div class="text-xs font-semibold">
     <p class="text-body mb-2">{{ labelName }}</p>
     <div
       @click="!isDisabled && updateValue()"

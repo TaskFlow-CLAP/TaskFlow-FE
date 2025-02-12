@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex text-xs gap-x-1 mb-2">
-      <p class="text-disabled font-bold">담당자 변경</p>
+      <p class="text-disabled font-semibold">담당자 변경</p>
       <p class="text-red-1">*</p>
       <p
         v-if="isInvalidateState === 'manager'"

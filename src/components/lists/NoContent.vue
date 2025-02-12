@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full flex justify-center items-center">
-    <span class="text-lg text-disabled font-bold text-center">{{ content }}</span>
+    <span class="text-lg text-disabled font-semibold text-center">{{ content }}</span>
   </div>
 </template>
 

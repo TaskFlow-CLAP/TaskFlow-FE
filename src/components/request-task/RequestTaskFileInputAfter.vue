@@ -2,7 +2,7 @@
   <div>
     <div class="w-full h-32 border border-border-1 rounded">
       <div
-        class="flex w-full justify-between items-center h-6 text-[10px] text-body font-bold bg-border-2 border-b border-b-border-1 px-4">
+        class="flex w-full justify-between items-center h-6 text-[10px] text-body font-semibold bg-border-2 border-b border-b-border-1 px-4">
         <p class="w-7">파일명</p>
         <div class="flex gap-6">
           <p class="w-[60px]">용량</p>
@@ -30,7 +30,7 @@
         </div>
         <label
           for="file"
-          class="w-full h-8 flex items-center justify-center text-primary1 font-bold gap-1 text-xs cursor-pointer shrink-0">
+          class="w-full h-8 flex items-center justify-center text-primary1 font-semibold gap-1 text-xs cursor-pointer shrink-0">
           <CommonIcons
             :name="plusIcon"
             :style="{ fill: '#7879eb' }" />

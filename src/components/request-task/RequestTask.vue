@@ -5,14 +5,14 @@
       :options="mainCategoryArr"
       :label-name="'1차 카테고리'"
       :placeholderText="'1차 카테고리를 선택해주세요'"
-      :is-invalidate="isInvalidate"
+      :is-invalidate="isInvalidate === 'category1' ? 'category' : ''"
       :isDisabled="false" />
     <CategoryDropDown
       v-model="category2"
       :options="afterSubCategoryArr"
       :label-name="'2차 카테고리'"
       :placeholderText="'2차 카테고리를 선택해주세요'"
-      :is-invalidate="isInvalidate"
+      :is-invalidate="isInvalidate === 'category2' ? 'category' : ''"
       :isDisabled="!category1" />
     <RequestTaskInput
       v-model="title"
@@ -107,8 +107,11 @@ const handleCancel = () => {
 const handleSubmit = async () => {
   if (isSubmitting.value || isModalVisible.value) return
 
-  if (!category1.value || !category2.value) {
-    isInvalidate.value = 'category'
+  if (!category1.value) {
+    isInvalidate.value = 'category1'
+    return
+  } else if (!category2.value) {
+    isInvalidate.value = 'category2'
     return
   } else if (!title.value) {
     isInvalidate.value = 'input'
@@ -139,9 +142,6 @@ const handleSubmit = async () => {
   try {
     await postTaskRequest(formData)
     isModalVisible.value = 'success'
-  } catch (e) {
-    console.error(e)
-    isModalVisible.value = 'fail'
   } finally {
     isSubmitting.value = false
   }
