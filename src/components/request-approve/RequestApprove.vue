@@ -71,6 +71,8 @@ import CategoryDropDown from '../request-task/CategoryDropDown.vue'
 import DueDateInput from './DueDateInput.vue'
 import LabelDropdown from './LabelDropdown.vue'
 import ManagerDropdown from './ManagerDropdown.vue'
+import { useErrorStore } from '@/stores/error'
+import { redirectToLogin } from '@/utils/redirectToLogin'
 
 const isModalVisible = ref(false)
 const category1 = ref<Category | null>(null)
@@ -109,6 +111,11 @@ onBeforeRouteLeave((to, from, next) => {
 })
 
 onMounted(async () => {
+  const { setError } = useErrorStore()
+  if (!requestId) {
+    setError('존재하지 않는 요청입니다', '', () => redirectToLogin('/requested'))
+    return
+  }
   mainCategoryArr.value = await getMainCategory()
   subCategoryArr.value = await getSubCategory()
   const data = await getTaskDetailUser(requestId)

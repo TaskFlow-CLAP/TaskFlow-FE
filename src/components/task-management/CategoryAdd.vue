@@ -14,28 +14,24 @@
       <template #header>{{ route.params.id ? '수정을' : '추가를' }} 취소 하시겠습니까?</template>
       <template #body>작성하신 내용은 사라집니다</template>
     </ModalView>
-    <ModalView
-      :is-open="isModalVisible.fail"
-      type="failType"
-      @close="handleFailModal">
-      <template #header>{{ errorMessage }}</template>
-    </ModalView>
     <RequestTaskDropdown
       v-model="mainCategory"
       :options="categoryOptions.map(el => el.name)"
       label-name="1차 카테고리"
       placeholder-text="1차 카테고리를 선택해주세요"
       v-if="categoryStep == '2'"
-      :disabled="route.params.id !== undefined" />
+      :disabled="route.params.id !== undefined"
+      :is-invalidate="hasMainCategory" />
     <RequestTaskInput
       v-model="categoryForm.name"
       placeholder-text="카테고리명을 입력해주세요"
-      :label-name="`${categoryStep}차 카테고리명`" />
+      :label-name="`${categoryStep}차 카테고리명`"
+      :is-invalidate="errorMessage.categoryName" />
     <RequestTaskInput
       v-model="categoryForm.code"
       placeholder-text="카테고리의 작업코드를 입력해주세요"
       label-name="작업코드 (대문자 영어 2글자까지)"
-      :is-invalidate="isCodeInvalidate" />
+      :is-invalidate="errorMessage.categoryCode === 'noCode' ? 'noCode' : isCodeInvalidate" />
 
     <div
       v-if="categoryStep === '2'"
@@ -68,7 +64,6 @@ import { axiosInstance } from '@/utils/axios'
 import { getMainCategory } from '@/api/common'
 import type { Category, CategoryForm } from '@/types/common'
 import ModalView from '../common/ModalView.vue'
-import axios from 'axios'
 
 const router = useRouter()
 const route = useRoute()
@@ -78,7 +73,8 @@ const { categoryStep } = defineProps<{
 }>()
 
 const isModalVisible = ref({ add: false, cancel: false, fail: false })
-const errorMessage = ref('')
+const errorMessage = ref({ categoryName: '', categoryCode: '' })
+const hasMainCategory = ref(true)
 
 const categoryForm = ref<CategoryForm>(CATEGORY_FORM)
 
@@ -88,10 +84,6 @@ const handleAddModal = () => {
 }
 const handleCancelModal = () => {
   isModalVisible.value.cancel = !isModalVisible.value.cancel
-}
-const handleFailModal = (message: string = '카테고리 정보를 확인해주세요') => {
-  errorMessage.value = message
-  isModalVisible.value.fail = !isModalVisible.value.fail
 }
 
 const handleCancel = () => {
@@ -103,36 +95,32 @@ const handleGoBack = () => {
 }
 
 const handleSubmit = async () => {
-  if (
-    isCodeInvalidate.value ||
-    categoryForm.value.name.length === 0 ||
-    categoryForm.value.code.length === 0 ||
-    (categoryStep === '2' && categoryForm.value.mainCategoryId === undefined)
-  ) {
-    handleFailModal()
+  hasMainCategory.value = true
+  errorMessage.value = { categoryCode: '', categoryName: '' }
+  if (!categoryForm.value.mainCategoryId) {
+    hasMainCategory.value = false
+    return
+  } else if (isCodeInvalidate.value) {
+    errorMessage.value.categoryCode = 'code'
+    return
+  } else if (categoryForm.value.name.length === 0) {
+    errorMessage.value.categoryName = 'categoryName'
+    return
+  } else if (categoryForm.value.code.length === 0) {
+    errorMessage.value.categoryCode = 'noCode'
     return
   }
 
-  try {
-    const categoryId = route.params.id
-    if (categoryId) {
-      const patchUrl = `/api/managements/categories/${categoryId}`
-      await axiosInstance.patch(patchUrl, categoryForm.value)
-    } else {
-      const postUrl =
-        categoryStep === '1' ? '/api/managements/main-category' : '/api/managements/sub-category'
-      await axiosInstance.post(postUrl, categoryForm.value)
-    }
-    isModalVisible.value.add = true
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response?.data === 'TASK_013') {
-        handleFailModal('중복된 카테고리명\n혹은 고유코드입니다')
-      } else {
-        handleFailModal()
-      }
-    }
+  const categoryId = route.params.id
+  if (categoryId) {
+    const patchUrl = `/api/managements/categories/${categoryId}`
+    await axiosInstance.patch(patchUrl, categoryForm.value)
+  } else {
+    const postUrl =
+      categoryStep === '1' ? '/api/managements/main-category' : '/api/managements/sub-category'
+    await axiosInstance.post(postUrl, categoryForm.value)
   }
+  isModalVisible.value.add = true
 }
 
 const isCodeInvalidate = computed(() => {
@@ -163,7 +151,8 @@ onMounted(async () => {
       const mainCategoryId = ref(Number(route.query.mainCategoryId))
       categoryForm.value.mainCategoryId = mainCategoryId.value
       mainCategory.value =
-        categoryOptions.value.find(el => el.mainCategoryId === mainCategoryId.value)?.name || ''
+        categoryOptions.value.find(el => el.mainCategoryId === mainCategoryId.value)?.name ||
+        '1차 카테고리를 선택해주세요'
     }
     if (id) {
       const { data: initialValue } = await axiosInstance.get(`/api/sub-categories/${id}`)

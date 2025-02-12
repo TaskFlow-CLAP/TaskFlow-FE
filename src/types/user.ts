@@ -21,6 +21,7 @@ export interface RequestTaskDropdownProps {
   modelValue: string
   isLabel?: boolean
   disabled?: boolean
+  isInvalidate?: boolean
 }
 
 export interface RequestTaskInputProps {

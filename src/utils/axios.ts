@@ -43,6 +43,7 @@ const setInterceptors = (instance: AxiosInstance) => {
   instance.interceptors.response.use(
     response => response,
     async error => {
+      console.log(error)
       const { setError } = useErrorStore()
       if (axios.isCancel(error)) {
         setError('요청이 취소되었습니다:', error.message)
@@ -77,7 +78,9 @@ const setInterceptors = (instance: AxiosInstance) => {
             break
           }
           case 400:
-            if (error.response.data === 'MEMBER_013') {
+            if (error.response.data === 'TASK_013') {
+              setError('중복된 카테고리명\n혹은 고유코드입니다')
+            } else if (error.response.data === 'MEMBER_013') {
               return Promise.reject(new Error('MEMBER_REVIEWER'))
             } else if (error.response.data === 'MEMBER_012') {
               return Promise.reject(new Error('MEMBER_DUPLICATED'))
