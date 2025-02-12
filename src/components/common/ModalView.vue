@@ -81,9 +81,9 @@
 
 <script setup lang="ts">
 import { failIcon, successIcon, warningIcon } from '@/constants/iconPath'
-import { preventEnter } from '@/utils/preventEnter'
 import { onUnmounted, ref, watch } from 'vue'
 import CommonIcons from './CommonIcons.vue'
+import { preventEnter } from '@/utils/preventEnter'
 
 const { isOpen, type, modelValue } = defineProps<{
   isOpen: boolean
@@ -116,7 +116,6 @@ watch(
   () => isOpen,
   () => {
     if (isOpen) {
-      textValue.value = ''
       document.body.style.overflow = 'hidden'
       window.addEventListener('keydown', preventEnter)
     } else {

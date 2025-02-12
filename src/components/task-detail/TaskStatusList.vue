@@ -95,7 +95,7 @@ const rejectRequest = async () => {
     return
   }
   try {
-    await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, { reason: rejectReason.value })
+    await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, rejectReason)
     toggleModal('success')
     emit('update:status', 'TERMINATED')
     currentStatus.value = 'TERMINATED'
