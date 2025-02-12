@@ -3,7 +3,7 @@ name: CD for front using github actions
 
 on:
   release:
-    types: [created]
+    types: [ created ]
 
 permissions:
   contents: read
@@ -38,12 +38,9 @@ jobs:
       - run: echo "${{ secrets.NGINX_FILE_CONF }}" > ./nginxfile.conf
 
       - name: Create Develop nginx.conf
-      - name: Create Develop nginx.conf
         run: touch ./nginx.conf
       - run: echo "${{ secrets.NGINX_CONF }}" > ./nginx.conf
 
-      # docker build & push to develop
-      - name: Docker build & push develop
       # docker build & push to develop
       - name: Docker build & push develop
         run: |
@@ -53,14 +50,8 @@ jobs:
 
       # deploy
       - name: Deploy Develop
-          docker login clap.kr-central-2.kcr.dev -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -t ${{ secrets.DOCKER_FRONT_REPO }} .
-          docker push ${{ secrets.DOCKER_FRONT_REPO }}
-
-      # deploy
-      - name: Deploy Develop
         uses: appleboy/ssh-action@master
-        id: deploy develop
+        id: deployDevelop
         with:
           host: ${{ secrets.FRONT_HOST }}
           username: ${{ secrets.FRONT_HOST_USERNAME }}
@@ -72,7 +63,7 @@ jobs:
             docker run --name taskflow-front -d -p 80:80 -p 443:443 -v /etc/letsencrypt/:/etc/letsencrypt/ -v /etc/ssl/:/etc/ssl/  --restart on-failure ${{ secrets.DOCKER_FRONT_REPO }}
 
       - name: Create Production nginx.conf
-      - run: echo "${{ secrets.PROD_NGINX_CONF }}" > ./nginx.conf
+        run: echo "${{ secrets.PROD_NGINX_CONF }}" > ./nginx.conf
 
       # docker build & push to production
       - name: Docker build & push production
@@ -84,7 +75,7 @@ jobs:
         run: |
           envsubst < ./taskflow.yaml
         env:
-          IMAGE_TAG: ${{ env.IMAGE_TAG }}
+          IMAGE_TAG: ${{ steps.version.outputs.VERSION }}
 
       # deploy
       - name: Transport taskflow.yaml to kubectl server
@@ -100,7 +91,7 @@ jobs:
 
       - name: Deploy Prod
         uses: appleboy/ssh-action@master
-        id: deploy prod
+        id: deployProd
         with:
           host: ${{ secrets.KUBE_HOST }}
           username: ${{ secrets.KUBE_HOST_USERNAME }}
