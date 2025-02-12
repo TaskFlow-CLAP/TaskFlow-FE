@@ -51,7 +51,7 @@ jobs:
       # deploy
       - name: Deploy Develop
         uses: appleboy/ssh-action@master
-        id: deploy develop
+        id: deployDevelop
         with:
           host: ${{ secrets.FRONT_HOST }}
           username: ${{ secrets.FRONT_HOST_USERNAME }}
@@ -91,7 +91,7 @@ jobs:
 
       - name: Deploy Prod
         uses: appleboy/ssh-action@master
-        id: deploy prod
+        id: deployProd
         with:
           host: ${{ secrets.KUBE_HOST }}
           username: ${{ secrets.KUBE_HOST_USERNAME }}
