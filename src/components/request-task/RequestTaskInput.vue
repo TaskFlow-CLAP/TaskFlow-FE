@@ -27,13 +27,14 @@
       :placeholder="placeholderText"
       :class="{ 'text-gray-500': isEdit }"
       :maxlength="labelName === '제목' ? 30 : undefined" />
+    <p v-if="limitLength" class="text-xs mt-1.5">({{ inputLength }}/{{ limitLength }})</p>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { RequestTaskInputProps } from '@/types/user'
 import { computed } from 'vue'
-const { modelValue, placeholderText, labelName, isNotRequired, isEdit, isInvalidate } =
+const { modelValue, placeholderText, labelName, isNotRequired, isEdit, isInvalidate, limitLength } =
   defineProps<RequestTaskInputProps>()
 
 const isInvalidateState = computed(() => isInvalidate)
@@ -43,4 +44,6 @@ const emit = defineEmits(['update:modelValue'])
 const updateValue = (value: string) => {
   emit('update:modelValue', value)
 }
+
+const inputLength = computed(() => modelValue.length)
 </script>

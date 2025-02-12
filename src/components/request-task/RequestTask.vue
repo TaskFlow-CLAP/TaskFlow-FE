@@ -18,11 +18,13 @@
       v-model="title"
       :placeholderText="'제목을 입력해주세요'"
       :label-name="'제목'"
-      :is-invalidate="isInvalidate" />
+      :is-invalidate="isInvalidate"
+      :limit-length="30" />
     <RequestTaskTextArea
       v-model="description"
       :is-invalidate="isInvalidate"
-      :placeholderText="'부가 정보를 입력해주세요'" />
+      :placeholderText="'부가 정보를 입력해주세요'"
+      :limit-length="200" />
     <RequestTaskFileInput v-model="file" />
     <FormButtonContainer
       :handleCancel="handleCancel"
