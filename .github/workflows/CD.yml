@@ -3,7 +3,7 @@ name: CD for front using github actions
 
 on:
   release:
-    types: [created]
+    types: [ created ]
 
 permissions:
   contents: read
@@ -46,14 +46,14 @@ jobs:
       # docker build & push to develop
       - name: Docker build & push develop
         run: |
-         docker login clap.kr-central-2.kcr.dev -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-         docker build -t ${{ secrets.DOCKER_FRONT_REPO }} .
-         docker push ${{ secrets.DOCKER_FRONT_REPO }}
+          docker login clap.kr-central-2.kcr.dev -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker build -t ${{ secrets.DOCKER_FRONT_REPO }} .
+          docker push ${{ secrets.DOCKER_FRONT_REPO }}
 
       # deploy
       - name: Deploy Develop
         uses: appleboy/ssh-action@master
-        id: deploy
+        id: deploy develop
         with:
           host: ${{ secrets.FRONT_HOST }}
           username: ${{ secrets.FRONT_HOST_USERNAME }}
@@ -91,9 +91,9 @@ jobs:
           source: ./taskflow.yaml
           target: ~/taskflow-front.yaml
 
-      - name: Deploy
+      - name: Deploy Prod
         uses: appleboy/ssh-action@master
-        id: deploy
+        id: deploy prod
         with:
           host: ${{ secrets.KUBE_HOST }}
           username: ${{ secrets.KUBE_HOST_USERNAME }}
