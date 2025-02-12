@@ -36,11 +36,11 @@ import { useMemberStore } from '@/stores/member'
 import type { TaskDetailDatas, TaskDetailHistoryData, TaskDetailProps } from '@/types/user'
 import { useQuery } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
+import { onMounted, onUnmounted } from 'vue'
 import TaskDetailHistory from './TaskDetailHistory.vue'
 import TaskDetailLeft from './TaskDetailLeft.vue'
 import TaskDetailRight from './TaskDetailRight.vue'
 import TaskDetailTopBar from './TaskDetailTopBar.vue'
-import { onMounted, onUnmounted } from 'vue'
 
 const { closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
 
@@ -52,7 +52,8 @@ const { data } = useQuery<TaskDetailDatas>({
   queryFn:
     info.value.role === 'ROLE_USER'
       ? () => getTaskDetailUser(selectedId)
-      : () => getTaskDetailManager(selectedId)
+      : () => getTaskDetailManager(selectedId),
+  refetchOnMount: true
 })
 
 const { data: historyData } = useQuery<TaskDetailHistoryData>({
