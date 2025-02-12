@@ -160,7 +160,7 @@ const handleSubmit = async () => {
   const requestData = {
     categoryId: category2.value.subCategoryId,
     processorId: approveData.value.processor.memberId,
-    dueDate: isTimeFilled.value
+    dueDate: !isTimeFilled.value
       ? convertToISO(approveData.value.dueDate, approveData.value.dueTime)
       : null,
     labelId: approveData.value.label?.labelId || null

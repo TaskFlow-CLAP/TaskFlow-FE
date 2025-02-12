@@ -74,21 +74,6 @@ jobs:
       - name: Log created issue
         run: echo "Jira Issue ${{ steps.issue-parser.outputs.parentKey }}/${{ steps.create.outputs.issue }} was created"
 
-      - name: Checkout release code
-        uses: actions/checkout@v4
-        with:
-          ref: release
-          token: ${{ secrets.PAT_TOKEN }}
-
-      - name: Create branch with Ticket number
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git checkout -b ${{ steps.create.outputs.issue }}
-          git push origin ${{ steps.create.outputs.issue }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-
       - name: Update issue title
         uses: actions-cool/issues-helper@v3
         with:

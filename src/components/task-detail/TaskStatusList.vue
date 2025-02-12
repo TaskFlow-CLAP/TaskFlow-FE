@@ -49,15 +49,15 @@ import ModalView from '../common/ModalView.vue'
 const { modelValue, isProcessor, taskId } = defineProps<TaskStatusListProps>()
 const modalError = ref('')
 const rejectReason = ref('')
-const emit = defineEmits(['update:status'])
-
 const currentStatus = ref(modelValue)
-const queryClient = useQueryClient()
 const isModalVisible = ref({
   reject: false,
   fail: false,
   success: false
 })
+
+const emit = defineEmits(['update:status'])
+const queryClient = useQueryClient()
 
 watch(
   () => modelValue,

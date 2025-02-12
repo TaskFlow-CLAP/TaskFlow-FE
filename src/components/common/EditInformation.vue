@@ -126,15 +126,16 @@
 </template>
 
 <script lang="ts" setup>
+import { patchEditInfo } from '@/api/common'
+import { ALLOWED_FILE_EXTENSIONS } from '@/constants/common'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
 import { nextTick, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
-import ModalView from './ModalView.vue'
-import { patchEditInfo } from '@/api/common'
 import FormButtonContainer from './FormButtonContainer.vue'
 import FormCheckbox from './FormCheckbox.vue'
 import ImageContainer from './ImageContainer.vue'
+import ModalView from './ModalView.vue'
 const router = useRouter()
 
 const memberStore = useMemberStore()
@@ -222,26 +223,16 @@ const handleFileUpload = (event: Event) => {
   if (target.files && target.files[0]) {
     const file = target.files[0]
 
-    const allowedMimeTypes = [
-      'image/jpeg',
-      'image/pjpeg',
-      'image/png',
-      'image/gif',
-      'image/bmp',
-      'image/x-windows-bmp'
-    ]
-    const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp']
-
     const fileName = file.name.toLowerCase()
     const fileExtension = fileName.split('.').pop()
 
-    if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+    if (!fileExtension || !ALLOWED_FILE_EXTENSIONS.includes(fileExtension)) {
       failHeader.value = '지원하지 않는 파일입니다'
       failBody.value = 'jpg, jpeg, png, gif, bmp 파일만 업로드 가능합니다'
       failModalToggle()
       return
     }
-    if (!allowedMimeTypes.includes(file.type)) {
+    if (!ALLOWED_FILE_EXTENSIONS.includes(file.type)) {
       failHeader.value = '파일 타입을 확인해주세요'
       failBody.value = '파일 타입과 확장자명이 일치해야합니다'
       failModalToggle()

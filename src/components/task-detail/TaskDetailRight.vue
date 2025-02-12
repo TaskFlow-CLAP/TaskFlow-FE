@@ -1,5 +1,6 @@
 <template>
-  <div class="sticky top-0 w-[280px] shrink-0 flex flex-col gap-y-6 overflow-y-auto p-6">
+  <div
+    class="sticky top-0 w-[280px] shrink-0 flex flex-col gap-y-6 overflow-y-auto p-6 scrollbar-hide">
     <div>
       <p class="task-detail">작업코드</p>
       <p class="text-sm">{{ data.taskCode || '-' }}</p>
@@ -82,7 +83,7 @@ import type { TaskDetailDatas } from '@/types/user'
 import { formatDateAndTime, formatDaysBefore, formatDueDate } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
-import { defineProps, ref, watch } from 'vue'
+import { defineProps, ref, watch, watchEffect } from 'vue'
 import ImageContainer from '../common/ImageContainer.vue'
 import TaskStatus from '../common/TaskStatus.vue'
 import TaskDetailLabelDropdown from './TaskDetailLabelDropdown.vue'
@@ -91,7 +92,15 @@ import TaskStatusList from './TaskStatusList.vue'
 
 const { data, isProcessor } = defineProps<{ data: TaskDetailDatas; isProcessor: boolean }>()
 
+const selectedManager = ref({
+  memberId: -1,
+  nickname: data.processorNickName,
+  imageUrl: data.processorImageUrl,
+  remainingTasks: -1
+} as ManagerTypes)
+
 const taskStatus = ref(data.taskStatus)
+const newManager = ref(selectedManager.value)
 const queryClient = useQueryClient()
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
@@ -102,14 +111,9 @@ const taskLabel = ref({
   labelColor: ''
 })
 
-const selectedManager = ref({
-  memberId: -1,
-  nickname: data.processorNickName,
-  imageUrl: data.processorImageUrl,
-  remainingTasks: -1
-} as ManagerTypes)
-
-const newManager = ref(selectedManager.value)
+watchEffect(() => {
+  taskStatus.value = data.taskStatus
+})
 
 watch(newManager, async newValue => {
   if (newValue?.nickname !== selectedManager.value.nickname && newValue) {

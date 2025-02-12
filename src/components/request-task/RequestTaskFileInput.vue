@@ -7,9 +7,7 @@
       id="file"
       multiple
       @change="handleFileUpload" />
-    <label
-      v-if="hasFiles"
-      for="file">
+    <label v-if="hasFiles">
       <RequestTaskFileInputAfter
         :files="modelValue"
         :removeFile="removeFile" />
