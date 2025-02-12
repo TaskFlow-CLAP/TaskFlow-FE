@@ -49,7 +49,7 @@ const myRequestTabList: ListCardProps[] = [
   { content: info.title },
   { content: info.requesterName, width: 120, profileImg: info.requesterImg },
   { content: info.processorName, width: 120, profileImg: info.processorImg },
-  { content: info.taskStatus, width: 64, isStatus: true },
+  { content: info.taskStatus, width: 80, isStatus: true },
   { content: info.finishedAt ? formatDate(info.finishedAt) : '', width: 80 }
 ]
 </script>
