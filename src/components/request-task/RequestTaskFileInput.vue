@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-xs text-body font-bold mb-2">첨부 파일</div>
+    <div class="text-xs text-body font-semibold mb-2">첨부 파일</div>
     <input
       class="hidden"
       type="file"
@@ -23,7 +23,7 @@
       @dragover.prevent="isDragging = true"
       @dragleave.prevent="isDragging = false"
       @drop.prevent="handleDrop">
-      <div :class="['text-sm font-bold', isDragging ? 'text-primary1' : 'text-disabled']">
+      <div :class="['text-sm font-semibold', isDragging ? 'text-primary1' : 'text-disabled']">
         첨부할 파일을 끌어 놓으세요
       </div>
       <label

@@ -10,10 +10,10 @@
         class="flex w-full flex-col">
         <div class="category-management-line justify-between bg-white">
           <div class="flex gap-4 items-center">
-            <p class="text-xs font-bold text-body w-[60px] text-center">{{ sub.code }}</p>
+            <p class="text-xs font-semibold text-body w-[60px] text-center">{{ sub.code }}</p>
             <p>{{ sub.name }}</p>
           </div>
-          <div class="flex gap-2 text-xs font-bold">
+          <div class="flex gap-2 text-xs font-semibold">
             <button
               type="button"
               @click="router.push(`/category-second/${sub.subCategoryId}`)"
@@ -41,7 +41,7 @@
         class="category-management-line gap-1 justify-center cursor-pointer bg-white hover:bg-background-2"
         @click="MovetoAddSubCategory(main.mainCategoryId)">
         <CommonIcons :name="plusIcon" />
-        <p class="text-xs text-disabled font-bold">새 2차 카테고리 추가</p>
+        <p class="text-xs text-disabled font-semibold">새 2차 카테고리 추가</p>
       </div>
     </div>
   </div>

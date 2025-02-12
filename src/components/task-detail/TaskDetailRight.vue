@@ -60,7 +60,7 @@
         <div class="w-full flex justify-between items-center">
           <p class="text-sm">{{ formatDueDate(data.dueDate) || '-' }}</p>
         </div>
-        <p class="text-red-1 text-xs font-bold">{{ formatDaysBefore(data.dueDate) }}</p>
+        <p class="text-red-1 text-xs font-semibold">{{ formatDaysBefore(data.dueDate) }}</p>
       </div>
       <div v-else>-</div>
     </div>

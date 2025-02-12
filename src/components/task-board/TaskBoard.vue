@@ -2,17 +2,17 @@
   <div class="overflow-y-auto grow">
     <div class="w-full grid grid-cols-3 gap-12 sticky top-0 bg-white z-30">
       <div class="flex bg-primary2 rounded-t-lg">
-        <span class="text-xs font-bold text-body p-4">
+        <span class="text-xs font-semibold text-body p-4">
           진행 중 {{ data?.tasksInProgress.length }}
         </span>
       </div>
       <div class="flex bg-primary2 rounded-t-lg">
-        <span class="text-xs font-bold text-body p-4">
+        <span class="text-xs font-semibold text-body p-4">
           검토 중 {{ data?.tasksInReviewing.length }}
         </span>
       </div>
       <div class="flex bg-primary2 rounded-t-lg">
-        <span class="text-xs font-bold text-body p-4">
+        <span class="text-xs font-semibold text-body p-4">
           완료 {{ data?.tasksCompleted.length }}
         </span>
       </div>
@@ -24,7 +24,7 @@
           <div
             v-if="data?.tasksInProgress.length === 0"
             class="w-full max-w-80 h-[130px] bg-white border border-dashed border-border-1 rounded-lg flex justify-center items-center">
-            <span class="whitespace-pre-wrap text-center text-sm font-bold text-disabled">
+            <span class="whitespace-pre-wrap text-center text-sm font-semibold text-disabled">
               {{ '상태를 변경할 작업을\n끌어 놓으세요' }}
             </span>
           </div>
@@ -53,7 +53,7 @@
           <div
             v-if="data?.tasksInReviewing.length === 0"
             class="w-full max-w-80 h-[130px] bg-white border border-dashed border-border-1 rounded-lg flex justify-center items-center">
-            <span class="whitespace-pre-wrap text-center text-sm font-bold text-disabled">
+            <span class="whitespace-pre-wrap text-center text-sm font-semibold text-disabled">
               {{ '상태를 변경할 작업을\n끌어 놓으세요' }}
             </span>
           </div>
@@ -82,7 +82,7 @@
           <div
             v-if="data?.tasksCompleted.length === 0"
             class="w-full max-w-80 h-[130px] bg-white border border-dashed border-border-1 rounded-lg flex justify-center items-center">
-            <span class="whitespace-pre-wrap text-center text-sm font-bold text-disabled">
+            <span class="whitespace-pre-wrap text-center text-sm font-semibold text-disabled">
               {{ '상태를 변경할 작업을\n끌어 놓으세요' }}
             </span>
           </div>

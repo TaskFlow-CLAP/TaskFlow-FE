@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-2">
     <div class="text-xs flex gap-x-1 mb-2 text-red-1">
-      <p class="text-body text-xs font-bold">부가설명</p>
+      <p class="text-body text-xs font-semibold">부가설명</p>
       <p v-if="isInvalidateState === 'description'">부가설명은 200자 이내로 적어주세요</p>
     </div>
     <textarea

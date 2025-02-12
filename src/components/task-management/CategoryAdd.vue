@@ -36,7 +36,7 @@
     <div
       v-if="categoryStep === '2'"
       class="flex flex-col gap-2">
-      <p class="text-body text-xs font-bold">부가설명 템플릿</p>
+      <p class="text-body text-xs font-semibold">부가설명 템플릿</p>
       <textarea
         class="w-full h-32 border border-border-1 px-4 py-2 resize-none focus:outline-none rounded"
         :value="categoryForm.descriptionExample"

@@ -5,7 +5,7 @@
       { 'bg-primary2': !isRead }
     ]">
     <span class="flex w-full justify-between items-center">
-      <p class="text-xs text-body font-bold whitespace-pre-wrap">
+      <p class="text-xs text-body font-semibold whitespace-pre-wrap">
         {{ notificationType[type] }}
       </p>
       <span class="text-xs text-body">{{ formatTimeAgo(createdAt) }}</span>
@@ -14,32 +14,32 @@
       class="flex flex-col text-xs gap-1"
       v-if="type === 'COMMENT'">
       <span>
-        <span class="font-bold text-primary1">"{{ title }}"</span> 작업에 새로운 댓글이
+        <span class="font-semibold text-primary1">"{{ title }}"</span> 작업에 새로운 댓글이
         추가되었습니다
       </span>
-      <span class="font-bold text-body line-clamp-2">"{{ message }}"</span>
+      <span class="font-semibold text-body line-clamp-2">"{{ message }}"</span>
     </div>
     <div
       class="text-xs"
       v-else-if="type === 'TASK_REQUESTED'">
-      <span class="font-bold text-primary1">"{{ title }}"</span> 작업이 요청되었습니다
+      <span class="font-semibold text-primary1">"{{ title }}"</span> 작업이 요청되었습니다
     </div>
     <div
       class="text-xs"
       v-else-if="type === 'STATUS_SWITCHED'">
-      <span class="font-bold text-primary1">"{{ title }}"</span> 작업이
-      <span class="font-bold text-primary1">{{ statusAsText(message as Status) }}</span> 상태로
+      <span class="font-semibold text-primary1">"{{ title }}"</span> 작업이
+      <span class="font-semibold text-primary1">{{ statusAsText(message as Status) }}</span> 상태로
       변경되었습니다
     </div>
     <div
       class="text-xs"
       v-else-if="type === 'PROCESSOR_ASSIGNED'">
-      <span class="font-bold text-primary1">"{{ title }}"</span> 작업이 할당되었습니다
+      <span class="font-semibold text-primary1">"{{ title }}"</span> 작업이 할당되었습니다
     </div>
     <div
       class="text-xs"
       v-else-if="type === 'PROCESSOR_CHANGED'">
-      <span class="font-bold text-primary1">"{{ title }}"</span> 작업이 재할당되었습니다
+      <span class="font-semibold text-primary1">"{{ title }}"</span> 작업이 재할당되었습니다
     </div>
   </div>
 </template>

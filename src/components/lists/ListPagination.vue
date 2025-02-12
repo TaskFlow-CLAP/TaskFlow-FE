@@ -21,7 +21,7 @@
       type="button"
       :key="page"
       class="w-6 h-6 flex justify-center items-center rounded text-sm"
-      :class="page === pageNumber ? 'text-white font-bold bg-primary1' : 'hover:bg-primary2'"
+      :class="page === pageNumber ? 'text-white font-semibold bg-primary1' : 'hover:bg-primary2'"
       @click="onNumClick(page)">
       {{ page }}
     </button>

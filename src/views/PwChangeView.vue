@@ -42,7 +42,7 @@
         </button>
         <button
           type="button"
-          class="flex justify-center text-xs font-bold text-body hover:underline"
+          class="flex justify-center text-xs font-semibold text-body hover:underline"
           @click="router.replace('/edit-information')">
           이전으로
         </button>
@@ -66,7 +66,7 @@
           ]" />
         <p
           v-show="isInvalid"
-          class="absolute text-red-1 text-xs font-bold mt-1">
+          class="absolute text-red-1 text-xs font-semibold mt-1">
           대문자, 소문자, 숫자, 특수문자 포함 8자-20자 입력해주세요
         </p>
       </div>
@@ -84,7 +84,7 @@
           ]" />
         <p
           v-show="isDifferent"
-          class="absolute text-red-1 text-xs font-bold mt-1">
+          class="absolute text-red-1 text-xs font-semibold mt-1">
           비밀번호가 일치하지 않아요
         </p>
       </div>
@@ -96,7 +96,7 @@
         </button>
         <button
           type="button"
-          class="flex justify-center text-xs font-bold text-body hover:underline"
+          class="flex justify-center text-xs font-semibold text-body hover:underline"
           @click="router.replace('/edit-information')">
           취소
         </button>

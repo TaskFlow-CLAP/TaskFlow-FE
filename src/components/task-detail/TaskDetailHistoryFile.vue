@@ -25,14 +25,14 @@
             <p class="font-normal w-full overflow-hidden whitespace-nowrap text-ellipsis">
               {{ history.details.commentFileDetails?.fileName }}
             </p>
-            <p class="text-xs font-bold text-body">
+            <p class="text-xs font-semibold text-body">
               용량 : {{ history.details.commentFileDetails?.size }}
             </p>
           </div>
         </div>
         <div
           :class="[
-            'flex flex-col justify-end self-end gap-1 text-xs font-bold text-body',
+            'flex flex-col justify-end self-end gap-1 text-xs font-semibold text-body',
             isRequestor ? 'order-3' : ' items-end order-1'
           ]">
           <div

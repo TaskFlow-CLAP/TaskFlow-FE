@@ -40,7 +40,7 @@
           로그인
         </button>
         <RouterLink
-          class="flex justify-center text-body font-bold text-xs hover:underline"
+          class="flex justify-center text-body font-semibold text-xs hover:underline"
           to="/pw-change-email">
           비밀번호 재설정
         </RouterLink>

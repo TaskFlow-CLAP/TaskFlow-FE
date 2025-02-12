@@ -4,14 +4,14 @@
     @click.stop
     class="absolute right-6 top-[calc(100%+16px)] h-[400px] w-[400px] bg-white rounded-lg shadow-custom overflow-hidden flex flex-col">
     <div class="flex justify-between items-center px-4 pt-3 pb-2 border-b border-border-2">
-      <p class="text-body font-bold text-xs">알림</p>
+      <p class="text-body font-semibold text-xs">알림</p>
       <div class="flex items-center gap-2">
         <button
           type="button"
           @click="readAllNotifi"
           class="flex items-center gap-1 p-1 rounded hover:bg-background-2">
           <CommonIcons :name="smallCheckIcon" />
-          <p class="font-bold text-primary1 text-xs">모두 읽음</p>
+          <p class="font-semibold text-primary1 text-xs">모두 읽음</p>
         </button>
         <button
           type="button"

@@ -51,7 +51,7 @@
           확인
         </button>
         <RouterLink
-          class="flex justify-center text-xs font-bold text-body hover:underline"
+          class="flex justify-center text-xs font-semibold text-body hover:underline"
           to="/login">
           로그인
         </RouterLink>

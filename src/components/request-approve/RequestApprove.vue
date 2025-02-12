@@ -24,7 +24,7 @@
       :is-invalidate="isInvalidate" />
     <div class="flex flex-col gap-2">
       <div class="flex gap-2">
-        <p class="text-body text-xs font-bold">마감기한</p>
+        <p class="text-body text-xs font-semibold">마감기한</p>
         <p
           v-if="!isDueDateValid && approveData.dueDate && approveData.dueTime"
           class="text-red-1 text-xs">

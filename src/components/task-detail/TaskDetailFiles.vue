@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-32 border border-border-1 rounded">
     <div
-      class="flex w-full justify-between items-center h-6 text-[10px] text-body font-bold bg-border-2 border-b border-b-border-1 px-4">
+      class="flex w-full justify-between items-center h-6 text-[10px] text-body font-semibold bg-border-2 border-b border-b-border-1 px-4">
       <p class="w-7 whitespace-nowrap">파일명</p>
       <div class="flex gap-6">
         <p class="w-[60px]">용량</p>

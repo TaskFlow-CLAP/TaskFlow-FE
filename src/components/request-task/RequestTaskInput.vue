@@ -1,7 +1,7 @@
 <template>
   <div class="relative w-full">
     <div class="text-xs flex gap-x-1 mb-2 text-red-1">
-      <p class="text-body font-bold">{{ labelName }}</p>
+      <p class="text-body font-semibold">{{ labelName }}</p>
       <p v-if="!isNotRequired">*</p>
       <p v-if="isInvalidateState === 'input'">{{ labelName }}을 입력해주세요</p>
       <p v-if="isInvalidateState === 'duplicate'">회원아이디가 중복되었습니다</p>

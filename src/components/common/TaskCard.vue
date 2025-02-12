@@ -19,16 +19,16 @@
       <span class="text-xs text-body">{{ data.mainCategoryName }} - {{ data.categoryName }}</span>
     </div>
     <div class="flex justify-between items-end">
-      <span class="text-xs font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+      <span class="text-xs font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
         {{ data.taskCode }}
       </span>
       <div class="flex flex-col gap-1 items-end">
-        <span class="text-xs font-bold text-body">{{ data.requesterDepartment }}</span>
+        <span class="text-xs font-semibold text-body">{{ data.requesterDepartment }}</span>
         <div class="flex items-center gap-1.5">
           <ImageContainer
             :url="data.requesterImageUrl"
             :size="16" />
-          <span class="text-xs font-bold">{{ data.requesterNickname }}</span>
+          <span class="text-xs font-semibold">{{ data.requesterNickname }}</span>
         </div>
       </div>
     </div>

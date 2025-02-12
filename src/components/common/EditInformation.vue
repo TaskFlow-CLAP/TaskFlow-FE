@@ -26,7 +26,7 @@
     </ModalView>
 
     <div class="profile">
-      <p class="text-body text-xs font-bold">프로필 사진</p>
+      <p class="text-body text-xs font-semibold">프로필 사진</p>
       <ImageContainer
         class="mt-3"
         :url="previewUrl || info.profileImageUrl"
@@ -34,12 +34,12 @@
       <div class="flex gap-6">
         <label
           for="fileInput"
-          class="mt-3 text-xs text-primary1 font-bold cursor-pointer hover:underline"
+          class="mt-3 text-xs text-primary1 font-semibold cursor-pointer hover:underline"
           >변경</label
         >
         <label
           for="fileDelete"
-          class="mt-3 text-xs text-red-1 font-bold cursor-pointer hover:underline"
+          class="mt-3 text-xs text-red-1 font-semibold cursor-pointer hover:underline"
           >삭제</label
         >
       </div>
@@ -56,7 +56,7 @@
         class="hidden" />
     </div>
     <div class="flex flex-col relative">
-      <p class="text-body text-xs font-bold">이름</p>
+      <p class="text-body text-xs font-semibold">이름</p>
       <span class="absolute top-1 right-2 text-xs text-gray-500"> {{ name.length }} / 10 </span>
       <input
         :class="[
@@ -71,31 +71,31 @@
       <div class="mb-1">
         <span
           v-show="isInvalid || isFull"
-          class="absolute text-red-1 text-xs font-bold mt-1"
+          class="absolute text-red-1 text-xs font-semibold mt-1"
           >{{ nameError }}</span
         >
       </div>
     </div>
     <div class="flex flex-col">
-      <p class="text-body text-xs font-bold">아이디</p>
+      <p class="text-body text-xs font-semibold">아이디</p>
       <p class="mt-2">{{ info.nickname }}</p>
     </div>
     <div class="flex flex-col">
-      <p class="text-body text-xs font-bold">이메일</p>
+      <p class="text-body text-xs font-semibold">이메일</p>
       <p class="mt-2">{{ info.email }}</p>
     </div>
     <div class="flex flex-col">
-      <p class="text-body text-xs font-bold">부서</p>
+      <p class="text-body text-xs font-semibold">부서</p>
       <p class="mt-2">{{ info.departmentName }}</p>
     </div>
     <div
       v-if="info.departmentRole"
       class="flex flex-col">
-      <p class="text-body text-xs font-bold">직무</p>
+      <p class="text-body text-xs font-semibold">직무</p>
       <p class="mt-2">{{ info.departmentRole }}</p>
     </div>
     <div>
-      <p class="text-body text-xs font-bold">알림 수신 여부</p>
+      <p class="text-body text-xs font-semibold">알림 수신 여부</p>
       <div class="flex flex-col mt-2 gap-2">
         <FormCheckbox
           v-model="kakaoWorkCheck"
@@ -108,7 +108,7 @@
       </div>
     </div>
     <div>
-      <p class="text-body text-xs font-bold">비밀번호 재설정</p>
+      <p class="text-body text-xs font-semibold">비밀번호 재설정</p>
       <button
         type="button"
         class="button-medium-secondary mt-2"

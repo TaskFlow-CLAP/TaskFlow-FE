@@ -28,7 +28,7 @@
             {{ label.labelName }}
           </p>
         </div>
-        <div class="flex gap-2 text-xs font-bold">
+        <div class="flex gap-2 text-xs font-semibold">
           <button
             type="button"
             @click="isEdit && editValue.labelId === label.labelId ? finishEdit() : startEdit(label)"

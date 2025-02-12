@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="text-xs mb-2 text-body font-bold">구분</div>
+    <div class="text-xs mb-2 text-body font-semibold">구분</div>
     <div
       ref="htmlRef"
       class="relative flex">

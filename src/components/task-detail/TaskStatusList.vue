@@ -27,7 +27,7 @@
       :class="[bgColor(statusItem.value), isProcessor ? 'cursor-pointer' : '']"
       @click="isProcessor ? changeStatus(statusItem.value) : null">
       <span
-        class="text-[11px] font-bold"
+        class="text-[11px] font-semibold"
         :class="textColor(statusItem.value)">
         {{ statusItem.content }}
       </span>
