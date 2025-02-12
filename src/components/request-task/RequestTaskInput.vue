@@ -4,12 +4,20 @@
       <p class="text-body font-semibold">{{ labelName }}</p>
       <p v-if="!isNotRequired">*</p>
       <p v-if="isInvalidateState === 'input'">{{ labelName }}을 입력해주세요</p>
+      <p v-if="isInvalidateState === 'nameEmpty' && labelName === '이름'">
+        {{ labelName }}을 입력해주세요
+      </p>
       <p v-if="isInvalidateState === 'duplicate'">회원아이디가 중복되었습니다</p>
       <p v-if="isInvalidateState === 'title'">제목은 30자 이내로 적어주세요</p>
       <p v-if="isInvalidateState === 'noCode'">작업코드를 입력해주세요</p>
       <p v-if="isInvalidateState === 'code'">사용할 수 없는 작업코드입니다</p>
       <p v-if="isInvalidateState === 'categoryName'">카테고리명을 입력해주세요</p>
-      <p v-if="isInvalidateState === 'wrongNickname'">잘못된 형식의 아이디입니다</p>
+      <p v-if="isInvalidateState === 'wrongNickname' && labelName === '아이디'">
+        잘못된 형식의 아이디입니다.
+      </p>
+      <p v-if="isInvalidateState === 'wrongEmail' && labelName === '도메인'">
+        잘못된 형식의 도메인입니다.
+      </p>
     </div>
     <input
       class="w-full h-11 border border-border-1 px-4 focus:outline-none rounded"
