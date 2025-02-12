@@ -1,6 +1,6 @@
 <template>
   <div class="form-view-container">
-    <TitleBar :title="id ? '요청 수정' : '작업 요청'" />
+    <TitleBar :title="reqType === 'edit' ? '요청 수정' : '작업 요청'" />
     <component
       :is="!reqType ? RequestTask : ReRequestTask"
       :id
