@@ -87,7 +87,7 @@ jobs:
           port: ${{ secrets.KUBE_HOST_PORT }}
           overwrite: true
           source: ./taskflow-front.yaml
-          target: ~/taskflow-front.yaml
+          target: ~/
 
       - name: Deploy Prod
         uses: appleboy/ssh-action@master
