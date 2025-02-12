@@ -94,7 +94,7 @@ const rejectRequest = async () => {
     modalError.value = '종료 사유를 입력해주세요'
     return
   }
-  await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, rejectReason)
+  await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, { reason: rejectReason.value })
   toggleModal('success')
   emit('update:status', 'TERMINATED')
   currentStatus.value = 'TERMINATED'
