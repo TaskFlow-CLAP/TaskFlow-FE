@@ -29,7 +29,6 @@
   </div>
   <TaskDetail
     v-if="selectedID"
-    :is-approved="true"
     :selected-id="selectedID"
     :close-task-detail="() => handleModal(null)" />
   <ModalView

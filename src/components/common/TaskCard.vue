@@ -36,8 +36,7 @@
   <TaskDetail
     v-if="selectedID"
     :selected-id="selectedID"
-    :close-task-detail="() => handleModal(null)"
-    click.stop />
+    :close-task-detail="() => handleModal(null)" />
 </template>
 
 <script setup lang="ts">
