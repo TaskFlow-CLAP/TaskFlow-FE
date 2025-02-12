@@ -28,18 +28,18 @@
       :handleCancel="handleCancel"
       :handleSubmit="handleSubmit"
       cancelText="취소"
-      submitText="수정" />
+      :submitText="statusText" />
     <ModalView
       :isOpen="isModalVisible === 'success'"
       :type="'successType'"
       @close="handleCancel">
-      <template #header>작업이 수정되었습니다</template>
+      <template #header>작업이 {{ statusText }}되었습니다</template>
     </ModalView>
     <ModalView
       :isOpen="isModalVisible === 'fail'"
       :type="'failType'"
       @close="handleCancel">
-      <template #header>작업요청을 실패했습니다</template>
+      <template #header>작업{{ statusText }}을 실패했습니다</template>
       <template #body>잠시후 시도해주세요</template>
     </ModalView>
   </div>
@@ -50,7 +50,7 @@ import { getMainCategory, getSubCategory } from '@/api/common'
 import { getTaskDetailUser, patchTaskRequest, postTaskRequest } from '@/api/user'
 import type { Category, SubCategory } from '@/types/common'
 import type { AttachmentResponse } from '@/types/user'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import ModalView from '../common/ModalView.vue'
@@ -61,6 +61,9 @@ import RequestTaskTextArea from './RequestTaskTextArea.vue'
 
 const category1 = ref<Category | null>(null)
 const category2 = ref<SubCategory | null>(null)
+const statusText = computed(() => {
+  return reqType === 'edit' ? '수정' : '요청'
+})
 
 const title = ref('')
 const description = ref('')
@@ -128,6 +131,8 @@ const handleSubmit = async () => {
     return
   }
   const formData = new FormData()
+
+  isSubmitting.value = true
 
   const attachmentsToDelete = initFileArr.value
     .filter(initFile => !file.value?.some(f => f.name === initFile.fileName))

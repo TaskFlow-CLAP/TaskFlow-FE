@@ -49,15 +49,15 @@ import ModalView from '../common/ModalView.vue'
 const { modelValue, isProcessor, taskId } = defineProps<TaskStatusListProps>()
 const modalError = ref('')
 const rejectReason = ref('')
-const emit = defineEmits(['update:status'])
-
 const currentStatus = ref(modelValue)
-const queryClient = useQueryClient()
 const isModalVisible = ref({
   reject: false,
   fail: false,
   success: false
 })
+
+const emit = defineEmits(['update:status'])
+const queryClient = useQueryClient()
 
 watch(
   () => modelValue,
@@ -95,7 +95,7 @@ const rejectRequest = async () => {
     return
   }
   try {
-    await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, { reason: rejectReason.value })
+    await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, rejectReason)
     toggleModal('success')
     emit('update:status', 'TERMINATED')
     currentStatus.value = 'TERMINATED'
