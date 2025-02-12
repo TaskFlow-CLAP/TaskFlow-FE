@@ -39,7 +39,7 @@
       </div>
       <div
         class="category-management-line gap-1 justify-center cursor-pointer bg-white hover:bg-background-2"
-        @click="MovetoAddSubCategory">
+        @click="MovetoAddSubCategory(main.mainCategoryId)">
         <CommonIcons :name="plusIcon" />
         <p class="text-xs text-disabled font-bold">새 2차 카테고리 추가</p>
       </div>
@@ -80,7 +80,7 @@ const deleteCategory = async (id: number) => {
   closeModal()
 }
 
-const MovetoAddSubCategory = () => {
-  router.push('/category-second')
+const MovetoAddSubCategory = (id: number) => {
+  router.push(`/category-second?mainCategoryId=${id}`)
 }
 </script>

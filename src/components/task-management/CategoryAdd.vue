@@ -157,7 +157,14 @@ onMounted(async () => {
       }
     }
   } else if (categoryStep === '2') {
-    categoryOptions.value = await getMainCategory()
+    const mainCategories: Category[] = await getMainCategory()
+    categoryOptions.value = mainCategories
+    if (!id) {
+      const mainCategoryId = ref(Number(route.query.mainCategoryId))
+      categoryForm.value.mainCategoryId = mainCategoryId.value
+      mainCategory.value =
+        categoryOptions.value.find(el => el.mainCategoryId === mainCategoryId.value)?.name || ''
+    }
     if (id) {
       const { data: initialValue } = await axiosInstance.get(`/api/sub-categories/${id}`)
       if (initialValue) {
