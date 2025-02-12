@@ -127,6 +127,9 @@ const handleSubmit = async () => {
     isInvalidate.value = 'description'
     return
   }
+
+  isSubmitting.value = true
+
   const formData = new FormData()
 
   const attachmentsToDelete = initFileArr.value
@@ -168,9 +171,6 @@ const handleSubmit = async () => {
       await patchTaskRequest(id, formData)
     }
     isModalVisible.value = 'success'
-  } catch (e) {
-    isModalVisible.value = 'fail'
-    console.error('요청 실패:', e)
   } finally {
     isSubmitting.value = false
   }

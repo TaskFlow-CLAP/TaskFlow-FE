@@ -3,7 +3,7 @@
     <div class="flex text-xs text-red-1 gap-x-1 mb-2">
       <p class="text-body font-bold">{{ labelName }}</p>
       <p v-if="!isLabel">*</p>
-      <p v-if="!isInvalidate">카테고리를 선택해주세요</p>
+      <p v-if="isInvalidate">카테고리를 선택해주세요</p>
     </div>
     <div
       ref="htmlRef"

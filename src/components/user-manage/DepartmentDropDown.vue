@@ -54,10 +54,6 @@ const selectOption = (option: DepartmentType) => {
 }
 
 onMounted(async () => {
-  try {
-    dePartments.value = await getDepartmentsAdmin()
-  } catch (error) {
-    console.error('부서가져오기 실패:', error)
-  }
+  dePartments.value = await getDepartmentsAdmin()
 })
 </script>

@@ -165,11 +165,7 @@ const handleSubmit = async () => {
       : null,
     labelId: approveData.value.label?.labelId || null
   }
-  try {
-    await postTaskApprove(requestId, requestData)
-    isModalVisible.value = true
-  } catch (error) {
-    console.error('API 요청 실패:', error)
-  }
+  await postTaskApprove(requestId, requestData)
+  isModalVisible.value = true
 }
 </script>

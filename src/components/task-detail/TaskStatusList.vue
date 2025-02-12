@@ -94,17 +94,12 @@ const rejectRequest = async () => {
     modalError.value = '종료 사유를 입력해주세요'
     return
   }
-  try {
-    await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, rejectReason)
-    toggleModal('success')
-    emit('update:status', 'TERMINATED')
-    currentStatus.value = 'TERMINATED'
-    queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
-    queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
-  } catch {
-    toggleModal('fail')
-    modalError.value = '작업 종료에 실패했습니다'
-  }
+  await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, rejectReason)
+  toggleModal('success')
+  emit('update:status', 'TERMINATED')
+  currentStatus.value = 'TERMINATED'
+  queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
+  queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
 }
 
 const changeStatus = async (newStatus: Status) => {
@@ -116,14 +111,10 @@ const changeStatus = async (newStatus: Status) => {
     return
   } else {
     emit('update:status', newStatus)
-    try {
-      currentStatus.value = newStatus
-      await patchChangeStatus(taskId || 0, newStatus)
-      queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
-      queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
-    } catch (error) {
-      console.error('Failed to update status:', error)
-    }
+    currentStatus.value = newStatus
+    await patchChangeStatus(taskId || 0, newStatus)
+    queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
+    queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   }
 }
 </script>

@@ -21,7 +21,7 @@
       placeholder-text="1차 카테고리를 선택해주세요"
       v-if="categoryStep == '2'"
       :disabled="route.params.id !== undefined"
-      :is-invalidate="hasMainCategory" />
+      :is-invalidate="!hasMainCategory" />
     <RequestTaskInput
       v-model="categoryForm.name"
       placeholder-text="카테고리명을 입력해주세요"
@@ -97,7 +97,7 @@ const handleGoBack = () => {
 const handleSubmit = async () => {
   hasMainCategory.value = true
   errorMessage.value = { categoryCode: '', categoryName: '' }
-  if (!categoryForm.value.mainCategoryId) {
+  if (!categoryForm.value.mainCategoryId && categoryStep === '2') {
     hasMainCategory.value = false
     return
   } else if (isCodeInvalidate.value) {

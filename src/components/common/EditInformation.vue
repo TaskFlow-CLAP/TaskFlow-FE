@@ -3,7 +3,7 @@
     <ModalView
       :isOpen="isModalVisible"
       :type="'successType'"
-      @close="handleCancel">
+      @close="isModalVisible = !isModalVisible">
       <template #header>정보가 수정되었습니다</template>
     </ModalView>
 
@@ -288,13 +288,8 @@ const handleSubmit = async () => {
       selectedFile.value = null
     }
 
-    try {
-      await patchEditInfo(formData)
-      isModalVisible.value = true
-      await memberStore.updateMemberInfoWithToken()
-    } catch (error) {
-      console.error('요청 실패:', error)
-    }
+    await patchEditInfo(formData)
+    isModalVisible.value = true
   }
 }
 </script>

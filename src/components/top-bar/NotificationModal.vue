@@ -102,8 +102,7 @@ const loadMoreNotifications = async ($state: InfiniteLoadingState) => {
     } else {
       $state.complete()
     }
-  } catch (error) {
-    console.error('알림을 불러오는 중 오류 발생:', error)
+  } catch {
     $state.error()
   }
 }
