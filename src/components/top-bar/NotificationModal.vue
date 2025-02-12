@@ -2,7 +2,7 @@
   <div
     v-if="isOpen"
     @click.stop
-    class="absolute right-6 top-[calc(100%+16px)] h-60 w-80 bg-white rounded-lg shadow-custom overflow-hidden flex flex-col">
+    class="absolute right-6 top-[calc(100%+16px)] h-[400px] w-[400px] bg-white rounded-lg shadow-custom overflow-hidden flex flex-col">
     <div class="flex justify-between items-center px-4 pt-3 pb-2 border-b border-border-2">
       <p class="text-body font-bold text-xs">알림</p>
       <div class="flex items-center gap-2">
@@ -22,21 +22,32 @@
       </div>
     </div>
     <div class="grow h-full flex flex-col overflow-y-auto">
-      <NotificationMessage
-        v-for="notification in notifications"
-        :key="notification.notificationId"
-        @click="readNotifi(notification.notificationId)"
-        :type="notification.notificationType"
-        :title="notification.taskTitle"
-        :message="notification.message"
-        :is-read="notification.isRead">
-      </NotificationMessage>
+      <template v-if="notifications">
+        <NotificationMessage
+          v-for="notification in notifications"
+          :key="notification.notificationId"
+          @click="readNotifi(notification.notificationId, notification.taskId)"
+          :type="notification.notificationType"
+          :title="notification.taskTitle"
+          :message="notification.message"
+          :is-read="notification.isRead"
+          :createdAt="notification.createdAt">
+        </NotificationMessage>
+      </template>
+      <template v-else>
+        <NoContent title="전달 받은 알림이 없습니다" />
+      </template>
       <InfiniteLoading
         @infinite="loadMoreNotifications"
         class="flex items-center justify-center">
         <template v-slot:complete>
           <span class="flex py-4 items-center justify-center text-xs text-primary1">
-            알림을 전부 확인하였습니다
+            알림을 전부 확인했습니다
+          </span>
+        </template>
+        <template v-slot:error>
+          <span class="flex py-4 items-center justify-center text-xs text-primary1">
+            데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해 주세요.
           </span>
         </template>
       </InfiniteLoading>
@@ -54,10 +65,14 @@ import 'v3-infinite-loading/lib/style.css'
 import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import NotificationMessage from './NotificationMessage.vue'
+import { useRouter } from 'vue-router'
+import NoContent from '../lists/NoContent.vue'
 
 const { isOpen } = defineProps<{
   isOpen: boolean
 }>()
+
+const router = useRouter()
 
 const notifications = ref<NotificationContent[]>([])
 const page = ref(0)
@@ -73,7 +88,6 @@ interface InfiniteLoadingState {
 const loadMoreNotifications = async ($state: InfiniteLoadingState) => {
   try {
     const response = await getNotification(page.value, pageSize)
-
     if (response.isFirst) {
       notifications.value = response.content
     } else {
@@ -94,9 +108,10 @@ const loadMoreNotifications = async ($state: InfiniteLoadingState) => {
   }
 }
 
-const readNotifi = async (id: number) => {
+const readNotifi = async (id: number, taskId: number) => {
   await patchNotificationRead(id)
   emit('close')
+  router.replace({ query: { taskId } })
 }
 
 const emit = defineEmits<{
@@ -108,7 +123,7 @@ const closeModal = () => {
 }
 
 const readAllNotifi = async () => {
-  await axiosInstance.patch('/api/notification')
+  await axiosInstance.patch('/api/notifications')
   emit('close')
 }
 </script>

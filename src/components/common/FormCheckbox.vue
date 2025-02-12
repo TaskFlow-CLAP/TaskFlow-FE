@@ -14,7 +14,7 @@
           { 'bg-primary1 text-white': isChecked, 'border border-disabled': !isChecked }
         ]"
         :style="isChecked ? { fill: 'white' } : {}" />
-      <p class="text-black">{{ checkButtonName }}</p>
+      <p>{{ checkButtonName }}</p>
     </div>
   </div>
 </template>

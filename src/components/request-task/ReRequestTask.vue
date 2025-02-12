@@ -21,18 +21,26 @@
       :is-invalidate="isInvalidate" />
     <RequestTaskTextArea
       v-model="description"
+      :is-invalidate="isInvalidate"
       :placeholderText="'부가 정보를 입력해주세요'" />
     <RequestTaskFileInput v-model="file" />
     <FormButtonContainer
       :handleCancel="handleCancel"
       :handleSubmit="handleSubmit"
       cancelText="취소"
-      submitText="요청" />
+      submitText="수정" />
     <ModalView
-      :isOpen="isModalVisible"
+      :isOpen="isModalVisible === 'success'"
       :type="'successType'"
       @close="handleCancel">
-      <template #header>작업이 요청되었습니다</template>
+      <template #header>작업이 수정되었습니다</template>
+    </ModalView>
+    <ModalView
+      :isOpen="isModalVisible === 'fail'"
+      :type="'failType'"
+      @close="handleCancel">
+      <template #header>작업요청을 실패했습니다</template>
+      <template #body>잠시후 시도해주세요</template>
     </ModalView>
   </div>
 </template>
@@ -45,20 +53,21 @@ import type { AttachmentResponse } from '@/types/user'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
+import ModalView from '../common/ModalView.vue'
 import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
-import ModalView from '../common/ModalView.vue'
 
 const category1 = ref<Category | null>(null)
-const category2 = ref<Category | null>(null)
+const category2 = ref<SubCategory | null>(null)
 
 const title = ref('')
 const description = ref('')
 const file = ref(null as File[] | null)
 const isInvalidate = ref('')
-const isModalVisible = ref(false)
+const isModalVisible = ref('')
+const isSubmitting = ref(false)
 
 const mainCategoryArr = ref<Category[]>([])
 const subCategoryArr = ref<SubCategory[]>([])
@@ -82,7 +91,7 @@ onMounted(async () => {
   category1.value = selected
   category2.value = subCategoryArr.value.find(ct => ct.name === data.categoryName) || null
   afterSubCategoryArr.value = subCategoryArr.value.filter(
-    subCategory => subCategory.mainCategoryId === selected?.id
+    subCategory => subCategory.mainCategoryId === selected?.mainCategoryId
   )
   title.value = data.title
   description.value = data.description
@@ -99,16 +108,23 @@ watch(category1, async newValue => {
     category2.value = null
   }
   afterSubCategoryArr.value = subCategoryArr.value.filter(
-    subCategory => subCategory.mainCategoryId === newValue?.id
+    subCategory => subCategory.mainCategoryId === newValue?.mainCategoryId
   )
 })
 
 const handleSubmit = async () => {
+  if (isSubmitting.value || isModalVisible.value) return
   if (!category2.value) {
     isInvalidate.value = 'category'
     return
   } else if (!title.value) {
     isInvalidate.value = 'input'
+    return
+  } else if (title.value.length > 30) {
+    isInvalidate.value = 'title'
+    return
+  } else if (description.value.length > 200) {
+    isInvalidate.value = 'description'
     return
   }
   const formData = new FormData()
@@ -118,7 +134,7 @@ const handleSubmit = async () => {
     .map(initFile => initFile.fileId)
 
   const taskInfo = {
-    categoryId: category2.value.id,
+    categoryId: category2.value.subCategoryId,
     title: title.value,
     description: description.value
   }
@@ -151,9 +167,12 @@ const handleSubmit = async () => {
     } else {
       await patchTaskRequest(id, formData)
     }
-    isModalVisible.value = true
-  } catch (error) {
-    console.error('요청 실패:', error)
+    isModalVisible.value = 'success'
+  } catch (e) {
+    isModalVisible.value = 'fail'
+    console.error('요청 실패:', e)
+  } finally {
+    isSubmitting.value = false
   }
 }
 </script>

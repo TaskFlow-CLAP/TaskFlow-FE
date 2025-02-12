@@ -16,7 +16,7 @@
       :value="store.params.title"
       @update:value="onParamsChange.onTitleChange" />
     <FilterInput
-      title="이름"
+      title="아이디"
       :value="store.params.nickName"
       @update:value="onParamsChange.onNickNameChange" />
     <FilterDropdownMulti

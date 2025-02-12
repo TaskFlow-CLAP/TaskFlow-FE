@@ -11,7 +11,7 @@ export const REQUESTED_LIST_BAR_TAB: ListBarTabProps[] = [
 ]
 
 export const REQUEST_HISTORY_LIST_BAR_TAB: ListBarTabProps[] = [
-  { content: '고유코드', width: 120 },
+  { content: '작업코드', width: 120 },
   { content: '요청일', width: 80, sortBy: 'REQUESTED_AT' },
   { content: '1차 카테고리', width: 80 },
   { content: '2차 카테고리', width: 80 },
@@ -23,7 +23,7 @@ export const REQUEST_HISTORY_LIST_BAR_TAB: ListBarTabProps[] = [
 ]
 
 export const MY_TASK_LIST_BAR_TAB: ListBarTabProps[] = [
-  { content: '고유코드', width: 120 },
+  { content: '작업코드', width: 120 },
   { content: '요청일', width: 80, sortBy: 'REQUESTED_AT' },
   { content: '1차 카테고리', width: 80 },
   { content: '2차 카테고리', width: 80 },

@@ -41,6 +41,7 @@ export interface RequestTaskFileInputProps {
 export interface RequestTaskTextAreaProps {
   modelValue: string
   placeholderText: string
+  isInvalidate?: string
 }
 
 export interface AttachmentResponse {

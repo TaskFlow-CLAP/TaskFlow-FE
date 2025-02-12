@@ -1,6 +1,6 @@
 <template>
   <div class="form-view-container">
-    <TitleBar :title="`2차 카테고리 ${$route.params.id ? '수정' : '등록'}`" />
+    <TitleBar :title="`2차 카테고리 ${$route.params.id ? '수정' : '추가'}`" />
     <CategoryAdd categoryStep="2" />
   </div>
   <div class="w-full bg-body"></div>

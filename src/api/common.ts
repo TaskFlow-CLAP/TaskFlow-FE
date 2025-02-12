@@ -12,7 +12,7 @@ export const getNotification = async (pageNum: number, sizeNum: number) => {
 }
 
 export const patchNotificationRead = async (notificationId: number) => {
-  const response = await axiosInstance.patch(`/api/notification/${notificationId}`)
+  const response = await axiosInstance.patch(`/api/notifications/${notificationId}`)
   return response.data
 }
 

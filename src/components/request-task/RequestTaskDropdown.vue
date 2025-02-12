@@ -1,17 +1,15 @@
 <template>
   <div>
-    <div class="flex text-xs gap-x-1 mb-2">
+    <div class="flex text-xs text-red-1 gap-x-1 mb-2">
       <p class="text-body font-bold">{{ labelName }}</p>
-      <p
-        v-if="!isLabel"
-        class="text-red-1">
-        *
-      </p>
+      <p v-if="!isLabel">*</p>
     </div>
-    <div class="relative flex">
+    <div
+      ref="htmlRef"
+      class="relative flex">
       <div
         class="flex w-full h-11 items-center rounded p-4 border border-border-1"
-        :class="disabled ? 'bg-background-1 text-disabled' : 'bg-white text-black cursor-pointer'"
+        :class="disabled ? 'bg-background-1 text-disabled' : 'bg-white cursor-pointer'"
         @click="!disabled && toggleDropdown()">
         <p :class="{ 'text-disabled': modelValue === placeholderText }">
           {{ modelValue || placeholderText }}
@@ -22,7 +20,7 @@
       </div>
       <div
         v-if="dropdownOpen"
-        class="absolute w-full h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2 text-black">
+        class="absolute w-full h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2">
         <div
           v-for="option in options"
           :key="option"
@@ -40,6 +38,7 @@ import { dropdownIcon } from '@/constants/iconPath'
 import type { RequestTaskDropdownProps } from '@/types/user'
 import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 const { placeholderText, options, labelName, modelValue, isLabel, disabled } =
   defineProps<RequestTaskDropdownProps>()
@@ -54,4 +53,6 @@ const selectOption = (option: string) => {
   emit('update:modelValue', option)
   dropdownOpen.value = false
 }
+
+const { htmlRef } = useOutsideClick(() => dropdownOpen.value && toggleDropdown())
 </script>

@@ -19,8 +19,7 @@ import type { LoginLogsListData } from '@/types/admin'
 import { formatFullDateTime } from '@/utils/date'
 
 const logStatus = {
-  LOGIN: '로그인 시도',
-  LOGOUT: '로그아웃'
+  LOGIN: '로그인 시도'
 }
 
 const { info } = defineProps<{ info: LoginLogsListData }>()

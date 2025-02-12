@@ -2,7 +2,7 @@ import type { ListBarTabProps } from '@/types/common'
 import type { TaskHistoryType } from '@/types/user'
 
 export const MY_REQUEST_LIST_BAR_TAB: ListBarTabProps[] = [
-  { content: '고유코드', width: 120 },
+  { content: '작업코드', width: 120 },
   { content: '요청일', width: 80, sortBy: 'REQUESTED_AT' },
   { content: '1차 카테고리', width: 80 },
   { content: '2차 카테고리', width: 80 },
@@ -31,10 +31,10 @@ export const HistoryMessageBefore: Record<TaskHistoryType, string> = {
 }
 
 export const HistoryMessageAfter: Record<TaskHistoryType, string> = {
-  STATUS_SWITCHED: '상태로 변경되었습니다.',
-  PROCESSOR_CHANGED: '님으로 변경되었습니다.',
+  STATUS_SWITCHED: '상태로 변경되었습니다',
+  PROCESSOR_CHANGED: '님으로 변경되었습니다',
   COMMENT: '',
   COMMENT_FILE: '',
-  PROCESSOR_ASSIGNED: '님으로 할당되었습니다.',
-  TASK_TERMINATED: '종료되었습니다.'
+  PROCESSOR_ASSIGNED: '님으로 할당되었습니다',
+  TASK_TERMINATED: '종료되었습니다'
 }

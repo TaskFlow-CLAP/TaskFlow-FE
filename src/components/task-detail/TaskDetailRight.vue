@@ -1,17 +1,17 @@
 <template>
-  <div class="sticky top-0 w-[280px] shrink-0 flex flex-col gap-y-6 text-black overflow-y-auto p-6">
+  <div class="sticky top-0 w-[280px] shrink-0 flex flex-col gap-y-6 overflow-y-auto p-6">
     <div>
-      <p class="task-detail">고유코드</p>
-      <p class="text-sm text-black">{{ data.taskCode || '-' }}</p>
+      <p class="task-detail">작업코드</p>
+      <p class="text-sm">{{ data.taskCode || '-' }}</p>
     </div>
     <div>
       <p class="task-detail">요청일</p>
-      <p class="text-sm text-black">{{ formatDate(data.requestedAt) }}</p>
+      <p class="text-sm">{{ formatDateAndTime(data.requestedAt) }}</p>
     </div>
     <div>
       <p class="task-detail">종료일</p>
-      <p class="text-sm text-black">
-        {{ (data.finishedAt && formatDate(data.finishedAt)) || '-' }}
+      <p class="text-sm">
+        {{ (data.finishedAt && formatDateAndTime(data.finishedAt)) || '-' }}
       </p>
     </div>
     <div>
@@ -24,7 +24,7 @@
       <div v-else>
         <TaskStatusList
           v-model="taskStatus"
-          :isProcessor="isProcessor"
+          :isProcessor="info.isReviewer || isProcessor"
           :taskId="data.taskId" />
       </div>
     </div>
@@ -34,12 +34,12 @@
         <ImageContainer
           :url="data.requesterImageUrl"
           :size="20" />
-        <p class="text-sm text-black">{{ data.requesterNickName }}</p>
+        <p class="text-sm">{{ data.requesterNickName }}</p>
       </div>
     </div>
     <div>
       <p class="task-detail">담당자</p>
-      <div v-if="isProcessor && data.processorNickName">
+      <div v-if="data.taskStatus !== 'REQUESTED' && isProcessor">
         <TaskDetailManagerDropdown
           v-model="newManager"
           :task-id="data.taskId" />
@@ -51,55 +51,50 @@
           v-if="data.processorNickName"
           :url="data.processorImageUrl"
           :size="20" />
-        <p class="text-sm text-black">{{ data.processorNickName || '-' }}</p>
+        <p class="text-sm">{{ data.processorNickName || '-' }}</p>
       </div>
     </div>
-    <div>
+    <div v-if="data.taskStatus !== 'REQUESTED' && info.isReviewer">
       <p class="task-detail">마감기한</p>
       <div v-if="data.dueDate">
         <div class="w-full flex justify-between items-center">
-          <p class="text-sm text-black">{{ formatDueDate(data.dueDate) || '-' }}</p>
+          <p class="text-sm">{{ formatDueDate(data.dueDate) || '-' }}</p>
         </div>
         <p class="text-red-1 text-xs font-bold">{{ formatDaysBefore(data.dueDate) }}</p>
       </div>
       <div v-else>-</div>
     </div>
-    <div>
+    <div v-if="data.taskStatus !== 'REQUESTED' && info.isReviewer">
       <p class="task-detail">구분</p>
-      <div v-if="data.labelName">
-        <TaskDetailLabelDropdown
-          v-if="isProcessor"
-          v-model="taskLabel"
-          :placeholder-text="'라벨을 선택해주세요'"
-          :task-id="data.taskId" />
-        <div
-          v-else-if="!isProcessor"
-          class="flex w-full items-center bg-white text-sm text-black">
-          {{ data.labelName }}
-        </div>
-      </div>
-      <div v-else>-</div>
+      <TaskDetailLabelDropdown
+        v-model="taskLabel"
+        :placeholder-text="'구분을 선택해주세요'"
+        :task-id="data.taskId" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { changeProcessor } from '@/api/user'
+import { useMemberStore } from '@/stores/member'
 import type { ManagerTypes } from '@/types/manager'
 import type { TaskDetailDatas } from '@/types/user'
-import { formatDate, formatDaysBefore, formatDueDate } from '@/utils/date'
+import { formatDateAndTime, formatDaysBefore, formatDueDate } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
 import { defineProps, ref, watch } from 'vue'
+import ImageContainer from '../common/ImageContainer.vue'
+import TaskStatus from '../common/TaskStatus.vue'
 import TaskDetailLabelDropdown from './TaskDetailLabelDropdown.vue'
 import TaskDetailManagerDropdown from './TaskDetailManagerDropdown.vue'
 import TaskStatusList from './TaskStatusList.vue'
-import ImageContainer from '../common/ImageContainer.vue'
-import TaskStatus from '../common/TaskStatus.vue'
 
 const { data, isProcessor } = defineProps<{ data: TaskDetailDatas; isProcessor: boolean }>()
 
 const taskStatus = ref(data.taskStatus)
 const queryClient = useQueryClient()
+const memberStore = useMemberStore()
+const { info } = storeToRefs(memberStore)
 
 const taskLabel = ref({
   labelId: -1,
@@ -122,6 +117,7 @@ watch(newManager, async newValue => {
       await changeProcessor(data.taskId, newValue.memberId)
       selectedManager.value = newValue
       queryClient.invalidateQueries({ queryKey: ['historyData', data.taskId] })
+      queryClient.invalidateQueries({ queryKey: ['taskDetailUser', data.taskId] })
     } catch (error) {
       console.error('Error updating processor', error)
     }

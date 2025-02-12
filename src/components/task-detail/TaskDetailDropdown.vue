@@ -11,7 +11,7 @@
             src="/images/mockProfile.jpg"
             alt="userProfile" />
         </div>
-        <p class="text-black">
+        <p>
           {{ modelValue }}
         </p>
       </div>

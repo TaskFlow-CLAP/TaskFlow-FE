@@ -4,7 +4,7 @@
       :isOpen="isModalVisible"
       :type="'successType'"
       @close="handleCancel">
-      <template #header> 회원정보가 수정되었습니다 </template>
+      <template #header>회원정보가 수정되었습니다</template>
     </ModalView>
     <RequestTaskInput
       v-model="userRegistrationForm.name"
@@ -14,6 +14,7 @@
       v-model="userRegistrationForm.nickname"
       :placeholderText="'회원의 아이디를 입력해주세요'"
       :isEdit="true"
+      :is-invalidate="isInvalidate"
       :labelName="'아이디'" />
     <div class="flex w-full gap-2">
       <RequestTaskInput
@@ -28,10 +29,14 @@
         :is-edit="true"
         :is-not-required="false" />
     </div>
+    <DepartmentDropDown
+      v-model="userRegistrationForm.departmentId"
+      :is-invalidate="isInvalidate" />
     <RequestTaskDropdown
       v-model="userRegistrationForm.role"
       :options="RoleKeys"
       :label-name="'역할'"
+      :is-invalidate="isInvalidate"
       :placeholderText="'회원의 역할을 선택해주세요'" />
     <FormCheckbox
       v-if="isManager"
@@ -40,7 +45,6 @@
       :checkButtonName="'허용'"
       :isDisabled="!isManager"
       :isChecked="userRegistrationForm.isReviewer" />
-    <DepartmentDropDown v-model="userRegistrationForm.departmentId" />
     <RequestTaskInput
       v-model="userRegistrationForm.departmentRole"
       :placeholderText="'회원의 직무를 입력해주세요'"
@@ -67,19 +71,22 @@ import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import FormCheckbox from '../common/FormCheckbox.vue'
+import ModalView from '../common/ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
 import DepartmentDropDown from './DepartmentDropDown.vue'
-import ModalView from '../common/ModalView.vue'
 
 const route = useRoute()
 const router = useRouter()
 
 const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
-const isManager = computed(() => userRegistrationForm.value.role === '담당자')
+const isInvalidate = ref('')
 const userId = ref(route.query.id)
 const userData = ref<UserRegistrationProps | null>(null)
 const isModalVisible = ref(false)
+const isError = ref(false)
+
+const isManager = computed(() => userRegistrationForm.value.role === '담당자')
 
 watch(
   () => router.currentRoute.value.query.id,
@@ -108,16 +115,26 @@ const handleCancel = async () => {
 }
 
 const handleSubmit = async () => {
-  if (typeof userId.value === 'string') {
-    const userData = {
-      role: RoleTypeMapping[userRegistrationForm.value.role],
-      name: userRegistrationForm.value.name,
-      isReviewer: isManager.value ? userRegistrationForm.value.isReviewer : false,
-      departmentId: userRegistrationForm.value.departmentId,
-      departmentRole: userRegistrationForm.value.departmentRole
+  try {
+    if (typeof userId.value === 'string') {
+      const userData = {
+        role: RoleTypeMapping[userRegistrationForm.value.role],
+        name: userRegistrationForm.value.name,
+        isReviewer: isManager.value ? userRegistrationForm.value.isReviewer : false,
+        departmentId: userRegistrationForm.value.departmentId,
+        departmentRole: userRegistrationForm.value.departmentRole
+      }
+      await updateMemberAdmin(userId.value, userData)
+      isModalVisible.value = true
     }
-    await updateMemberAdmin(userId.value, userData)
-    isModalVisible.value = true
+  } catch (error) {
+    if (error instanceof Error && error.message === 'MEMBER_DUPLICATED') {
+      isInvalidate.value = 'duplicate'
+    } else if (error instanceof Error && error.message === 'MEMBER_REVIEWER') {
+      isInvalidate.value = 'reviewer'
+    } else {
+      isError.value = true
+    }
   }
 }
 </script>

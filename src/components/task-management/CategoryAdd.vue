@@ -4,21 +4,21 @@
       :is-open="isModalVisible.add"
       type="successType"
       @close="handleAddModal">
-      <template #header>카테고리가 {{ route.params.id ? '수정' : '등록' }}되었습니다</template>
+      <template #header>카테고리가 {{ route.params.id ? '수정' : '추가' }}되었습니다</template>
     </ModalView>
     <ModalView
       :is-open="isModalVisible.cancel"
       type="warningType"
       @close="handleCancelModal"
       @click="handleGoBack">
-      <template #header>{{ route.params.id ? '수정' : '생성' }}을 취소 하시겠습니까?</template>
+      <template #header>{{ route.params.id ? '수정을' : '추가를' }} 취소 하시겠습니까?</template>
       <template #body>작성하신 내용은 사라집니다</template>
     </ModalView>
     <ModalView
       :is-open="isModalVisible.fail"
       type="failType"
       @close="handleFailModal">
-      <template #header>카테고리 정보를 확인해주세요</template>
+      <template #header>{{ errorMessage }}</template>
     </ModalView>
     <RequestTaskDropdown
       v-model="mainCategory"
@@ -33,8 +33,8 @@
       :label-name="`${categoryStep}차 카테고리명`" />
     <RequestTaskInput
       v-model="categoryForm.code"
-      placeholder-text="카테고리의 고유코드를 입력해주세요"
-      label-name="고유코드 (대문자 영어 2글자까지)"
+      placeholder-text="카테고리의 작업코드를 입력해주세요"
+      label-name="작업코드 (대문자 영어 2글자까지)"
       :is-invalidate="isCodeInvalidate" />
 
     <div
@@ -53,7 +53,7 @@
       :handle-cancel="handleCancel"
       :handle-submit="handleSubmit"
       cancel-text="취소"
-      :submit-text="route.params.id ? '수정' : '등록'" />
+      :submit-text="route.params.id ? '수정' : '추가'" />
   </div>
 </template>
 
@@ -68,6 +68,7 @@ import { axiosInstance } from '@/utils/axios'
 import { getMainCategory } from '@/api/common'
 import type { Category, CategoryForm } from '@/types/common'
 import ModalView from '../common/ModalView.vue'
+import axios from 'axios'
 
 const router = useRouter()
 const route = useRoute()
@@ -77,6 +78,7 @@ const { categoryStep } = defineProps<{
 }>()
 
 const isModalVisible = ref({ add: false, cancel: false, fail: false })
+const errorMessage = ref('')
 
 const categoryForm = ref<CategoryForm>(CATEGORY_FORM)
 
@@ -87,7 +89,8 @@ const handleAddModal = () => {
 const handleCancelModal = () => {
   isModalVisible.value.cancel = !isModalVisible.value.cancel
 }
-const handleFailModal = () => {
+const handleFailModal = (message: string = '카테고리 정보를 확인해주세요') => {
+  errorMessage.value = message
   isModalVisible.value.fail = !isModalVisible.value.fail
 }
 
@@ -114,18 +117,21 @@ const handleSubmit = async () => {
     const categoryId = route.params.id
     if (categoryId) {
       const patchUrl = `/api/managements/categories/${categoryId}`
-      await axiosInstance.patch(patchUrl, {
-        name: categoryForm.value.name,
-        code: categoryForm.value.code
-      })
+      await axiosInstance.patch(patchUrl, categoryForm.value)
     } else {
       const postUrl =
         categoryStep === '1' ? '/api/managements/main-category' : '/api/managements/sub-category'
       await axiosInstance.post(postUrl, categoryForm.value)
     }
     isModalVisible.value.add = true
-  } catch {
-    handleFailModal()
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.data === 'TASK_013') {
+        handleFailModal('중복된 카테고리명\n혹은 고유코드입니다')
+      } else {
+        handleFailModal()
+      }
+    }
   }
 }
 
@@ -137,7 +143,7 @@ const isCodeInvalidate = computed(() => {
   return isInvalidate ? 'code' : ''
 })
 
-const mainCategory = ref('')
+const mainCategory = ref('1차 카테고리를 선택해주세요')
 const categoryOptions = ref<Category[]>([])
 onMounted(async () => {
   const id = Number(route.params.id)
@@ -145,7 +151,7 @@ onMounted(async () => {
   if (categoryStep === '1') {
     if (id) {
       const mainCategories: Category[] = await getMainCategory()
-      const initialValue = mainCategories.find(el => el.id === id)
+      const initialValue = mainCategories.find(el => el.mainCategoryId === id)
       if (initialValue) {
         categoryForm.value = { name: initialValue.name, code: initialValue.code }
       }
@@ -162,7 +168,8 @@ onMounted(async () => {
           descriptionExample: initialValue.descriptionExample
         }
         mainCategory.value =
-          categoryOptions.value.find(el => el.id === initialValue.mainCategoryId)?.name || ''
+          categoryOptions.value.find(el => el.mainCategoryId === initialValue.mainCategoryId)
+            ?.name || ''
       }
     }
   }
@@ -170,7 +177,7 @@ onMounted(async () => {
 watch(mainCategory, () => {
   categoryForm.value.mainCategoryId = categoryOptions.value.find(
     el => el.name === mainCategory.value
-  )?.id
+  )?.mainCategoryId
 })
 
 const onValueChange = (event: Event) => {

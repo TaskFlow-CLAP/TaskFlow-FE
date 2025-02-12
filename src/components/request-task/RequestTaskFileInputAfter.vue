@@ -7,7 +7,7 @@
         <div class="flex gap-6">
           <p class="w-[60px]">용량</p>
           <p class="w-36">최종 업로드 시각</p>
-          <p class="w-10">다운로드</p>
+          <p class="w-10">파일삭제</p>
         </div>
       </div>
       <div
@@ -16,7 +16,7 @@
         <div
           v-for="(file, index) in files"
           :key="file.name"
-          class="flex w-full justify-between items-center h-8 text-xs border-b border-b-border-2 text-black px-4 shrink-0">
+          class="flex w-full justify-between items-center h-8 text-xs border-b border-b-border-2 px-4 shrink-0">
           <p class="flex truncate mr-3">{{ file.name }}</p>
           <div class="flex gap-6">
             <p class="w-[60px]">{{ formatFileSize(file.size) }}</p>

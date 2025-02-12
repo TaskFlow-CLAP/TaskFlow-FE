@@ -13,7 +13,7 @@
           <div class="flex flex-col justify-center items-center w-[172px]">
             <p class="text-xs text-body font-bold">{{ name }}</p>
 
-            <p class="text-black">{{ nickname }}</p>
+            <p>{{ nickname }}</p>
           </div>
         </div>
       </div>
@@ -21,7 +21,7 @@
     <button
       @click="handleEdit"
       type="button"
-      class="flex w-full py-4 px-6 text-sm text-black font-bold border-b border-border-2 hover:bg-background-2">
+      class="flex w-full py-4 px-6 text-sm font-bold border-b border-border-2 hover:bg-background-2">
       내 정보 수정
     </button>
     <button
@@ -35,7 +35,7 @@
     :isOpen="isModalVisible"
     type="successType"
     @close="closeLogoutModal">
-    <template #header> 로그아웃 되었습니다. </template>
+    <template #header>로그아웃 되었습니다</template>
   </ModalView>
 </template>
 
