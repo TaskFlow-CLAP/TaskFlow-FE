@@ -73,7 +73,7 @@ jobs:
 
       - name: Update Kubernetes Deployment
         run: |
-          envsubst < ./taskflow.yaml
+          envsubst < ./taskflow.yaml > ./taskflow-front.yaml
         env:
           IMAGE_TAG: ${{ steps.version.outputs.VERSION }}
 
@@ -86,7 +86,7 @@ jobs:
           key: ${{ secrets.KUBE_HOST_KEY }}
           port: ${{ secrets.KUBE_HOST_PORT }}
           overwrite: true
-          source: ./taskflow.yaml
+          source: ./taskflow-front.yaml
           target: ~/taskflow-front.yaml
 
       - name: Deploy Prod
