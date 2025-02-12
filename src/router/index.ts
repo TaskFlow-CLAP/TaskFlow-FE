@@ -23,12 +23,6 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
-      path: '/pw-check',
-      name: 'PWCheckView',
-      component: () => import('../views/PwCheckView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
       path: '/my-request',
       name: 'MyRequest',
       component: () => import('../views/MyRequestView.vue')

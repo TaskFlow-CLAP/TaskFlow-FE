@@ -84,12 +84,19 @@ const setInterceptors = (instance: AxiosInstance) => {
               return Promise.reject(new Error('MEMBER_REVIEWER'))
             } else if (error.response.data === 'MEMBER_012') {
               return Promise.reject(new Error('MEMBER_DUPLICATED'))
+            } else if ((error.response.data = 'MEMBER_006')) {
+              setError('비밀번호가 일치하지 않습니다', '다시 시도해주세요')
             } else {
               setError('잘못된 요청입니다', '다시 시도해주세요')
             }
             break
           case 404:
-            setError('요청한 자원을 찾을 수 없습니다')
+            if (error.response.data === 'MEMBER_001') {
+              setError('일치하는 정보가 없습니다', '이메일과 이름을 다시 확인해주세요')
+            } else {
+              setError('요청한 자원을 찾을 수 없습니다')
+            }
+
             break
           case 500:
             setError('서버 오류', '잠시 후 다시 시도해주세요')
