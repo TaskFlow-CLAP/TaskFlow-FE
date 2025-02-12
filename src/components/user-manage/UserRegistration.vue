@@ -58,7 +58,7 @@
 <script lang="ts" setup>
 import { addMemberAdmin } from '@/api/admin'
 import { INITIAL_USER_REGISTRATION, RoleKeys, RoleTypeMapping } from '@/constants/admin'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import FormCheckbox from '../common/FormCheckbox.vue'
@@ -84,8 +84,14 @@ const handleCancel = () => {
   router.back()
 }
 
+const usernameRegex = /^[a-z]{3,10}\.[a-z]{1,5}$/
+
 const handleSubmit = async () => {
   try {
+    if (!usernameRegex.test(userRegistrationForm.value.nickname)) {
+      isInvalidate.value = 'wrongNickname'
+      return
+    }
     const formData = {
       ...userRegistrationForm.value,
       isReviewer: isManager.value ? userRegistrationForm.value.isReviewer : false,
@@ -104,4 +110,8 @@ const handleSubmit = async () => {
     }
   }
 }
+
+watch(isManager, () => {
+  userRegistrationForm.value.isReviewer = false
+})
 </script>

@@ -290,6 +290,7 @@ const handleSubmit = async () => {
 
     await patchEditInfo(formData)
     isModalVisible.value = true
+    await memberStore.updateMemberInfoWithToken()
   }
 }
 </script>

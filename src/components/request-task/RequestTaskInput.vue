@@ -9,6 +9,7 @@
       <p v-if="isInvalidateState === 'noCode'">작업코드를 입력해주세요</p>
       <p v-if="isInvalidateState === 'code'">사용할 수 없는 작업코드입니다</p>
       <p v-if="isInvalidateState === 'categoryName'">카테고리명을 입력해주세요</p>
+      <p v-if="isInvalidateState === 'wrongNickname'">잘못된 형식의 아이디입니다</p>
     </div>
     <input
       class="w-full h-11 border border-border-1 px-4 focus:outline-none rounded"
