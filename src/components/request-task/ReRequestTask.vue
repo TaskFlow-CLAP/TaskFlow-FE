@@ -173,15 +173,12 @@ const handleSubmit = async () => {
     })
   }
 
-  try {
-    if (reqType === 're') {
-      await postTaskRequest(formData)
-    } else {
-      await patchTaskRequest(id, formData)
-    }
-    isModalVisible.value = 'success'
-  } finally {
-    isSubmitting.value = false
+  if (reqType === 're') {
+    await postTaskRequest(formData)
+  } else {
+    await patchTaskRequest(id, formData)
   }
+  isModalVisible.value = 'success'
+  isSubmitting.value = false
 }
 </script>

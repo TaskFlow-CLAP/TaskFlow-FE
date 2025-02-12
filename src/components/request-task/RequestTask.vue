@@ -139,11 +139,8 @@ const handleSubmit = async () => {
   if (file.value && file.value.length > 0) {
     file.value.forEach(f => formData.append('attachment', f))
   }
-  try {
-    await postTaskRequest(formData)
-    isModalVisible.value = 'success'
-  } finally {
-    isSubmitting.value = false
-  }
+  await postTaskRequest(formData)
+  isModalVisible.value = 'success'
+  isSubmitting.value = false
 }
 </script>
