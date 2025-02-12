@@ -40,7 +40,9 @@
           </div>
           <div class="flex w-full flex-col items-center">
             <TaskDetailHistoryChat
-              v-if="item.taskHistoryType === 'COMMENT'"
+              v-if="
+                item.taskHistoryType === 'COMMENT' || item.taskHistoryType === 'TASK_TERMINATED'
+              "
               :history="item"
               :requestor-name="requestorName"
               :task-id="taskId" />
