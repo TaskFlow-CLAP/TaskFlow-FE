@@ -39,20 +39,21 @@ jobs:
         run: touch ./nginxfile.conf
       - run: echo "${{ secrets.NGINX_FILE_CONF }}" > ./nginxfile.conf
 
-      - name: Create nginx.conf
+      - name: Create Develop nginx.conf
         run: touch ./nginx.conf
       - run: echo "${{ secrets.NGINX_CONF }}" > ./nginx.conf
 
-      # docker build & push to production
-      - name: Docker build & push
+      # docker build & push to develop
+      - name: Docker build & push develop
         run: |
-          docker login clap.kr-central-2.kcr.dev -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build -t ${{ secrets.DOCKER_FRONT_REPO }}:${{ steps.version.outputs.VERSION }} .
-          docker push ${{ secrets.DOCKER_FRONT_REPO }}:${{ steps.version.outputs.VERSION }}
-      ## deploy
-      - name: Deploy
+         docker login clap.kr-central-2.kcr.dev -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+         docker build -t ${{ secrets.DOCKER_FRONT_REPO }} .
+         docker push ${{ secrets.DOCKER_FRONT_REPO }}
+
+      # deploy
+      - name: Deploy Develop
         uses: appleboy/ssh-action@master
-        id: deploy
+        id: deploy develop
         with:
           host: ${{ secrets.FRONT_HOST }}
           username: ${{ secrets.FRONT_HOST_USERNAME }}
@@ -60,5 +61,43 @@ jobs:
           port: ${{ secrets.FRONT_HOST_PORT }}
           script: |
             docker rm -f taskflow-front
-            docker image rm ${{ secrets.DOCKER_FRONT_REPO }} -f
-            docker run --name taskflow-front -d -p 80:80 -p 443:443 -v /etc/letsencrypt/:/etc/letsencrypt/ -v /etc/ssl/:/etc/ssl/  --restart on-failure ${{ secrets.DOCKER_FRONT_REPO }}:${{ steps.version.outputs.VERSION }}
+            docker image rm -f ${{ secrets.DOCKER_FRONT_REPO }}
+            docker run --name taskflow-front -d -p 80:80 -p 443:443 -v /etc/letsencrypt/:/etc/letsencrypt/ -v /etc/ssl/:/etc/ssl/  --restart on-failure ${{ secrets.DOCKER_FRONT_REPO }}
+
+      - name: Create Production nginx.conf
+      - run: echo "${{ secrets.PROD_NGINX_CONF }}" > ./nginx.conf
+
+      # docker build & push to production
+      - name: Docker build & push production
+        run: |
+          docker build -t ${{ secrets.DOCKER_FRONT_REPO }}:${{ steps.version.outputs.VERSION }} .
+          docker push ${{ secrets.DOCKER_FRONT_REPO }}:${{ steps.version.outputs.VERSION }}
+
+      - name: Update Kubernetes Deployment
+        run: |
+          envsubst < ./taskflow.yaml
+        env:
+          IMAGE_TAG: ${{ env.IMAGE_TAG }}
+
+      # deploy
+      - name: Transport taskflow.yaml to kubectl server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.KUBE_HOST }}
+          username: ${{ secrets.KUBE_HOST_USERNAME }}
+          key: ${{ secrets.KUBE_HOST_KEY }}
+          port: ${{ secrets.KUBE_HOST_PORT }}
+          overwrite: true
+          source: ./taskflow.yaml
+          target: ~/taskflow-front.yaml
+
+      - name: Deploy Prod
+        uses: appleboy/ssh-action@master
+        id: deploy prod
+        with:
+          host: ${{ secrets.KUBE_HOST }}
+          username: ${{ secrets.KUBE_HOST_USERNAME }}
+          key: ${{ secrets.KUBE_HOST_KEY }}
+          port: ${{ secrets.KUBE_HOST_PORT }}
+          script: |
+            kubectl apply --filename taskflow-front.yaml
