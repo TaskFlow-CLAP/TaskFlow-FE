@@ -44,6 +44,7 @@ const setInterceptors = (instance: AxiosInstance) => {
     response => response,
     async error => {
       const { setError } = useErrorStore()
+      console.log(error)
       if (axios.isCancel(error)) {
         setError('요청이 취소되었습니다:', error.message)
       } else if (error.response) {

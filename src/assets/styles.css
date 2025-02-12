@@ -51,7 +51,7 @@ body {
 }
 
 .button-medium {
-  @apply flex items-center justify-center rounded px-4 py-2 font-bold gap-1 text-xs cursor-pointer shrink-0 h-full;
+  @apply flex items-center justify-center rounded px-4 py-2 font-bold gap-1 text-xs cursor-pointer shrink-0 h-full max-h-[34px];
 }
 .button-medium-primary {
   @apply button-medium bg-primary1 text-white hover:bg-[#6869DE];
