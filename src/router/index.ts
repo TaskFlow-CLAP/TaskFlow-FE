@@ -151,7 +151,7 @@ router.beforeEach(async (to, from, next) => {
     ROLE_ADMIN: '/member-management'
   }
 
-  if (info.role && to.path === '/login') {
+  if ((info.role && to.path === '/login') || (info.role && to.path === '/')) {
     return next(redirectMap[info.role])
   }
 
