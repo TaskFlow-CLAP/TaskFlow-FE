@@ -107,7 +107,7 @@ const handleLogin = async () => {
               '로그인 시도 5회 초과로 계정이 정지되었습니다\n30분 후 다시 시도해주세요'
           } else {
             messageHeader.value = '일치하는 정보가 없습니다'
-            messageBody.value = '아이디과 비밀번호를 다시 확인해주세요'
+            messageBody.value = '닉네임과 비밀번호를 다시 확인해주세요'
           }
           isModalVisible.value = !isModalVisible.value
           break

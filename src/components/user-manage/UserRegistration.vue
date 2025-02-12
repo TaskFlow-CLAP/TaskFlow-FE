@@ -23,7 +23,7 @@
         :labelName="'이메일'" />
       <RequestTaskInput
         v-model="userRegistrationForm.email"
-        :placeholderText="'@kakaocorp.com'"
+        :placeholderText="'@kakao.com'"
         :label-name="'도메인'"
         :is-not-required="false" />
     </div>
