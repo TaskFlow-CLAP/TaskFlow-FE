@@ -81,13 +81,15 @@ const setInterceptors = (instance: AxiosInstance) => {
               return Promise.reject(new Error('MEMBER_REVIEWER'))
             } else if (error.response.data === 'MEMBER_012') {
               return Promise.reject(new Error('MEMBER_DUPLICATED'))
+            } else {
+              setError('잘못된 요청입니다', '다시 시도해주세요')
             }
             break
           case 404:
             setError('요청한 자원을 찾을 수 없습니다')
             break
           case 500:
-            setError('서버 오류', '잠시 후 다시 시도하세요')
+            setError('서버 오류', '잠시 후 다시 시도해주세요')
             break
           default:
             setError('에러 발생', `${error.response.status}`)
