@@ -109,7 +109,7 @@ const rejectRequest = async () => {
     return
   }
   try {
-    await axiosInstance.patch(`/api/tasks/${info.taskId}/terminate`, rejectReason)
+    await axiosInstance.patch(`/api/tasks/${info.taskId}/terminate`, {reason: rejectReason.value})
     toggleModal('success')
   } catch {
     toggleModal('fail')
