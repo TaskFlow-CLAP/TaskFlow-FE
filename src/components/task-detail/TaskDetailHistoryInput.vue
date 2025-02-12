@@ -34,6 +34,13 @@
         @click="sendMessage" />
     </button>
   </div>
+  <ModalView
+    :is-open="isModalVisible"
+    type="failType"
+    @close="handleModal">
+    <template #header>파일 전송을 실패했습니다</template>
+    <template #body>최대 파일의 용량은 5mb까지 가능합니다</template>
+  </ModalView>
 </template>
 
 <script setup lang="ts">
@@ -45,6 +52,7 @@ import { useQueryClient } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import { computed, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
+import ModalView from '../common/ModalView.vue'
 
 const { history, taskId, requestorName } = defineProps<{
   history: TaskHistory[]
@@ -57,6 +65,7 @@ const queryClient = useQueryClient()
 
 const messageText = ref('')
 const isComposing = ref(false)
+const isModalVisible = ref(false)
 
 const isPossible = computed(
   () =>
@@ -78,10 +87,13 @@ const placeHolderText = computed(() => {
 
 const sendMessage = async () => {
   if (!isPossible.value || !messageText.value.trim()) return
-
   await postComment(taskId, messageText.value)
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   messageText.value = ''
+}
+
+const handleModal = () => {
+  isModalVisible.value = !isModalVisible.value
 }
 
 const handleEnterKey = () => {
@@ -94,6 +106,13 @@ const handleFileUpload = async (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files?.[0]
   if (!file) return
+
+  if (file.size > 5 * 1024 * 1024) {
+    handleModal()
+    target.value = ''
+    return
+  }
+
   const formData = new FormData()
   formData.append('attachment', file)
   await postCommentAttachment(taskId, formData)
