@@ -68,3 +68,5 @@ export const PERMITTED_URL = {
     'pw-change'
   ]
 }
+
+export const ALLOWED_FILE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'bmp']
