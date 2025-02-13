@@ -85,7 +85,13 @@ const closeFailModal = () => {
 }
 
 const handleCheck = async () => {
-  await postPasswordEmailSend(name.value, email.value)
-  isModalVisible.value = !isModalVisible.value
+  const id = email.value.split('@')[0]
+  try {
+    await postPasswordEmailSend(name.value, email.value, id)
+    isModalVisible.value = !isModalVisible.value
+  } catch {
+    messageHeader.value = '으에?'
+    messageBody.value = '으에?'
+  }
 }
 </script>

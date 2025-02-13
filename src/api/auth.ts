@@ -3,12 +3,12 @@ import Cookies from 'js-cookie'
 
 import { useMemberStore } from '@/stores/member'
 
-export const postPasswordEmailSend = async (name: string, email: string) => {
+export const postPasswordEmailSend = async (name: string, email: string, id: string) => {
   const request = {
     name: name,
     email: email
   }
-  const response = await axiosInstance.post('/api/new-password', request)
+  const response = await axiosInstance.post(`/api/new-password?nickname=${id}`, request)
   return response.data
 }
 
