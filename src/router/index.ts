@@ -143,7 +143,10 @@ router.beforeEach(async (to, from, next) => {
     ROLE_ADMIN: '/member-management'
   }
 
-  if ((info.role && PERMITTED_URL.UNKNOWN.includes(to.path)) || (info.role && to.path === '/')) {
+  if (
+    (info.role && PERMITTED_URL.UNKNOWN.includes(to.path) && to.path !== '/pw-change') ||
+    (info.role && to.path === '/')
+  ) {
     return next(redirectMap[info.role])
   }
 
