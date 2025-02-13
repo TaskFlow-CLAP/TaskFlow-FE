@@ -22,7 +22,8 @@
           v-model="id"
           placeholder="아이디를 입력해주세요"
           required
-          class="input-box" />
+          class="input-box"
+          autocomplete="username" />
       </div>
       <div class="relative">
         <input
@@ -31,7 +32,8 @@
           v-model="password"
           placeholder="비밀번호를 입력해주세요"
           required
-          class="input-box" />
+          class="input-box"
+          autocomplete="current-password" />
       </div>
       <div class="flex flex-col gap-2 items-center">
         <button

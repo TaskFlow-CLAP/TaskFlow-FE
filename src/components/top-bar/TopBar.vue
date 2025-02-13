@@ -16,6 +16,7 @@
         v-if="isLogined"
         class="flex items-center gap-5">
         <div
+          v-if="info.role !== 'ROLE_ADMIN'"
           :key="isNotifiVisible + ''"
           ref="notifiRef"
           class="flex">
