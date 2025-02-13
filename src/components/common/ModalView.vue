@@ -27,7 +27,7 @@
             </div>
 
             <div
-              v-if="type != 'inputType' && $slots.header"
+              v-if="type != 'inputType' && $slots.body"
               class="flex text-sm font-semibold text-body justify-center whitespace-pre-wrap text-center">
               <slot name="body"></slot>
             </div>
