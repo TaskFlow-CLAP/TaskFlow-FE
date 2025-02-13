@@ -27,7 +27,11 @@
       :placeholder="placeholderText"
       :class="{ 'text-gray-500': isEdit }"
       :maxlength="labelName === '제목' ? 30 : undefined" />
-    <p v-if="limitLength" class="text-xs mt-1.5">({{ inputLength }}/{{ limitLength }})</p>
+    <p
+      v-if="limitLength"
+      class="text-xs mt-1.5">
+      ({{ inputLength }}/{{ limitLength }})
+    </p>
   </div>
 </template>
 

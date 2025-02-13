@@ -56,8 +56,15 @@
         class="hidden" />
     </div>
     <div class="flex flex-col relative">
-      <p class="text-body text-xs font-semibold">이름</p>
-      <span class="absolute top-1 right-2 text-xs text-gray-500"> {{ name.length }} / 10 </span>
+      <div class="flex items-center gap-1 text-red-1">
+        <p class="text-body text-xs font-semibold">이름</p>
+        <p>*</p>
+        <span
+          v-show="isInvalid || isFull"
+          class="text-xs font-semibold"
+          >{{ nameError }}</span
+        >
+      </div>
       <input
         :class="[
           'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2',
@@ -68,13 +75,7 @@
         maxlength="10"
         ref="nameInput"
         @blur="validateName" />
-      <div class="mb-1">
-        <span
-          v-show="isInvalid || isFull"
-          class="absolute text-red-1 text-xs font-semibold mt-1"
-          >{{ nameError }}</span
-        >
-      </div>
+      <span class="mt-1.5 text-xs text-gray-500"> {{ name.length }} / 10 </span>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-semibold">아이디</p>
