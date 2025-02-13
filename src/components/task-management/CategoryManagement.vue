@@ -12,7 +12,7 @@
         <p>2차 카테고리</p>
       </div>
     </div>
-    <div class="flex flex-col w-full grow overflow-y-auto">
+    <div class="flex flex-col w-full grow overflow-y-auto scrollbar-hide">
       <div class="flex">
         <CategoryLine :categories="data || []" />
         <div class="bg-border-1 w-0.5"></div>

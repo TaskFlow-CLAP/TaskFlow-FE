@@ -8,12 +8,15 @@
           @click="onOpenSide">
           <CommonIcons :name="hamburgerIcon" />
         </button>
-        <img src="/MainLogo.svg" />
+        <button @click="router.push('/')">
+          <img src="/MainLogo.svg" />
+        </button>
       </div>
       <div
         v-if="isLogined"
         class="flex items-center gap-5">
         <div
+          v-if="info.role !== 'ROLE_ADMIN'"
           :key="isNotifiVisible + ''"
           ref="notifiRef"
           class="flex">
@@ -63,9 +66,11 @@ import ProfileModal from './ProfileModal.vue'
 import { getNotifiCount } from '@/api/common'
 import ImageContainer from '../common/ImageContainer.vue'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
+import { useRouter } from 'vue-router'
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)
+const router = useRouter()
 
 onMounted(async () => {
   if (isLogined.value) {

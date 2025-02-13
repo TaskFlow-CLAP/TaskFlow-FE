@@ -10,18 +10,18 @@
       v-model="category1"
       :options="mainCategoryArr"
       :label-name="'1차 카테고리'"
-      :isInvalidate="isInvalidate"
+      :isInvalidate="isInvalidate === 'category1' ? 'category' : ''"
       :isDisabled="false" />
     <CategoryDropDown
       v-model="category2"
       :options="afterSubCategoryArr"
       :label-name="'2차 카테고리'"
-      :is-invalidate="isInvalidate"
+      :isInvalidate="isInvalidate === 'category2' ? 'category' : ''"
       :isDisabled="!category1" />
     <ManagerDropdown
       v-model="approveData.processor"
       :placeholderText="'담당자를 선택해주세요'"
-      :is-invalidate="isInvalidate" />
+      :is-invalidate="isInvalidate === 'manager' ? 'manager' : ''" />
     <div class="flex flex-col gap-2">
       <div class="flex gap-2">
         <p class="text-body text-xs font-semibold">마감기한</p>
@@ -40,10 +40,12 @@
       <div class="flex w-full justify-center gap-6">
         <DueDateInput
           v-model="approveData.dueDate"
-          inputType="date" />
+          inputType="date"
+          :is-invalidate="isInvalidate === 'date' ? 'date' : ''" />
         <DueDateInput
           v-model="approveData.dueTime"
-          inputType="time" />
+          inputType="time"
+          :is-invalidate="isInvalidate === 'date' ? 'date' : ''" />
       </div>
     </div>
     <LabelDropdown
@@ -141,8 +143,12 @@ const handleCancel = () => {
 }
 
 const handleSubmit = async () => {
-  if (!category1.value || !category2.value) {
-    isInvalidate.value = 'category'
+  if (!category1.value) {
+    isInvalidate.value = 'category1'
+    return
+  }
+  if (!category2.value) {
+    isInvalidate.value = 'category2'
     return
   }
   if (!approveData.value.processor?.memberId) {

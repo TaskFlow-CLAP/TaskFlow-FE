@@ -40,32 +40,32 @@ export const COLOR_LIST = [
 ]
 
 export const PERMITTED_URL = {
-  UNKNOWN: ['login', 'pw-change-email'],
-  ROLE_USER: ['my-request', 'task-request', 'edit-information', 'pw-change'],
+  UNKNOWN: ['/login', '/pw-change-email'],
+  ROLE_USER: ['/my-request', '/task-request', '/edit-information', '/pw-change'],
   ROLE_MANAGER: [
-    'my-task',
-    'task-board',
-    'team-board',
-    'statistics',
-    'my-request',
-    'task-request',
-    'requested',
-    'request-approve',
-    'request-history',
-    'edit-information',
-    'pw-change'
+    '/my-task',
+    '/task-board',
+    '/team-board',
+    '/statistics',
+    '/my-request',
+    '/task-request',
+    '/requested',
+    '/request-approve',
+    '/request-history',
+    '/edit-information',
+    '/pw-change'
   ],
   ROLE_ADMIN: [
-    'member-management',
-    'user-registration',
-    'user-update',
-    'task-management',
-    'category-first',
-    'category-second',
-    'login-logs',
-    'api-logs',
-    'edit-information',
-    'pw-change'
+    '/member-management',
+    '/user-registration',
+    '/user-update',
+    '/task-management',
+    '/category-first',
+    '/category-second',
+    '/login-logs',
+    '/api-logs',
+    '/edit-information',
+    '/pw-change'
   ]
 }
 

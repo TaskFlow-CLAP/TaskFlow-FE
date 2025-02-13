@@ -1,5 +1,5 @@
 <template>
-  <div class="grow overflow-y-scroll p-6">
+  <div class="grow overflow-y-auto scrollbar-hide p-6">
     <div class="grid grid-cols-3 gap-12">
       <CurrentTaskRatio
         :team-summary="teamSummary"

@@ -20,12 +20,12 @@
       </p>
     </div>
     <input
-      class="w-full h-11 border border-border-1 px-4 focus:outline-none rounded"
+      class="w-full h-11 border px-4 focus:outline-none rounded"
       :value="modelValue"
       :disabled="isEdit"
       @input="updateValue(($event.target as HTMLInputElement).value)"
       :placeholder="placeholderText"
-      :class="{ 'text-gray-500': isEdit }"
+      :class="`${isEdit ? 'text-gray-500' : ''} ${isInvalidate ? 'border-red-1' : 'border-border-1'}`"
       :maxlength="labelName === '제목' ? 30 : undefined" />
     <p
       v-if="limitLength"

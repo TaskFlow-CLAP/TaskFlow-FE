@@ -14,6 +14,7 @@
       class="relative flex">
       <div
         class="request-task-dropdown"
+        :class="isInvalidateState ? '!border-red-1' : ''"
         @click="toggleDropdown">
         <div class="flex gap-2 items-center">
           <ImageContainer

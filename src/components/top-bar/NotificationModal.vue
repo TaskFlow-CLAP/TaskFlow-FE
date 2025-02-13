@@ -21,7 +21,7 @@
         </button>
       </div>
     </div>
-    <div class="grow h-full flex flex-col overflow-y-auto">
+    <div class="grow h-full flex flex-col overflow-y-auto scrollbar-hide">
       <template v-if="notifications">
         <NotificationMessage
           v-for="notification in notifications"

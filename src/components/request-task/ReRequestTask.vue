@@ -19,7 +19,7 @@
       :placeholderText="'제목을 입력해주세요'"
       :label-name="'제목'"
       :limit-length="30"
-      :is-invalidate="isInvalidate" />
+      :is-invalidate="isInvalidate === 'input' ? 'input' : ''" />
     <RequestTaskTextArea
       v-model="description"
       :is-invalidate="isInvalidate"

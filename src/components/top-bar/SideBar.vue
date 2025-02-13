@@ -13,9 +13,11 @@
             @click="$emit('close')"
             class="cursor-pointer"
             :name="hamburgerIcon" />
-          <img src="/MainLogo.svg" />
+          <button @click="onLogoClick">
+            <img src="/MainLogo.svg" />
+          </button>
         </div>
-        <div class="flex-1 overflow-y-auto flex flex-col gap-6">
+        <div class="flex-1 overflow-y-auto scrollbar-hide flex flex-col gap-6">
           <div
             v-for="menuGroup in filteredMenu"
             :key="menuGroup.groupId">
@@ -65,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { computed } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import { hamburgerIcon } from '@/constants/iconPath'
@@ -78,9 +80,10 @@ const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
 
 const { isOpen } = defineProps<{ isOpen: boolean }>()
-defineEmits(['close'])
+const emit = defineEmits(['close'])
 
 const route = useRoute()
+const router = useRouter()
 
 const role = computed(() => info.value.role)
 const name = computed(() => info.value.name)
@@ -93,4 +96,9 @@ const filteredMenu = computed(() => {
       ? SIDE_MANAGER_MENU
       : SIDE_ADMIN_MENU
 })
+
+const onLogoClick = () => {
+  emit('close')
+  router.push('/')
+}
 </script>

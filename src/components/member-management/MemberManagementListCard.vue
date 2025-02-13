@@ -58,6 +58,9 @@ import { useRouter } from 'vue-router'
 import ResultModal from '../common/ResultModal.vue'
 import ListCardTab from '../lists/ListCardTab.vue'
 import ModalView from '../common/ModalView.vue'
+import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+import { useErrorStore } from '@/stores/error'
 
 const roleContent = (role: Role) => {
   return role === 'ROLE_USER' ? '사용자' : role === 'ROLE_MANAGER' ? '담당자' : '관리자'
@@ -84,7 +87,14 @@ const isModalVisible = ref({
 })
 const resultModalType = ref('')
 const message = ref('')
+const memberStore = useMemberStore()
+const { info: myInfo } = storeToRefs(memberStore)
+const { setError } = useErrorStore()
 const toggleModal = (key: keyof typeof isModalVisible.value) => {
+  if (key === 'delete' && info.nickname === myInfo.value.nickname) {
+    setError('자신의 계정은\n삭제할 수 없습니다')
+    return
+  }
   isModalVisible.value = Object.fromEntries(
     Object.keys(isModalVisible.value).map(k => [k, k === key])
   ) as typeof isModalVisible.value

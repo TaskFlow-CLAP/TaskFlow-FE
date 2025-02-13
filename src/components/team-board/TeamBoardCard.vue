@@ -22,7 +22,7 @@
       <span class="text-xs font-semibold text-primary1">총 {{ info.totalTaskCount }}건</span>
     </div>
     <div
-      class="w-full h-[360px] rounded-lg bg-primary2 shadow-custom overflow-y-scroll flex flex-col items-center p-6 gap-4">
+      class="w-full h-[360px] rounded-lg bg-primary2 shadow-custom overflow-y-auto flex flex-col items-center p-6 gap-4">
       <TaskCard
         v-for="task in info.tasks"
         :key="task.taskId"

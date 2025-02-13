@@ -7,7 +7,7 @@
         <p>구분명</p>
       </div>
     </div>
-    <div class="flex flex-col w-full grow overflow-y-auto pb-32">
+    <div class="flex flex-col w-full grow overflow-y-auto scrollbar-hide pb-32">
       <LabelManagementLine
         :label-data="labelData"
         @updateLabels="fetchLabels" />

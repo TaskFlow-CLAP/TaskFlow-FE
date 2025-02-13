@@ -17,8 +17,8 @@
       ref="htmlRef"
       class="relative flex">
       <div
-        class="flex w-full h-11 items-center rounded p-4 border border-border-1"
-        :class="isDisabled ? 'bg-background-2 cursor-default' : 'bg-white cursor-pointer'"
+        class="flex w-full h-11 items-center rounded p-4 border"
+        :class="`${isDisabled ? 'bg-background-2 cursor-default' : 'bg-white cursor-pointer'} ${isInvalidate ? 'border-red-1' : 'border-border-1'}`"
         @click="toggleDropdown">
         <p :class="{ 'text-disabled': !modelValue?.name }">
           {{ modelValue?.name ?? labelName + '를 선택해주세요' }}
@@ -29,7 +29,7 @@
       </div>
       <div
         v-if="dropdownOpen"
-        class="absolute w-full max-h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2">
+        class="absolute w-full max-h-40 overflow-y-auto scrollbar-hide top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2">
         <div
           v-for="option in options"
           :key="'subCategoryId' in option ? option.subCategoryId : option.mainCategoryId"

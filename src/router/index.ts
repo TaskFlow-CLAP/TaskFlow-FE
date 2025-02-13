@@ -137,24 +137,25 @@ router.beforeEach(async (to, from, next) => {
   await memberStore.updateMemberInfoWithToken()
   const { info } = memberStore
 
-  const originUrl = to.path.split('/')[1]
-
   const redirectMap = {
     ROLE_USER: '/my-request',
     ROLE_MANAGER: '/my-task',
     ROLE_ADMIN: '/member-management'
   }
 
-  if ((info.role && to.path === '/login') || (info.role && to.path === '/')) {
+  if ((info.role && PERMITTED_URL.UNKNOWN.includes(to.path)) || (info.role && to.path === '/')) {
     return next(redirectMap[info.role])
   }
 
   if (!info.role) {
-    if (PERMITTED_URL.UNKNOWN.includes(originUrl)) {
+    if (PERMITTED_URL.UNKNOWN.includes(to.path)) {
       return next()
     }
     if (to.path === '/login') {
       return next()
+    }
+    if (to.path === '/') {
+      return next('/login')
     }
     setError('로그인이 필요합니다')
     return next('/login')
@@ -166,11 +167,11 @@ router.beforeEach(async (to, from, next) => {
     ROLE_ADMIN: PERMITTED_URL.ROLE_ADMIN
   }
 
-  if (from.path === redirectMap[info.role] && !permittedUrlMap[info.role].includes(originUrl)) {
+  if (from.path === redirectMap[info.role] && !permittedUrlMap[info.role].includes(to.path)) {
     return false
   }
 
-  if (!permittedUrlMap[info.role].includes(originUrl)) {
+  if (!permittedUrlMap[info.role].includes(to.path)) {
     if (to.path === redirectMap[info.role]) {
       return next()
     }
