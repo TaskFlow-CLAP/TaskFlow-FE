@@ -18,11 +18,13 @@
       v-model="title"
       :placeholderText="'제목을 입력해주세요'"
       :label-name="'제목'"
+      :limit-length="30"
       :is-invalidate="isInvalidate" />
     <RequestTaskTextArea
       v-model="description"
       :is-invalidate="isInvalidate"
-      :placeholderText="'부가 정보를 입력해주세요'" />
+      :placeholderText="'부가 정보를 입력해주세요'"
+      :limit-length="200" />
     <RequestTaskFileInput v-model="file" />
     <FormButtonContainer
       :handleCancel="handleCancel"
@@ -173,15 +175,12 @@ const handleSubmit = async () => {
     })
   }
 
-  try {
-    if (reqType === 're') {
-      await postTaskRequest(formData)
-    } else {
-      await patchTaskRequest(id, formData)
-    }
-    isModalVisible.value = 'success'
-  } finally {
-    isSubmitting.value = false
+  if (reqType === 're') {
+    await postTaskRequest(formData)
+  } else {
+    await patchTaskRequest(id, formData)
   }
+  isModalVisible.value = 'success'
+  isSubmitting.value = false
 }
 </script>

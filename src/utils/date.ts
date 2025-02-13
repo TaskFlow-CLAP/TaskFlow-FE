@@ -111,15 +111,6 @@ export const formatDateAndTime = (dateString: string) => {
   return `${year}.${month}.${day} ${period} ${hours}시 ${minutes}분`
 }
 
-export const formatOnlyTime = (timeString: string) => {
-  const [hours, minutes] = timeString.split(':').map(Number)
-
-  const period = hours < 12 ? '오전' : '오후'
-  const formattedHours = hours % 12 || 12
-
-  return `${period} ${formattedHours}시 ${String(minutes).padStart(2, '0')}분`
-}
-
 export const formatTimeAgo = (createdAt: string) => {
   const now = new Date()
   const createdDate = new Date(createdAt)

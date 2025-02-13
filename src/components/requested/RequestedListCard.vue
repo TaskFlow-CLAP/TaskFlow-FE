@@ -107,7 +107,7 @@ const rejectRequest = async () => {
     modalError.value = '반려 사유를 입력해주세요'
     return
   }
-  await axiosInstance.patch(`/api/tasks/${info.taskId}/terminate`, rejectReason)
+  await axiosInstance.patch(`/api/tasks/${info.taskId}/terminate`, { reason: rejectReason.value })
   toggleModal('success')
 }
 

@@ -61,8 +61,10 @@
 import { getMainCategory, getSubCategory } from '@/api/common'
 import { getTaskDetailUser, postTaskApprove } from '@/api/user'
 import { INITIAL_REQUEST_APPROVE_DATA } from '@/constants/manager'
+import { useErrorStore } from '@/stores/error'
 import type { Category, SubCategory } from '@/types/common'
 import { convertToISO, isAfterNow } from '@/utils/date'
+import { redirectToLogin } from '@/utils/redirectToLogin'
 import { computed, onMounted, ref, watch } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
@@ -71,8 +73,6 @@ import CategoryDropDown from '../request-task/CategoryDropDown.vue'
 import DueDateInput from './DueDateInput.vue'
 import LabelDropdown from './LabelDropdown.vue'
 import ManagerDropdown from './ManagerDropdown.vue'
-import { useErrorStore } from '@/stores/error'
-import { redirectToLogin } from '@/utils/redirectToLogin'
 
 const isModalVisible = ref(false)
 const category1 = ref<Category | null>(null)
@@ -157,10 +157,12 @@ const handleSubmit = async () => {
     isInvalidate.value = ''
     return
   }
+  console.log(isTimeFilled.value, isTimeComplete.value, isDueDateValid.value)
+
   const requestData = {
     categoryId: category2.value.subCategoryId,
     processorId: approveData.value.processor.memberId,
-    dueDate: !isTimeFilled.value
+    dueDate: isTimeFilled.value
       ? convertToISO(approveData.value.dueDate, approveData.value.dueTime)
       : null,
     labelId: approveData.value.label?.labelId || null

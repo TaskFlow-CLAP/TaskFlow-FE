@@ -32,6 +32,7 @@ export interface RequestTaskInputProps {
   isEdit?: boolean
   isInvalidate?: string
   isDisbled?: boolean
+  limitLength?: number
 }
 
 export interface RequestTaskFileInputProps {
@@ -43,6 +44,7 @@ export interface RequestTaskTextAreaProps {
   modelValue: string
   placeholderText: string
   isInvalidate?: string
+  limitLength?: number
 }
 
 export interface AttachmentResponse {

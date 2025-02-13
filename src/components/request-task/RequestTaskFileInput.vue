@@ -79,6 +79,8 @@ const handleFileUpload = (event: Event) => {
 }
 
 const handleDrop = (event: DragEvent) => {
+  event.preventDefault()
+  isDragging.value = false
   const files = event.dataTransfer?.files
   if (files && files.length > 0) {
     const newFiles = Array.from(files).filter(file => file.size <= 5 * 1024 * 1024)
