@@ -2,15 +2,18 @@
   <div
     :class="[
       'w-full flex gap-1 px-4 py-3 border border-border-1 items-end rounded',
-      { 'bg-background-2': !isPossible, 'bg-white': isPossible }
+      { 'bg-background-2': !isPossible, 'bg-white': isPossible, 'border-red-1': inputLength > 200 }
     ]">
     <textarea
       class="w-full h-20 focus:outline-none resize-none"
-      :class="isPossible ? 'bg-white' : 'bg-background-2'"
+      :class="[
+        { 'bg-white': isPossible, 'bg-background-2': !isPossible },
+        { 'border-red-1': inputLength > 200 }
+      ]"
       :placeholder="placeHolderText"
       v-model="messageText"
       :disabled="!isPossible"
-      maxlength="254"
+      maxlength="200"
       @compositionstart="isComposing = true"
       @compositionend="isComposing = false"
       @keydown.enter.stop.prevent="handleEnterKey"></textarea>
@@ -34,7 +37,9 @@
         @click="sendMessage" />
     </button>
   </div>
-  <p class="text-xs mt-1.5">({{ inputLength }}/{{ 254 }})</p>
+  <p :class="['w-full flex justify-end text-xs mt-1.5', { 'text-red-500': inputLength > 200 }]">
+    ({{ inputLength }}/{{ 200 }})
+  </p>
   <ModalView
     :is-open="isModalVisible"
     type="failType"
@@ -71,6 +76,7 @@ const isModalVisible = ref(false)
 const isPossible = computed(
   () =>
     history.length !== 0 &&
+    inputLength.value < 200 &&
     (info.value.role !== 'ROLE_USER' || info.value.nickname === requestorName)
 )
 
