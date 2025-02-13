@@ -44,6 +44,7 @@ jobs:
       # docker build & push to production
       - name: Docker build & push production
         run: |
+          docker login clap.kr-central-2.kcr.dev -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker build -t ${{ secrets.DOCKER_FRONT_REPO }}:${{ steps.version.outputs.VERSION }} .
           docker push ${{ secrets.DOCKER_FRONT_REPO }}:${{ steps.version.outputs.VERSION }}
 
