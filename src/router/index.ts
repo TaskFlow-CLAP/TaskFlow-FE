@@ -170,11 +170,20 @@ router.beforeEach(async (to, from, next) => {
     ROLE_ADMIN: PERMITTED_URL.ROLE_ADMIN
   }
 
-  if (from.path === redirectMap[info.role] && !permittedUrlMap[info.role].includes(to.path)) {
+  const isPathPermitted = (path: string, permittedPaths: string[]) => {
+    return permittedPaths.some(permittedPath => {
+      return path.startsWith(permittedPath)
+    })
+  }
+
+  if (
+    from.path === redirectMap[info.role] &&
+    !isPathPermitted(to.path, permittedUrlMap[info.role])
+  ) {
     return false
   }
 
-  if (!permittedUrlMap[info.role].includes(to.path)) {
+  if (!isPathPermitted(to.path, permittedUrlMap[info.role])) {
     if (to.path === redirectMap[info.role]) {
       return next()
     }
