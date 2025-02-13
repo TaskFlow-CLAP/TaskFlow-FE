@@ -38,6 +38,7 @@ export interface RequestTaskInputProps {
 export interface RequestTaskFileInputProps {
   files: File[] | null
   removeFile: (index: number) => void
+  isEdit?: boolean
 }
 
 export interface RequestTaskTextAreaProps {
