@@ -19,7 +19,7 @@
           class="flex w-full justify-between items-center h-8 text-xs border-b border-b-border-2 px-4 shrink-0">
           <p class="flex truncate mr-3">{{ file.name }}</p>
           <div class="flex gap-6">
-            <p class="w-[60px]">{{ formatFileSize(file.size) }}</p>
+            <p class="w-[60px]">{{ isEdit ? file.size : formatFileSize(file.size) }}</p>
             <p class="w-36">{{ new Date().toLocaleString() }}</p>
             <div class="w-10 flex items-center justify-center cursor-pointer">
               <CommonIcons
@@ -47,5 +47,5 @@ import type { RequestTaskFileInputProps } from '@/types/user'
 import { formatFileSize } from '@/utils/unit'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { files, removeFile } = defineProps<RequestTaskFileInputProps>()
+const { files, removeFile, isEdit } = defineProps<RequestTaskFileInputProps>()
 </script>

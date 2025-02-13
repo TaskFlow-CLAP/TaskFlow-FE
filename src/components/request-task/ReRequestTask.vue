@@ -25,7 +25,9 @@
       :is-invalidate="isInvalidate"
       :placeholderText="'부가 정보를 입력해주세요'"
       :limit-length="200" />
-    <RequestTaskFileInput v-model="file" />
+    <RequestTaskFileInput
+      v-model="file"
+      :isEdit="true" />
     <FormButtonContainer
       :handleCancel="handleCancel"
       :handleSubmit="handleSubmit"

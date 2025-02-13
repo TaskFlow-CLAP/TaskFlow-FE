@@ -157,7 +157,6 @@ const handleSubmit = async () => {
     isInvalidate.value = ''
     return
   }
-  console.log(isTimeFilled.value, isTimeComplete.value, isDueDateValid.value)
 
   const requestData = {
     categoryId: category2.value.subCategoryId,

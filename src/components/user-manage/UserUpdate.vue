@@ -8,6 +8,7 @@
     </ModalView>
     <RequestTaskInput
       v-model="userRegistrationForm.name"
+      :is-invalidate="isInvalidate"
       :placeholderText="'회원의 이름을 입력해주세요'"
       :labelName="'이름'" />
     <RequestTaskInput
@@ -113,8 +114,23 @@ const handleCancel = async () => {
   router.back()
 }
 
+const usernameRegex = /^[a-z]{3,10}\.[a-z]{1,5}$/
+const emailRegex = /^@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/
+
 const handleSubmit = async () => {
   try {
+    if (!userRegistrationForm.value.name) {
+      isInvalidate.value = 'nameEmpty'
+      return
+    }
+    if (!usernameRegex.test(userRegistrationForm.value.nickname)) {
+      isInvalidate.value = 'wrongNickname'
+      return
+    }
+    if (!emailRegex.test(userRegistrationForm.value.email)) {
+      isInvalidate.value = 'wrongEmail'
+      return
+    }
     if (typeof userId.value === 'string') {
       const userData = {
         role: RoleTypeMapping[userRegistrationForm.value.role],
@@ -123,6 +139,7 @@ const handleSubmit = async () => {
         departmentId: userRegistrationForm.value.departmentId,
         departmentRole: userRegistrationForm.value.departmentRole
       }
+
       await updateMemberAdmin(userId.value, userData)
       isModalVisible.value = true
     }

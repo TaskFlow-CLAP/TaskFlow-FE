@@ -34,6 +34,7 @@
         @click="sendMessage" />
     </button>
   </div>
+  <p class="text-xs mt-1.5">({{ inputLength }}/{{ 254 }})</p>
   <ModalView
     :is-open="isModalVisible"
     type="failType"
@@ -74,6 +75,7 @@ const isPossible = computed(
 )
 
 const isSendable = computed(() => isPossible.value && messageText.value.trim() !== '')
+const inputLength = computed(() => messageText.value.length)
 
 const placeHolderText = computed(() => {
   if (history.length === 0) {
