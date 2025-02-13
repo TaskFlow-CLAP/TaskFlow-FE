@@ -84,7 +84,7 @@ const handleLogin = async () => {
 
     if (!Cookies.get('refreshToken')) {
       router.push('/pw-change')
-    } else if (res && role && Cookies.get('refreshToken')) {
+    } else if (res) {
       switch (role) {
         case 'ROLE_ADMIN':
           router.push('/member-management')

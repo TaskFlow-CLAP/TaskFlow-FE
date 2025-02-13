@@ -25,17 +25,25 @@ export const postLogin = async (nickName: string, password: string) => {
     path: '/',
     sameSite: 'strict'
   })
-  Cookies.set('refreshToken', response.data.refreshToken, {
-    path: '/',
-    sameSite: 'strict'
-  })
+  if (response.data.refreshToken) {
+    Cookies.set('refreshToken', response.data.refreshToken, {
+      path: '/',
+      sameSite: 'strict'
+    })
+  }
   return response.data
 }
 
 export const patchPassword = async (password: string) => {
   const request = { password }
-  const response = await axiosInstance.patch('/api/members/password', request)
-  return response.data
+  const refreshToken = Cookies.get('refreshToken')
+  if (refreshToken) {
+    const response = await axiosInstance.patch('/api/members/password', request)
+    return response.data
+  } else {
+    const response = await axiosInstance.patch('/api/members/initial-password', request)
+    return response.data
+  }
 }
 
 export const deleteLogout = async () => {

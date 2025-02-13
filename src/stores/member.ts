@@ -26,7 +26,8 @@ export const useMemberStore = defineStore('memberInfo', () => {
 
   async function updateMemberInfoWithToken() {
     const token = Cookies.get('accessToken')
-    if (!token) return
+    const refreshToken = Cookies.get('refreshToken')
+    if (!token || !refreshToken) return
 
     const { data }: { data: User } = await axiosInstance.get('/api/members/info')
     info.value = data

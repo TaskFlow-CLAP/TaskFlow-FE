@@ -33,7 +33,8 @@
         v-model="pw"
         placeholder="비밀번호를 입력해주세요"
         required
-        class="input-box" />
+        class="input-box"
+        autocomplete="current-password" />
       <div class="flex flex-col gap-2">
         <button
           type="submit"
@@ -60,6 +61,7 @@
           placeholder="새 비밀번호를 입력해주세요"
           required
           ref="passwordInput"
+          autocomplete="new-password"
           :class="[
             'block w-full px-4 py-4 border rounded focus:outline-none',
             isInvalid ? 'border-red-1' : 'border-border-1'
@@ -78,6 +80,7 @@
           ref="checkPwInput"
           placeholder="새 비밀번호를 다시 입력해주세요"
           required
+          autocomplete="new-password"
           :class="[
             'block w-full px-4 py-4 border rounded focus:outline-none',
             isDifferent ? 'border-red-1' : 'border-border-1'
@@ -108,9 +111,10 @@
 <script setup lang="ts">
 import { patchPassword, postPasswordCheck } from '@/api/auth'
 import TitleContainer from '@/components/common/TitleContainer.vue'
-import { nextTick, ref } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 import ModalView from '@/components/common/ModalView.vue'
 import { useRouter } from 'vue-router'
+import Cookies from 'js-cookie'
 
 const isErrorVisible = ref(false)
 
@@ -133,6 +137,13 @@ const isInvalid = ref(false)
 const passwordInput = ref<HTMLInputElement | null>(null)
 const isModalVisible = ref(false)
 const router = useRouter()
+
+onMounted(() => {
+  const refreshToken = Cookies.get('refreshToken')
+  if (!refreshToken) {
+    isConfirmed.value = true
+  }
+})
 
 const validatePassword = () => {
   const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-]).{8,20}$/
@@ -165,7 +176,12 @@ const handleChange = async () => {
 
 const closeModal = () => {
   isModalVisible.value = !isModalVisible.value
-  router.replace('/edit-information')
+  if (Cookies.get('refreshToken')) {
+    router.replace('/edit-information')
+  } else {
+    Cookies.remove('accessToken')
+    router.replace('/login')
+  }
 }
 const closeError = () => {
   isErrorVisible.value = !isErrorVisible.value
