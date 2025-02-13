@@ -20,7 +20,7 @@
           :key="option.value"
           :class="
             (value as string[]).includes(option.value)
-              ? 'bg-primary1 text-white font-bold'
+              ? 'bg-primary1 text-white font-semibold'
               : 'hover:bg-background-2'
           "
           @click="() => onOptionClick(option.value)">

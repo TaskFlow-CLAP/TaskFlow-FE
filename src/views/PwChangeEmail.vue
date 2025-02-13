@@ -51,7 +51,7 @@
           확인
         </button>
         <RouterLink
-          class="flex justify-center text-xs font-bold text-body hover:underline"
+          class="flex justify-center text-xs font-semibold text-body hover:underline"
           to="/login">
           로그인
         </RouterLink>
@@ -63,7 +63,6 @@
 <script setup lang="ts">
 import { postPasswordEmailSend } from '@/api/auth'
 import TitleContainer from '@/components/common/TitleContainer.vue'
-import axios from 'axios'
 import { ref } from 'vue'
 import ModalView from '@/components/common/ModalView.vue'
 import { useRouter } from 'vue-router'
@@ -86,31 +85,7 @@ const closeFailModal = () => {
 }
 
 const handleCheck = async () => {
-  try {
-    await postPasswordEmailSend(name.value, email.value)
-    isModalVisible.value = !isModalVisible.value
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      switch (error?.response?.status) {
-        case 404:
-          isFailModalVisible.value = !isFailModalVisible.value
-          messageHeader.value = '일치하는 정보가 없습니다'
-          messageBody.value = '이메일과 이름을 다시 확인해주세요'
-          break
-
-        case 500:
-          isFailModalVisible.value = !isFailModalVisible.value
-          messageHeader.value = '서버에 문제가 발생했습니다'
-          messageBody.value = '잠시 후 다시 이용해주세요'
-          break
-
-        default:
-          isFailModalVisible.value = !isFailModalVisible.value
-          messageHeader.value = '문제가 발생했습니다'
-          messageBody.value = '잠시 후 다시 이용해주세요'
-          break
-      }
-    }
-  }
+  await postPasswordEmailSend(name.value, email.value)
+  isModalVisible.value = !isModalVisible.value
 }
 </script>

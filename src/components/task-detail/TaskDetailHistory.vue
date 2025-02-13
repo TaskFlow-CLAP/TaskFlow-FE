@@ -12,13 +12,13 @@
         :key="item.historyId">
         <div
           v-if="shouldDisplayDate(i)"
-          class="flex px-4 h-7 items-center justify-center bg-primary1 rounded-full text-white text-xs font-bold">
+          class="flex px-4 h-7 items-center justify-center bg-primary1 rounded-full text-white text-xs font-semibold">
           {{ formatDateWithDay(item.date) }}
         </div>
-        <div class="flex flex-col w-full items-center gap-1 font-bold">
+        <div class="flex flex-col w-full items-center gap-1 font-semibold">
           <div
             v-if="item.taskHistoryType !== 'COMMENT' && item.taskHistoryType !== 'COMMENT_FILE'"
-            class="text-xs font-bold text-body">
+            class="text-xs font-semibold text-body">
             {{ formatTimeShort(item.time) }}
           </div>
           <div class="flex w-full gap-1 justify-center text-body text-sm">
@@ -40,7 +40,9 @@
           </div>
           <div class="flex w-full flex-col items-center">
             <TaskDetailHistoryChat
-              v-if="item.taskHistoryType === 'COMMENT'"
+              v-if="
+                item.taskHistoryType === 'COMMENT' || item.taskHistoryType === 'TASK_TERMINATED'
+              "
               :history="item"
               :requestor-name="requestorName"
               :task-id="taskId" />

@@ -27,7 +27,7 @@
       :class="[bgColor(statusItem.value), isProcessor ? 'cursor-pointer' : '']"
       @click="isProcessor ? changeStatus(statusItem.value) : null">
       <span
-        class="text-[11px] font-bold"
+        class="text-[11px] font-semibold"
         :class="textColor(statusItem.value)">
         {{ statusItem.content }}
       </span>
@@ -49,15 +49,15 @@ import ModalView from '../common/ModalView.vue'
 const { modelValue, isProcessor, taskId } = defineProps<TaskStatusListProps>()
 const modalError = ref('')
 const rejectReason = ref('')
-const emit = defineEmits(['update:status'])
-
 const currentStatus = ref(modelValue)
-const queryClient = useQueryClient()
 const isModalVisible = ref({
   reject: false,
   fail: false,
   success: false
 })
+
+const emit = defineEmits(['update:status'])
+const queryClient = useQueryClient()
 
 watch(
   () => modelValue,
@@ -94,17 +94,12 @@ const rejectRequest = async () => {
     modalError.value = '종료 사유를 입력해주세요'
     return
   }
-  try {
-    await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, rejectReason)
-    toggleModal('success')
-    emit('update:status', 'TERMINATED')
-    currentStatus.value = 'TERMINATED'
-    queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
-    queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
-  } catch {
-    toggleModal('fail')
-    modalError.value = '작업 종료에 실패했습니다'
-  }
+  await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, { reason: rejectReason.value })
+  toggleModal('success')
+  emit('update:status', 'TERMINATED')
+  currentStatus.value = 'TERMINATED'
+  queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
+  queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
 }
 
 const changeStatus = async (newStatus: Status) => {
@@ -116,14 +111,10 @@ const changeStatus = async (newStatus: Status) => {
     return
   } else {
     emit('update:status', newStatus)
-    try {
-      currentStatus.value = newStatus
-      await patchChangeStatus(taskId || 0, newStatus)
-      queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
-      queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
-    } catch (error) {
-      console.error('Failed to update status:', error)
-    }
+    currentStatus.value = newStatus
+    await patchChangeStatus(taskId || 0, newStatus)
+    queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
+    queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   }
 }
 </script>

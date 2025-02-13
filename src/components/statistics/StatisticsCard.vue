@@ -2,7 +2,7 @@
   <div
     class="flex flex-col h-fit gap-3 px-4 py-4 border-l-8 border-primary1 bg-white rounded-lg shadow-custom">
     <div class="flex flex-col gap-2">
-      <span class="font-bold">{{ title }}</span>
+      <span class="font-semibold">{{ title }}</span>
       <PeriodButtons
         :period-type="periodType"
         @update:period="changePeriod" />

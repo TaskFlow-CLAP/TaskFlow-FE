@@ -5,24 +5,26 @@
       :options="mainCategoryArr"
       :label-name="'1차 카테고리'"
       :placeholderText="'1차 카테고리를 선택해주세요'"
-      :is-invalidate="isInvalidate"
+      :is-invalidate="isInvalidate === 'category1' ? 'category' : ''"
       :isDisabled="false" />
     <CategoryDropDown
       v-model="category2"
       :options="afterSubCategoryArr"
       :label-name="'2차 카테고리'"
       :placeholderText="'2차 카테고리를 선택해주세요'"
-      :is-invalidate="isInvalidate"
+      :is-invalidate="isInvalidate === 'category2' ? 'category' : ''"
       :isDisabled="!category1" />
     <RequestTaskInput
       v-model="title"
       :placeholderText="'제목을 입력해주세요'"
       :label-name="'제목'"
-      :is-invalidate="isInvalidate" />
+      :is-invalidate="isInvalidate"
+      :limit-length="30" />
     <RequestTaskTextArea
       v-model="description"
       :is-invalidate="isInvalidate"
-      :placeholderText="'부가 정보를 입력해주세요'" />
+      :placeholderText="'부가 정보를 입력해주세요'"
+      :limit-length="200" />
     <RequestTaskFileInput v-model="file" />
     <FormButtonContainer
       :handleCancel="handleCancel"
@@ -107,8 +109,11 @@ const handleCancel = () => {
 const handleSubmit = async () => {
   if (isSubmitting.value || isModalVisible.value) return
 
-  if (!category1.value || !category2.value) {
-    isInvalidate.value = 'category'
+  if (!category1.value) {
+    isInvalidate.value = 'category1'
+    return
+  } else if (!category2.value) {
+    isInvalidate.value = 'category2'
     return
   } else if (!title.value) {
     isInvalidate.value = 'input'
@@ -136,14 +141,8 @@ const handleSubmit = async () => {
   if (file.value && file.value.length > 0) {
     file.value.forEach(f => formData.append('attachment', f))
   }
-  try {
-    await postTaskRequest(formData)
-    isModalVisible.value = 'success'
-  } catch (e) {
-    console.error(e)
-    isModalVisible.value = 'fail'
-  } finally {
-    isSubmitting.value = false
-  }
+  await postTaskRequest(formData)
+  isModalVisible.value = 'success'
+  isSubmitting.value = false
 }
 </script>

@@ -24,7 +24,7 @@
       :is-invalidate="isInvalidate" />
     <div class="flex flex-col gap-2">
       <div class="flex gap-2">
-        <p class="text-body text-xs font-bold">마감기한</p>
+        <p class="text-body text-xs font-semibold">마감기한</p>
         <p
           v-if="!isDueDateValid && approveData.dueDate && approveData.dueTime"
           class="text-red-1 text-xs">
@@ -61,8 +61,10 @@
 import { getMainCategory, getSubCategory } from '@/api/common'
 import { getTaskDetailUser, postTaskApprove } from '@/api/user'
 import { INITIAL_REQUEST_APPROVE_DATA } from '@/constants/manager'
+import { useErrorStore } from '@/stores/error'
 import type { Category, SubCategory } from '@/types/common'
 import { convertToISO, isAfterNow } from '@/utils/date'
+import { redirectToLogin } from '@/utils/redirectToLogin'
 import { computed, onMounted, ref, watch } from 'vue'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
@@ -109,6 +111,11 @@ onBeforeRouteLeave((to, from, next) => {
 })
 
 onMounted(async () => {
+  const { setError } = useErrorStore()
+  if (!requestId) {
+    setError('존재하지 않는 요청입니다', '', () => redirectToLogin('/requested'))
+    return
+  }
   mainCategoryArr.value = await getMainCategory()
   subCategoryArr.value = await getSubCategory()
   const data = await getTaskDetailUser(requestId)
@@ -150,6 +157,8 @@ const handleSubmit = async () => {
     isInvalidate.value = ''
     return
   }
+  console.log(isTimeFilled.value, isTimeComplete.value, isDueDateValid.value)
+
   const requestData = {
     categoryId: category2.value.subCategoryId,
     processorId: approveData.value.processor.memberId,
@@ -158,11 +167,7 @@ const handleSubmit = async () => {
       : null,
     labelId: approveData.value.label?.labelId || null
   }
-  try {
-    await postTaskApprove(requestId, requestData)
-    isModalVisible.value = true
-  } catch (error) {
-    console.error('API 요청 실패:', error)
-  }
+  await postTaskApprove(requestId, requestData)
+  isModalVisible.value = true
 }
 </script>

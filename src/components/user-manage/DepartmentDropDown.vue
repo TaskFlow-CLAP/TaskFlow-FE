@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex text-xs gap-x-1 mb-2 text-red-1">
-      <p class="text-body font-bold">부서</p>
+      <p class="text-body font-semibold">부서</p>
       <p>*</p>
       <p v-if="isInvalidateState === 'reviewer'">담당자 권한이 없는 부서입니다</p>
     </div>
@@ -54,10 +54,6 @@ const selectOption = (option: DepartmentType) => {
 }
 
 onMounted(async () => {
-  try {
-    dePartments.value = await getDepartmentsAdmin()
-  } catch (error) {
-    console.error('부서가져오기 실패:', error)
-  }
+  dePartments.value = await getDepartmentsAdmin()
 })
 </script>

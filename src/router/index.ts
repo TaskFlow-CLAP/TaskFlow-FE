@@ -23,12 +23,6 @@ const router = createRouter({
       meta: { requiresAuth: true }
     },
     {
-      path: '/pw-check',
-      name: 'PWCheckView',
-      component: () => import('../views/PwCheckView.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
       path: '/my-request',
       name: 'MyRequest',
       component: () => import('../views/MyRequestView.vue')
@@ -151,7 +145,7 @@ router.beforeEach(async (to, from, next) => {
     ROLE_ADMIN: '/member-management'
   }
 
-  if (info.role && to.path === '/login') {
+  if ((info.role && to.path === '/login') || (info.role && to.path === '/')) {
     return next(redirectMap[info.role])
   }
 

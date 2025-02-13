@@ -25,14 +25,14 @@
             <p class="font-normal w-full overflow-hidden whitespace-nowrap text-ellipsis">
               {{ history.details.commentFileDetails?.fileName }}
             </p>
-            <p class="text-xs font-bold text-body">
+            <p class="text-xs font-semibold text-body">
               용량 : {{ history.details.commentFileDetails?.size }}
             </p>
           </div>
         </div>
         <div
           :class="[
-            'flex flex-col justify-end self-end gap-1 text-xs font-bold text-body',
+            'flex flex-col justify-end self-end gap-1 text-xs font-semibold text-body',
             isRequestor ? 'order-3' : ' items-end order-1'
           ]">
           <div
@@ -52,7 +52,7 @@
             </div>
           </div>
           <div>
-            {{ formatOnlyTime(history.time) }}
+            {{ formatTimeShort(history.time) }}
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@ import { deleteComment } from '@/api/user'
 import { fileIcon, menuDotIcon } from '@/constants/iconPath'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailHistoryChatProps } from '@/types/common'
-import { formatOnlyTime } from '@/utils/date'
+import { formatTimeShort } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
 import { computed, defineProps, ref } from 'vue'

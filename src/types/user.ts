@@ -21,6 +21,7 @@ export interface RequestTaskDropdownProps {
   modelValue: string
   isLabel?: boolean
   disabled?: boolean
+  isInvalidate?: boolean
 }
 
 export interface RequestTaskInputProps {
@@ -31,6 +32,7 @@ export interface RequestTaskInputProps {
   isEdit?: boolean
   isInvalidate?: string
   isDisbled?: boolean
+  limitLength?: number
 }
 
 export interface RequestTaskFileInputProps {
@@ -42,6 +44,7 @@ export interface RequestTaskTextAreaProps {
   modelValue: string
   placeholderText: string
   isInvalidate?: string
+  limitLength?: number
 }
 
 export interface AttachmentResponse {

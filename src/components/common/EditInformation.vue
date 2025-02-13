@@ -3,7 +3,7 @@
     <ModalView
       :isOpen="isModalVisible"
       :type="'successType'"
-      @close="handleCancel">
+      @close="isModalVisible = !isModalVisible">
       <template #header>정보가 수정되었습니다</template>
     </ModalView>
 
@@ -26,7 +26,7 @@
     </ModalView>
 
     <div class="profile">
-      <p class="text-body text-xs font-bold">프로필 사진</p>
+      <p class="text-body text-xs font-semibold">프로필 사진</p>
       <ImageContainer
         class="mt-3"
         :url="previewUrl || info.profileImageUrl"
@@ -34,12 +34,12 @@
       <div class="flex gap-6">
         <label
           for="fileInput"
-          class="mt-3 text-xs text-primary1 font-bold cursor-pointer hover:underline"
+          class="mt-3 text-xs text-primary1 font-semibold cursor-pointer hover:underline"
           >변경</label
         >
         <label
           for="fileDelete"
-          class="mt-3 text-xs text-red-1 font-bold cursor-pointer hover:underline"
+          class="mt-3 text-xs text-red-1 font-semibold cursor-pointer hover:underline"
           >삭제</label
         >
       </div>
@@ -56,8 +56,15 @@
         class="hidden" />
     </div>
     <div class="flex flex-col relative">
-      <p class="text-body text-xs font-bold">이름</p>
-      <span class="absolute top-1 right-2 text-xs text-gray-500"> {{ name.length }} / 10 </span>
+      <div class="flex items-center gap-1 text-red-1">
+        <p class="text-body text-xs font-semibold">이름</p>
+        <p>*</p>
+        <span
+          v-show="isInvalid || isFull"
+          class="text-xs font-semibold"
+          >{{ nameError }}</span
+        >
+      </div>
       <input
         :class="[
           'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2',
@@ -68,34 +75,28 @@
         maxlength="10"
         ref="nameInput"
         @blur="validateName" />
-      <div class="mb-1">
-        <span
-          v-show="isInvalid || isFull"
-          class="absolute text-red-1 text-xs font-bold mt-1"
-          >{{ nameError }}</span
-        >
-      </div>
+      <span class="mt-1.5 text-xs text-gray-500"> {{ name.length }} / 10 </span>
     </div>
     <div class="flex flex-col">
-      <p class="text-body text-xs font-bold">아이디</p>
+      <p class="text-body text-xs font-semibold">아이디</p>
       <p class="mt-2">{{ info.nickname }}</p>
     </div>
     <div class="flex flex-col">
-      <p class="text-body text-xs font-bold">이메일</p>
+      <p class="text-body text-xs font-semibold">이메일</p>
       <p class="mt-2">{{ info.email }}</p>
     </div>
     <div class="flex flex-col">
-      <p class="text-body text-xs font-bold">부서</p>
+      <p class="text-body text-xs font-semibold">부서</p>
       <p class="mt-2">{{ info.departmentName }}</p>
     </div>
     <div
       v-if="info.departmentRole"
       class="flex flex-col">
-      <p class="text-body text-xs font-bold">직무</p>
+      <p class="text-body text-xs font-semibold">직무</p>
       <p class="mt-2">{{ info.departmentRole }}</p>
     </div>
     <div>
-      <p class="text-body text-xs font-bold">알림 수신 여부</p>
+      <p class="text-body text-xs font-semibold">알림 수신 여부</p>
       <div class="flex flex-col mt-2 gap-2">
         <FormCheckbox
           v-model="kakaoWorkCheck"
@@ -108,7 +109,7 @@
       </div>
     </div>
     <div>
-      <p class="text-body text-xs font-bold">비밀번호 재설정</p>
+      <p class="text-body text-xs font-semibold">비밀번호 재설정</p>
       <button
         type="button"
         class="button-medium-secondary mt-2"
@@ -126,15 +127,16 @@
 </template>
 
 <script lang="ts" setup>
+import { patchEditInfo } from '@/api/common'
+import { ALLOWED_FILE_EXTENSIONS } from '@/constants/common'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
 import { nextTick, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
-import ModalView from './ModalView.vue'
-import { patchEditInfo } from '@/api/common'
 import FormButtonContainer from './FormButtonContainer.vue'
 import FormCheckbox from './FormCheckbox.vue'
 import ImageContainer from './ImageContainer.vue'
+import ModalView from './ModalView.vue'
 const router = useRouter()
 
 const memberStore = useMemberStore()
@@ -222,26 +224,16 @@ const handleFileUpload = (event: Event) => {
   if (target.files && target.files[0]) {
     const file = target.files[0]
 
-    const allowedMimeTypes = [
-      'image/jpeg',
-      'image/pjpeg',
-      'image/png',
-      'image/gif',
-      'image/bmp',
-      'image/x-windows-bmp'
-    ]
-    const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp']
-
     const fileName = file.name.toLowerCase()
     const fileExtension = fileName.split('.').pop()
 
-    if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+    if (!fileExtension || !ALLOWED_FILE_EXTENSIONS.includes(fileExtension)) {
       failHeader.value = '지원하지 않는 파일입니다'
       failBody.value = 'jpg, jpeg, png, gif, bmp 파일만 업로드 가능합니다'
       failModalToggle()
       return
     }
-    if (!allowedMimeTypes.includes(file.type)) {
+    if (!ALLOWED_FILE_EXTENSIONS.includes(file.type)) {
       failHeader.value = '파일 타입을 확인해주세요'
       failBody.value = '파일 타입과 확장자명이 일치해야합니다'
       failModalToggle()
@@ -288,13 +280,9 @@ const handleSubmit = async () => {
       selectedFile.value = null
     }
 
-    try {
-      await patchEditInfo(formData)
-      isModalVisible.value = true
-      await memberStore.updateMemberInfoWithToken()
-    } catch (error) {
-      console.error('요청 실패:', error)
-    }
+    await patchEditInfo(formData)
+    isModalVisible.value = true
+    await memberStore.updateMemberInfoWithToken()
   }
 }
 </script>

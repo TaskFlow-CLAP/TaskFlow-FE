@@ -42,7 +42,7 @@
         </button>
         <button
           type="button"
-          class="flex justify-center text-xs font-bold text-body hover:underline"
+          class="flex justify-center text-xs font-semibold text-body hover:underline"
           @click="router.replace('/edit-information')">
           이전으로
         </button>
@@ -66,7 +66,7 @@
           ]" />
         <p
           v-show="isInvalid"
-          class="absolute text-red-1 text-xs font-bold mt-1">
+          class="absolute text-red-1 text-xs font-semibold mt-1">
           대문자, 소문자, 숫자, 특수문자 포함 8자-20자 입력해주세요
         </p>
       </div>
@@ -84,7 +84,7 @@
           ]" />
         <p
           v-show="isDifferent"
-          class="absolute text-red-1 text-xs font-bold mt-1">
+          class="absolute text-red-1 text-xs font-semibold mt-1">
           비밀번호가 일치하지 않아요
         </p>
       </div>
@@ -96,7 +96,7 @@
         </button>
         <button
           type="button"
-          class="flex justify-center text-xs font-bold text-body hover:underline"
+          class="flex justify-center text-xs font-semibold text-body hover:underline"
           @click="router.replace('/edit-information')">
           취소
         </button>
@@ -108,7 +108,6 @@
 <script setup lang="ts">
 import { patchPassword, postPasswordCheck } from '@/api/auth'
 import TitleContainer from '@/components/common/TitleContainer.vue'
-import axios from 'axios'
 import { nextTick, ref } from 'vue'
 import ModalView from '@/components/common/ModalView.vue'
 import { useRouter } from 'vue-router'
@@ -122,38 +121,8 @@ const pw = ref('')
 const isConfirmed = ref(false)
 
 const handleCheck = async () => {
-  try {
-    await postPasswordCheck(pw.value)
-    isConfirmed.value = true
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      switch (error?.response?.status) {
-        case 400:
-          isErrorVisible.value = !isErrorVisible.value
-          messageHeader.value = '비밀번호가 일치하지 않습니다'
-          messageBody.value = '다시 확인해주세요'
-          break
-
-        case 401:
-          isErrorVisible.value = !isErrorVisible.value
-          messageHeader.value = '비밀번호가 일치하지 않습니다'
-          messageBody.value = '다시 확인해주세요'
-          break
-
-        case 500:
-          isErrorVisible.value = !isErrorVisible.value
-          messageHeader.value = '서버에 문제가 발생했습니다'
-          messageBody.value = '잠시 후 다시 이용해주세요'
-          break
-
-        default:
-          isErrorVisible.value = !isErrorVisible.value
-          messageHeader.value = '문제가 발생했습니다'
-          messageBody.value = '잠시 후 다시 이용해주세요'
-          break
-      }
-    }
-  }
+  await postPasswordCheck(pw.value)
+  isConfirmed.value = true
 }
 
 const newPw = ref('')
@@ -189,17 +158,8 @@ const handleChange = async () => {
   }
   validatePassword()
   if (isInvalid.value == false && newPw.value === checkPw.value) {
-    try {
-      await patchPassword(newPw.value)
-      openModal()
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 500) {
-          isErrorVisible.value = !isErrorVisible.value
-          messageHeader.value = '사용할 수 없는 특수문자가\n포함되어 있습니다'
-        }
-      }
-    }
+    await patchPassword(newPw.value)
+    openModal()
   }
 }
 

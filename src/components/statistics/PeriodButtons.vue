@@ -1,5 +1,5 @@
 <template>
-  <div class="text-xs font-bold flex gap-4">
+  <div class="text-xs font-semibold flex gap-4">
     <button
       type="button"
       @click="changePeriod('DAY')"

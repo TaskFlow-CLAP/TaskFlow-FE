@@ -19,7 +19,7 @@
         <CategoryLineSub :categories="data || []" />
       </div>
       <div
-        class="text-xs text-disabled font-bold gap-1 shrink-0 category-management-line justify-center cursor-pointer bg-white !border-b-0 hover:bg-background-2"
+        class="text-xs text-disabled font-semibold gap-1 shrink-0 category-management-line justify-center cursor-pointer bg-white !border-b-0 hover:bg-background-2"
         @click="MovetoAddCategory">
         <CommonIcons :name="plusIcon" />
         <p>새 1차 카테고리 추가</p>

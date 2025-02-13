@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col gap-2">
-    <div class="text-xs flex gap-x-1 mb-2 text-red-1">
-      <p class="text-body text-xs font-bold">부가설명</p>
+  <div class="flex flex-col gap-1.5">
+    <div class="text-xs flex gap-x-1 text-red-1">
+      <p class="text-body text-xs font-semibold">부가설명</p>
       <p v-if="isInvalidateState === 'description'">부가설명은 200자 이내로 적어주세요</p>
     </div>
     <textarea
@@ -11,6 +11,11 @@
       :maxlength="200"
       @input="updateValue(($event.target as HTMLInputElement).value)">
     </textarea>
+    <p
+      v-if="limitLength"
+      class="text-xs">
+      ({{ inputLength }}/{{ limitLength }})
+    </p>
   </div>
 </template>
 
@@ -18,11 +23,14 @@
 import type { RequestTaskTextAreaProps } from '@/types/user'
 import { computed } from 'vue'
 
-const { modelValue, placeholderText, isInvalidate } = defineProps<RequestTaskTextAreaProps>()
+const { modelValue, placeholderText, isInvalidate, limitLength } =
+  defineProps<RequestTaskTextAreaProps>()
 const emit = defineEmits(['update:modelValue'])
 const isInvalidateState = computed(() => isInvalidate)
 
 const updateValue = (value: string) => {
   emit('update:modelValue', value)
 }
+
+const inputLength = computed(() => modelValue.length)
 </script>

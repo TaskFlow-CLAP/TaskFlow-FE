@@ -8,6 +8,7 @@
     </ModalView>
     <RequestTaskInput
       v-model="userRegistrationForm.name"
+      :is-invalidate="isInvalidate"
       :placeholderText="'회원의 이름을 입력해주세요'"
       :labelName="'이름'" />
     <RequestTaskInput
@@ -23,8 +24,9 @@
         :labelName="'이메일'" />
       <RequestTaskInput
         v-model="userRegistrationForm.email"
-        :placeholderText="'@kakao.com'"
+        :placeholderText="'@kakaocorp.com'"
         :label-name="'도메인'"
+        :is-invalidate="isInvalidate"
         :is-not-required="false" />
     </div>
     <DepartmentDropDown
@@ -34,7 +36,6 @@
       v-model="userRegistrationForm.role"
       :options="RoleKeys"
       :label-name="'역할'"
-      :is-invalidate="isInvalidate"
       :placeholderText="'회원의 역할을 선택해주세요'" />
     <FormCheckbox
       v-if="isManager"
@@ -59,7 +60,7 @@
 <script lang="ts" setup>
 import { addMemberAdmin } from '@/api/admin'
 import { INITIAL_USER_REGISTRATION, RoleKeys, RoleTypeMapping } from '@/constants/admin'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
 import FormCheckbox from '../common/FormCheckbox.vue'
@@ -85,8 +86,23 @@ const handleCancel = () => {
   router.back()
 }
 
+const usernameRegex = /^[a-z]{3,10}\.[a-z]{1,5}$/
+const emailRegex = /^@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/
+
 const handleSubmit = async () => {
   try {
+    if (!userRegistrationForm.value.name) {
+      isInvalidate.value = 'nameEmpty'
+      return
+    }
+    if (!usernameRegex.test(userRegistrationForm.value.nickname)) {
+      isInvalidate.value = 'wrongNickname'
+      return
+    }
+    if (!emailRegex.test(userRegistrationForm.value.email)) {
+      isInvalidate.value = 'wrongEmail'
+      return
+    }
     const formData = {
       ...userRegistrationForm.value,
       isReviewer: isManager.value ? userRegistrationForm.value.isReviewer : false,
@@ -105,4 +121,8 @@ const handleSubmit = async () => {
     }
   }
 }
+
+watch(isManager, () => {
+  userRegistrationForm.value.isReviewer = false
+})
 </script>

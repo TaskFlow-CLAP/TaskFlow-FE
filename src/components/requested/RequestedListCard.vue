@@ -29,7 +29,6 @@
   </div>
   <TaskDetail
     v-if="selectedID"
-    :is-approved="true"
     :selected-id="selectedID"
     :close-task-detail="() => handleModal(null)" />
   <ModalView
@@ -108,13 +107,8 @@ const rejectRequest = async () => {
     modalError.value = '반려 사유를 입력해주세요'
     return
   }
-  try {
-    await axiosInstance.patch(`/api/tasks/${info.taskId}/terminate`, rejectReason)
-    toggleModal('success')
-  } catch {
-    toggleModal('fail')
-    modalError.value = '작업 반려에 실패했습니다'
-  }
+  await axiosInstance.patch(`/api/tasks/${info.taskId}/terminate`, { reason: rejectReason.value })
+  toggleModal('success')
 }
 
 const { info: userInfo } = useMemberStore()

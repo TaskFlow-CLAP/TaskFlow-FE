@@ -22,13 +22,13 @@
 
             <div
               v-if="$slots.header"
-              class="flex text-2xl font-bold justify-center whitespace-pre-wrap text-center">
+              class="flex text-2xl font-semibold justify-center whitespace-pre-wrap text-center">
               <slot name="header"></slot>
             </div>
 
             <div
               v-if="type != 'inputType' && $slots.header"
-              class="flex text-sm font-bold text-body justify-center whitespace-pre-wrap text-center">
+              class="flex text-sm font-semibold text-body justify-center whitespace-pre-wrap text-center">
               <slot name="body"></slot>
             </div>
           </div>
@@ -81,9 +81,9 @@
 
 <script setup lang="ts">
 import { failIcon, successIcon, warningIcon } from '@/constants/iconPath'
+import { preventEnter } from '@/utils/preventEnter'
 import { onUnmounted, ref, watch } from 'vue'
 import CommonIcons from './CommonIcons.vue'
-import { preventEnter } from '@/utils/preventEnter'
 
 const { isOpen, type, modelValue } = defineProps<{
   isOpen: boolean
@@ -116,6 +116,7 @@ watch(
   () => isOpen,
   () => {
     if (isOpen) {
+      textValue.value = ''
       document.body.style.overflow = 'hidden'
       window.addEventListener('keydown', preventEnter)
     } else {

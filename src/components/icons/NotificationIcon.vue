@@ -18,7 +18,7 @@
     </svg>
     <div
       v-if="newNotification"
-      class="absolute top-0 right-0 w-5 h-5 rounded-full bg-red-1 text-white font-bold text-[10px] flex justify-center items-center">
+      class="absolute top-0 right-0 w-5 h-5 rounded-full bg-red-1 text-white font-semibold text-[10px] flex justify-center items-center">
       {{ newNotification < 100 ? newNotification : 99 }}
     </div>
   </div>

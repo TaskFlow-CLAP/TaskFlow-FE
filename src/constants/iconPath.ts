@@ -214,7 +214,4 @@ export const onEyeIcon = {
   width: 24,
   height: 15,
   fill: 'black'
-  // fill: 'none',
-  // Option: {
-  // }
 }

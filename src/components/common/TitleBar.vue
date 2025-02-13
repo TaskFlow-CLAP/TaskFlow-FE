@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between items-center px-6 py-3 border-l-8 border-primary1">
-    <span class="text-2xl font-bold">{{ title }}</span>
+    <span class="text-2xl font-semibold">{{ title }}</span>
     <div
       v-if="$slots.button"
       class="flex gap-2">

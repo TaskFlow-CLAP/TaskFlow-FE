@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex text-xs gap-x-1 mb-2">
-      <p class="text-body font-bold">{{ labelName }}</p>
+      <p class="text-body font-semibold">{{ labelName }}</p>
       <p
         v-if="!isLabel"
         class="text-red-1">

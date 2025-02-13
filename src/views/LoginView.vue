@@ -40,7 +40,7 @@
           로그인
         </button>
         <RouterLink
-          class="flex justify-center text-body font-bold text-xs hover:underline"
+          class="flex justify-center text-body font-semibold text-xs hover:underline"
           to="/pw-change-email">
           비밀번호 재설정
         </RouterLink>
@@ -107,7 +107,7 @@ const handleLogin = async () => {
               '로그인 시도 5회 초과로 계정이 정지되었습니다\n30분 후 다시 시도해주세요'
           } else {
             messageHeader.value = '일치하는 정보가 없습니다'
-            messageBody.value = '닉네임과 비밀번호를 다시 확인해주세요'
+            messageBody.value = '아이디와 비밀번호를 다시 확인해주세요'
           }
           isModalVisible.value = !isModalVisible.value
           break
@@ -116,18 +116,6 @@ const handleLogin = async () => {
           isModalVisible.value = !isModalVisible.value
           messageHeader.value = '활성화 되어있지 않은 계정입니다'
           messageBody.value = '접근 상태를 다시 확인하여주세요'
-          break
-
-        case 500:
-          isModalVisible.value = !isModalVisible.value
-          messageHeader.value = '서버에 문제가 발생했습니다'
-          messageBody.value = '잠시 후 다시 이용해주세요'
-          break
-
-        default:
-          isModalVisible.value = !isModalVisible.value
-          messageHeader.value = '문제가 발생했습니다'
-          messageBody.value = '잠시후 다시 이용해주세요'
           break
       }
     }
