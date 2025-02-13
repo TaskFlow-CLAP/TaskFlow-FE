@@ -70,3 +70,12 @@ export const PERMITTED_URL = {
 }
 
 export const ALLOWED_FILE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'bmp']
+
+export const ALLOWED_FILE_EXTENSIONS_IMAGE = [
+  'image/jpg',
+  'image/jpeg',
+  'image/png',
+  'image/gif',
+  'image/bmp',
+  'image/x-windows-bmp'
+]

@@ -19,7 +19,7 @@
             <CommonIcons
               v-if="type == 'warningType'"
               :name="warningIcon" />
-
+            <LoadingIcon v-if="type == 'loadingType'" />
             <div
               v-if="$slots.header"
               class="flex text-2xl font-semibold justify-center whitespace-pre-wrap text-center">
@@ -81,9 +81,10 @@
 
 <script setup lang="ts">
 import { failIcon, successIcon, warningIcon } from '@/constants/iconPath'
+import { preventEnter } from '@/utils/preventEnter'
 import { onUnmounted, ref, watch } from 'vue'
 import CommonIcons from './CommonIcons.vue'
-import { preventEnter } from '@/utils/preventEnter'
+import LoadingIcon from './LoadingIcon.vue'
 
 const { isOpen, type, modelValue } = defineProps<{
   isOpen: boolean
@@ -116,6 +117,7 @@ watch(
   () => isOpen,
   () => {
     if (isOpen) {
+      textValue.value = ''
       document.body.style.overflow = 'hidden'
       window.addEventListener('keydown', preventEnter)
     } else {

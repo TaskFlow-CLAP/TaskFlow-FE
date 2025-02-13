@@ -56,8 +56,15 @@
         class="hidden" />
     </div>
     <div class="flex flex-col relative">
-      <p class="text-body text-xs font-semibold">이름</p>
-      <span class="absolute top-1 right-2 text-xs text-gray-500"> {{ name.length }} / 10 </span>
+      <div class="flex items-center gap-1 text-red-1">
+        <p class="text-body text-xs font-semibold">이름</p>
+        <p>*</p>
+        <span
+          v-show="isInvalid || isFull"
+          class="text-xs font-semibold"
+          >{{ nameError }}</span
+        >
+      </div>
       <input
         :class="[
           'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2',
@@ -68,13 +75,7 @@
         maxlength="10"
         ref="nameInput"
         @blur="validateName" />
-      <div class="mb-1">
-        <span
-          v-show="isInvalid || isFull"
-          class="absolute text-red-1 text-xs font-semibold mt-1"
-          >{{ nameError }}</span
-        >
-      </div>
+      <span class="mt-1.5 text-xs text-gray-500"> {{ name.length }} / 10 </span>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-semibold">아이디</p>
@@ -127,7 +128,7 @@
 
 <script lang="ts" setup>
 import { patchEditInfo } from '@/api/common'
-import { ALLOWED_FILE_EXTENSIONS } from '@/constants/common'
+import { ALLOWED_FILE_EXTENSIONS, ALLOWED_FILE_EXTENSIONS_IMAGE } from '@/constants/common'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
 import { nextTick, ref, watchEffect } from 'vue'
@@ -232,7 +233,7 @@ const handleFileUpload = (event: Event) => {
       failModalToggle()
       return
     }
-    if (!ALLOWED_FILE_EXTENSIONS.includes(file.type)) {
+    if (!ALLOWED_FILE_EXTENSIONS_IMAGE.includes(file.type)) {
       failHeader.value = '파일 타입을 확인해주세요'
       failBody.value = '파일 타입과 확장자명이 일치해야합니다'
       failModalToggle()

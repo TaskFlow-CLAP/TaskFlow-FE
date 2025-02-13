@@ -18,12 +18,16 @@
       v-model="title"
       :placeholderText="'제목을 입력해주세요'"
       :label-name="'제목'"
-      :is-invalidate="isInvalidate === 'input' ? 'input' : ''" />
+      :is-invalidate="isInvalidate === 'input' ? 'input' : ''"
+      :limit-length="30" />
     <RequestTaskTextArea
       v-model="description"
       :is-invalidate="isInvalidate"
-      :placeholderText="'부가 정보를 입력해주세요'" />
-    <RequestTaskFileInput v-model="file" />
+      :placeholderText="'부가 정보를 입력해주세요'"
+      :limit-length="200" />
+    <RequestTaskFileInput
+      v-model="file"
+      :isUploading="isUploading" />
     <FormButtonContainer
       :handleCancel="handleCancel"
       :handleSubmit="handleSubmit"
@@ -36,11 +40,10 @@
       <template #header>작업이 요청되었습니다</template>
     </ModalView>
     <ModalView
-      :isOpen="isModalVisible === 'fail'"
-      :type="'failType'"
-      @close="handleCancel">
-      <template #header>작업요청을 실패했습니다</template>
-      <template #body>잠시후 시도해주세요</template>
+      :isOpen="isModalVisible === 'loading'"
+      type="loadingType">
+      <template #header>작업을 요청 중입니다...</template>
+      <template #body>잠시만 기다려주세요</template>
     </ModalView>
   </div>
 </template>
@@ -64,9 +67,11 @@ const category2 = ref<SubCategory | null>(null)
 const title = ref('')
 const description = ref('')
 const file = ref(null as File[] | null)
+
 const isInvalidate = ref('')
 const isModalVisible = ref('')
 const isSubmitting = ref(false)
+const isUploading = ref(false)
 
 const mainCategoryArr = ref<Category[]>([])
 const subCategoryArr = ref<SubCategory[]>([])
@@ -125,6 +130,8 @@ const handleSubmit = async () => {
   }
 
   isSubmitting.value = true
+  isUploading.value = true
+  isModalVisible.value = 'loading'
 
   const formData = new FormData()
   const taskInfo = {
@@ -139,11 +146,9 @@ const handleSubmit = async () => {
   if (file.value && file.value.length > 0) {
     file.value.forEach(f => formData.append('attachment', f))
   }
-  try {
-    await postTaskRequest(formData)
-    isModalVisible.value = 'success'
-  } finally {
-    isSubmitting.value = false
-  }
+  await postTaskRequest(formData)
+  isModalVisible.value = 'success'
+  isSubmitting.value = false
+  isUploading.value = false
 }
 </script>

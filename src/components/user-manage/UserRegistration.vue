@@ -8,6 +8,7 @@
     </ModalView>
     <RequestTaskInput
       v-model="userRegistrationForm.name"
+      :is-invalidate="isInvalidate"
       :placeholderText="'회원의 이름을 입력해주세요'"
       :labelName="'이름'" />
     <RequestTaskInput
@@ -23,8 +24,9 @@
         :labelName="'이메일'" />
       <RequestTaskInput
         v-model="userRegistrationForm.email"
-        :placeholderText="'@kakao.com'"
+        :placeholderText="'@kakaocorp.com'"
         :label-name="'도메인'"
+        :is-invalidate="isInvalidate"
         :is-not-required="false" />
     </div>
     <DepartmentDropDown
@@ -85,11 +87,20 @@ const handleCancel = () => {
 }
 
 const usernameRegex = /^[a-z]{3,10}\.[a-z]{1,5}$/
+const emailRegex = /^@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/
 
 const handleSubmit = async () => {
   try {
+    if (!userRegistrationForm.value.name) {
+      isInvalidate.value = 'nameEmpty'
+      return
+    }
     if (!usernameRegex.test(userRegistrationForm.value.nickname)) {
       isInvalidate.value = 'wrongNickname'
+      return
+    }
+    if (!emailRegex.test(userRegistrationForm.value.email)) {
+      isInvalidate.value = 'wrongEmail'
       return
     }
     const formData = {
