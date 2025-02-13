@@ -10,6 +10,7 @@
     <label v-if="hasFiles">
       <RequestTaskFileInputAfter
         :files="modelValue"
+        :isEdit
         :removeFile="removeFile" />
     </label>
     <div
@@ -50,6 +51,7 @@ import RequestTaskFileInputAfter from './RequestTaskFileInputAfter.vue'
 
 const { modelValue } = defineProps<{
   modelValue: File[] | null
+  isEdit?: boolean
 }>()
 const emit = defineEmits(['update:modelValue'])
 
@@ -61,10 +63,21 @@ const handleModal = () => {
   isModalVisible.value = !isModalVisible.value
 }
 
+const truncateFilename = (name: string, maxLength: number) => {
+  return [...name].slice(0, maxLength).join('')
+}
+
 const handleFileUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
   if (target.files && target.files.length > 0) {
-    const newFiles = Array.from(target.files).filter(file => file.size <= 5 * 1024 * 1024)
+    const newFiles = Array.from(target.files)
+      .map(file => {
+        const truncatedName = truncateFilename(file.name, 35)
+        const newFile = new File([file], truncatedName, { type: file.type })
+        return newFile.size <= 5 * 1024 * 1024 ? newFile : null
+      })
+      .filter(file => file !== null) as File[]
+
     if (newFiles.length !== target.files.length) {
       handleModal()
       return
@@ -83,7 +96,13 @@ const handleDrop = (event: DragEvent) => {
   isDragging.value = false
   const files = event.dataTransfer?.files
   if (files && files.length > 0) {
-    const newFiles = Array.from(files).filter(file => file.size <= 5 * 1024 * 1024)
+    const newFiles = Array.from(files)
+      .map(file => {
+        const truncatedName = truncateFilename(file.name, 35)
+        const newFile = new File([file], truncatedName, { type: file.type })
+        return newFile.size <= 5 * 1024 * 1024 ? newFile : null
+      })
+      .filter(file => file !== null) as File[]
     if (newFiles.length !== files.length) {
       handleModal()
       return
