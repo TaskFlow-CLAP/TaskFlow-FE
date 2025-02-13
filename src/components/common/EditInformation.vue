@@ -128,7 +128,7 @@
 
 <script lang="ts" setup>
 import { patchEditInfo } from '@/api/common'
-import { ALLOWED_FILE_EXTENSIONS } from '@/constants/common'
+import { ALLOWED_FILE_EXTENSIONS, ALLOWED_FILE_EXTENSIONS_IMAGE } from '@/constants/common'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
 import { nextTick, ref, watchEffect } from 'vue'
@@ -233,7 +233,7 @@ const handleFileUpload = (event: Event) => {
       failModalToggle()
       return
     }
-    if (!ALLOWED_FILE_EXTENSIONS.includes(file.type)) {
+    if (!ALLOWED_FILE_EXTENSIONS_IMAGE.includes(file.type)) {
       failHeader.value = '파일 타입을 확인해주세요'
       failBody.value = '파일 타입과 확장자명이 일치해야합니다'
       failModalToggle()
