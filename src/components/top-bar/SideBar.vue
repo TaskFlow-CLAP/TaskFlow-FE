@@ -17,7 +17,7 @@
             <img src="/MainLogo.svg" />
           </button>
         </div>
-        <div class="flex-1 overflow-y-auto flex flex-col gap-6">
+        <div class="flex-1 overflow-y-auto scrollbar-hide flex flex-col gap-6">
           <div
             v-for="menuGroup in filteredMenu"
             :key="menuGroup.groupId">

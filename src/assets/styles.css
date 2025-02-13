@@ -99,7 +99,7 @@ body {
   @apply flex justify-center items-center w-full h-8 px-2 border-b border-border-1 relative text-xs cursor-pointer;
 }
 .filter-dropdown-option-list {
-  @apply w-full max-h-[160px] overflow-y-scroll absolute left-0 top-[calc(100%+8px)] shadow-custom p-2 flex flex-col gap-2 rounded bg-white cursor-auto;
+  @apply w-full max-h-[160px] overflow-y-auto scrollbar-hide absolute left-0 top-[calc(100%+8px)] shadow-custom p-2 flex flex-col gap-2 rounded bg-white cursor-auto;
 }
 .filter-dropdown-option {
   @apply text-xs p-2 rounded text-center cursor-pointer;
@@ -117,7 +117,7 @@ body {
   @apply flex w-full h-11 items-center rounded p-4 bg-white border border-border-1 cursor-pointer;
 }
 .request-task-dropdown-option-list {
-  @apply absolute w-full h-40 overflow-y-auto top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom;
+  @apply absolute w-full h-40 overflow-y-auto scrollbar-hide top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom;
 }
 .request-task-dropdown-option {
   @apply w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer;
@@ -140,7 +140,7 @@ body {
   @apply flex w-full h-10 items-center text-sm rounded pl-4 pr-3 bg-white border border-border-1 cursor-pointer;
 }
 .task-detail-dropdown-option-list {
-  @apply absolute w-full h-40 overflow-y-auto top-11 flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2;
+  @apply absolute w-full h-40 overflow-y-auto scrollbar-hide top-11 flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2;
 }
 .task-detail-dropdown-option {
   @apply w-full flex items-center h-10 p-2 rounded hover:bg-background-2 cursor-pointer;

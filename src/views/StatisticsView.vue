@@ -2,7 +2,7 @@
   <div class="list-view">
     <TitleBar title="통계" />
 
-    <div class="grow bg-primary2 rounded-lg grid grid-cols-2 gap-12 px-12 py-6 overflow-y-scroll">
+    <div class="grow bg-primary2 rounded-lg grid grid-cols-2 gap-12 px-12 py-6 overflow-y-auto">
       <StatisticsCard
         title="기간별 작업 요청량"
         statistics-type="REQUEST_BY_PERIOD"

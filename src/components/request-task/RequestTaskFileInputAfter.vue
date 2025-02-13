@@ -12,7 +12,7 @@
       </div>
       <div
         v-if="files && files.length > 0"
-        class="flex flex-col h-[102px] overflow-hidden overflow-y-auto">
+        class="flex flex-col h-[102px] overflow-hidden overflow-y-auto scrollbar-hide">
         <div
           v-for="(file, index) in files"
           :key="file.name"
