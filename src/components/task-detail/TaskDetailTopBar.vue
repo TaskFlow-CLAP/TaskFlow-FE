@@ -24,7 +24,7 @@
       </div>
       <div
         @click="toggleModal('cancel')"
-        v-if="!isApproved && (isRequestor || isReviewer)"
+        v-if="!isApproved && (isRequestor)"
         class="flex gap-1 items-center cursor-pointer p-1 hover:bg-background-2 rounded">
         <CommonIcons :name="cancelIcon" />
         <p class="text-red-1">요청 취소</p>
@@ -99,7 +99,6 @@ const finishCancel = async () => {
   await queryClient.refetchQueries({
     queryKey: ['myRequest']
   })
-
   toggleModal('success')
   closeTaskDetail()
 }
