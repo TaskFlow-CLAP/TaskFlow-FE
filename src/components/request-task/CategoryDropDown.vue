@@ -17,8 +17,8 @@
       ref="htmlRef"
       class="relative flex">
       <div
-        class="flex w-full h-11 items-center rounded p-4 border border-border-1"
-        :class="isDisabled ? 'bg-background-2 cursor-default' : 'bg-white cursor-pointer'"
+        class="flex w-full h-11 items-center rounded p-4 border"
+        :class="`${isDisabled ? 'bg-background-2 cursor-default' : 'bg-white cursor-pointer'} ${isInvalidate ? 'border-red-1' : 'border-border-1'}`"
         @click="toggleDropdown">
         <p :class="{ 'text-disabled': !modelValue?.name }">
           {{ modelValue?.name ?? labelName + '를 선택해주세요' }}

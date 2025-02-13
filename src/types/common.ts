@@ -61,6 +61,7 @@ export type Role = 'ROLE_USER' | 'ROLE_MANAGER' | 'ROLE_ADMIN'
 export interface DueDateInputProps {
   modelValue: string | null
   inputType: string
+  isInvalidate?: string
 }
 
 export interface FormButtonProps {
