@@ -30,11 +30,11 @@
         :is-not-required="false" />
     </div>
     <DepartmentDropDown
-      v-model="userRegistrationForm.departmentId"
+      v-model="userRegistrationForm.department"
       :is-invalidate="isInvalidate" />
     <RequestTaskDropdown
       v-model="userRegistrationForm.role"
-      :options="RoleKeys"
+      :options="filteredRoleKeys"
       :label-name="'역할'"
       :placeholderText="'회원의 역할을 선택해주세요'" />
     <FormCheckbox
@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getMemberDetailAdmin, updateMemberAdmin } from '@/api/admin'
+import { getDepartmentsAdmin, getMemberDetailAdmin, updateMemberAdmin } from '@/api/admin'
 import {
   INITIAL_USER_REGISTRATION,
   RoleKeys,
@@ -95,6 +95,12 @@ const isModalVisible = ref(false)
 const isError = ref(false)
 
 const isManager = computed(() => userRegistrationForm.value.role === '담당자')
+const filteredRoleKeys = computed(() => {
+  if (userRegistrationForm.value.department?.isManager) {
+    return RoleKeys
+  }
+  return RoleKeys.filter(role => role !== '담당자')
+})
 
 watch(
   () => router.currentRoute.value.query.id,
@@ -103,13 +109,26 @@ watch(
   }
 )
 
+watch(
+  () => userRegistrationForm.value.department?.isManager,
+  newValue => {
+    if (!newValue && userRegistrationForm.value.role === '담당자') {
+      userRegistrationForm.value.role = '사용자'
+    }
+  }
+)
 onMounted(async () => {
   if (typeof userId.value === 'string') {
     userData.value = await getMemberDetailAdmin(userId.value)
   }
   if (userData.value && userData.value.role in RoleMapping) {
+    const departments = await getDepartmentsAdmin()
     userRegistrationForm.value = {
       ...userData.value,
+      department: departments.find(
+        (dep: { departmentId: number | undefined }) =>
+          dep.departmentId === userData.value?.departmentId
+      ),
       email: '@' + userData.value.email.split('@')[1],
       role: RoleMapping[userData.value.role as keyof typeof RoleMapping]
     }
@@ -136,16 +155,21 @@ const handleSubmit = async () => {
       isInvalidate.value = 'wrongEmail'
       return
     }
+    if (!userRegistrationForm.value.department?.departmentId) {
+      isInvalidate.value = 'depertmentEmpty'
+      return
+    }
     if (typeof userId.value === 'string') {
-      const userData = {
+      const formData = {
         role: RoleTypeMapping[userRegistrationForm.value.role],
         name: userRegistrationForm.value.name,
         isReviewer: isManager.value ? userRegistrationForm.value.isReviewer : false,
-        departmentId: userRegistrationForm.value.departmentId,
+        departmentId: userRegistrationForm.value.department.departmentId,
         departmentRole: userRegistrationForm.value.departmentRole
       }
+      console.log(formData)
 
-      await updateMemberAdmin(userId.value, userData)
+      await updateMemberAdmin(userId.value, formData)
       isModalVisible.value = true
     }
   } catch (error) {

@@ -41,6 +41,7 @@ export interface UserRegistrationProps {
   department: DepartmentType | null
   role: RoleTypes
   departmentRole: string
+  departmentId?: number
 }
 
 export interface UserInfoForAdmin extends UserRegistrationProps {
