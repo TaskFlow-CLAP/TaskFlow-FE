@@ -1,11 +1,5 @@
 <template>
   <div class="w-full flex flex-col gap-y-6">
-    <ModalView
-      :isOpen="isModalVisible"
-      :type="'successType'"
-      @close="handleCancel">
-      <template #header>회원정보가 수정되었습니다</template>
-    </ModalView>
     <RequestTaskInput
       v-model="userRegistrationForm.name"
       :is-invalidate="isInvalidate"
@@ -55,6 +49,12 @@
       :handleSubmit="handleSubmit"
       cancelText="취소"
       submitText="수정" />
+    <ModalView
+      :isOpen="isModalVisible"
+      :type="'successType'"
+      @close="handleCancel">
+      <template #header>회원정보가 수정되었습니다</template>
+    </ModalView>
   </div>
 </template>
 
@@ -78,6 +78,9 @@ import DepartmentDropDown from './DepartmentDropDown.vue'
 
 const route = useRoute()
 const router = useRouter()
+
+const usernameRegex = /^[a-z]{3,10}\.[a-z]{1,5}$/
+const emailRegex = /^@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/
 
 const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
 const isInvalidate = ref('')
@@ -113,9 +116,6 @@ const handleCancel = async () => {
   isModalVisible.value = false
   router.back()
 }
-
-const usernameRegex = /^[a-z]{3,10}\.[a-z]{1,5}$/
-const emailRegex = /^@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/
 
 const handleSubmit = async () => {
   try {
