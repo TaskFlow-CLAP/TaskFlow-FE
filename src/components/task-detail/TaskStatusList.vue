@@ -4,16 +4,21 @@
       :is-open="isModalVisible.reject"
       @update:model-value="value => (rejectReason = value || '')"
       type="terminate"
-      :is-empty="isEmpty"
-      @close="closeModal"
+      @close="closeAllModal"
       @click="rejectRequest">
       <template #header>종료 사유를 입력해주세요</template>
     </ModalView>
     <ModalView
       :is-open="isModalVisible.success"
       type="successType"
-      @close="closeModal">
+      @close="closeAllModal">
       <template #header>작업이 종료되었습니다</template>
+    </ModalView>
+    <ModalView
+      :is-open="isModalVisible.fail"
+      type="failType"
+      @close="closeModal">
+      <template #header>{{ modalError }}</template>
     </ModalView>
     <div
       v-for="statusItem in TASK_STATUS_LIST.slice(1)"
@@ -42,10 +47,12 @@ import { ref, watch } from 'vue'
 import ModalView from '../common/ModalView.vue'
 
 const { modelValue, isProcessor, taskId } = defineProps<TaskStatusListProps>()
+const modalError = ref('')
 const rejectReason = ref('')
 const currentStatus = ref(modelValue)
 const isModalVisible = ref({
   reject: false,
+  fail: false,
   success: false
 })
 const backModal = ref(false)
@@ -70,7 +77,12 @@ const closeModal = () => {
   const prevSuccess = isModalVisible.value.success
   isModalVisible.value = { reject: backModal.value ? true : false, fail: false, success: false }
   if (prevSuccess) queryClient.invalidateQueries({ queryKey: ['requested'] })
-  isEmpty.value = false
+}
+
+const closeAllModal = () => {
+  const prevSuccess = isModalVisible.value.success
+  isModalVisible.value = { reject: false, fail: false, success: false }
+  if (prevSuccess) queryClient.invalidateQueries({ queryKey: ['requested'] })
 }
 
 const textColor = (taskStatus: Status) => {
@@ -80,7 +92,7 @@ const textColor = (taskStatus: Status) => {
 const bgColor = (taskStatus: Status) => {
   return currentStatus.value === taskStatus
     ? `bg-${statusAsColor(taskStatus)}-1`
-    : `bg-zinc-100 ${isProcessor ? ' hover:bg-zinc-200' : ''}`
+    : `bg-zinc-100${isProcessor ? ' hover:bg-zinc-200' : ''}`
 }
 
 const rejectRequest = async () => {
@@ -98,7 +110,6 @@ const rejectRequest = async () => {
   currentStatus.value = 'TERMINATED'
   queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
-  isEmpty.value = false
 }
 
 const changeStatus = async (newStatus: Status) => {
