@@ -49,9 +49,16 @@ const setInterceptors = (instance: AxiosInstance) => {
       } else if (error.response) {
         switch (error.response.status) {
           case 401:
-            if (error.response.data === 'AUTH_003') {
+            if (error.response.data === 'AUTH_016') {
+              setError('일치하는 정보가 없습니다', '아이디와 비밀번호를 다시 확인해주세요')
+            } else if (error.response.data === 'AUTH_003') {
               Cookies.remove('refreshToken')
               setError('유효하지 않은 토큰입니다', '다시 로그인 해주세요', redirectToLogin)
+            } else if (error.response.data === 'AUTH_015') {
+              setError(
+                '정지된 계정입니다',
+                '로그인 시도 5회 초과로 계정이 정지되었습니다\n30분 후 다시 시도해주세요'
+              )
             }
             break
           case 403: {

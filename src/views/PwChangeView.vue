@@ -21,7 +21,11 @@
       <TitleContainer
         v-else
         :title="'비밀번호\n재설정'"
-        content="새로운 비밀번호를 입력해주세요" />
+        :content="
+          !firstVisit
+            ? '새로운 비밀번호를 입력해주세요\n보안을 위해 링크는 5분 후 만료됩니다'
+            : '새로운 비밀번호를 입력해주세요'
+        " />
     </div>
     <form
       v-if="!isConfirmed"
@@ -123,6 +127,8 @@ const messageBody = ref('')
 
 const pw = ref('')
 const isConfirmed = ref(false)
+
+const firstVisit = ref(Cookies.get('accessToken') ? true : false)
 
 const handleCheck = async () => {
   await postPasswordCheck(pw.value)
