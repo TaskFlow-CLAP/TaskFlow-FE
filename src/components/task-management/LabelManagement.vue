@@ -21,7 +21,7 @@
       <div
         v-else
         class="category-management-line justify-between bg-white shrink-0">
-        <div class="flex w-full gap-7 items-center pl-3 relative">
+        <div class="flex w-full gap-7 items-center px-3 relative">
           <div
             :style="{
               borderColor: getColor(newLabel.labelColor)?.borderColor,
@@ -36,8 +36,12 @@
           <input
             v-model="newLabel.labelName"
             type="text"
+            maxlength="10"
             placeholder="새로운 구분명을 입력"
             class="w-full flex focus:outline-none" />
+          <p :class="['text-xs', { 'text-red-1': newLabel.labelName.length > 10 }]">
+            {{ newLabel.labelName.length }}/10
+          </p>
         </div>
         <div class="flex gap-2 text-xs font-semibold">
           <button
@@ -75,6 +79,7 @@ const newLabel = ref<NewLabelTypes>({
   labelName: '',
   labelColor: 'RED'
 })
+
 const isColorVisible = ref(false)
 const isAdd = ref(false)
 
@@ -88,6 +93,8 @@ onMounted(async () => {
 
 const handleAdd = () => {
   isAdd.value = !isAdd.value
+  newLabel.value.labelName = ''
+  newLabel.value.labelColor = 'RED'
 }
 
 const handleColor = () => {
@@ -99,7 +106,7 @@ const updateLabelColor = (color: LabelColorTypes) => {
 }
 
 const addNewLabel = async () => {
-  if (newLabel.value.labelName !== '') {
+  if (newLabel.value.labelName !== '' && newLabel.value.labelName.length <= 10) {
     await postAddLabelAdmin(newLabel.value)
     newLabel.value.labelName = ''
     handleAdd()
