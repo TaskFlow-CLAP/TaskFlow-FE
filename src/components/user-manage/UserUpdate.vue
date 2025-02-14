@@ -1,10 +1,15 @@
 <template>
   <div class="w-full flex flex-col gap-y-6">
-    <RequestTaskInput
-      v-model="userRegistrationForm.name"
-      :is-invalidate="isInvalidate"
-      :placeholderText="'회원의 이름을 입력해주세요'"
-      :labelName="'이름'" />
+    <div class="relative">
+      <RequestTaskInput
+        v-model="userRegistrationForm.name"
+        :is-invalidate="isInvalidate"
+        :placeholderText="'회원의 이름을 입력해주세요'"
+        :labelName="'이름'" />
+      <p class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
+        {{ userRegistrationForm.name.length }}/10
+      </p>
+    </div>
     <RequestTaskInput
       v-model="userRegistrationForm.nickname"
       :placeholderText="'회원의 아이디를 입력해주세요'"
