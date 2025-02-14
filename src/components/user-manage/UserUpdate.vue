@@ -172,7 +172,6 @@ const handleSubmit = async () => {
         departmentId: userRegistrationForm.value.department.departmentId,
         departmentRole: userRegistrationForm.value.departmentRole
       }
-      console.log(formData)
 
       await updateMemberAdmin(userId.value, formData)
       isModalVisible.value = 'success'
