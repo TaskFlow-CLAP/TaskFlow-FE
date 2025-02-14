@@ -29,11 +29,11 @@
         :is-not-required="false" />
     </div>
     <DepartmentDropDown
-      v-model="userRegistrationForm.departmentId"
+      v-model="userRegistrationForm.department"
       :is-invalidate="isInvalidate" />
     <RequestTaskDropdown
       v-model="userRegistrationForm.role"
-      :options="RoleKeys"
+      :options="filteredRoleKeys"
       :label-name="'역할'"
       :placeholderText="'회원의 역할을 선택해주세요'" />
     <FormCheckbox
@@ -94,6 +94,22 @@ const handleCancel = () => {
   router.back()
 }
 
+const filteredRoleKeys = computed(() => {
+  if (userRegistrationForm.value.department?.isManager) {
+    return RoleKeys
+  }
+  return RoleKeys.filter(role => role !== '담당자')
+})
+
+watch(
+  () => userRegistrationForm.value.department?.isManager,
+  newValue => {
+    if (!newValue && userRegistrationForm.value.role === '담당자') {
+      userRegistrationForm.value.role = '사용자'
+    }
+  }
+)
+
 const handleSubmit = async () => {
   try {
     if (!userRegistrationForm.value.name) {
@@ -108,12 +124,19 @@ const handleSubmit = async () => {
       isInvalidate.value = 'wrongEmail'
       return
     }
+    if (!userRegistrationForm.value.department?.departmentId) {
+      isInvalidate.value = 'depertmentEmpty'
+      return
+    }
+    const { department, ...restForm } = userRegistrationForm.value
     const formData = {
-      ...userRegistrationForm.value,
+      ...restForm,
+      departmentId: department?.departmentId,
       isReviewer: isManager.value ? userRegistrationForm.value.isReviewer : false,
       role: RoleTypeMapping[userRegistrationForm.value.role],
       email: userRegistrationForm.value.nickname + userRegistrationForm.value.email
     }
+
     await addMemberAdmin(formData)
     isModalVisible.value = true
   } catch (error) {
