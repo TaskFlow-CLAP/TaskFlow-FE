@@ -49,7 +49,9 @@ const setInterceptors = (instance: AxiosInstance) => {
       } else if (error.response) {
         switch (error.response.status) {
           case 401:
-            if (error.response.data === 'AUTH_003') {
+            if (error.response.data === 'AUTH_016') {
+              setError('일치하는 정보가 없습니다', '아이디와 비밀번호를 다시 확인해주세요')
+            } else if (error.response.data === 'AUTH_003') {
               Cookies.remove('refreshToken')
               setError('유효하지 않은 토큰입니다', '다시 로그인 해주세요', redirectToLogin)
             } else if (error.response.data === 'AUTH_015') {
