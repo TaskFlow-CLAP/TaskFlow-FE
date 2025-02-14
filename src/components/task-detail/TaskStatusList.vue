@@ -70,6 +70,7 @@ const closeModal = () => {
   const prevSuccess = isModalVisible.value.success
   isModalVisible.value = { reject: false, success: false }
   if (prevSuccess) queryClient.invalidateQueries({ queryKey: ['requested'] })
+  isEmpty.value = false
 }
 
 const textColor = (taskStatus: Status) => {
