@@ -89,6 +89,8 @@ const setInterceptors = (instance: AxiosInstance) => {
               return Promise.reject(new Error('MEMBER_REVIEWER'))
             } else if (error.response.data === 'MEMBER_014') {
               return Promise.reject(new Error('NICKNAME_EMAIL_DIFFERENT'))
+            } else if (error.response.data === 'MEMBER_016') {
+              return Promise.reject(new Error('WRONG_NICKNAME'))
             } else {
               setError('잘못된 요청입니다', '다시 시도해주세요')
             }
