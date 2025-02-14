@@ -29,7 +29,7 @@
       :maxlength="labelName === '제목' ? 30 : undefined" />
     <p
       v-if="limitLength"
-      class="text-xs mt-1.5">
+      class="text-xs mt-1.5 w-full flex justify-end text-body">
       ({{ inputLength }}/{{ limitLength }})
     </p>
   </div>

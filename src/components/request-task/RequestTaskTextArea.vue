@@ -13,7 +13,7 @@
     </textarea>
     <p
       v-if="limitLength"
-      class="text-xs">
+      class="text-xs w-full flex justify-end text-body">
       ({{ inputLength }}/{{ limitLength }})
     </p>
   </div>

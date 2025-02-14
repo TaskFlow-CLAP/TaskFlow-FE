@@ -34,7 +34,7 @@
         @click="sendMessage" />
     </button>
   </div>
-  <p class="text-xs mt-1.5">({{ inputLength }}/{{ 254 }})</p>
+  <p class="text-xs mt-1.5 flex w-full justify-end text-body">({{ inputLength }}/{{ 254 }})</p>
   <ModalView
     :is-open="isModalVisible"
     type="failType"
