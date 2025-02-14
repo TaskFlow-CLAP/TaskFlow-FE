@@ -1,5 +1,5 @@
 <template>
-  <div class="list-card">
+  <div class="list-card !cursor-default">
     <ListCardTab
       v-for="tab in myRequestTabList"
       :key="tab.content"
@@ -24,7 +24,9 @@
       <button
         type="button"
         :class="
-          info.memberStatus !== 'ACTIVE' ? 'button-medium-secondary' : 'button-medium-disabled'
+          info.memberStatus !== 'ACTIVE'
+            ? 'button-medium-secondary'
+            : 'button-medium-disabled !cursor-default'
         "
         @click="info.memberStatus !== 'ACTIVE' && onMemberInvite(info.memberId)">
         초대
