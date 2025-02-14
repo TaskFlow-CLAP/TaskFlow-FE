@@ -36,7 +36,7 @@
       </button>
     </div>
     <p class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
-      ({{ inputLength }}/{{ 254 }})
+      ({{ inputLength }}/{{ 200 }})
     </p>
   </div>
   <ModalView
@@ -75,7 +75,6 @@ const isModalVisible = ref(false)
 const isPossible = computed(
   () =>
     history.length !== 0 &&
-    inputLength.value < 200 &&
     (info.value.role !== 'ROLE_USER' || info.value.nickname === requestorName)
 )
 
@@ -94,6 +93,7 @@ const placeHolderText = computed(() => {
 
 const sendMessage = async () => {
   if (!isPossible.value || !messageText.value.trim()) return
+  if (inputLength.value > 200) return
   await postComment(taskId, messageText.value)
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   messageText.value = ''
