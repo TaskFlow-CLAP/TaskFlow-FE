@@ -5,7 +5,7 @@
       :key="label.labelId"
       class="flex w-full flex-col">
       <div class="category-management-line justify-between bg-white">
-        <div class="flex w-full gap-7 items-center pl-3 relative">
+        <div class="flex w-full gap-7 items-center px-3 relative">
           <div
             :style="{
               borderColor: getColor(
@@ -34,8 +34,15 @@
             placeholder="새로운 구분명을 입력"
             class="w-full flex focus:outline-none"
             ref="inputRef" />
-          <p v-else>
+          <p
+            v-else
+            class="w-full">
             {{ label.labelName }}
+          </p>
+          <p
+            v-if="isEdit && editValue.labelId === label.labelId"
+            :class="['text-xs', { 'text-red-1': editValue.labelName.length > 10 }]">
+            {{ editValue.labelName.length }}/10
           </p>
         </div>
         <div class="flex gap-2 text-xs font-semibold">

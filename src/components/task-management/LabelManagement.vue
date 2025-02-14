@@ -35,7 +35,6 @@
             @updateColor="updateLabelColor" />
           <input
             v-model="newLabel.labelName"
-            type="text"
             maxlength="10"
             placeholder="새로운 구분명을 입력"
             class="w-full flex focus:outline-none" />
