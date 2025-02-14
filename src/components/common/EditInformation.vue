@@ -175,11 +175,11 @@ const validateName = () => {
   const regex = /[!@#$%^&*(),.?":{}|<>\p{Emoji}]/gu
   isInvalid.value = regex.test(name.value)
   if (isInvalid.value == true) {
-    nameError.value = '이름에는 특수문자가 포함될 수 없습니다.'
+    nameError.value = '이름에는 특수문자가 포함될 수 없습니다'
   }
   if (name.value.length > 10 || name.value.length < 1) {
     isFull.value = true
-    nameError.value = '이름은 1글자 이상, 10글자이하만 가능합니다.'
+    nameError.value = '이름은 1글자 이상, 10글자이하만 가능합니다'
   } else {
     isFull.value = false
   }
