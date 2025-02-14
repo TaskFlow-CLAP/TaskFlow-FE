@@ -75,7 +75,9 @@
         maxlength="10"
         ref="nameInput"
         @blur="validateName" />
-      <span class="mt-1.5 text-xs text-body flex w-full justify-end"> {{ name.length }} / 10 </span>
+      <span class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
+        {{ name.length }} / 10
+      </span>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-semibold">아이디</p>

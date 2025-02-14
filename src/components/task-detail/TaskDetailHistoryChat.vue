@@ -44,7 +44,7 @@
               삭제
             </div>
           </div>
-          <div class="flex flex-col gap-1 h-full justify-end font-semibold">
+          <div class="flex flex-col gap-1 h-full justify-end font-semibold whitespace-nowrap">
             {{ formatTimeShort(history.time) }}
           </div>
         </div>
