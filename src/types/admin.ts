@@ -38,9 +38,10 @@ export interface UserRegistrationProps {
   email: string
   nickname: string
   isReviewer: boolean
-  departmentId: number
+  department: DepartmentType | null
   role: RoleTypes
   departmentRole: string
+  departmentId?: number
 }
 
 export interface UserInfoForAdmin extends UserRegistrationProps {
@@ -105,6 +106,7 @@ export interface ApiLogsResponse {
 export interface DepartmentType {
   departmentId: number
   name: string
+  isManager: boolean
 }
 
 export interface UserRegistrationApiProps {

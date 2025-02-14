@@ -47,7 +47,7 @@ export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {
   nickname: '',
   isReviewer: false,
   role: '사용자',
-  departmentId: 1,
+  department: null,
   departmentRole: ''
 }
 

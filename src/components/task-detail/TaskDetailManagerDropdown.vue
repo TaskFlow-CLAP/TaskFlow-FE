@@ -44,7 +44,7 @@ import { getManager } from '@/api/user'
 import { dropdownIcon } from '@/constants/iconPath'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 import type { ManagerTypes } from '@/types/manager'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import ImageContainer from '../common/ImageContainer.vue'
 
@@ -54,12 +54,15 @@ const emit = defineEmits(['update:modelValue'])
 const dropdownOpen = ref(false)
 const managerArr = ref<ManagerTypes[]>([])
 
-onMounted(async () => {
+const fetchManagerData = async () => {
   managerArr.value = await getManager()
-})
+}
 
-const toggleDropdown = () => {
+const toggleDropdown = async () => {
   dropdownOpen.value = !dropdownOpen.value
+  if (dropdownOpen.value) {
+    await fetchManagerData()
+  }
 }
 
 const selectOption = (option: ManagerTypes) => {

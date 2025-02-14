@@ -4,14 +4,14 @@
       :is-open="isModalVisible.reject"
       @update:model-value="value => (rejectReason = value || '')"
       type="terminate"
-      @close="closeModal"
+      @close="closeAllModal"
       @click="rejectRequest">
       <template #header>종료 사유를 입력해주세요</template>
     </ModalView>
     <ModalView
       :is-open="isModalVisible.success"
       type="successType"
-      @close="closeModal">
+      @close="closeAllModal">
       <template #header>작업이 종료되었습니다</template>
     </ModalView>
     <ModalView
@@ -76,6 +76,12 @@ const toggleModal = (key: keyof typeof isModalVisible.value) => {
 const closeModal = () => {
   const prevSuccess = isModalVisible.value.success
   isModalVisible.value = { reject: backModal.value ? true : false, fail: false, success: false }
+  if (prevSuccess) queryClient.invalidateQueries({ queryKey: ['requested'] })
+}
+
+const closeAllModal = () => {
+  const prevSuccess = isModalVisible.value.success
+  isModalVisible.value = { reject: false, fail: false, success: false }
   if (prevSuccess) queryClient.invalidateQueries({ queryKey: ['requested'] })
 }
 

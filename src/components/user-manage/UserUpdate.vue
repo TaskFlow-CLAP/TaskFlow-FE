@@ -1,16 +1,13 @@
 <template>
   <div class="w-full flex flex-col gap-y-6">
-    <ModalView
-      :isOpen="isModalVisible"
-      :type="'successType'"
-      @close="handleCancel">
-      <template #header>회원정보가 수정되었습니다</template>
-    </ModalView>
-    <RequestTaskInput
-      v-model="userRegistrationForm.name"
-      :is-invalidate="isInvalidate"
-      :placeholderText="'회원의 이름을 입력해주세요'"
-      :labelName="'이름'" />
+    <div class="relative">
+      <RequestTaskInput
+        v-model="userRegistrationForm.name"
+        :is-invalidate="isInvalidate"
+        :placeholderText="'회원의 이름을 입력해주세요'"
+        :limit-length="10"
+        :labelName="'이름'" />
+    </div>
     <RequestTaskInput
       v-model="userRegistrationForm.nickname"
       :placeholderText="'회원의 아이디를 입력해주세요'"
@@ -31,11 +28,11 @@
         :is-not-required="false" />
     </div>
     <DepartmentDropDown
-      v-model="userRegistrationForm.departmentId"
+      v-model="userRegistrationForm.department"
       :is-invalidate="isInvalidate" />
     <RequestTaskDropdown
       v-model="userRegistrationForm.role"
-      :options="RoleKeys"
+      :options="filteredRoleKeys"
       :label-name="'역할'"
       :placeholderText="'회원의 역할을 선택해주세요'" />
     <FormCheckbox
@@ -55,11 +52,24 @@
       :handleSubmit="handleSubmit"
       cancelText="취소"
       submitText="수정" />
+    <ModalView
+      :isOpen="isModalVisible === 'success'"
+      :type="'successType'"
+      @close="handleCancel">
+      <template #header>회원정보가 수정되었습니다</template>
+    </ModalView>
+    <ModalView
+      :isOpen="isModalVisible === 'leftover'"
+      :type="'failType'"
+      @close="() => (isModalVisible = '')">
+      <template #header>수정이 실패하였습니다</template>
+      <template #body>잔여 작업이 남아있어 수정이 불가합니다</template>
+    </ModalView>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { getMemberDetailAdmin, updateMemberAdmin } from '@/api/admin'
+import { getDepartmentsAdmin, getMemberDetailAdmin, updateMemberAdmin } from '@/api/admin'
 import {
   INITIAL_USER_REGISTRATION,
   RoleKeys,
@@ -79,14 +89,23 @@ import DepartmentDropDown from './DepartmentDropDown.vue'
 const route = useRoute()
 const router = useRouter()
 
+const usernameRegex = /^[a-z]{3,10}\.[a-z]{1,5}$/
+const emailRegex = /^@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/
+
 const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
 const isInvalidate = ref('')
 const userId = ref(route.query.id)
 const userData = ref<UserRegistrationProps | null>(null)
-const isModalVisible = ref(false)
+const isModalVisible = ref('')
 const isError = ref(false)
 
 const isManager = computed(() => userRegistrationForm.value.role === '담당자')
+const filteredRoleKeys = computed(() => {
+  if (userRegistrationForm.value.department?.isManager) {
+    return RoleKeys
+  }
+  return RoleKeys.filter(role => role !== '담당자')
+})
 
 watch(
   () => router.currentRoute.value.query.id,
@@ -95,13 +114,26 @@ watch(
   }
 )
 
+watch(
+  () => userRegistrationForm.value.department?.isManager,
+  newValue => {
+    if (!newValue && userRegistrationForm.value.role === '담당자') {
+      userRegistrationForm.value.role = '사용자'
+    }
+  }
+)
 onMounted(async () => {
   if (typeof userId.value === 'string') {
     userData.value = await getMemberDetailAdmin(userId.value)
   }
   if (userData.value && userData.value.role in RoleMapping) {
+    const departments = await getDepartmentsAdmin()
     userRegistrationForm.value = {
       ...userData.value,
+      department: departments.find(
+        (dep: { departmentId: number | undefined }) =>
+          dep.departmentId === userData.value?.departmentId
+      ),
       email: '@' + userData.value.email.split('@')[1],
       role: RoleMapping[userData.value.role as keyof typeof RoleMapping]
     }
@@ -110,12 +142,9 @@ onMounted(async () => {
 
 const handleCancel = async () => {
   userRegistrationForm.value = { ...INITIAL_USER_REGISTRATION }
-  isModalVisible.value = false
+  isModalVisible.value = ''
   router.back()
 }
-
-const usernameRegex = /^[a-z]{3,10}\.[a-z]{1,5}$/
-const emailRegex = /^@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/
 
 const handleSubmit = async () => {
   try {
@@ -131,21 +160,27 @@ const handleSubmit = async () => {
       isInvalidate.value = 'wrongEmail'
       return
     }
+    if (!userRegistrationForm.value.department?.departmentId) {
+      isInvalidate.value = 'depertmentEmpty'
+      return
+    }
     if (typeof userId.value === 'string') {
-      const userData = {
+      const formData = {
         role: RoleTypeMapping[userRegistrationForm.value.role],
         name: userRegistrationForm.value.name,
         isReviewer: isManager.value ? userRegistrationForm.value.isReviewer : false,
-        departmentId: userRegistrationForm.value.departmentId,
+        departmentId: userRegistrationForm.value.department.departmentId,
         departmentRole: userRegistrationForm.value.departmentRole
       }
 
-      await updateMemberAdmin(userId.value, userData)
-      isModalVisible.value = true
+      await updateMemberAdmin(userId.value, formData)
+      isModalVisible.value = 'success'
     }
   } catch (error) {
     if (error instanceof Error && error.message === 'MEMBER_DUPLICATED') {
       isInvalidate.value = 'duplicate'
+    } else if (error instanceof Error && error.message === 'TASK_LEFTOVER') {
+      isModalVisible.value = 'leftover'
     } else if (error instanceof Error && error.message === 'MEMBER_REVIEWER') {
       isInvalidate.value = 'reviewer'
     } else {

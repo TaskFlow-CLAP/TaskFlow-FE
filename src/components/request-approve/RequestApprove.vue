@@ -84,6 +84,7 @@ const subCategoryArr = ref<SubCategory[]>([])
 const afterSubCategoryArr = ref<SubCategory[]>([])
 const approveData = ref(INITIAL_REQUEST_APPROVE_DATA)
 const isInvalidate = ref('')
+const isApproving = ref(false)
 const isFirst = ref(true)
 
 const router = useRouter()
@@ -143,6 +144,7 @@ const handleCancel = () => {
 }
 
 const handleSubmit = async () => {
+  if (isApproving.value || isModalVisible.value) return
   if (!category1.value) {
     isInvalidate.value = 'category1'
     return
@@ -163,6 +165,7 @@ const handleSubmit = async () => {
     isInvalidate.value = ''
     return
   }
+  isApproving.value = true
 
   const requestData = {
     categoryId: category2.value.subCategoryId,
@@ -172,6 +175,7 @@ const handleSubmit = async () => {
       : null,
     labelId: approveData.value.label?.labelId || null
   }
+
   await postTaskApprove(requestId, requestData)
   isModalVisible.value = true
 }

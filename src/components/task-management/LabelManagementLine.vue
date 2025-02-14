@@ -1,15 +1,23 @@
-<template>
+<template template>
   <div class="w-full">
     <div
       v-for="label in labelData"
       :key="label.labelId"
       class="flex w-full flex-col">
       <div class="category-management-line justify-between bg-white">
-        <div class="flex gap-7 items-center pl-3 relative">
+        <div class="flex w-full gap-7 items-center px-3 relative">
           <div
             :style="{
-              borderColor: getColor(label.labelColor)?.borderColor,
-              backgroundColor: getColor(label.labelColor)?.fillColor
+              borderColor: getColor(
+                isEdit && editValue.labelId === label.labelId
+                  ? editValue.labelColor
+                  : label.labelColor
+              )?.borderColor,
+              backgroundColor: getColor(
+                isEdit && editValue.labelId === label.labelId
+                  ? editValue.labelColor
+                  : label.labelColor
+              )?.fillColor
             }"
             class="w-4 h-4 rounded-full border-2 cursor-pointer pr-3 relative"
             @click="isEdit && clickColor(label.labelId)"></div>
@@ -22,10 +30,19 @@
           <input
             v-if="isEdit && editValue.labelId === label.labelId"
             v-model="editValue.labelName"
+            maxlength="10"
             placeholder="새로운 구분명을 입력"
-            class="w-full flex focus:outline-none" />
-          <p v-else>
+            class="w-full flex focus:outline-none"
+            ref="inputRef" />
+          <p
+            v-else
+            class="w-full">
             {{ label.labelName }}
+          </p>
+          <p
+            v-if="isEdit && editValue.labelId === label.labelId"
+            :class="['text-xs', { 'text-red-1': editValue.labelName.length > 10 }]">
+            {{ editValue.labelName.length }}/10
           </p>
         </div>
         <div class="flex gap-2 text-xs font-semibold">
@@ -67,16 +84,18 @@
 import { deleteLabelAdmin, patchLabelAdmin } from '@/api/admin'
 import type { LabelColorTypes, LabelDataTypes } from '@/types/common'
 import { getColor } from '@/utils/color'
-import { defineProps, ref } from 'vue'
-import ColorSelectModal from './ColorSelectModal.vue'
+import { defineProps, nextTick, ref } from 'vue'
 import ModalView from '../common/ModalView.vue'
+import ColorSelectModal from './ColorSelectModal.vue'
 
 const { labelData } = defineProps<{ labelData: LabelDataTypes[] }>()
 
+const inputRef = ref<HTMLInputElement | null>(null)
 const isModalVisible = ref(false)
 const isColorModalVisible = ref(false)
 const isEdit = ref(false)
 const selectedLabelId = ref<number | null>(null)
+const emit = defineEmits(['updateLabels'])
 
 const editValue = ref<LabelDataTypes>({
   labelName: '',
@@ -84,7 +103,14 @@ const editValue = ref<LabelDataTypes>({
   labelId: 0
 })
 
-const emit = defineEmits(['updateLabels'])
+const handleEdit = () => (isEdit.value = !isEdit.value)
+
+const startEdit = async (label: LabelDataTypes) => {
+  await nextTick()
+  handleEdit()
+  editValue.value = { ...label }
+  inputRef.value?.focus()
+}
 
 const handleDeleteModal = (labelId: number | null) => {
   isModalVisible.value = !isModalVisible.value
@@ -92,8 +118,6 @@ const handleDeleteModal = (labelId: number | null) => {
 }
 
 const handleColorModal = () => (isColorModalVisible.value = !isColorModalVisible.value)
-
-const handleEdit = () => (isEdit.value = !isEdit.value)
 
 const deleteLabel = async (labelId: number) => {
   await deleteLabelAdmin(labelId)
@@ -106,18 +130,15 @@ const clickColor = (labelId: number) => {
   selectedLabelId.value = labelId
 }
 
-const startEdit = (label: LabelDataTypes) => {
-  handleEdit()
-  editValue.value = label
-}
-
 const updateLabelColor = (color: LabelColorTypes) => {
   editValue.value.labelColor = color.colorEnum
 }
 
 const finishEdit = async () => {
-  handleEdit()
-  await patchLabelAdmin(editValue.value)
-  emit('updateLabels')
+  if (editValue.value.labelName !== '' && editValue.value.labelName.length <= 10) {
+    await patchLabelAdmin(editValue.value)
+    emit('updateLabels')
+    handleEdit()
+  }
 }
 </script>

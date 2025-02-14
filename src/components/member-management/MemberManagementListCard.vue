@@ -50,19 +50,19 @@
 </template>
 
 <script setup lang="ts">
+import { useErrorStore } from '@/stores/error'
+import { useMemberStore } from '@/stores/member'
 import type { MemberManagementListData } from '@/types/admin'
 import type { ListCardProps, Role } from '@/types/common'
 import { axiosInstance } from '@/utils/axios'
 import { formatDate } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import ModalView from '../common/ModalView.vue'
 import ResultModal from '../common/ResultModal.vue'
 import ListCardTab from '../lists/ListCardTab.vue'
-import ModalView from '../common/ModalView.vue'
-import { useMemberStore } from '@/stores/member'
-import { storeToRefs } from 'pinia'
-import { useErrorStore } from '@/stores/error'
 
 const roleContent = (role: Role) => {
   return role === 'ROLE_USER' ? '사용자' : role === 'ROLE_MANAGER' ? '담당자' : '관리자'
@@ -108,10 +108,16 @@ const closeModal = () => {
 }
 
 const onMemberDelete = async (memberId: number) => {
-  await axiosInstance.delete(`/api/managements/members`, { data: { memberId } })
-  resultModalType.value = 'successType'
-  message.value = '회원을 삭제했습니다'
-  toggleModal('result')
+  try {
+    await axiosInstance.delete(`/api/managements/members`, { data: { memberId } })
+    resultModalType.value = 'successType'
+    message.value = '회원을 삭제했습니다'
+    toggleModal('result')
+  } catch {
+    resultModalType.value = 'failType'
+    message.value = '회원의 잔여작업이 존재합니다'
+    toggleModal('result')
+  }
 }
 
 const onMemberInvite = async (memberId: number) => {

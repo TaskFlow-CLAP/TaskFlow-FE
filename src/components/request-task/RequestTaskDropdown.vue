@@ -21,7 +21,7 @@
       </div>
       <div
         v-if="dropdownOpen"
-        class="absolute w-full h-40 overflow-y-auto scrollbar-hide top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2">
+        class="absolute w-full max-h-40 overflow-y-auto scrollbar-hide top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2">
         <div
           v-for="option in options"
           :key="option"
@@ -36,10 +36,10 @@
 
 <script lang="ts" setup>
 import { dropdownIcon } from '@/constants/iconPath'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 import type { RequestTaskDropdownProps } from '@/types/user'
 import { ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
-import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 const { placeholderText, options, labelName, modelValue, isLabel, disabled, isInvalidate } =
   defineProps<RequestTaskDropdownProps>()

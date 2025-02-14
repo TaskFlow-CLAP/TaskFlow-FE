@@ -11,7 +11,7 @@
         :placeholder="placeHolderText"
         v-model="messageText"
         :disabled="!isPossible"
-        maxlength="254"
+        maxlength="200"
         @compositionstart="isComposing = true"
         @compositionend="isComposing = false"
         @keydown.enter.stop.prevent="handleEnterKey"></textarea>
@@ -36,7 +36,7 @@
       </button>
     </div>
     <p class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
-      ({{ inputLength }}/{{ 254 }})
+      ({{ inputLength }}/{{ 200 }})
     </p>
   </div>
   <ModalView
@@ -93,6 +93,7 @@ const placeHolderText = computed(() => {
 
 const sendMessage = async () => {
   if (!isPossible.value || !messageText.value.trim()) return
+  if (inputLength.value > 200) return
   await postComment(taskId, messageText.value)
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   messageText.value = ''
@@ -112,7 +113,6 @@ const handleFileUpload = async (event: Event) => {
   const target = event.target as HTMLInputElement
   const file = target.files?.[0]
   if (!file) return
-
   if (file.size > 5 * 1024 * 1024) {
     handleModal()
     target.value = ''
@@ -120,7 +120,13 @@ const handleFileUpload = async (event: Event) => {
   }
 
   const formData = new FormData()
-  formData.append('attachment', file)
+
+  const normalizedFileName = file.name.normalize('NFC')
+  const truncatedFileName = normalizedFileName.slice(0, 18)
+
+  const renamedFile = new File([file], truncatedFileName, { type: file.type })
+  formData.append('attachment', renamedFile)
+
   await postCommentAttachment(taskId, formData)
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   target.value = ''

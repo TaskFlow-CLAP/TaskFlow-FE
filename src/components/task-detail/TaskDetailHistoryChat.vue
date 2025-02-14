@@ -29,6 +29,7 @@
             isRequestor ? 'order-3 items-start' : 'order-1 items-end'
           ]">
           <div
+            ref="btnRef"
             v-if="history.details.commentDetails?.nickName === info.nickname"
             class="relative cursor-pointer h-full">
             <CommonIcons
@@ -63,6 +64,7 @@
 <script setup lang="ts">
 import { deleteComment } from '@/api/user'
 import { menuDotIcon } from '@/constants/iconPath'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailHistoryChatProps } from '@/types/common'
 import { formatTimeShort } from '@/utils/date'
@@ -95,6 +97,9 @@ const closeModal = () => {
   isClicked.value = !isClicked.value
   isModalOpen.value = false
 }
+const closeMenuDot = () => {
+  isClicked.value = false
+}
 
 const deleteCommentText = async () => {
   isClicked.value = !isClicked.value
@@ -104,4 +109,6 @@ const deleteCommentText = async () => {
   }
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
 }
+
+const { htmlRef: btnRef } = useOutsideClick(() => closeMenuDot())
 </script>

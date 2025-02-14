@@ -10,7 +10,10 @@
         class="flex w-full h-11 items-center rounded p-4 border border-border-1 bg-white cursor-pointer"
         @click="toggleDropdown()">
         <p>
-          {{ dePartments.find(department => department.departmentId === modelValue)?.name }}
+          {{
+            dePartments.find(department => department.departmentId === modelValue?.departmentId)
+              ?.name
+          }}
         </p>
         <CommonIcons
           :name="dropdownIcon"
@@ -22,9 +25,12 @@
         <div
           v-for="department in dePartments"
           :key="department.departmentId"
-          class="w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer"
+          class="w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer justify-between"
           @click="selectOption(department)">
-          {{ department.name }}
+          <p>{{ department.name }}</p>
+          <p :class="[department.isManager ? 'text-primary1' : 'text-body', 'text-xs']">
+            {{ department.isManager ? '담당자 권한 O' : '담당자 권한 X' }}
+          </p>
         </div>
       </div>
     </div>
@@ -41,7 +47,10 @@ import CommonIcons from '../common/CommonIcons.vue'
 const dePartments = ref<DepartmentType[]>([])
 const dropdownOpen = ref(false)
 const emit = defineEmits(['update:modelValue'])
-const { modelValue, isInvalidate } = defineProps<{ modelValue: number; isInvalidate: string }>()
+const { modelValue, isInvalidate } = defineProps<{
+  modelValue: DepartmentType | null
+  isInvalidate: string
+}>()
 const isInvalidateState = computed(() => isInvalidate)
 
 const toggleDropdown = () => {
@@ -49,11 +58,14 @@ const toggleDropdown = () => {
 }
 
 const selectOption = (option: DepartmentType) => {
-  emit('update:modelValue', option.departmentId)
+  emit('update:modelValue', option)
   dropdownOpen.value = false
 }
 
 onMounted(async () => {
   dePartments.value = await getDepartmentsAdmin()
+  if (dePartments.value.length > 0) {
+    emit('update:modelValue', dePartments.value[0])
+  }
 })
 </script>

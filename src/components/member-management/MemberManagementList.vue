@@ -7,7 +7,9 @@
     <template #listCards>
       <MemberManagementListCard
         v-for="info in data?.content"
-        :key="info.memberId"
+        :key="
+          info.memberId + info.name + info.departmentName + info.departmentRole + info.isReviewer
+        "
         :info="info" />
       <NoContent v-if="data?.content.length === 0" />
     </template>
@@ -22,18 +24,18 @@
 </template>
 
 <script setup lang="ts">
+import { useMemberStore } from '@/stores/member'
 import { useMemberManagementParamsStore } from '@/stores/params'
 import type { MemberManagementResponse } from '@/types/admin'
 import { axiosInstance } from '@/utils/axios'
 import { useQuery } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import ListContainer from '../lists/ListContainer.vue'
 import ListPagination from '../lists/ListPagination.vue'
 import NoContent from '../lists/NoContent.vue'
 import MemberManagementListBar from './MemberManagementListBar.vue'
 import MemberManagementListCard from './MemberManagementListCard.vue'
-import { useMemberStore } from '@/stores/member'
-import { storeToRefs } from 'pinia'
 
 const { params } = useMemberManagementParamsStore()
 const onPageChange = (value: number) => {

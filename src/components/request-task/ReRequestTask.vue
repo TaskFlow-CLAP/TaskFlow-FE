@@ -23,7 +23,7 @@
     <RequestTaskTextArea
       v-model="description"
       :is-invalidate="isInvalidate"
-      :placeholderText="'부가 정보를 입력해주세요'"
+      :placeholderText="'부가 설명을 입력해주세요'"
       :limit-length="200" />
     <RequestTaskFileInput
       v-model="file"

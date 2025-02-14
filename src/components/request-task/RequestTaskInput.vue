@@ -25,12 +25,12 @@
       :disabled="isEdit"
       @input="updateValue(($event.target as HTMLInputElement).value)"
       :placeholder="placeholderText"
-      :class="`${isEdit ? 'text-gray-500' : ''} ${isInvalidate ? 'border-red-1' : 'border-border-1'}`"
-      :maxlength="labelName === '제목' ? 30 : undefined" />
+      :class="`${isEdit ? 'text-gray-1' : ''} ${isInvalidate ? 'border-red-1' : 'border-border-1'}`"
+      :maxlength="limitLength" />
     <p
       v-if="limitLength"
       class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
-      ({{ inputLength }}/{{ limitLength }})
+      {{ inputLength }} / {{ limitLength }}
     </p>
   </div>
 </template>

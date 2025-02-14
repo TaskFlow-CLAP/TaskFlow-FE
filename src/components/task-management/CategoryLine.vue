@@ -41,7 +41,7 @@
       @click="handleDelete(selectedCategoryId)"
       @close="handleModal">
       <template #header>카테고리를 삭제 하시겠습니까?</template>
-      <template #body>삭제된 카테고리는 복구할 수 없습니다</template>
+      <template #body>카테고리와 관련된 2차 카테고리도 모두 삭제됩니다</template>
     </ModalView>
   </div>
 </template>
