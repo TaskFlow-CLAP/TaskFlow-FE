@@ -25,7 +25,7 @@
       :disabled="isEdit"
       @input="updateValue(($event.target as HTMLInputElement).value)"
       :placeholder="placeholderText"
-      :class="`${isEdit ? 'text-gray-500' : ''} ${isInvalidate ? 'border-red-1' : 'border-border-1'}`"
+      :class="`${isEdit ? 'text-gray-1' : ''} ${isInvalidate ? 'border-red-1' : 'border-border-1'}`"
       :maxlength="labelName === '제목' ? 30 : undefined" />
     <p
       v-if="limitLength"

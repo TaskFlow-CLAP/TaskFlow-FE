@@ -71,6 +71,9 @@ import DepartmentDropDown from './DepartmentDropDown.vue'
 
 const router = useRouter()
 
+const usernameRegex = /^[a-z]{3,10}\.[a-z]{1,5}$/
+const emailRegex = /^@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/
+
 const isModalVisible = ref(false)
 const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
 const isInvalidate = ref('')
@@ -85,9 +88,6 @@ const handleCancel = () => {
   isModalVisible.value = false
   router.back()
 }
-
-const usernameRegex = /^[a-z]{3,10}\.[a-z]{1,5}$/
-const emailRegex = /^@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/
 
 const handleSubmit = async () => {
   try {
