@@ -32,13 +32,13 @@
               <slot name="body"></slot>
             </div>
           </div>
-
           <textarea
             v-if="type == 'inputType' || type === 'terminate'"
             v-model="textValue"
             :placeholder="
               type === 'terminate' ? '종료 사유를 입력해주세요' : '반려 사유를 입력해주세요'
             "
+            :class="{ 'border border-red-1 placeholder-red-500': isEmpty }"
             class="flex border w-full border-border-1 px-4 py-3 focus:outline-none resize-none h-[120px]" />
         </div>
 
@@ -86,10 +86,11 @@ import { onUnmounted, ref, watch } from 'vue'
 import CommonIcons from './CommonIcons.vue'
 import LoadingIcon from './LoadingIcon.vue'
 
-const { isOpen, type, modelValue } = defineProps<{
+const { isOpen, type, modelValue, isEmpty } = defineProps<{
   isOpen: boolean
   type?: string
   modelValue?: string
+  isEmpty?: boolean
 }>()
 
 const emit = defineEmits<{
