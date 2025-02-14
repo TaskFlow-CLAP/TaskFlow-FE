@@ -77,6 +77,7 @@ const options = {
   },
   layout: {
     padding: {
+      top: title ? 0 : 8,
       left: 8,
       right: 8,
       bottom: 8
