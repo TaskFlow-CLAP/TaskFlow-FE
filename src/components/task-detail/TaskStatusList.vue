@@ -55,6 +55,7 @@ const isModalVisible = ref({
   fail: false,
   success: false
 })
+const backModal = ref(false)
 
 const emit = defineEmits(['update:status'])
 const queryClient = useQueryClient()
@@ -74,7 +75,7 @@ const toggleModal = (key: keyof typeof isModalVisible.value) => {
 
 const closeModal = () => {
   const prevSuccess = isModalVisible.value.success
-  isModalVisible.value = { reject: false, fail: false, success: false }
+  isModalVisible.value = { reject: backModal.value ? true : false, fail: false, success: false }
   if (prevSuccess) queryClient.invalidateQueries({ queryKey: ['requested'] })
 }
 
@@ -92,8 +93,11 @@ const rejectRequest = async () => {
   if (rejectReason.value.length === 0) {
     toggleModal('fail')
     modalError.value = '종료 사유를 입력해주세요'
+    backModal.value = true
     return
   }
+
+  backModal.value = false
   await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, { reason: rejectReason.value })
   toggleModal('success')
   emit('update:status', 'TERMINATED')
