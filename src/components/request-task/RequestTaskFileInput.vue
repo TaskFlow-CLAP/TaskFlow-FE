@@ -63,17 +63,14 @@ const handleModal = () => {
   isModalVisible.value = !isModalVisible.value
 }
 
-const truncateFilename = (name: string, maxLength: number) => {
-  return [...name].slice(0, maxLength).join('')
-}
-
 const handleFileUpload = (event: Event) => {
   const target = event.target as HTMLInputElement
   if (target.files && target.files.length > 0) {
     const newFiles = Array.from(target.files)
       .map(file => {
-        const truncatedName = truncateFilename(file.name, 35)
-        const newFile = new File([file], truncatedName, { type: file.type })
+        const normalizedFileName = file.name.normalize('NFC')
+        const newFileName = normalizedFileName.slice(0, 18)
+        const newFile = new File([file], newFileName, { type: file.type })
         return newFile.size <= 5 * 1024 * 1024 ? newFile : null
       })
       .filter(file => file !== null) as File[]
@@ -98,8 +95,9 @@ const handleDrop = (event: DragEvent) => {
   if (files && files.length > 0) {
     const newFiles = Array.from(files)
       .map(file => {
-        const truncatedName = truncateFilename(file.name, 35)
-        const newFile = new File([file], truncatedName, { type: file.type })
+        const normalizedFileName = file.name.normalize('NFC')
+        const newFileName = normalizedFileName.slice(0, 18)
+        const newFile = new File([file], newFileName, { type: file.type })
         return newFile.size <= 5 * 1024 * 1024 ? newFile : null
       })
       .filter(file => file !== null) as File[]
