@@ -55,10 +55,17 @@
       cancelText="취소"
       submitText="수정" />
     <ModalView
-      :isOpen="isModalVisible"
+      :isOpen="isModalVisible === 'success'"
       :type="'successType'"
       @close="handleCancel">
       <template #header>회원정보가 수정되었습니다</template>
+    </ModalView>
+    <ModalView
+      :isOpen="isModalVisible === 'leftover'"
+      :type="'failType'"
+      @close="() => (isModalVisible = '')">
+      <template #header>수정이 실패하였습니다</template>
+      <template #body>잔여 작업이 남아있어 수정이 불가합니다</template>
     </ModalView>
   </div>
 </template>
@@ -91,7 +98,7 @@ const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
 const isInvalidate = ref('')
 const userId = ref(route.query.id)
 const userData = ref<UserRegistrationProps | null>(null)
-const isModalVisible = ref(false)
+const isModalVisible = ref('')
 const isError = ref(false)
 
 const isManager = computed(() => userRegistrationForm.value.role === '담당자')
@@ -137,7 +144,7 @@ onMounted(async () => {
 
 const handleCancel = async () => {
   userRegistrationForm.value = { ...INITIAL_USER_REGISTRATION }
-  isModalVisible.value = false
+  isModalVisible.value = ''
   router.back()
 }
 
@@ -170,11 +177,13 @@ const handleSubmit = async () => {
       console.log(formData)
 
       await updateMemberAdmin(userId.value, formData)
-      isModalVisible.value = true
+      isModalVisible.value = 'success'
     }
   } catch (error) {
     if (error instanceof Error && error.message === 'MEMBER_DUPLICATED') {
       isInvalidate.value = 'duplicate'
+    } else if (error instanceof Error && error.message === 'TASK_LEFTOVER') {
+      isModalVisible.value = 'leftover'
     } else if (error instanceof Error && error.message === 'MEMBER_REVIEWER') {
       isInvalidate.value = 'reviewer'
     } else {
