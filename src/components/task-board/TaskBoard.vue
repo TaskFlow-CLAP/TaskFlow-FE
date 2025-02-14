@@ -1,24 +1,6 @@
 <template>
-  <div class="overflow-y-auto grow">
-    <div class="w-full grid grid-cols-3 gap-12 sticky top-0 bg-white z-30">
-      <div class="flex bg-primary2 rounded-t-lg">
-        <span class="text-xs font-semibold text-body p-4">
-          진행 중 {{ data?.tasksInProgress.length }}
-        </span>
-      </div>
-      <div class="flex bg-primary2 rounded-t-lg">
-        <span class="text-xs font-semibold text-body p-4">
-          검토 중 {{ data?.tasksInReviewing.length }}
-        </span>
-      </div>
-      <div class="flex bg-primary2 rounded-t-lg">
-        <span class="text-xs font-semibold text-body p-4">
-          완료 {{ data?.tasksCompleted.length }}
-        </span>
-      </div>
-    </div>
-
-    <div class="w-full grid grid-cols-3 gap-12 min-h-[calc(100%-48px)] overflow-hidden">
+  <div class="grow">
+    <div class="w-full h-full grid grid-cols-3 gap-12 overflow-hidden">
       <div class="grow shrink-0 px-4 pb-4 bg-primary2 rounded-b-lg relative">
         <div class="absolute top-0 left-0 px-4 w-full">
           <div
@@ -110,17 +92,15 @@
 </template>
 
 <script setup lang="ts">
-import { useParseParams } from '@/hooks/useParseParams'
-import { useMemberStore } from '@/stores/member'
-import { useTaskBoardParamsStore } from '@/stores/params'
 import type { Status } from '@/types/common'
 import type { DraggableEvent, TaskCardList } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
-import { useQuery, useQueryClient } from '@tanstack/vue-query'
-import { storeToRefs } from 'pinia'
+import { useQueryClient } from '@tanstack/vue-query'
 import { computed, ref } from 'vue'
 import draggableComponent from 'vuedraggable'
 import TaskCard from '../common/TaskCard.vue'
+
+const { data } = defineProps<{ data?: TaskCardList }>()
 
 const queryClient = useQueryClient()
 
@@ -138,9 +118,9 @@ const onListChange = async (event: DraggableEvent, status: Status) => {
   if (event.added) {
     const key = statusToKey(status)
     const targetIndex = event.added.newIndex
-    const prevTaskId = (data.value && data.value[key!][targetIndex - 1]?.taskId) || 0
+    const prevTaskId = (data && data[key!][targetIndex - 1]?.taskId) || 0
     const targetTaskId = event.added.element.taskId
-    const nextTaskId = (data.value && data.value[key!][targetIndex])?.taskId || 0
+    const nextTaskId = (data && data[key!][targetIndex])?.taskId || 0
     const body = {
       prevTaskId,
       targetTaskId,
@@ -155,11 +135,11 @@ const onListChange = async (event: DraggableEvent, status: Status) => {
     const targetTaskId = event.moved.element.taskId
     let [prevTaskId, nextTaskId] = [0, 0]
     if (oldIndex < newIndex) {
-      prevTaskId = (data.value && data.value[key!][newIndex]?.taskId) || 0
-      nextTaskId = (data.value && data.value[key!][newIndex + 1]?.taskId) || 0
+      prevTaskId = (data && data[key!][newIndex]?.taskId) || 0
+      nextTaskId = (data && data[key!][newIndex + 1]?.taskId) || 0
     } else {
-      prevTaskId = (data.value && data.value[key!][newIndex - 1]?.taskId) || 0
-      nextTaskId = (data.value && data.value[key!][newIndex]?.taskId) || 0
+      prevTaskId = (data && data[key!][newIndex - 1]?.taskId) || 0
+      nextTaskId = (data && data[key!][newIndex]?.taskId) || 0
     }
     const body = {
       prevTaskId,
@@ -171,24 +151,9 @@ const onListChange = async (event: DraggableEvent, status: Status) => {
   }
 }
 
-const { params } = useTaskBoardParamsStore()
-const fetchTaskBoard = async () => {
-  const { parseBoardParams } = useParseParams()
-  const parsedParams = parseBoardParams(params)
-  const response = await axiosInstance.get('/api/task-board', { params: parsedParams })
-  return response.data
-}
-const memberStore = useMemberStore()
-const { isLogined } = storeToRefs(memberStore)
-const { data } = useQuery<TaskCardList>({
-  queryKey: ['taskBoard', params],
-  queryFn: fetchTaskBoard,
-  enabled: isLogined
-})
-
-const tasksInProgress = computed(() => [...(data.value?.tasksInProgress || [])])
-const tasksInReviewing = computed(() => [...(data.value?.tasksInReviewing || [])])
-const tasksCompleted = computed(() => [...(data.value?.tasksCompleted || [])])
+const tasksInProgress = computed(() => [...(data?.tasksInProgress || [])])
+const tasksInReviewing = computed(() => [...(data?.tasksInReviewing || [])])
+const tasksCompleted = computed(() => [...(data?.tasksCompleted || [])])
 
 const isDetailOpen = ref(false)
 </script>

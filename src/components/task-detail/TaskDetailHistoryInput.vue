@@ -1,45 +1,44 @@
 <template>
-  <div
-    :class="[
-      'w-full flex gap-1 px-4 py-3 border border-border-1 items-end rounded',
-      { 'bg-background-2': !isPossible, 'bg-white': isPossible, 'border-red-1': inputLength > 200 }
-    ]">
-    <textarea
-      class="w-full h-20 focus:outline-none resize-none"
+  <div class="relative">
+    <div
       :class="[
-        { 'bg-white': isPossible, 'bg-background-2': !isPossible },
-        { 'border-red-1': inputLength > 200 }
-      ]"
-      :placeholder="placeHolderText"
-      v-model="messageText"
-      :disabled="!isPossible"
-      maxlength="200"
-      @compositionstart="isComposing = true"
-      @compositionend="isComposing = false"
-      @keydown.enter.stop.prevent="handleEnterKey"></textarea>
-    <input
-      class="hidden"
-      type="file"
-      id="file"
-      :disabled="!isPossible"
-      @change="handleFileUpload" />
-    <label
-      for="file"
-      class="cursor-pointer hover:bg-background-2 rounded p-1">
-      <CommonIcons :name="clipIcon" />
-    </label>
-    <button
-      type="button"
-      class="hover:bg-background-2 rounded p-1">
-      <CommonIcons
-        :name="sendIcon"
-        :style="{ fill: isSendable ? '#7879EB' : '#A1A1AA' }"
-        @click="sendMessage" />
-    </button>
+        'w-full flex gap-1 px-4 py-3 border border-border-1 items-end rounded',
+        { 'bg-background-2': !isPossible, 'bg-white': isPossible }
+      ]">
+      <textarea
+        class="w-full h-20 focus:outline-none resize-none"
+        :class="isPossible ? 'bg-white' : 'bg-background-2'"
+        :placeholder="placeHolderText"
+        v-model="messageText"
+        :disabled="!isPossible"
+        maxlength="200"
+        @compositionstart="isComposing = true"
+        @compositionend="isComposing = false"
+        @keydown.enter.stop.prevent="handleEnterKey"></textarea>
+      <input
+        class="hidden"
+        type="file"
+        id="file"
+        :disabled="!isPossible"
+        @change="handleFileUpload" />
+      <label
+        for="file"
+        class="cursor-pointer hover:bg-background-2 rounded p-1">
+        <CommonIcons :name="clipIcon" />
+      </label>
+      <button
+        type="button"
+        class="hover:bg-background-2 rounded p-1">
+        <CommonIcons
+          :name="sendIcon"
+          :style="{ fill: isSendable ? '#7879EB' : '#A1A1AA' }"
+          @click="sendMessage" />
+      </button>
+    </div>
+    <p class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
+      ({{ inputLength }}/{{ 254 }})
+    </p>
   </div>
-  <p :class="['w-full flex justify-end text-xs mt-1.5', { 'text-red-500': inputLength > 200 }]">
-    ({{ inputLength }}/{{ 200 }})
-  </p>
   <ModalView
     :is-open="isModalVisible"
     type="failType"

@@ -15,7 +15,10 @@
           :labels="mainLabels"
           :series="mainSeries"
           :period-type="periodType"
-          @on-click="changeMainCategory" />
+          @on-click="changeMainCategory"
+          :is-pending="isMainPending"
+          title="1차 카테고리"
+          no-legend />
       </div>
       <div class="w-1/2 px-1">
         <PieChart
@@ -23,7 +26,10 @@
           :labels="subLabels"
           :series="subSeries"
           :period-type="periodType"
-          :content="!mainCategory ? '1차 카테고리를 선택해주세요' : ''" />
+          :content="!mainCategory ? '1차 카테고리를\n선택해주세요' : ''"
+          :is-pending="isSubPending"
+          :title="mainCategory"
+          no-legend />
       </div>
     </div>
   </div>
@@ -43,6 +49,7 @@ import PieChart from '../charts/PieChart.vue'
 const periodType = ref<PeriodType>('DAY')
 const changePeriod = (newPeriodType: PeriodType) => {
   periodType.value = newPeriodType
+  mainCategory.value = ''
 }
 
 const mainCategory = ref('')
@@ -60,7 +67,7 @@ const fetchMainStatistics = async () => {
 }
 const memberStore = useMemberStore()
 const { isLogined } = storeToRefs(memberStore)
-const { data: mainData } = useQuery<StatisticsData[]>({
+const { data: mainData, isPending: isMainPending } = useQuery<StatisticsData[]>({
   queryKey: computed(() => ['REQUEST_BY_CATEGORY', periodType]),
   queryFn: fetchMainStatistics,
   enabled: isLogined
@@ -83,7 +90,7 @@ const fetchSubStatistics = async () => {
 
   return response.data
 }
-const { data: subData } = useQuery<StatisticsData[]>({
+const { data: subData, isPending: isSubPending } = useQuery<StatisticsData[]>({
   queryKey: computed(() => [mainCategory.value, periodType]),
   queryFn: fetchSubStatistics,
   enabled: computed(() => mainCategory.value !== '') && isLogined

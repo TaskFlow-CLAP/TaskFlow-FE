@@ -23,10 +23,18 @@ export const useMemberStore = defineStore('memberInfo', () => {
 
   const info = ref<User>(INITIAL_INFO)
   const isLogined = ref(false)
+  const isPendingUser = ref(false)
 
   async function updateMemberInfoWithToken() {
+    isPendingUser.value = false
     const token = Cookies.get('accessToken')
-    if (!token) return
+    const refreshToken = Cookies.get('refreshToken')
+    if (!token) {
+      return
+    } else if (!refreshToken) {
+      isPendingUser.value = true
+      return
+    }
 
     const { data }: { data: User } = await axiosInstance.get('/api/members/info')
     info.value = data
@@ -48,6 +56,7 @@ export const useMemberStore = defineStore('memberInfo', () => {
   return {
     info,
     isLogined,
+    isPendingUser,
     updateMemberInfoWithToken,
     logout,
     $reset

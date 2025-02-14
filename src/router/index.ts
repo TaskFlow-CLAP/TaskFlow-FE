@@ -2,6 +2,7 @@ import { PERMITTED_URL } from '@/constants/common'
 import { useErrorStore } from '@/stores/error'
 import { useMemberStore } from '@/stores/member'
 import { createRouter, createWebHistory } from 'vue-router'
+import Cookies from 'js-cookie'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -127,7 +128,10 @@ const router = createRouter({
       name: 'NotFound',
       component: () => import('../views/NotFoundView.vue')
     }
-  ]
+  ],
+  scrollBehavior() {
+    return { top: 0 }
+  }
 })
 
 router.beforeEach(async (to, from, next) => {
@@ -135,7 +139,7 @@ router.beforeEach(async (to, from, next) => {
   const { setError } = useErrorStore()
 
   await memberStore.updateMemberInfoWithToken()
-  const { info } = memberStore
+  const { info, isPendingUser } = memberStore
 
   const redirectMap = {
     ROLE_USER: '/my-request',
@@ -143,15 +147,33 @@ router.beforeEach(async (to, from, next) => {
     ROLE_ADMIN: '/member-management'
   }
 
-  if ((info.role && PERMITTED_URL.UNKNOWN.includes(to.path)) || (info.role && to.path === '/')) {
-    return next(redirectMap[info.role])
+  const permittedUrlMap = {
+    ROLE_USER: PERMITTED_URL.ROLE_USER,
+    ROLE_MANAGER: PERMITTED_URL.ROLE_MANAGER,
+    ROLE_ADMIN: PERMITTED_URL.ROLE_ADMIN
+  }
+
+  const isPathPermitted = (path: string, permittedPaths: string[]) => {
+    return permittedPaths.some(permittedPath => {
+      return path.startsWith(permittedPath)
+    })
+  }
+
+  if (isPendingUser) {
+    if (to.path === '/login' || to.path === '/pw-change') {
+      return next()
+    }
+    setError('권한이 없는 페이지입니다')
+    return next('/login')
   }
 
   if (!info.role) {
-    if (PERMITTED_URL.UNKNOWN.includes(to.path)) {
+    if (to.path === '/login') {
+      Cookies.remove('accessToken')
+      Cookies.remove('refreshToken')
       return next()
     }
-    if (to.path === '/login') {
+    if (PERMITTED_URL.UNKNOWN.includes(to.path)) {
       return next()
     }
     if (to.path === '/') {
@@ -161,22 +183,15 @@ router.beforeEach(async (to, from, next) => {
     return next('/login')
   }
 
-  const permittedUrlMap = {
-    ROLE_USER: PERMITTED_URL.ROLE_USER,
-    ROLE_MANAGER: PERMITTED_URL.ROLE_MANAGER,
-    ROLE_ADMIN: PERMITTED_URL.ROLE_ADMIN
-  }
-
-  if (from.path === redirectMap[info.role] && !permittedUrlMap[info.role].includes(to.path)) {
-    return false
-  }
-
-  if (!permittedUrlMap[info.role].includes(to.path)) {
-    if (to.path === redirectMap[info.role]) {
-      return next()
+  if (info.role) {
+    if (PERMITTED_URL.UNKNOWN.includes(to.path) || to.path === '/') {
+      return next(redirectMap[info.role])
     }
-    setError('권한이 없는 페이지입니다')
-    return next(redirectMap[info.role])
+
+    if (!isPathPermitted(to.path, permittedUrlMap[info.role])) {
+      setError('권한이 없는 페이지입니다')
+      return next(redirectMap[info.role])
+    }
   }
 
   return next()

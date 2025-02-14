@@ -14,14 +14,16 @@
         v-if="chartType === 'pie'"
         :labels="labels"
         :series="series"
-        :period-type="periodType" />
+        :period-type="periodType"
+        :is-pending="isPending" />
       <LineChart
         :key="JSON.stringify(labels) + periodType"
         v-if="chartType === 'line'"
         :labels="labels"
         :series="series"
         :data-label="title.slice(4)"
-        :period-type="periodType" />
+        :period-type="periodType"
+        :is-pending="isPending" />
     </div>
   </div>
 </template>
@@ -68,7 +70,7 @@ const fetchStatistics = async () => {
 
 const memberStore = useMemberStore()
 const { isLogined } = storeToRefs(memberStore)
-const { data } = useQuery<StatisticsData[]>({
+const { data, isPending } = useQuery<StatisticsData[]>({
   queryKey: computed(() => [statisticsType, periodType]),
   queryFn: fetchStatistics,
   enabled: isLogined

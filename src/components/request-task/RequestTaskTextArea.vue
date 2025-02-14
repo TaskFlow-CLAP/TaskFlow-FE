@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-1.5">
+  <div class="flex flex-col gap-1.5 relative">
     <div class="text-xs flex gap-x-1 text-red-1">
       <p class="text-body text-xs font-semibold">부가설명</p>
       <p v-if="isInvalidateState === 'description'">부가설명은 200자 이내로 적어주세요</p>
@@ -13,7 +13,7 @@
     </textarea>
     <p
       v-if="limitLength"
-      class="text-xs">
+      class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
       ({{ inputLength }}/{{ limitLength }})
     </p>
   </div>

@@ -11,6 +11,7 @@
         <CommonIcons :name="prevSetIcon" />
       </button>
       <button
+        v-if="pageNumber !== 1"
         @click="onPrevClick"
         class="rounded hover:bg-primary2">
         <CommonIcons :name="prevIcon" />
@@ -27,6 +28,7 @@
     </button>
     <div class="flex gap-1 absolute right-0 top-1/2 translate-x-[calc(100%+8px)] -translate-y-1/2">
       <button
+        v-if="pageNumber !== totalPage"
         @click="onNextClick"
         class="rounded hover:bg-primary2">
         <CommonIcons :name="nextIcon" />

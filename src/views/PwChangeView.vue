@@ -21,7 +21,11 @@
       <TitleContainer
         v-else
         :title="'비밀번호\n재설정'"
-        content="새로운 비밀번호를 입력해주세요" />
+        :content="
+          !firstVisit
+            ? '새로운 비밀번호를 입력해주세요\n보안을 위해 링크는 5분 후 만료됩니다'
+            : '새로운 비밀번호를 입력해주세요'
+        " />
     </div>
     <form
       v-if="!isConfirmed"
@@ -33,7 +37,8 @@
         v-model="pw"
         placeholder="비밀번호를 입력해주세요"
         required
-        class="input-box" />
+        class="input-box"
+        autocomplete="current-password" />
       <div class="flex flex-col gap-2">
         <button
           type="submit"
@@ -60,6 +65,7 @@
           placeholder="새 비밀번호를 입력해주세요"
           required
           ref="passwordInput"
+          autocomplete="new-password"
           :class="[
             'block w-full px-4 py-4 border rounded focus:outline-none',
             isInvalid ? 'border-red-1' : 'border-border-1'
@@ -78,6 +84,7 @@
           ref="checkPwInput"
           placeholder="새 비밀번호를 다시 입력해주세요"
           required
+          autocomplete="new-password"
           :class="[
             'block w-full px-4 py-4 border rounded focus:outline-none',
             isDifferent ? 'border-red-1' : 'border-border-1'
@@ -97,7 +104,7 @@
         <button
           type="button"
           class="flex justify-center text-xs font-semibold text-body hover:underline"
-          @click="router.replace('/edit-information')">
+          @click="goBack">
           취소
         </button>
       </div>
@@ -108,9 +115,10 @@
 <script setup lang="ts">
 import { patchPassword, postPasswordCheck } from '@/api/auth'
 import TitleContainer from '@/components/common/TitleContainer.vue'
-import { nextTick, ref } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 import ModalView from '@/components/common/ModalView.vue'
 import { useRouter } from 'vue-router'
+import Cookies from 'js-cookie'
 
 const isErrorVisible = ref(false)
 
@@ -119,6 +127,8 @@ const messageBody = ref('')
 
 const pw = ref('')
 const isConfirmed = ref(false)
+
+const firstVisit = ref(Cookies.get('accessToken') ? true : false)
 
 const handleCheck = async () => {
   await postPasswordCheck(pw.value)
@@ -133,6 +143,13 @@ const isInvalid = ref(false)
 const passwordInput = ref<HTMLInputElement | null>(null)
 const isModalVisible = ref(false)
 const router = useRouter()
+
+onMounted(() => {
+  const refreshToken = Cookies.get('refreshToken')
+  if (!refreshToken) {
+    isConfirmed.value = true
+  }
+})
 
 const validatePassword = () => {
   const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?/~`-]).{8,20}$/
@@ -165,9 +182,23 @@ const handleChange = async () => {
 
 const closeModal = () => {
   isModalVisible.value = !isModalVisible.value
-  router.replace('/edit-information')
+  if (Cookies.get('refreshToken')) {
+    router.replace('/edit-information')
+  } else {
+    Cookies.remove('accessToken')
+    router.replace('/login')
+  }
 }
 const closeError = () => {
   isErrorVisible.value = !isErrorVisible.value
+}
+
+const goBack = () => {
+  if (Cookies.get('refreshToken')) {
+    router.replace('/edit-information')
+  } else {
+    Cookies.remove('accessToken')
+    router.replace('/login')
+  }
 }
 </script>

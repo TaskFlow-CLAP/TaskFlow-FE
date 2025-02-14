@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col gap-y-6">
     <ModalView
-      :isOpen="isModalVisible"
+      :isOpen="isSuccessModalVisible"
       :type="'successType'"
-      @close="isModalVisible = !isModalVisible">
+      @close="isSuccessModalVisible = !isSuccessModalVisible">
       <template #header>정보가 수정되었습니다</template>
     </ModalView>
 
@@ -17,12 +17,12 @@
     </ModalView>
 
     <ModalView
-      :isOpen="isFailModalVisible"
-      :type="'failType'"
-      @click="failModalToggle"
-      @close="failModalToggle">
-      <template #header>{{ failHeader }}</template>
-      <template #body>{{ failBody }}</template>
+      :isOpen="isModalVisible"
+      :type="modalType"
+      @click="modalToggle"
+      @close="modalToggle">
+      <template #header>{{ modalHeader }}</template>
+      <template #body>{{ modalBody }}</template>
     </ModalView>
 
     <div class="profile">
@@ -65,21 +65,19 @@
           >{{ nameError }}</span
         >
       </div>
-      <div class="relative">
-        <input
-          :class="[
-            'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2',
-            isInvalid || isFull ? 'border-red-1' : 'border-border-1'
-          ]"
-          placeholder="이름을 입력해주세요"
-          v-model="name"
-          maxlength="10"
-          ref="nameInput"
-          @blur="validateName" />
-        <span class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
-          {{ name.length }} / 10
-        </span>
-      </div>
+      <input
+        :class="[
+          'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2',
+          isInvalid || isFull ? 'border-red-1' : 'border-border-1'
+        ]"
+        placeholder="이름을 입력해주세요"
+        v-model="name"
+        maxlength="10"
+        ref="nameInput"
+        @blur="validateName" />
+      <span class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
+        {{ name.length }} / 10
+      </span>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-semibold">아이디</p>
@@ -158,12 +156,14 @@ const isInvalid = ref(false)
 const isFull = ref(false)
 const nameInput = ref<HTMLInputElement | null>(null)
 
-const isModalVisible = ref(false)
+const isSuccessModalVisible = ref(false)
 const isWarnningModalVisible = ref(false)
-const isFailModalVisible = ref(false)
+const isModalVisible = ref(false)
 
-const failHeader = ref('')
-const failBody = ref('')
+const modalType = ref('')
+
+const modalHeader = ref('')
+const modalBody = ref('')
 
 const nameError = ref('')
 
@@ -219,8 +219,8 @@ const warningModalToggle = () => {
   isWarnningModalVisible.value = !isWarnningModalVisible.value
 }
 
-const failModalToggle = () => {
-  isFailModalVisible.value = !isFailModalVisible.value
+const modalToggle = () => {
+  isModalVisible.value = !isModalVisible.value
 }
 
 const handleFileUpload = (event: Event) => {
@@ -232,23 +232,26 @@ const handleFileUpload = (event: Event) => {
     const fileExtension = fileName.split('.').pop()
 
     if (!fileExtension || !ALLOWED_FILE_EXTENSIONS.includes(fileExtension)) {
-      failHeader.value = '지원하지 않는 파일입니다'
-      failBody.value = 'jpg, jpeg, png, gif, bmp 파일만 업로드 가능합니다'
-      failModalToggle()
+      modalHeader.value = '지원하지 않는 파일입니다'
+      modalBody.value = 'jpg, jpeg, png, gif, bmp 파일만 업로드 가능합니다'
+      modalType.value = 'failType'
+      modalToggle()
       return
     }
     if (!ALLOWED_FILE_EXTENSIONS_IMAGE.includes(file.type)) {
-      failHeader.value = '파일 타입을 확인해주세요'
-      failBody.value = '파일 타입과 확장자명이 일치해야합니다'
-      failModalToggle()
+      modalHeader.value = '파일 타입을 확인해주세요'
+      modalBody.value = '파일 타입과 확장자명이 일치해야합니다'
+      modalType.value = 'failType'
+      modalToggle()
       return
     }
 
     const newFiles = Array.from(target.files).filter(file => file.size <= 5 * 1024 * 1024)
     if (newFiles.length !== target.files.length) {
-      failHeader.value = '이미지 용량을 확인해주세요'
-      failBody.value = '이미지 용량은 5mb까지 가능합니다'
-      failModalToggle()
+      modalHeader.value = '이미지 용량을 확인해주세요'
+      modalBody.value = '이미지 용량은 5mb까지 가능합니다'
+      modalType.value = 'failType'
+      modalToggle()
       return
     }
 
@@ -265,6 +268,11 @@ const handleFileDelete = () => {
 }
 
 const handleSubmit = async () => {
+  modalHeader.value = '정보 수정 중 입니다...'
+  modalBody.value = '잠시만 기다려주세요'
+  modalType.value = 'loadingType'
+  isModalVisible.value = true
+
   if (isInvalid.value == false && isFull.value == false) {
     const formData = new FormData()
     const memberInfo = {
@@ -285,7 +293,8 @@ const handleSubmit = async () => {
     }
 
     await patchEditInfo(formData)
-    isModalVisible.value = true
+    isModalVisible.value = false
+    isSuccessModalVisible.value = true
     await memberStore.updateMemberInfoWithToken()
   }
 }
