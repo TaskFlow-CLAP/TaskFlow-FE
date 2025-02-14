@@ -5,10 +5,8 @@
         v-model="userRegistrationForm.name"
         :is-invalidate="isInvalidate"
         :placeholderText="'회원의 이름을 입력해주세요'"
+        :limit-length="10"
         :labelName="'이름'" />
-      <p class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
-        {{ userRegistrationForm.name.length }}/10
-      </p>
     </div>
     <RequestTaskInput
       v-model="userRegistrationForm.nickname"
