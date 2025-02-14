@@ -56,7 +56,6 @@ import { postLogin } from '@/api/auth'
 import ModalView from '@/components/common/ModalView.vue'
 import TitleContainer from '@/components/common/TitleContainer.vue'
 import { useMemberStore } from '@/stores/member'
-import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -76,49 +75,25 @@ const closeModal = () => {
 }
 
 const handleLogin = async () => {
-  try {
-    const name = id.value.toString()
-    const res = await postLogin(name, password.value)
-    const role = await memberStore.updateMemberInfoWithToken()
+  const name = id.value.toString()
+  const res = await postLogin(name, password.value)
+  const role = await memberStore.updateMemberInfoWithToken()
 
-    if (memberStore.isPendingUser) {
-      router.push('/pw-change')
-    } else if (res) {
-      switch (role) {
-        case 'ROLE_ADMIN':
-          router.push('/member-management')
-          break
-        case 'ROLE_MANAGER':
-          router.push('my-task')
-          break
-        case 'ROLE_USER':
-          router.push('/my-request')
-          break
-        default:
-          router.push('/')
-      }
-    }
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      switch (error.response?.status) {
-        case 401:
-          if (error.response?.data == 'AUTH_015') {
-            messageHeader.value = '정지된 계정입니다'
-            messageBody.value =
-              '로그인 시도 5회 초과로 계정이 정지되었습니다\n30분 후 다시 시도해주세요'
-          } else {
-            messageHeader.value = '일치하는 정보가 없습니다'
-            messageBody.value = '아이디와 비밀번호를 다시 확인해주세요'
-          }
-          isModalVisible.value = !isModalVisible.value
-          break
-
-        case 404:
-          isModalVisible.value = !isModalVisible.value
-          messageHeader.value = '활성화 되어있지 않은 계정입니다'
-          messageBody.value = '접근 상태를 다시 확인하여주세요'
-          break
-      }
+  if (memberStore.isPendingUser) {
+    router.push('/pw-change')
+  } else if (res) {
+    switch (role) {
+      case 'ROLE_ADMIN':
+        router.push('/member-management')
+        break
+      case 'ROLE_MANAGER':
+        router.push('my-task')
+        break
+      case 'ROLE_USER':
+        router.push('/my-request')
+        break
+      default:
+        router.push('/')
     }
   }
 }
