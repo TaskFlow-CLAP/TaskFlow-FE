@@ -4,7 +4,7 @@
     :data="teamData"
     :options="options" />
   <NoContent
-    v-else
+    v-else-if="!isPending && labels.length === 0"
     :content="`집계된 ${periodText[periodType]} 데이터가 없습니다`" />
 </template>
 
@@ -42,6 +42,7 @@ const { labels, series, dataLabel, periodType } = defineProps<{
   series: number[]
   dataLabel: string
   periodType: PeriodType
+  isPending?: boolean
 }>()
 
 const periodText = { DAY: '일간', WEEK: '주간', MONTH: '월간' }
@@ -80,6 +81,12 @@ const options = {
       },
       suggestedMax: Math.max(...series) + 1
     }
+  },
+  plugins: {
+    legend: {
+      display: false
+    },
+    tooltip: { enabled: true }
   }
 }
 </script>

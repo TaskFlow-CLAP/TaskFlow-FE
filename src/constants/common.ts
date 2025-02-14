@@ -40,7 +40,7 @@ export const COLOR_LIST = [
 ]
 
 export const PERMITTED_URL = {
-  UNKNOWN: ['/login', '/pw-change-email', '/pw-change'],
+  UNKNOWN: ['/login', '/pw-change-email'],
   ROLE_USER: ['/my-request', '/task-request', '/edit-information', '/pw-change'],
   ROLE_MANAGER: [
     '/my-task',

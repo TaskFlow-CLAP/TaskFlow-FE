@@ -14,12 +14,13 @@
         </div>
         <span class="text-xs font-semibold text-primary1">총 {{ teamSummary.totalTasks }}건</span>
       </div>
-      <div class="w-full h-[360px] rounded-lg bg-primary2 shadow-custom items-center p-6 gap-4">
+      <div class="w-full h-[360px] items-center gap-4">
         <PieChart
           :key="chartLabels.length || 0"
           :labels="chartLabels"
           :series="chartSeries"
-          content="진행 중인 작업이 없습니다" />
+          content="진행 중인 작업이 없습니다"
+          position="top" />
       </div>
     </div>
   </div>

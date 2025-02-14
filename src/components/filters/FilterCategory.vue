@@ -6,7 +6,7 @@
         ref="mainRef"
         class="filter-dropdown"
         @click="toggleDropdown('main')">
-        <span class="grow text-center">선택</span>
+        <span class="grow text-center">선택 ({{ (main as number[]).length }})</span>
         <CommonIcons
           :name="dropdownIcon"
           :style="{ fill: '#18181B' }" />
@@ -36,7 +36,7 @@
         class="filter-dropdown"
         :class="isDisabled ? 'bg-background-2 text-disabled' : ''"
         @click="!isDisabled && toggleDropdown('sub')">
-        <span class="grow text-center">선택</span>
+        <span class="grow text-center">선택 ({{ (sub as number[]).length }})</span>
         <CommonIcons
           :name="dropdownIcon"
           :style="{ fill: isDisabled ? '#A1A1AA' : '#18181B' }" />

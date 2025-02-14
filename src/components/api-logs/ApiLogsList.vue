@@ -9,6 +9,7 @@
         v-for="info in data?.content"
         :key="info.logId"
         :info="info" />
+      <NoContent v-if="data?.content.length === 0" />
     </template>
 
     <template #pagination>
@@ -32,6 +33,7 @@ import type { ApiLogsResponse } from '@/types/admin'
 import { computed } from 'vue'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
+import NoContent from '../lists/NoContent.vue'
 
 const { params } = useLogsParamsStore()
 const onPageChange = (value: number) => {

@@ -1,5 +1,5 @@
 <template>
-  <div class="list-card">
+  <div class="list-card !cursor-default">
     <ListCardTab
       v-for="tab in myRequestTabList"
       :key="tab.content"

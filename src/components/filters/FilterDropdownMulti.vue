@@ -8,7 +8,7 @@
       ref="htmlRef"
       class="filter-dropdown"
       @click="toggleDropdown">
-      <span class="grow text-center">선택</span>
+      <span class="grow text-center">선택 ({{ (value as string[]).length }})</span>
       <CommonIcons :name="dropdownIcon" />
       <ul
         @click.stop

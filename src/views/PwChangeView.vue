@@ -104,7 +104,7 @@
         <button
           type="button"
           class="flex justify-center text-xs font-semibold text-body hover:underline"
-          @click="router.replace('/edit-information')">
+          @click="goBack">
           취소
         </button>
       </div>
@@ -191,5 +191,14 @@ const closeModal = () => {
 }
 const closeError = () => {
   isErrorVisible.value = !isErrorVisible.value
+}
+
+const goBack = () => {
+  if (Cookies.get('refreshToken')) {
+    router.replace('/edit-information')
+  } else {
+    Cookies.remove('accessToken')
+    router.replace('/login')
+  }
 }
 </script>
