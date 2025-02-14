@@ -30,7 +30,7 @@ import type { PeriodType } from '@/types/manager'
 import NoContent from '../lists/NoContent.vue'
 ChartJS.register(Title, Tooltip, Legend, ArcElement, Colors)
 
-const { labels, series, periodType, content, isPending, noLegend, title } = defineProps<{
+const { labels, series, periodType, content, isPending, noLegend, title, position } = defineProps<{
   labels: string[]
   series: number[]
   periodType?: PeriodType
@@ -38,6 +38,7 @@ const { labels, series, periodType, content, isPending, noLegend, title } = defi
   isPending?: boolean
   noLegend?: boolean
   title?: string
+  position?: 'top'
 }>()
 const emit = defineEmits(['onClick'])
 
@@ -65,7 +66,7 @@ const options = {
   plugins: {
     legend: {
       display: noLegend === true ? false : true,
-      position: 'left' as const
+      position: position || ('left' as const)
     },
     tooltip: { enabled: true },
     title: {
