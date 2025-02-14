@@ -65,17 +65,21 @@
           >{{ nameError }}</span
         >
       </div>
-      <input
-        :class="[
-          'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2',
-          isInvalid || isFull ? 'border-red-1' : 'border-border-1'
-        ]"
-        placeholder="이름을 입력해주세요"
-        v-model="name"
-        maxlength="10"
-        ref="nameInput"
-        @blur="validateName" />
-      <span class="mt-1.5 text-xs text-gray-500"> {{ name.length }} / 10 </span>
+      <div class="relative">
+        <input
+          :class="[
+            'block w-full px-4 py-4 border rounded focus:outline-none h-11 mt-2',
+            isInvalid || isFull ? 'border-red-1' : 'border-border-1'
+          ]"
+          placeholder="이름을 입력해주세요"
+          v-model="name"
+          maxlength="10"
+          ref="nameInput"
+          @blur="validateName" />
+        <span class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
+          {{ name.length }} / 10
+        </span>
+      </div>
     </div>
     <div class="flex flex-col">
       <p class="text-body text-xs font-semibold">아이디</p>
