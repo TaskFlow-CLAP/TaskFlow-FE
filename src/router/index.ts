@@ -2,6 +2,7 @@ import { PERMITTED_URL } from '@/constants/common'
 import { useErrorStore } from '@/stores/error'
 import { useMemberStore } from '@/stores/member'
 import { createRouter, createWebHistory } from 'vue-router'
+import Cookies from 'js-cookie'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -135,33 +136,12 @@ router.beforeEach(async (to, from, next) => {
   const { setError } = useErrorStore()
 
   await memberStore.updateMemberInfoWithToken()
-  const { info } = memberStore
+  const { info, isPendingUser } = memberStore
 
   const redirectMap = {
     ROLE_USER: '/my-request',
     ROLE_MANAGER: '/my-task',
     ROLE_ADMIN: '/member-management'
-  }
-
-  if (
-    (info.role && PERMITTED_URL.UNKNOWN.includes(to.path) && to.path !== '/pw-change') ||
-    (info.role && to.path === '/')
-  ) {
-    return next(redirectMap[info.role])
-  }
-
-  if (!info.role) {
-    if (PERMITTED_URL.UNKNOWN.includes(to.path)) {
-      return next()
-    }
-    if (to.path === '/login') {
-      return next()
-    }
-    if (to.path === '/') {
-      return next('/login')
-    }
-    setError('로그인이 필요합니다')
-    return next('/login')
   }
 
   const permittedUrlMap = {
@@ -176,19 +156,39 @@ router.beforeEach(async (to, from, next) => {
     })
   }
 
-  if (
-    from.path === redirectMap[info.role] &&
-    !isPathPermitted(to.path, permittedUrlMap[info.role])
-  ) {
-    return false
-  }
-
-  if (!isPathPermitted(to.path, permittedUrlMap[info.role])) {
-    if (to.path === redirectMap[info.role]) {
+  if (isPendingUser) {
+    if (to.path === '/login' || to.path === '/pw-change') {
       return next()
     }
     setError('권한이 없는 페이지입니다')
-    return next(redirectMap[info.role])
+    return next('/login')
+  }
+
+  if (!info.role) {
+    if (to.path === '/login') {
+      Cookies.remove('accessToken')
+      Cookies.remove('refreshToken')
+      return next()
+    }
+    if (PERMITTED_URL.UNKNOWN.includes(to.path)) {
+      return next()
+    }
+    if (to.path === '/') {
+      return next('/login')
+    }
+    setError('로그인이 필요합니다')
+    return next('/login')
+  }
+
+  if (info.role) {
+    if (PERMITTED_URL.UNKNOWN.includes(to.path) || to.path === '/') {
+      return next(redirectMap[info.role])
+    }
+
+    if (!isPathPermitted(to.path, permittedUrlMap[info.role])) {
+      setError('권한이 없는 페이지입니다')
+      return next(redirectMap[info.role])
+    }
   }
 
   return next()

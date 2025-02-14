@@ -57,7 +57,6 @@ import ModalView from '@/components/common/ModalView.vue'
 import TitleContainer from '@/components/common/TitleContainer.vue'
 import { useMemberStore } from '@/stores/member'
 import axios from 'axios'
-import Cookies from 'js-cookie'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -82,7 +81,7 @@ const handleLogin = async () => {
     const res = await postLogin(name, password.value)
     const role = await memberStore.updateMemberInfoWithToken()
 
-    if (!Cookies.get('refreshToken')) {
+    if (memberStore.isPendingUser) {
       router.push('/pw-change')
     } else if (res) {
       switch (role) {

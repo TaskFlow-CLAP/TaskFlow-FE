@@ -72,6 +72,8 @@ const setInterceptors = (instance: AxiosInstance) => {
                 } catch {
                   setError('토큰 갱신에 실패하였습니다', '다시 로그인 해주세요', redirectToLogin)
                 }
+              } else {
+                setError('유효하지 않은 토큰입니다', '다시 로그인 해주세요', redirectToLogin)
               }
             }
             break
