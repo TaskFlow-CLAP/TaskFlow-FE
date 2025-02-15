@@ -67,6 +67,7 @@ import { getNotifiCount } from '@/api/common'
 import ImageContainer from '../common/ImageContainer.vue'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 import { useRouter } from 'vue-router'
+import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)
@@ -99,9 +100,10 @@ const toggleProfile = () => {
   isProfileVisible.value = !isProfileVisible.value
 }
 
+const { setIsOverlayOpen } = useIsOverlayOpenStore()
 const onCloseSide = () => {
   isSideOpen.value = false
-  document.body.style.overflow = ''
+  setIsOverlayOpen(false)
 }
 
 watch(
@@ -118,7 +120,7 @@ const { htmlRef: notifiRef } = useOutsideClick(() => isNotifiVisible.value && to
 const { htmlRef: profileRef } = useOutsideClick(() => isProfileVisible.value && toggleProfile())
 
 const onOpenSide = () => {
-  document.body.style.overflow = 'hidden'
+  setIsOverlayOpen(true)
   isSideOpen.value = !isSideOpen.value
 }
 </script>

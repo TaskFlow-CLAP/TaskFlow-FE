@@ -51,6 +51,7 @@ import TaskDetail from '../task-detail/TaskDetail.vue'
 import CommonIcons from './CommonIcons.vue'
 import ImageContainer from './ImageContainer.vue'
 import TaskLabel from './TaskLabel.vue'
+import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
 
 const { data } = defineProps<{ data: TaskCardProps; draggable?: boolean }>()
 const emit = defineEmits(['toggleModal'])
@@ -62,6 +63,7 @@ const borderLeft = computed(() => {
   return `border-${statusAsColor(data.taskStatus as Status)}-1`
 })
 
+const { setIsOverlayOpen } = useIsOverlayOpenStore()
 const handleModal = (id: number | null) => {
   if (!id) {
     queryClient.invalidateQueries({
@@ -70,7 +72,7 @@ const handleModal = (id: number | null) => {
     queryClient.invalidateQueries({
       queryKey: ['teamStatus', params]
     })
-    document.body.style.overflow = ''
+    setIsOverlayOpen(false)
   }
   emit('toggleModal')
   selectedID.value = id
