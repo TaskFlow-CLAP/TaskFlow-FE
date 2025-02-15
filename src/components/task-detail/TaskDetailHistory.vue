@@ -5,7 +5,6 @@
       :history="historyData"
       :taskId="taskId"
       :requestor-name="requestorName" />
-
     <div class="flex flex-col w-full items-center mt-8 gap-[22px]">
       <div
         class="flex w-full flex-col items-center gap-[22px]"
