@@ -35,14 +35,14 @@
     :is-open="isModalVisible.reject"
     @update:model-value="value => (rejectReason = value || '')"
     type="inputType"
-    @close="closeModal"
+    @close="closeAllModal"
     @click="rejectRequest">
     <template #header>반려 사유를 입력해주세요</template>
   </ModalView>
   <ModalView
     :is-open="isModalVisible.success"
     type="successType"
-    @close="closeModal">
+    @close="closeAllModal">
     <template #header>반려가 완료되었습니다</template>
   </ModalView>
   <ModalView
@@ -74,13 +74,6 @@ const requestedTabList: ListCardProps[] = [
   { content: info.title },
   { content: info.requesterName, width: 120, profileImg: info.requesterImg }
 ]
-
-const selectedID = ref<number | null>(null)
-
-const handleModal = (id: number | null) => {
-  selectedID.value = id
-}
-
 const router = useRouter()
 const queryClient = useQueryClient()
 
@@ -89,24 +82,38 @@ const isModalVisible = ref({
   fail: false,
   success: false
 })
+const backModal = ref(false)
 const modalError = ref('')
 const rejectReason = ref('')
+const selectedID = ref<number | null>(null)
+
+const handleModal = (id: number | null) => {
+  selectedID.value = id
+}
+
 const toggleModal = (key: keyof typeof isModalVisible.value) => {
   isModalVisible.value = Object.fromEntries(
     Object.keys(isModalVisible.value).map(k => [k, k === key])
   ) as typeof isModalVisible.value
 }
 const closeModal = () => {
+  isModalVisible.value = { reject: backModal.value ? true : false, fail: false, success: false }
+}
+
+const closeAllModal = () => {
   const prevSuccess = isModalVisible.value.success
   isModalVisible.value = { reject: false, fail: false, success: false }
   if (prevSuccess) queryClient.invalidateQueries({ queryKey: ['requested'] })
 }
+
 const rejectRequest = async () => {
   if (rejectReason.value.length === 0) {
     toggleModal('fail')
     modalError.value = '반려 사유를 입력해주세요'
+    backModal.value = true
     return
   }
+  backModal.value = false
   await axiosInstance.patch(`/api/tasks/${info.taskId}/terminate`, { reason: rejectReason.value })
   toggleModal('success')
 }
