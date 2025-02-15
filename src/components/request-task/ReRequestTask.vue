@@ -46,6 +46,12 @@
       <template #header>작업{{ statusText }}을 실패했습니다</template>
       <template #body>잠시후 시도해주세요</template>
     </ModalView>
+    <ModalView
+      :isOpen="isModalVisible === 'loading'"
+      type="loadingType">
+      <template #header>작업을 요청 중입니다...</template>
+      <template #body>잠시만 기다려주세요</template>
+    </ModalView>
   </div>
 </template>
 
@@ -139,11 +145,9 @@ const handleSubmit = async () => {
     return
   }
 
-  isSubmitting.value = true
-
   const formData = new FormData()
-
   isSubmitting.value = true
+  isModalVisible.value = 'loading'
 
   const attachmentsToDelete = initFileArr.value
     .filter(initFile => !file.value?.some(f => f.name === initFile.fileName))
@@ -176,13 +180,16 @@ const handleSubmit = async () => {
       formData.append('attachment', f)
     })
   }
-
-  if (reqType === 're') {
-    await postTaskRequest(formData)
-  } else {
-    await patchTaskRequest(id, formData)
+  try {
+    if (reqType === 're') {
+      await postTaskRequest(formData)
+    } else {
+      await patchTaskRequest(id, formData)
+    }
+    isModalVisible.value = 'success'
+  } finally {
+    isModalVisible.value = ''
+    isSubmitting.value = false
   }
-  isModalVisible.value = 'success'
-  isSubmitting.value = false
 }
 </script>
