@@ -41,6 +41,7 @@ import TaskDetailHistory from './TaskDetailHistory.vue'
 import TaskDetailLeft from './TaskDetailLeft.vue'
 import TaskDetailRight from './TaskDetailRight.vue'
 import TaskDetailTopBar from './TaskDetailTopBar.vue'
+import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
 
 const { closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
 
@@ -62,10 +63,11 @@ const { data: historyData } = useQuery<TaskDetailHistoryData>({
   enabled: isLogined
 })
 
+const { setIsOverlayOpen } = useIsOverlayOpenStore()
 onMounted(() => {
-  document.body.style.overflow = 'hidden'
+  setIsOverlayOpen(true)
 })
 onUnmounted(() => {
-  document.body.style.overflow = ''
+  setIsOverlayOpen(false)
 })
 </script>

@@ -81,10 +81,10 @@
 
 <script setup lang="ts">
 import { failIcon, successIcon, warningIcon } from '@/constants/iconPath'
-import { preventEnter } from '@/utils/preventEnter'
 import { onUnmounted, ref, watch } from 'vue'
 import CommonIcons from './CommonIcons.vue'
 import LoadingIcon from './LoadingIcon.vue'
+import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
 
 const { isOpen, type, modelValue } = defineProps<{
   isOpen: boolean
@@ -113,22 +113,20 @@ const confirmModal = () => {
   emit('click')
 }
 
+const { setIsOverlayOpen } = useIsOverlayOpenStore()
 watch(
   () => isOpen,
   () => {
     if (isOpen) {
       textValue.value = ''
-      document.body.style.overflow = 'hidden'
-      window.addEventListener('keydown', preventEnter)
+      setIsOverlayOpen(true)
     } else {
-      document.body.style.overflow = ''
-      window.removeEventListener('keydown', preventEnter)
+      setIsOverlayOpen(false)
     }
   }
 )
 
 onUnmounted(() => {
-  document.body.style.overflow = ''
-  window.removeEventListener('keydown', preventEnter)
+  setIsOverlayOpen(false)
 })
 </script>
