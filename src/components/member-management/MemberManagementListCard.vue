@@ -70,7 +70,7 @@ const roleContent = (role: Role) => {
 
 const { info } = defineProps<{ info: MemberManagementListData }>()
 const myRequestTabList: ListCardProps[] = [
-  { content: info.name, width: 60 },
+  { content: info.name, width: 80 },
   { content: info.nickname, width: 80 },
   { content: info.departmentName, width: 80 },
   { content: info.departmentRole, width: 80 },

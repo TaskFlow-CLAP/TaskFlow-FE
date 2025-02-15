@@ -1,7 +1,7 @@
 import type { CategoryForm, ListBarTabProps, Option } from '@/types/common'
 
 export const MEMBER_MANAGEMENT_LIST_BAR_TAB: ListBarTabProps[] = [
-  { content: '이름', width: 60 },
+  { content: '이름', width: 80 },
   { content: '아이디', width: 80 },
   { content: '부서', width: 80 },
   { content: '직무', width: 80 },
