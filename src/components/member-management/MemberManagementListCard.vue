@@ -21,16 +21,27 @@
         @click="toggleModal('delete')">
         삭제
       </button>
-      <button
-        type="button"
-        :class="
-          info.memberStatus !== 'ACTIVE'
-            ? 'button-medium-secondary'
-            : 'button-medium-disabled !cursor-default'
-        "
-        @click="info.memberStatus !== 'ACTIVE' && onMemberInvite(info.memberId)">
-        초대
-      </button>
+      <div class="relative">
+        <button
+          type="button"
+          :class="
+            info.memberStatus !== 'ACTIVE'
+              ? 'button-medium-secondary'
+              : 'button-medium-disabled !cursor-default'
+          "
+          @click="info.memberStatus !== 'ACTIVE' && onMemberInvite(info.memberId)"
+          @mouseenter="onButtonHover(true, info.memberStatus)"
+          @mouseleave="onButtonHover(false, info.memberStatus)"
+          @mousemove="onButtonMove(info.memberStatus, $event)">
+          초대
+        </button>
+        <span
+          v-if="isButtonHover"
+          class="absolute w-fit text-[10px] whitespace-nowrap right-0 bg-background-2 border border-border-1 px-2 py-0.5 rounded-full text-body font-semibold pointer-events-none"
+          :style="{ top: mouseY + 'px', left: mouseX + 'px' }">
+          이미 가입된 계정입니다
+        </span>
+      </div>
     </div>
   </div>
 
@@ -130,6 +141,27 @@ const onMemberInvite = async (memberId: number) => {
     resultModalType.value = 'failType'
     message.value = '초대 메일 발송에 실패했습니다'
     toggleModal('result')
+  }
+}
+
+const isButtonHover = ref(false)
+const onButtonHover = (isHover: boolean, memberStatus: string) => {
+  if (memberStatus === 'ACTIVE') {
+    if (isHover) isButtonHover.value = true
+    else isButtonHover.value = false
+  }
+}
+
+const mouseX = ref(0)
+const mouseY = ref(0)
+const onButtonMove = (memberStatus: string, event: MouseEvent) => {
+  if (isButtonHover.value && memberStatus === 'ACTIVE') {
+    const parent = (event.target as HTMLElement).closest('.relative')
+    if (!parent) return
+    const rect = parent.getBoundingClientRect()
+
+    mouseX.value = event.clientX - rect.left - 110
+    mouseY.value = event.clientY - rect.top - 21
   }
 }
 </script>
