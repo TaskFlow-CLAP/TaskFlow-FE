@@ -1,5 +1,7 @@
 <template>
-  <div class="fixed w-full bg-white py-2 border-b border-border-1 z-50">
+  <div
+    ref="topbarRef"
+    class="fixed w-full bg-white py-2 border-b border-border-1 z-50">
     <div class="max-w-[1200px] mx-auto px-6 flex w-full justify-between items-center relative">
       <div class="flex justify-center items-center gap-6 h-full">
         <button
@@ -100,10 +102,11 @@ const toggleProfile = () => {
   isProfileVisible.value = !isProfileVisible.value
 }
 
-const { setIsOverlayOpen } = useIsOverlayOpenStore()
+const isOverlayOpenStore = useIsOverlayOpenStore()
+const { isOverlayOpen, scrollbarWidth } = storeToRefs(isOverlayOpenStore)
 const onCloseSide = () => {
   isSideOpen.value = false
-  setIsOverlayOpen(false)
+  isOverlayOpenStore.setIsOverlayOpen(false)
 }
 
 watch(
@@ -120,7 +123,14 @@ const { htmlRef: notifiRef } = useOutsideClick(() => isNotifiVisible.value && to
 const { htmlRef: profileRef } = useOutsideClick(() => isProfileVisible.value && toggleProfile())
 
 const onOpenSide = () => {
-  setIsOverlayOpen(true)
+  isOverlayOpenStore.setIsOverlayOpen(true)
   isSideOpen.value = !isSideOpen.value
 }
+
+const topbarRef = ref<HTMLElement | null>(null)
+watch([isOverlayOpen, scrollbarWidth], ([isOverlayOpen, scrollbarWidth]) => {
+  if (topbarRef.value) {
+    topbarRef.value.style.paddingRight = isOverlayOpen ? `${scrollbarWidth}px` : '0px'
+  }
+})
 </script>

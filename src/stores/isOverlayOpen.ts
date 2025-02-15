@@ -23,5 +23,5 @@ export const useIsOverlayOpenStore = defineStore('isOverlayOpen', () => {
     }
   }
 
-  return { isOverlayOpen, setIsOverlayOpen }
+  return { isOverlayOpen, scrollbarWidth, setIsOverlayOpen }
 })
