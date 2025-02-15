@@ -79,8 +79,11 @@ const afterSubCategoryArr = ref<SubCategory[]>([])
 
 onMounted(async () => {
   mainCategoryArr.value = await getMainCategory()
+  console.log(mainCategoryArr.value)
+
   subCategoryArr.value = await getSubCategory()
   afterSubCategoryArr.value = await getSubCategory()
+  console.log(subCategoryArr.value)
 })
 
 watch(category1, async newValue => {
@@ -146,9 +149,14 @@ const handleSubmit = async () => {
   if (file.value && file.value.length > 0) {
     file.value.forEach(f => formData.append('attachment', f))
   }
-  await postTaskRequest(formData)
-  isModalVisible.value = 'success'
-  isSubmitting.value = false
-  isUploading.value = false
+
+  try {
+    await postTaskRequest(formData)
+    isModalVisible.value = 'success'
+  } finally {
+    isModalVisible.value = ''
+    isSubmitting.value = false
+    isUploading.value = false
+  }
 }
 </script>
