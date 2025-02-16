@@ -182,7 +182,6 @@ const handleSubmit = async () => {
   }
   try {
     if (reqType === 're') {
-      console.log(formData)
       await postTaskRequest(formData)
     } else {
       await patchTaskRequest(id, formData)
