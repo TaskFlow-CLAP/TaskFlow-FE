@@ -13,7 +13,7 @@
       <p class="text-xs text-body">{{ history.details.commentFileDetails?.nickName }}</p>
       <div :class="['flex gap-2', isRequestor ? 'flex-row' : 'flex-row-reverse']">
         <div
-          class="flex max-w-[400px] px-4 py-3 gap-4 items-center rounded-lg"
+          class="flex max-w-[400px] px-4 py-3 gap-3 items-center rounded-lg"
           :class="isRequestor ? 'bg-background-2' : 'bg-primary2'">
           <a
             class="w-10 h-10 flex items-center justify-center bg-white border border-border-2 rounded-lg shrink-0 hover:bg-primary2"
@@ -21,8 +21,8 @@
             download>
             <CommonIcons :name="fileIcon" />
           </a>
-          <div class="flex flex-col gap-2 flex-1 min-w-0">
-            <p class="font-normal w-full overflow-hidden whitespace-nowrap text-ellipsis">
+          <div class="flex flex-col gap-1 flex-1 min-w-0">
+            <p class="font-normal w-full overflow-hidden whitespace-nowrap text-ellipsis text-sm">
               {{ history.details.commentFileDetails?.fileName }}
             </p>
             <p class="text-xs font-semibold text-body">

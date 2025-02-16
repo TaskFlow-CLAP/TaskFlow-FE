@@ -27,6 +27,7 @@
       :limit-length="200" />
     <RequestTaskFileInput
       v-model="file"
+      :initFileArr="initFileArr"
       :isEdit="true" />
     <FormButtonContainer
       :handleCancel="handleCancel"
@@ -46,14 +47,26 @@
       <template #header>작업{{ statusText }}을 실패했습니다</template>
       <template #body>잠시후 시도해주세요</template>
     </ModalView>
+    <ModalView
+      :isOpen="isModalVisible === 'loading'"
+      type="loadingType">
+      <template #header>작업을 요청 중입니다...</template>
+      <template #body>잠시만 기다려주세요</template>
+    </ModalView>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { getMainCategory, getSubCategory } from '@/api/common'
-import { getTaskDetailUser, patchTaskRequest, postTaskRequest } from '@/api/user'
+import {
+  getSubCategoryDetail,
+  getTaskDetailUser,
+  patchTaskRequest,
+  postTaskRequest
+} from '@/api/user'
 import type { Category, SubCategory } from '@/types/common'
 import type { AttachmentResponse } from '@/types/user'
+import getPossibleCategory from '@/utils/possibleCategory'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
@@ -91,7 +104,12 @@ const handleCancel = () => {
 }
 
 onMounted(async () => {
-  mainCategoryArr.value = await getMainCategory()
+  const mainCategory = await getMainCategory()
+  const mainIds = await getPossibleCategory()
+  const filteredMainCategory = mainCategory.filter((category: Category) =>
+    mainIds.includes(category.mainCategoryId)
+  )
+  mainCategoryArr.value = filteredMainCategory
   subCategoryArr.value = await getSubCategory()
   afterSubCategoryArr.value = await getSubCategory()
   const data = await getTaskDetailUser(Number(id))
@@ -103,6 +121,7 @@ onMounted(async () => {
   )
   title.value = data.title
   description.value = data.description
+
   file.value = data.attachmentResponses.map((attachment: AttachmentResponse) => {
     return new File([attachment.fileUrl], attachment.fileName, { type: 'application/pdf' })
   })
@@ -118,6 +137,13 @@ watch(category1, async newValue => {
   afterSubCategoryArr.value = subCategoryArr.value.filter(
     subCategory => subCategory.mainCategoryId === newValue?.mainCategoryId
   )
+})
+
+watch(category2, async newVal => {
+  if (newVal) {
+    const res = await getSubCategoryDetail(newVal.subCategoryId)
+    description.value = res.descriptionExample
+  }
 })
 
 const handleSubmit = async () => {
@@ -140,11 +166,9 @@ const handleSubmit = async () => {
     return
   }
 
-  isSubmitting.value = true
-
   const formData = new FormData()
-
   isSubmitting.value = true
+  isModalVisible.value = 'loading'
 
   const attachmentsToDelete = initFileArr.value
     .filter(initFile => !file.value?.some(f => f.name === initFile.fileName))
@@ -161,7 +185,7 @@ const handleSubmit = async () => {
     attachmentsToDelete: attachmentsToDelete
   }
 
-  const jsonTaskInfo = JSON.stringify(taskInfoEdit)
+  const jsonTaskInfo = JSON.stringify(reqType === 'edit' ? taskInfoEdit : taskInfo)
   const newBlob = new Blob([jsonTaskInfo], { type: 'application/json' })
   formData.append('taskInfo', newBlob)
 
@@ -177,13 +201,16 @@ const handleSubmit = async () => {
       formData.append('attachment', f)
     })
   }
-
-  if (reqType === 're') {
-    await postTaskRequest(formData)
-  } else {
-    await patchTaskRequest(id, formData)
+  try {
+    if (reqType === 're') {
+      await postTaskRequest(formData)
+    } else {
+      await patchTaskRequest(id, formData)
+    }
+    isModalVisible.value = 'success'
+  } finally {
+    isSubmitting.value = false
+    if (isModalVisible.value !== 'success') isModalVisible.value = ''
   }
-  isModalVisible.value = 'success'
-  isSubmitting.value = false
 }
 </script>

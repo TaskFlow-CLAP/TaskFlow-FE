@@ -75,6 +75,7 @@ import CategoryDropDown from '../request-task/CategoryDropDown.vue'
 import DueDateInput from './DueDateInput.vue'
 import LabelDropdown from './LabelDropdown.vue'
 import ManagerDropdown from './ManagerDropdown.vue'
+import getPossibleCategory from '@/utils/possibleCategory'
 
 const isModalVisible = ref(false)
 const category1 = ref<Category | null>(null)
@@ -119,7 +120,12 @@ onMounted(async () => {
     setError('존재하지 않는 요청입니다', '', () => redirectToLogin('/requested'))
     return
   }
-  mainCategoryArr.value = await getMainCategory()
+  const mainCategory = await getMainCategory()
+  const mainIds = await getPossibleCategory()
+  const filteredMainCategory = mainCategory.filter((category: Category) =>
+    mainIds.includes(category.mainCategoryId)
+  )
+  mainCategoryArr.value = filteredMainCategory
   subCategoryArr.value = await getSubCategory()
   const data = await getTaskDetailUser(requestId)
   const selected = mainCategoryArr.value.find(ct => ct.name === data.mainCategoryName) || null

@@ -88,3 +88,8 @@ export const getSubCategoryDetail = async (categoryId: number) => {
   const response = await axiosInstance.get(`/api/sub-categories/${categoryId}`)
   return response.data
 }
+
+export const terminateTaskUser = async (taskId: number, reason: string) => {
+  const response = await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, { reason })
+  return response.data
+}

@@ -8,30 +8,16 @@
         :limit-length="10"
         :labelName="'이름'" />
     </div>
-    <RequestTaskInput
-      v-model="userRegistrationForm.nickname"
-      :placeholderText="'회원의 아이디를 입력해주세요'"
-      :isEdit="true"
-      :is-invalidate="
-        isInvalidate === 'nicknameEmpty'
-          ? 'empty'
-          : isInvalidate === 'wrongNickname'
-            ? isInvalidate
-            : ''
-      "
-      :labelName="'아이디'" />
+    <DisabledInput
+      :label-name="'아이디'"
+      :value="userRegistrationForm.nickname" />
     <div class="flex w-full gap-2">
-      <RequestTaskInput
-        v-model="userRegistrationForm.nickname"
-        :is-edit="true"
-        :placeholderText="'이메일은 아이디와 동일합니다'"
-        :labelName="'이메일'" />
-      <RequestTaskInput
-        v-model="userRegistrationForm.email"
-        :placeholderText="'@kakao.com'"
+      <DisabledInput
+        :label-name="'이메일'"
+        :value="userRegistrationForm.nickname" />
+      <DisabledInput
         :label-name="'도메인'"
-        :is-edit="true"
-        :is-not-required="false" />
+        :value="userRegistrationForm.email" />
     </div>
     <DepartmentDropDown
       v-model="userRegistrationForm.department"
@@ -83,6 +69,7 @@ import {
   RoleTypeMapping
 } from '@/constants/admin'
 import type { UserRegistrationProps } from '@/types/admin'
+import DOMPurify from 'dompurify'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
@@ -90,14 +77,11 @@ import FormCheckbox from '../common/FormCheckbox.vue'
 import ModalView from '../common/ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
+import DisabledInput from './\bDisabledInput.vue'
 import DepartmentDropDown from './DepartmentDropDown.vue'
-import DOMPurify from 'dompurify'
 
 const route = useRoute()
 const router = useRouter()
-
-const usernameRegex = /^[a-z]{3,10}\.[a-z]{1,5}$/
-const emailRegex = /^@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/
 
 const userRegistrationForm = ref(INITIAL_USER_REGISTRATION)
 const isInvalidate = ref('')
@@ -159,18 +143,6 @@ const handleSubmit = async () => {
       isInvalidate.value = 'nameEmpty'
       return
     }
-    if (!userRegistrationForm.value.nickname) {
-      isInvalidate.value = 'nicknameEmpty'
-      return
-    }
-    if (!usernameRegex.test(userRegistrationForm.value.nickname)) {
-      isInvalidate.value = 'wrongNickname'
-      return
-    }
-    if (!emailRegex.test(userRegistrationForm.value.email)) {
-      isInvalidate.value = 'wrongEmail'
-      return
-    }
     if (!userRegistrationForm.value.department?.departmentId) {
       isInvalidate.value = 'departmentEmpty'
       return
@@ -191,7 +163,6 @@ const handleSubmit = async () => {
         departmentId: userRegistrationForm.value.department.departmentId,
         departmentRole: userRegistrationForm.value.departmentRole
       }
-
       await updateMemberAdmin(userId.value, formData)
       isModalVisible.value = 'success'
     }

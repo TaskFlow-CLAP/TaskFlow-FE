@@ -75,9 +75,7 @@ const toggleModal = (key: keyof typeof isModalVisible.value) => {
 }
 
 const closeModal = () => {
-  const prevSuccess = isModalVisible.value.success
   isModalVisible.value = { reject: backModal.value ? true : false, fail: false, success: false }
-  if (prevSuccess) queryClient.invalidateQueries({ queryKey: ['requested'] })
 }
 
 const closeAllModal = () => {
@@ -103,7 +101,6 @@ const rejectRequest = async () => {
     backModal.value = true
     return
   }
-
   backModal.value = false
   await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, {
     reason: DOMPurify.sanitize(rejectReason.value)

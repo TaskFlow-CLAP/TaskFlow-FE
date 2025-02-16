@@ -39,6 +39,7 @@ export interface RequestTaskFileInputProps {
   files: File[] | null
   removeFile: (index: number) => void
   isEdit?: boolean
+  initFileArr?: AttachmentResponse[]
 }
 
 export interface RequestTaskTextAreaProps {

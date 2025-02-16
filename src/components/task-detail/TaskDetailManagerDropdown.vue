@@ -9,8 +9,8 @@
         <ImageContainer
           :url="modelValue?.imageUrl"
           :size="20" />
-        <p>
-          {{ modelValue?.nickname }}
+        <p :class="['text-sm', { 'text-disabled': !modelValue?.nickname }]">
+          {{ modelValue?.nickname || '담당자를 선택해주세요' }}
         </p>
       </div>
       <CommonIcons
@@ -25,7 +25,7 @@
         :key="option.memberId"
         class="request-task-dropdown-option justify-between"
         @click="selectOption(option)">
-        <div class="flex gap-2">
+        <div class="flex gap-2 items-center text-sm">
           <ImageContainer
             :url="option.imageUrl"
             :size="20" />
@@ -50,6 +50,7 @@ import ImageContainer from '../common/ImageContainer.vue'
 
 const { modelValue } = defineProps<{ modelValue: ManagerTypes; taskId: number }>()
 const emit = defineEmits(['update:modelValue'])
+console.log(modelValue,'현재 담당자' )
 
 const dropdownOpen = ref(false)
 const managerArr = ref<ManagerTypes[]>([])

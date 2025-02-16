@@ -103,8 +103,10 @@ const handleModal = () => {
   isModalVisible.value = !isModalVisible.value
 }
 
-const handleEnterKey = () => {
-  if (!isComposing.value) {
+const handleEnterKey = (event: KeyboardEvent) => {
+  if (event.shiftKey) {
+    messageText.value += '\n'
+  } else if (!isComposing.value) {
     sendMessage()
   }
 }
