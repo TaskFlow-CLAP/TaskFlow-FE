@@ -29,17 +29,7 @@
             "
             class="flex w-full gap-1 justify-center text-body text-sm">
             <p>{{ HistoryMessageBefore[item.taskHistoryType] }}</p>
-            <p
-              v-if="item.taskHistoryType === 'STATUS_SWITCHED'"
-              class="text-primary1">
-              {{ item.details.taskDetails?.value }}
-            </p>
-            <p
-              v-else-if="
-                item.taskHistoryType === 'PROCESSOR_CHANGED' ||
-                item.taskHistoryType === 'PROCESSOR_ASSIGNED'
-              "
-              class="text-primary1">
+            <p class="text-primary1">
               {{ item.details.taskDetails?.value }}
             </p>
             <p>{{ HistoryMessageAfter[item.taskHistoryType] }}</p>
