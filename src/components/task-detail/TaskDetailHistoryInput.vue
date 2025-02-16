@@ -95,8 +95,6 @@ const sendMessage = async () => {
   if (!isPossible.value || !messageText.value.trim()) return
   if (inputLength.value > 200) return
   await postComment(taskId, messageText.value)
-  console.log(messageText.value)
-
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   messageText.value = ''
 }

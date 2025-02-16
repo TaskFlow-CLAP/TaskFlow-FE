@@ -58,7 +58,12 @@
 
 <script lang="ts" setup>
 import { getMainCategory, getSubCategory } from '@/api/common'
-import { getSubCategoryDetail, getTaskDetailUser, patchTaskRequest, postTaskRequest } from '@/api/user'
+import {
+  getSubCategoryDetail,
+  getTaskDetailUser,
+  patchTaskRequest,
+  postTaskRequest
+} from '@/api/user'
 import type { Category, SubCategory } from '@/types/common'
 import type { AttachmentResponse } from '@/types/user'
 import getPossibleCategory from '@/utils/possibleCategory'
