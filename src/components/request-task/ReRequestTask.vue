@@ -164,7 +164,7 @@ const handleSubmit = async () => {
     attachmentsToDelete: attachmentsToDelete
   }
 
-  const jsonTaskInfo = JSON.stringify(taskInfoEdit)
+  const jsonTaskInfo = JSON.stringify(reqType === 'edit' ? taskInfoEdit : taskInfo)
   const newBlob = new Blob([jsonTaskInfo], { type: 'application/json' })
   formData.append('taskInfo', newBlob)
 
@@ -182,13 +182,13 @@ const handleSubmit = async () => {
   }
   try {
     if (reqType === 're') {
+      console.log(formData)
       await postTaskRequest(formData)
     } else {
       await patchTaskRequest(id, formData)
     }
     isModalVisible.value = 'success'
   } finally {
-    isModalVisible.value = ''
     isSubmitting.value = false
   }
 }
