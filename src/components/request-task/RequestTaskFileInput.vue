@@ -34,11 +34,17 @@
       </label>
     </div>
     <ModalView
-      :is-open="isModalVisible"
+      :is-open="isModalVisible === 'invalidate'"
       type="failType"
-      @close="handleModal">
+      @close="closeModal">
       <template #header>파일추가를 실패했습니다</template>
       <template #body>최대 5개, 각 5mb까지 가능합니다</template>
+    </ModalView>
+    <ModalView
+      :is-open="isModalVisible === 'duplicated'"
+      type="failType"
+      @close="closeModal">
+      <template #header>중복된 파일입니다</template>
     </ModalView>
   </div>
 </template>
@@ -60,10 +66,10 @@ const emit = defineEmits(['update:modelValue'])
 
 const hasFiles = computed(() => modelValue && modelValue.length > 0)
 const isDragging = ref(false)
-const isModalVisible = ref(false)
+const isModalVisible = ref('')
 
-const handleModal = () => {
-  isModalVisible.value = !isModalVisible.value
+const closeModal = () => {
+  isModalVisible.value = ''
 }
 
 const handleFileUpload = (event: Event) => {
@@ -79,12 +85,19 @@ const handleFileUpload = (event: Event) => {
       .filter(file => file !== null) as File[]
 
     if (newFiles.length !== target.files.length) {
-      handleModal()
+      isModalVisible.value = 'invalidate'
       return
     }
+
+    const existingFileNames = modelValue ? modelValue.map(file => file.name) : []
+    if (newFiles.some(file => existingFileNames.includes(file.name))) {
+      isModalVisible.value = 'duplicated'
+      return
+    }
+
     const updatedFiles = modelValue ? [...modelValue, ...newFiles] : newFiles
     if (updatedFiles.length > 5) {
-      handleModal()
+      isModalVisible.value = 'invalidate'
       return
     }
     emit('update:modelValue', updatedFiles.length === 1 ? [updatedFiles[0]] : updatedFiles)
@@ -104,13 +117,21 @@ const handleDrop = (event: DragEvent) => {
         return newFile.size <= 5 * 1024 * 1024 ? newFile : null
       })
       .filter(file => file !== null) as File[]
+
     if (newFiles.length !== files.length) {
-      handleModal()
+      isModalVisible.value = 'invalidate'
       return
     }
+
+    const existingFileNames = modelValue ? modelValue.map(file => file.name) : []
+    if (newFiles.some(file => existingFileNames.includes(file.name))) {
+      isModalVisible.value = 'duplicated'
+      return
+    }
+
     const updatedFiles = modelValue ? [...modelValue, ...newFiles] : newFiles
     if (updatedFiles.length > 5) {
-      handleModal()
+      isModalVisible.value = 'invalidate'
       return
     }
     emit('update:modelValue', updatedFiles.length === 1 ? [updatedFiles[0]] : updatedFiles)
