@@ -5,7 +5,7 @@
       <p class="text-red-1">*</p>
     </div>
     <div
-      class="w-full h-11 border px-4 border-border-1 rounded text-gray-1 bg-background-2 flex items-center">
+      class="w-full h-11 border px-4 border-border-1 rounded text-disabled bg-background-2 flex items-center">
       {{ value }}
     </div>
   </div>
