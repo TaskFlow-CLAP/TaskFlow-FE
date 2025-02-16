@@ -64,6 +64,7 @@ import { axiosInstance } from '@/utils/axios'
 import { getMainCategory } from '@/api/common'
 import type { Category, CategoryForm } from '@/types/common'
 import ModalView from '../common/ModalView.vue'
+import DOMPurify from 'dompurify'
 
 const router = useRouter()
 const route = useRoute()
@@ -111,10 +112,19 @@ const handleSubmit = async () => {
     return
   }
 
+  categoryForm.value.name = DOMPurify.sanitize(categoryForm.value.name)
+  categoryForm.value.code = DOMPurify.sanitize(categoryForm.value.code)
+  if (categoryForm.value.descriptionExample) {
+    categoryForm.value.descriptionExample = DOMPurify.sanitize(
+      categoryForm.value.descriptionExample
+    )
+  }
+
   const categoryId = route.params.id
   if (categoryId) {
+    const newForm: CategoryForm = { ...categoryForm.value, mainCategoryId: undefined }
     const patchUrl = `/api/managements/categories/${categoryId}`
-    await axiosInstance.patch(patchUrl, categoryForm.value)
+    await axiosInstance.patch(patchUrl, newForm)
   } else {
     const postUrl =
       categoryStep === '1' ? '/api/managements/main-category' : '/api/managements/sub-category'

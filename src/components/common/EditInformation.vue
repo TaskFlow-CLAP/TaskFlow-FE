@@ -139,6 +139,8 @@ import FormButtonContainer from './FormButtonContainer.vue'
 import FormCheckbox from './FormCheckbox.vue'
 import ImageContainer from './ImageContainer.vue'
 import ModalView from './ModalView.vue'
+import DOMPurify from 'dompurify'
+
 const router = useRouter()
 
 const memberStore = useMemberStore()
@@ -276,7 +278,7 @@ const handleSubmit = async () => {
   if (isInvalid.value == false && isFull.value == false) {
     const formData = new FormData()
     const memberInfo = {
-      name: name.value,
+      name: DOMPurify.sanitize(name.value),
       isProfileImageDeleted: imageDelete.value,
       emailNotification: emailCheck.value,
       kakaoWorkNotification: kakaoWorkCheck.value

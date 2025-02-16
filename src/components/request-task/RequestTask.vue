@@ -18,11 +18,11 @@
       v-model="title"
       :placeholderText="'제목을 입력해주세요'"
       :label-name="'제목'"
-      :is-invalidate="isInvalidate === 'input' ? 'input' : ''"
+      :is-invalidate="isInvalidate === 'empty' ? isInvalidate : ''"
       :limit-length="30" />
     <RequestTaskTextArea
       v-model="description"
-      :is-invalidate="isInvalidate"
+      :is-invalidate="isInvalidate === 'description' ? isInvalidate : ''"
       :placeholderText="'부가 설명을 입력해주세요'"
       :limit-length="200" />
     <RequestTaskFileInput
@@ -60,6 +60,7 @@ import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
+import DOMPurify from 'dompurify'
 
 const category1 = ref<Category | null>(null)
 const category2 = ref<SubCategory | null>(null)
@@ -119,7 +120,7 @@ const handleSubmit = async () => {
     isInvalidate.value = 'category2'
     return
   } else if (!title.value) {
-    isInvalidate.value = 'input'
+    isInvalidate.value = 'empty'
     return
   } else if (title.value.length > 30) {
     isInvalidate.value = 'title'
@@ -136,8 +137,8 @@ const handleSubmit = async () => {
   const formData = new FormData()
   const taskInfo = {
     categoryId: category2.value.subCategoryId,
-    title: title.value,
-    description: description.value
+    title: DOMPurify.sanitize(title.value),
+    description: DOMPurify.sanitize(description.value)
   }
   const jsonTaskInfo = JSON.stringify(taskInfo)
   const newBlob = new Blob([jsonTaskInfo], { type: 'application/json' })
