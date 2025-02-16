@@ -154,7 +154,7 @@ const handleSubmit = async () => {
     await postTaskRequest(formData)
     isModalVisible.value = 'success'
   } finally {
-    isModalVisible.value = ''
+    if (isModalVisible.value !== 'success') isModalVisible.value = ''
     isSubmitting.value = false
     isUploading.value = false
   }

@@ -190,6 +190,7 @@ const handleSubmit = async () => {
     isModalVisible.value = 'success'
   } finally {
     isSubmitting.value = false
+    if (isModalVisible.value !== 'success') isModalVisible.value = ''
   }
 }
 </script>
