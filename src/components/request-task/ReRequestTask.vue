@@ -60,6 +60,7 @@ import { getMainCategory, getSubCategory } from '@/api/common'
 import { getTaskDetailUser, patchTaskRequest, postTaskRequest } from '@/api/user'
 import type { Category, SubCategory } from '@/types/common'
 import type { AttachmentResponse } from '@/types/user'
+import getPossibleCategory from '@/utils/possibleCategory'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
@@ -96,7 +97,12 @@ const handleCancel = () => {
 }
 
 onMounted(async () => {
-  mainCategoryArr.value = await getMainCategory()
+  const mainCategory = await getMainCategory()
+  const mainIds = await getPossibleCategory()
+  const filteredMainCategory = mainCategory.filter((category: Category) =>
+    mainIds.includes(category.mainCategoryId)
+  )
+  mainCategoryArr.value = filteredMainCategory
   subCategoryArr.value = await getSubCategory()
   afterSubCategoryArr.value = await getSubCategory()
   const data = await getTaskDetailUser(Number(id))
