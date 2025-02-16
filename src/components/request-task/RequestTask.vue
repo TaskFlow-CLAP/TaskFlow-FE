@@ -60,6 +60,7 @@ import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
+import DOMPurify from 'dompurify'
 
 const category1 = ref<Category | null>(null)
 const category2 = ref<SubCategory | null>(null)
@@ -136,8 +137,8 @@ const handleSubmit = async () => {
   const formData = new FormData()
   const taskInfo = {
     categoryId: category2.value.subCategoryId,
-    title: title.value,
-    description: description.value
+    title: DOMPurify.sanitize(title.value),
+    description: DOMPurify.sanitize(description.value)
   }
   const jsonTaskInfo = JSON.stringify(taskInfo)
   const newBlob = new Blob([jsonTaskInfo], { type: 'application/json' })

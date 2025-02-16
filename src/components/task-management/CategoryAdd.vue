@@ -64,6 +64,7 @@ import { axiosInstance } from '@/utils/axios'
 import { getMainCategory } from '@/api/common'
 import type { Category, CategoryForm } from '@/types/common'
 import ModalView from '../common/ModalView.vue'
+import DOMPurify from 'dompurify'
 
 const router = useRouter()
 const route = useRoute()
@@ -109,6 +110,14 @@ const handleSubmit = async () => {
   } else if (categoryForm.value.code.length === 0) {
     errorMessage.value.categoryCode = 'noCode'
     return
+  }
+
+  categoryForm.value.name = DOMPurify.sanitize(categoryForm.value.name)
+  categoryForm.value.code = DOMPurify.sanitize(categoryForm.value.code)
+  if (categoryForm.value.descriptionExample) {
+    categoryForm.value.descriptionExample = DOMPurify.sanitize(
+      categoryForm.value.descriptionExample
+    )
   }
 
   const categoryId = route.params.id

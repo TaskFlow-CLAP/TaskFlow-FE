@@ -12,6 +12,7 @@
 
 <script setup lang="ts">
 import type { Filter } from '@/types/common'
+import DOMPurify from 'dompurify'
 
 const { title, width = '120' } = defineProps<Filter>()
 const emit = defineEmits(['update:value'])
@@ -19,7 +20,7 @@ const emit = defineEmits(['update:value'])
 const onValueChange = (event: Event) => {
   const target = event.target as HTMLInputElement
   setTimeout(() => {
-    emit('update:value', target.value)
+    emit('update:value', DOMPurify.sanitize(target.value))
   }, 500)
 }
 </script>

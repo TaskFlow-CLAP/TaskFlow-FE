@@ -77,6 +77,7 @@ import ModalView from '../common/ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
 import DepartmentDropDown from './DepartmentDropDown.vue'
+import DOMPurify from 'dompurify'
 
 const router = useRouter()
 
@@ -136,6 +137,14 @@ const handleSubmit = async () => {
       isInvalidate.value = 'departmentEmpty'
       return
     }
+
+    userRegistrationForm.value.name = DOMPurify.sanitize(userRegistrationForm.value.name)
+    userRegistrationForm.value.nickname = DOMPurify.sanitize(userRegistrationForm.value.nickname)
+    userRegistrationForm.value.email = DOMPurify.sanitize(userRegistrationForm.value.email)
+    userRegistrationForm.value.departmentRole = DOMPurify.sanitize(
+      userRegistrationForm.value.departmentRole
+    )
+
     const { department, ...restForm } = userRegistrationForm.value
     const formData = {
       ...restForm,

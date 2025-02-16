@@ -65,6 +65,7 @@ import { useRouter } from 'vue-router'
 import ModalView from '../common/ModalView.vue'
 import ListCardTab from '../lists/ListCardTab.vue'
 import TaskDetail from '../task-detail/TaskDetail.vue'
+import DOMPurify from 'dompurify'
 
 const { info } = defineProps<{ info: RequestedListData }>()
 const requestedTabList: ListCardProps[] = [
@@ -107,7 +108,9 @@ const rejectRequest = async () => {
     modalError.value = '반려 사유를 입력해주세요'
     return
   }
-  await axiosInstance.patch(`/api/tasks/${info.taskId}/terminate`, { reason: rejectReason.value })
+  await axiosInstance.patch(`/api/tasks/${info.taskId}/terminate`, {
+    reason: DOMPurify.sanitize(rejectReason.value)
+  })
   toggleModal('success')
 }
 
