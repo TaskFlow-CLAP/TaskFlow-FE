@@ -1,7 +1,7 @@
 import type { CategoryForm, ListBarTabProps, Option } from '@/types/common'
 
 export const MEMBER_MANAGEMENT_LIST_BAR_TAB: ListBarTabProps[] = [
-  { content: '이름', width: 60 },
+  { content: '이름', width: 80 },
   { content: '아이디', width: 80 },
   { content: '부서', width: 80 },
   { content: '직무', width: 80 },
@@ -37,8 +37,7 @@ import type { RoleTypes, RoleTypesEnum, UserRegistrationProps } from '@/types/ad
 
 export const CATEGORY_FORM: CategoryForm = {
   name: '',
-  code: '',
-  descriptionExample: ''
+  code: ''
 }
 
 export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {

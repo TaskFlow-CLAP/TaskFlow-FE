@@ -1,6 +1,7 @@
 import type { NewLabelTypes, UserRegistrationApiProps, UserUpdateValue } from '@/types/admin'
 import type { LabelDataTypes } from '@/types/common'
 import { axiosInstance, formDataAxiosInstance } from '@/utils/axios'
+import DOMPurify from 'dompurify'
 
 export const deleteLabelAdmin = async (id: number) => {
   const response = await axiosInstance.delete(`/api/managements/labels/${id}`)
@@ -14,7 +15,7 @@ export const postAddLabelAdmin = async (newLabel: NewLabelTypes) => {
 
 export const patchLabelAdmin = async (editLabel: LabelDataTypes) => {
   const response = await axiosInstance.patch(`/api/managements/labels/${editLabel.labelId}`, {
-    labelName: editLabel.labelName,
+    labelName: DOMPurify.sanitize(editLabel.labelName),
     labelColor: editLabel.labelColor
   })
   return response.data

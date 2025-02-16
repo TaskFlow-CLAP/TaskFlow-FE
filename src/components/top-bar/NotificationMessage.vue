@@ -28,8 +28,7 @@
       class="text-xs"
       v-else-if="type === 'STATUS_SWITCHED'">
       <span class="font-semibold text-primary1">"{{ title }}"</span> 작업이
-      <span class="font-semibold text-primary1">{{ statusAsText(message as Status) }}</span> 상태로
-      변경되었습니다
+      <span class="font-semibold text-primary1">{{ message }}</span> 상태로 변경되었습니다
     </div>
     <div
       class="text-xs"
@@ -45,9 +44,8 @@
 </template>
 
 <script setup lang="ts">
-import type { NotificationType, Status } from '@/types/common'
+import type { NotificationType } from '@/types/common'
 import { formatTimeAgo } from '@/utils/date'
-import { statusAsText } from '@/utils/statusAsText'
 
 const { type, title, message, isRead, createdAt } = defineProps<{
   type: NotificationType

@@ -4,6 +4,7 @@ import TheView from './layout/TheView.vue'
 </script>
 
 <template>
+  <div id="modal" />
   <TopBar />
   <TheView />
 </template>

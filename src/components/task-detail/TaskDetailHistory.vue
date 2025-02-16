@@ -38,11 +38,14 @@
             </p>
             <p>{{ HistoryMessageAfter[item.taskHistoryType] }}</p>
           </div>
+          <span
+            class="text-xs text-disabled text-center"
+            v-if="item.taskHistoryType === 'TASK_TERMINATED'">
+            사유 : {{ item.details.taskDetails?.value }}
+          </span>
           <div class="flex w-full flex-col items-center">
             <TaskDetailHistoryChat
-              v-if="
-                item.taskHistoryType === 'COMMENT' || item.taskHistoryType === 'TASK_TERMINATED'
-              "
+              v-if="item.taskHistoryType === 'COMMENT'"
               :history="item"
               :requestor-name="requestorName"
               :task-id="taskId" />

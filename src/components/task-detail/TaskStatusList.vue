@@ -45,6 +45,7 @@ import { statusAsColor } from '@/utils/statusAsColor'
 import { useQueryClient } from '@tanstack/vue-query'
 import { ref, watch } from 'vue'
 import ModalView from '../common/ModalView.vue'
+import DOMPurify from 'dompurify'
 
 const { modelValue, isProcessor, taskId } = defineProps<TaskStatusListProps>()
 const modalError = ref('')
@@ -101,7 +102,9 @@ const rejectRequest = async () => {
     return
   }
   backModal.value = false
-  await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, { reason: rejectReason.value })
+  await axiosInstance.patch(`/api/tasks/${taskId}/terminate`, {
+    reason: DOMPurify.sanitize(rejectReason.value)
+  })
   toggleModal('success')
   emit('update:status', 'TERMINATED')
   currentStatus.value = 'TERMINATED'

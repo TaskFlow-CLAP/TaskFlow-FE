@@ -11,7 +11,7 @@
         @click="toggleDropdown()">
         <p>
           {{
-            dePartments.find(department => department.departmentId === modelValue?.departmentId)
+            departments.find(department => department.departmentId === modelValue?.departmentId)
               ?.name
           }}
         </p>
@@ -23,7 +23,7 @@
         v-if="dropdownOpen"
         class="absolute w-full h-40 overflow-y-auto scrollbar-hide top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2">
         <div
-          v-for="department in dePartments"
+          v-for="department in departments"
           :key="department.departmentId"
           class="w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer justify-between"
           @click="selectOption(department)">
@@ -44,7 +44,7 @@ import type { DepartmentType } from '@/types/admin'
 import { computed, onMounted, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const dePartments = ref<DepartmentType[]>([])
+const departments = ref<DepartmentType[]>([])
 const dropdownOpen = ref(false)
 const emit = defineEmits(['update:modelValue'])
 const { modelValue, isInvalidate } = defineProps<{
@@ -63,9 +63,9 @@ const selectOption = (option: DepartmentType) => {
 }
 
 onMounted(async () => {
-  dePartments.value = await getDepartmentsAdmin()
-  if (dePartments.value.length > 0) {
-    emit('update:modelValue', dePartments.value[0])
+  departments.value = await getDepartmentsAdmin()
+  if (departments.value.length > 0) {
+    emit('update:modelValue', departments.value[0])
   }
 })
 </script>

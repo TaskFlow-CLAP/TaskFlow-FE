@@ -3,14 +3,20 @@
     <div class="relative">
       <RequestTaskInput
         v-model="userRegistrationForm.name"
-        :is-invalidate="isInvalidate"
+        :is-invalidate="isInvalidate === 'nameEmpty' ? 'empty' : ''"
         :placeholderText="'회원의 이름을 입력해주세요'"
         :limit-length="10"
         :labelName="'이름'" />
     </div>
     <RequestTaskInput
       v-model="userRegistrationForm.nickname"
-      :is-invalidate="isInvalidate"
+      :is-invalidate="
+        isInvalidate === 'nicknameEmpty'
+          ? 'empty'
+          : isInvalidate === 'wrongNickname'
+            ? isInvalidate
+            : ''
+      "
       :placeholderText="'회원의 아이디를 입력해주세요'"
       :labelName="'아이디'" />
     <div class="flex w-full gap-2">
@@ -23,12 +29,12 @@
         v-model="userRegistrationForm.email"
         :placeholderText="'@kakaocorp.com'"
         :label-name="'도메인'"
-        :is-invalidate="isInvalidate"
+        :is-invalidate="isInvalidate === 'wrongEmail' ? isInvalidate : ''"
         :is-not-required="false" />
     </div>
     <DepartmentDropDown
       v-model="userRegistrationForm.department"
-      :is-invalidate="isInvalidate" />
+      :is-invalidate="isInvalidate === 'departmentEmpty' ? isInvalidate : ''" />
     <RequestTaskDropdown
       v-model="userRegistrationForm.role"
       :options="filteredRoleKeys"
@@ -71,6 +77,7 @@ import ModalView from '../common/ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
 import DepartmentDropDown from './DepartmentDropDown.vue'
+import DOMPurify from 'dompurify'
 
 const router = useRouter()
 
@@ -114,6 +121,10 @@ const handleSubmit = async () => {
       isInvalidate.value = 'nameEmpty'
       return
     }
+    if (!userRegistrationForm.value.nickname) {
+      isInvalidate.value = 'nicknameEmpty'
+      return
+    }
     if (!usernameRegex.test(userRegistrationForm.value.nickname)) {
       isInvalidate.value = 'wrongNickname'
       return
@@ -123,9 +134,17 @@ const handleSubmit = async () => {
       return
     }
     if (!userRegistrationForm.value.department?.departmentId) {
-      isInvalidate.value = 'depertmentEmpty'
+      isInvalidate.value = 'departmentEmpty'
       return
     }
+
+    userRegistrationForm.value.name = DOMPurify.sanitize(userRegistrationForm.value.name)
+    userRegistrationForm.value.nickname = DOMPurify.sanitize(userRegistrationForm.value.nickname)
+    userRegistrationForm.value.email = DOMPurify.sanitize(userRegistrationForm.value.email)
+    userRegistrationForm.value.departmentRole = DOMPurify.sanitize(
+      userRegistrationForm.value.departmentRole
+    )
+
     const { department, ...restForm } = userRegistrationForm.value
     const formData = {
       ...restForm,

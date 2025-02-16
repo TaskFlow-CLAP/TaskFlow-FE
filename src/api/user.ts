@@ -1,6 +1,7 @@
 import type { Status } from '@/types/common'
 import type { RequestApprovePostTypes } from '@/types/manager'
 import { axiosInstance, formDataAxiosInstance } from '@/utils/axios'
+import DOMPurify from 'dompurify'
 
 export const postTaskRequest = async (formdata: FormData) => {
   const response = await formDataAxiosInstance.post('/api/tasks', formdata)
@@ -54,7 +55,9 @@ export const getHistory = async (taskID: number | null) => {
 }
 
 export const postComment = async (taskID: number, content: string) => {
-  const response = await axiosInstance.post(`/api/tasks/${taskID}/comments`, { content })
+  const response = await axiosInstance.post(`/api/tasks/${taskID}/comments`, {
+    content: DOMPurify.sanitize(content)
+  })
   return response.data
 }
 
@@ -63,11 +66,6 @@ export const postCommentAttachment = async (taskID: number, formdata: FormData) 
     `/api/tasks/${taskID}/comments/attachment`,
     formdata
   )
-  return response.data
-}
-
-export const patchComment = async (commentId: number, content: string) => {
-  const response = await axiosInstance.patch(`/api/comments/${commentId}`, { content })
   return response.data
 }
 

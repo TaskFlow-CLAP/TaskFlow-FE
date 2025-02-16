@@ -3,10 +3,7 @@
     <div class="text-xs flex gap-x-1 mb-2 text-red-1">
       <p class="text-body font-semibold">{{ labelName }}</p>
       <p v-if="!isNotRequired">*</p>
-      <p v-if="isInvalidateState === 'input'">{{ labelName }}을 입력해주세요</p>
-      <p v-if="isInvalidateState === 'nameEmpty' && labelName === '이름'">
-        {{ labelName }}을 입력해주세요
-      </p>
+      <p v-if="isInvalidateState === 'empty'">{{ labelName }}을 입력해주세요</p>
       <p v-if="isInvalidateState === 'duplicate'">회원아이디가 중복되었습니다</p>
       <p v-if="isInvalidateState === 'title'">제목은 30자 이내로 적어주세요</p>
       <p v-if="isInvalidateState === 'noCode'">작업코드를 입력해주세요</p>
