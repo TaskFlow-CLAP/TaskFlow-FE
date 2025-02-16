@@ -21,7 +21,13 @@
             class="text-xs font-semibold text-body">
             {{ formatTimeShort(item.time) }}
           </div>
-          <div class="flex w-full gap-1 justify-center text-body text-sm">
+          <div
+            v-if="
+              item.taskHistoryType === 'STATUS_SWITCHED' ||
+              item.taskHistoryType === 'PROCESSOR_CHANGED' ||
+              item.taskHistoryType === 'PROCESSOR_ASSIGNED'
+            "
+            class="flex w-full gap-1 justify-center text-body text-sm">
             <p>{{ HistoryMessageBefore[item.taskHistoryType] }}</p>
             <p
               v-if="item.taskHistoryType === 'STATUS_SWITCHED'"
