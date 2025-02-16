@@ -37,8 +37,7 @@ import type { RoleTypes, RoleTypesEnum, UserRegistrationProps } from '@/types/ad
 
 export const CATEGORY_FORM: CategoryForm = {
   name: '',
-  code: '',
-  descriptionExample: ''
+  code: ''
 }
 
 export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {
