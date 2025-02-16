@@ -58,7 +58,7 @@
 
 <script lang="ts" setup>
 import { getMainCategory, getSubCategory } from '@/api/common'
-import { getTaskDetailUser, patchTaskRequest, postTaskRequest } from '@/api/user'
+import { getSubCategoryDetail, getTaskDetailUser, patchTaskRequest, postTaskRequest } from '@/api/user'
 import type { Category, SubCategory } from '@/types/common'
 import type { AttachmentResponse } from '@/types/user'
 import getPossibleCategory from '@/utils/possibleCategory'
@@ -131,6 +131,13 @@ watch(category1, async newValue => {
   afterSubCategoryArr.value = subCategoryArr.value.filter(
     subCategory => subCategory.mainCategoryId === newValue?.mainCategoryId
   )
+})
+
+watch(category2, async newVal => {
+  if (newVal) {
+    const res = await getSubCategoryDetail(newVal.subCategoryId)
+    description.value = res.descriptionExample
+  }
 })
 
 const handleSubmit = async () => {
