@@ -95,6 +95,8 @@ const sendMessage = async () => {
   if (!isPossible.value || !messageText.value.trim()) return
   if (inputLength.value > 200) return
   await postComment(taskId, messageText.value)
+  console.log(messageText.value)
+
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
   messageText.value = ''
 }
@@ -103,8 +105,10 @@ const handleModal = () => {
   isModalVisible.value = !isModalVisible.value
 }
 
-const handleEnterKey = () => {
-  if (!isComposing.value) {
+const handleEnterKey = (event: KeyboardEvent) => {
+  if (event.shiftKey) {
+    messageText.value += '\n'
+  } else if (!isComposing.value) {
     sendMessage()
   }
 }

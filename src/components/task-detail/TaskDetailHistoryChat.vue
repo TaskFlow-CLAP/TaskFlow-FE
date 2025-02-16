@@ -18,7 +18,7 @@
       <div :class="['flex gap-2', isRequestor ? 'flex-row' : 'flex-row-reverse']">
         <p
           :class="[
-            'flex max-w-[400px] flex-wrap break-all px-4 py-3 text-base rounded-lg font-normal',
+            'flex max-w-[400px] flex-wrap break-all whitespace-pre-wrap px-4 py-3 text-base rounded-lg font-normal',
             isRequestor ? 'bg-background-2' : 'bg-primary2'
           ]">
           {{ history.details.commentDetails?.comment || history.details.taskDetails?.value }}
