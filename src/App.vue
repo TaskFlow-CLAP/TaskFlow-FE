@@ -6,4 +6,5 @@ import TheView from './layout/TheView.vue'
 <template>
   <TopBar />
   <TheView />
+  <div id="modal" />
 </template>
