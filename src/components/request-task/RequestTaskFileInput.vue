@@ -11,7 +11,8 @@
       <RequestTaskFileInputAfter
         :files="modelValue"
         :isEdit
-        :removeFile="removeFile" />
+        :removeFile="removeFile"
+        :initFileArr="initFileArr" />
     </label>
     <div
       v-else
@@ -45,13 +46,15 @@
 <script lang="ts" setup>
 import CommonIcons from '@/components/common/CommonIcons.vue'
 import { uploadIcon } from '@/constants/iconPath'
+import type { AttachmentResponse } from '@/types/user'
 import { computed, ref } from 'vue'
 import ModalView from '../common/ModalView.vue'
 import RequestTaskFileInputAfter from './RequestTaskFileInputAfter.vue'
 
-const { modelValue } = defineProps<{
+const { modelValue, isEdit, initFileArr } = defineProps<{
   modelValue: File[] | null
   isEdit?: boolean
+  initFileArr?: AttachmentResponse[]
 }>()
 const emit = defineEmits(['update:modelValue'])
 

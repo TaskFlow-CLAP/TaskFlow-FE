@@ -27,6 +27,7 @@
       :limit-length="200" />
     <RequestTaskFileInput
       v-model="file"
+      :initFileArr="initFileArr"
       :isEdit="true" />
     <FormButtonContainer
       :handleCancel="handleCancel"
@@ -114,6 +115,7 @@ onMounted(async () => {
   )
   title.value = data.title
   description.value = data.description
+
   file.value = data.attachmentResponses.map((attachment: AttachmentResponse) => {
     return new File([attachment.fileUrl], attachment.fileName, { type: 'application/pdf' })
   })

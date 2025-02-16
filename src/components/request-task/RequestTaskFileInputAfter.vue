@@ -19,7 +19,9 @@
           class="flex w-full justify-between items-center h-8 text-xs border-b border-b-border-2 px-4 shrink-0">
           <p class="flex truncate mr-3">{{ file.name }}</p>
           <div class="flex gap-6">
-            <p class="w-[60px]">{{ isEdit ? file.size : formatFileSize(file.size) }}</p>
+            <p class="w-[60px]">
+              {{ isEdit ? getFileSizeByName(file.name, file.size) : formatFileSize(file.size) }}
+            </p>
             <p class="w-36">{{ new Date().toLocaleString() }}</p>
             <div class="w-10 flex items-center justify-center cursor-pointer">
               <CommonIcons
@@ -47,5 +49,10 @@ import type { RequestTaskFileInputProps } from '@/types/user'
 import { formatFileSize } from '@/utils/unit'
 import CommonIcons from '../common/CommonIcons.vue'
 
-const { files, removeFile, isEdit } = defineProps<RequestTaskFileInputProps>()
+const { files, removeFile, isEdit, initFileArr } = defineProps<RequestTaskFileInputProps>()
+
+const getFileSizeByName = (fileName: string, size: number): string | number => {
+  const file = initFileArr?.find(file => file.fileName === fileName)
+  return file ? file.fileSize : formatFileSize(size)
+}
 </script>
