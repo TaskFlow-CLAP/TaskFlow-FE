@@ -15,7 +15,9 @@
           ? 'empty'
           : isInvalidate === 'wrongNickname'
             ? isInvalidate
-            : ''
+            : isInvalidate === 'duplicate'
+              ? isInvalidate
+              : ''
       "
       :placeholderText="'회원의 아이디를 입력해주세요'"
       :labelName="'아이디'" />
@@ -34,7 +36,9 @@
     </div>
     <DepartmentDropDown
       v-model="userRegistrationForm.department"
-      :is-invalidate="isInvalidate === 'departmentEmpty' ? isInvalidate : ''" />
+      :is-invalidate="
+        isInvalidate === 'departmentEmpty' || isInvalidate === 'reviewer' ? isInvalidate : ''
+      " />
     <RequestTaskDropdown
       v-model="userRegistrationForm.role"
       :options="filteredRoleKeys"
@@ -69,6 +73,7 @@
 <script lang="ts" setup>
 import { addMemberAdmin } from '@/api/admin'
 import { INITIAL_USER_REGISTRATION, RoleKeys, RoleTypeMapping } from '@/constants/admin'
+import DOMPurify from 'dompurify'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
@@ -77,7 +82,6 @@ import ModalView from '../common/ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
 import DepartmentDropDown from './DepartmentDropDown.vue'
-import DOMPurify from 'dompurify'
 
 const router = useRouter()
 

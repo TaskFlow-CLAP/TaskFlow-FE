@@ -21,7 +21,9 @@
     </div>
     <DepartmentDropDown
       v-model="userRegistrationForm.department"
-      :is-invalidate="isInvalidate === 'departmentEmpty' ? isInvalidate : ''" />
+      :is-invalidate="
+        isInvalidate === 'departmentEmpty' || isInvalidate === 'reviewer' ? isInvalidate : ''
+      " />
     <RequestTaskDropdown
       v-model="userRegistrationForm.role"
       :options="filteredRoleKeys"

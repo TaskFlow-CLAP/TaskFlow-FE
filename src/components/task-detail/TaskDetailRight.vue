@@ -92,7 +92,6 @@ import TaskDetailManagerDropdown from './TaskDetailManagerDropdown.vue'
 import TaskStatusList from './TaskStatusList.vue'
 
 const { data, isProcessor } = defineProps<{ data: TaskDetailDatas; isProcessor: boolean }>()
-console.log(data, '가져온 데이터')
 
 const selectedManager = ref<ManagerTypes>({
   memberId: -1,

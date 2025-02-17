@@ -57,7 +57,6 @@ const { data } = useQuery<TaskDetailDatas>({
   refetchOnMount: 'always',
   staleTime: 0
 })
-console.log(data, '최 앞단')
 
 const { data: historyData } = useQuery<TaskDetailHistoryData>({
   queryKey: ['historyData', selectedId],
