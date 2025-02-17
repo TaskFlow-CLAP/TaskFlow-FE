@@ -4,7 +4,7 @@
     :style="{ width: width ? `${width}px` : '' }"
     :class="width ? 'shrink-0' : 'grow'">
     <ImageContainer
-      v-if="profileImg !== undefined"
+      v-if="profileImg !== undefined && content"
       :size="24"
       :url="profileImg" />
     <TaskStatus
