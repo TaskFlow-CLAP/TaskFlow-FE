@@ -50,7 +50,7 @@ import ImageContainer from '../common/ImageContainer.vue'
 
 const { modelValue } = defineProps<{ modelValue: ManagerTypes; taskId: number }>()
 const emit = defineEmits(['update:modelValue'])
-console.log(modelValue,'현재 담당자' )
+console.log(modelValue, '현재 담당ㅏ자')
 
 const dropdownOpen = ref(false)
 const managerArr = ref<ManagerTypes[]>([])
