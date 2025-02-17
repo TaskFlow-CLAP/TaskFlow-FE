@@ -105,7 +105,6 @@ const newManager = ref<ManagerTypes | null>(null)
 const queryClient = useQueryClient()
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
-console.log(info.value.role)
 
 const taskLabel = ref({
   labelId: -1,
