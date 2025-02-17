@@ -18,6 +18,7 @@
         @click="toggleDropdown">
         <div class="flex gap-2 items-center">
           <ImageContainer
+            v-if="isInvalidateState === 'manager' || modelValue?.imageUrl"
             :size="24"
             :url="modelValue?.imageUrl" />
           <p :class="{ 'text-disabled': !modelValue }">
@@ -44,7 +45,7 @@
               {{ option.nickname }}
             </p>
           </div>
-          <p class="text-primary1 text-xs">잔여 작업 : {{ option.remainingTasks }}</p>
+          <p class="text-primary1 text-xs font-semibold">잔여 작업 : {{ option.remainingTasks }}</p>
         </div>
       </div>
     </div>

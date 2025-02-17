@@ -133,12 +133,6 @@ export interface ManagerInfoTypes {
   totalAssignedTasks: number
 }
 
-export interface TaskDetailDropdownProps {
-  options: string[]
-  modelValue: string
-  processor: ManagerInfoTypes
-}
-
 export interface TaskDetailRightProps {
   taskDetail: TaskDetailDatas
 }

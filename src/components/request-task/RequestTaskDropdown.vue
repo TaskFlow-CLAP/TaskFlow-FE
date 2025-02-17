@@ -10,7 +10,7 @@
       class="relative flex">
       <div
         class="flex w-full h-11 items-center rounded p-4 border border-border-1"
-        :class="disabled ? 'bg-background-1 text-disabled' : 'bg-white cursor-pointer'"
+        :class="disabled ? 'bg-background-2 text-disabled' : 'bg-white cursor-pointer'"
         @click="!disabled && toggleDropdown()">
         <p :class="{ 'text-disabled': modelValue === placeholderText }">
           {{ modelValue || placeholderText }}

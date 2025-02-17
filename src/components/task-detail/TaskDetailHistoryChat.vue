@@ -39,7 +39,7 @@
               v-if="isClicked"
               @click="handleModal"
               :class="[
-                'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1 rounded',
+                'absolute shadow-custom bottom-0 w-20 h-7 flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-2 rounded',
                 isRequestor ? 'left-6' : 'right-6'
               ]">
               삭제

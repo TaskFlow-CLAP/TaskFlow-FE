@@ -72,7 +72,7 @@
               type="button"
               class="button-large-red"
               @click="confirmModal">
-              {{ type === 'inputType' ? '반려' : type === 'terminate' ? '종료' : '삭제' }}
+              {{ type === 'inputType' ? '반려' : type === 'terminate' ? '종료' : '확인' }}
             </button>
           </div>
         </div>

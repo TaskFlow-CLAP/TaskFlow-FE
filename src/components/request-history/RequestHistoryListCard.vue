@@ -46,8 +46,8 @@ const myRequestTabList: ListCardProps[] = [
   { content: info.mainCategoryName, width: 80 },
   { content: info.categoryName, width: 80 },
   { content: info.title },
-  { content: info.requesterName, width: 120, profileImg: info.requesterImg },
-  { content: info.processorName, width: 120, profileImg: info.processorImg },
+  { content: info.requesterName, width: 120, profileImg: info.requesterUrl || '' },
+  { content: info.processorName, width: 120, profileImg: info.processorUrl || '' },
   { content: info.taskStatus, width: 80, isStatus: true },
   { content: info.finishedAt ? formatDate(info.finishedAt) : '', width: 80 }
 ]
