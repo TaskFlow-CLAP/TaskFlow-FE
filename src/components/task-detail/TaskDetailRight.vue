@@ -55,7 +55,7 @@
         <p class="text-sm">{{ data.processorNickName || '-' }}</p>
       </div>
     </div>
-    <div v-if="data.taskStatus !== 'REQUESTED' && info.isReviewer">
+    <div v-if="data.taskStatus !== 'REQUESTED' && info.role === 'ROLE_MANAGER'">
       <p class="task-detail">마감기한</p>
       <div v-if="data.dueDate">
         <div class="w-full flex justify-between items-center">
@@ -65,7 +65,7 @@
       </div>
       <div v-else>-</div>
     </div>
-    <div v-if="data.taskStatus !== 'REQUESTED' && info.isReviewer">
+    <div v-if="data.taskStatus !== 'REQUESTED' && info.role === 'ROLE_MANAGER'">
       <p class="task-detail">구분</p>
       <TaskDetailLabelDropdown
         v-model="taskLabel"
@@ -105,6 +105,7 @@ const newManager = ref<ManagerTypes | null>(null)
 const queryClient = useQueryClient()
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)
+console.log(info.value.role)
 
 const taskLabel = ref({
   labelId: -1,
