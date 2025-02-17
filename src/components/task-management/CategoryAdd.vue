@@ -27,7 +27,7 @@
       placeholder-text="카테고리명을 입력해주세요"
       :label-name="`${categoryStep}차 카테고리명`"
       :is-invalidate="errorMessage.categoryName"
-      :limitLength="10" />
+      :limitLength="30" />
     <RequestTaskInput
       v-model="categoryForm.code"
       placeholder-text="카테고리의 작업코드를 입력해주세요"
@@ -47,7 +47,7 @@
       <textarea
         class="w-full h-32 border border-border-1 px-4 py-2 resize-none focus:outline-none rounded"
         :value="categoryForm.descriptionExample"
-        :maxlength="200"
+        :maxlength="100"
         :placeholder="'부가설명 템플릿을 작성해주세요'"
         @input="onValueChange">
       </textarea>
