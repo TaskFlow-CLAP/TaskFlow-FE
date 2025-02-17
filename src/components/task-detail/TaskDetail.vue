@@ -24,7 +24,7 @@
       </div>
       <div class="w-[1px] bg-border-1"></div>
       <TaskDetailRight
-        :data
+        :data="data"
         :isProcessor="info.role !== 'ROLE_USER'" />
     </div>
   </div>
@@ -32,6 +32,7 @@
 
 <script setup lang="ts">
 import { getHistory, getTaskDetailManager, getTaskDetailUser } from '@/api/user'
+import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailDatas, TaskDetailHistoryData, TaskDetailProps } from '@/types/user'
 import { useQuery } from '@tanstack/vue-query'
@@ -41,7 +42,6 @@ import TaskDetailHistory from './TaskDetailHistory.vue'
 import TaskDetailLeft from './TaskDetailLeft.vue'
 import TaskDetailRight from './TaskDetailRight.vue'
 import TaskDetailTopBar from './TaskDetailTopBar.vue'
-import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
 
 const { closeTaskDetail, selectedId } = defineProps<TaskDetailProps>()
 
@@ -54,7 +54,8 @@ const { data } = useQuery<TaskDetailDatas>({
     info.value.role === 'ROLE_USER'
       ? () => getTaskDetailUser(selectedId)
       : () => getTaskDetailManager(selectedId),
-  refetchOnMount: true
+  refetchOnMount: 'always',
+  staleTime: 0
 })
 
 const { data: historyData } = useQuery<TaskDetailHistoryData>({

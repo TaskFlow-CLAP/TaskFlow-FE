@@ -19,7 +19,7 @@
         class="absolute w-full h-40 overflow-y-auto scrollbar-hide top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2">
         <div
           v-for="option in labelArr"
-          :key="option.labelId"
+          :key="option.labelId || option.labelName"
           class="w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer"
           @click="selectOption(option)">
           {{ option.labelName }}

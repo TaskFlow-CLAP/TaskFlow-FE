@@ -18,8 +18,13 @@
       <div
         class="w-full h-32 overflow-y-auto flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom">
         <div
+          class="w-full flex text-sm items-center h-10 p-1.5 rounded hover:bg-background-2 cursor-pointer text-disabled"
+          @click="selectOption({ labelId: null, labelName: '', labelColor: '' })">
+          구분 없음
+        </div>
+        <div
           v-for="option in labelArr"
-          :key="option.labelId"
+          :key="option.labelId || option.labelName"
           class="w-full flex text-sm items-center h-10 p-1.5 rounded hover:bg-background-2 cursor-pointer"
           @click="selectOption(option)">
           {{ option.labelName }}
@@ -55,7 +60,7 @@ const toggleDropdown = () => {
 
 const selectOption = async (option: LabelDataTypes) => {
   emit('update:modelValue', option)
-  await changeLabel(taskId || 0, option.labelId || 0)
+  await changeLabel(taskId || 0, option.labelId || null)
   queryClient.invalidateQueries({ queryKey: ['taskDetailUser', taskId] })
   dropdownOpen.value = false
 }

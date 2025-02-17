@@ -26,23 +26,34 @@
       v-model="categoryForm.name"
       placeholder-text="카테고리명을 입력해주세요"
       :label-name="`${categoryStep}차 카테고리명`"
-      :is-invalidate="errorMessage.categoryName" />
+      :is-invalidate="errorMessage.categoryName"
+      :limitLength="30" />
     <RequestTaskInput
       v-model="categoryForm.code"
       placeholder-text="카테고리의 작업코드를 입력해주세요"
       label-name="작업코드 (대문자 영어 2글자까지)"
       :is-invalidate="errorMessage.categoryCode === 'noCode' ? 'noCode' : isCodeInvalidate" />
-
     <div
       v-if="categoryStep === '2'"
-      class="flex flex-col gap-2">
-      <p class="text-body text-xs font-semibold">부가설명 템플릿</p>
+      class="flex flex-col gap-2 relative">
+      <div class="flex gap-1 text-xs">
+        <p class="text-body font-semibold">부가설명 템플릿</p>
+        <p
+          class="text-red-1"
+          v-if="errorMessage.description === 'tooLong'">
+          템플릿은 100자 이내로 적어주세요
+        </p>
+      </div>
       <textarea
         class="w-full h-32 border border-border-1 px-4 py-2 resize-none focus:outline-none rounded"
         :value="categoryForm.descriptionExample"
+        :maxlength="100"
         :placeholder="'부가설명 템플릿을 작성해주세요'"
         @input="onValueChange">
       </textarea>
+      <p class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
+        {{ categoryForm.descriptionExample?.length || 0 }}/{{ 100 }}
+      </p>
     </div>
 
     <FormButtonContainer
@@ -54,17 +65,17 @@
 </template>
 
 <script lang="ts" setup>
+import { getMainCategory } from '@/api/common'
 import { CATEGORY_FORM } from '@/constants/admin'
+import type { Category, CategoryForm } from '@/types/common'
+import { axiosInstance } from '@/utils/axios'
+import DOMPurify from 'dompurify'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
+import ModalView from '../common/ModalView.vue'
 import RequestTaskDropdown from '../request-task/RequestTaskDropdown.vue'
 import RequestTaskInput from '../request-task/RequestTaskInput.vue'
-import { axiosInstance } from '@/utils/axios'
-import { getMainCategory } from '@/api/common'
-import type { Category, CategoryForm } from '@/types/common'
-import ModalView from '../common/ModalView.vue'
-import DOMPurify from 'dompurify'
 
 const router = useRouter()
 const route = useRoute()
@@ -74,11 +85,10 @@ const { categoryStep } = defineProps<{
 }>()
 
 const isModalVisible = ref({ add: false, cancel: false, fail: false })
-const errorMessage = ref({ categoryName: '', categoryCode: '' })
+const errorMessage = ref({ categoryName: '', categoryCode: '', description: '' })
 const hasMainCategory = ref(true)
 
 const categoryForm = ref<CategoryForm>(CATEGORY_FORM)
-
 const handleAddModal = () => {
   isModalVisible.value.add = false
   handleGoBack()
@@ -97,7 +107,7 @@ const handleGoBack = () => {
 
 const handleSubmit = async () => {
   hasMainCategory.value = true
-  errorMessage.value = { categoryCode: '', categoryName: '' }
+  errorMessage.value = { categoryCode: '', categoryName: '', description: '' }
   if (!categoryForm.value.mainCategoryId && categoryStep === '2') {
     hasMainCategory.value = false
     return
@@ -109,6 +119,9 @@ const handleSubmit = async () => {
     return
   } else if (categoryForm.value.code.length === 0) {
     errorMessage.value.categoryCode = 'noCode'
+    return
+  } else if ((categoryForm.value.descriptionExample ?? '').length > 100) {
+    errorMessage.value.description = 'tooLong'
     return
   }
 

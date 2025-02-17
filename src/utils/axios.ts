@@ -90,6 +90,8 @@ const setInterceptors = (instance: AxiosInstance) => {
               setError('중복된 카테고리명\n혹은 고유코드입니다')
             } else if (error.response.data === 'MEMBER_006') {
               setError('비밀번호가 일치하지 않습니다', '다시 시도해주세요')
+            } else if (error.response.data === 'LABEL_002') {
+              setError('중복된 구분 이름입니다')
             } else if (error.response.data === 'MEMBER_007') {
               return Promise.reject(new Error('WRONG_FILETYPE'))
             } else if (error.response.data === 'MEMBER_012') {
