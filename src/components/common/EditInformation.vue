@@ -10,7 +10,7 @@
     <ModalView
       :isOpen="isWarnningModalVisible"
       :type="'warningType'"
-      @click="changePw"
+      @click="modalTarget === 'pw' ? changePw() : router.back()"
       @close="warningModalToggle">
       <template #header>정보가 저장되지 않았습니다</template>
       <template #body>수정 사항을 삭제하고 이동하시겠습니까?</template>
@@ -196,17 +196,33 @@ const validateName = () => {
     })
   }
 }
-const handleCancel = () => {
-  router.back()
-}
 
-const handlePwChange = () => {
+const checkChange = () => {
   if (
     selectedFile.value ||
     info.value.name != name.value ||
     info.value.notificationSettingInfo.kakaoWork != kakaoWorkCheck.value ||
     info.value.notificationSettingInfo.email != emailCheck.value
   ) {
+    return true
+  } else {
+    return false
+  }
+}
+
+const modalTarget = ref('')
+const handleCancel = () => {
+  if (checkChange()) {
+    modalTarget.value = 'cancel'
+    warningModalToggle()
+  } else {
+    router.back()
+  }
+}
+
+const handlePwChange = () => {
+  if (checkChange()) {
+    modalTarget.value = 'pw'
     warningModalToggle()
   } else {
     changePw()

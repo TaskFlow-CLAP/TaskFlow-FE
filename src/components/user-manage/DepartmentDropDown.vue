@@ -28,7 +28,9 @@
           class="w-full flex items-center h-11 p-2 rounded hover:bg-background-2 cursor-pointer justify-between"
           @click="selectOption(department)">
           <p>{{ department.name }}</p>
-          <p :class="[department.isManager ? 'text-primary1' : 'text-body', 'text-xs']">
+          <p
+            class="font-semibold"
+            :class="[department.isManager ? 'text-primary1' : 'text-body', 'text-xs']">
             {{ department.isManager ? '담당자 권한 O' : '담당자 권한 X' }}
           </p>
         </div>

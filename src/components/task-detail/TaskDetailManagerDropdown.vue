@@ -7,6 +7,7 @@
       @click="toggleDropdown">
       <div class="flex gap-2 items-center">
         <ImageContainer
+          v-if="modelValue.nickname"
           :url="modelValue?.imageUrl"
           :size="20" />
         <p :class="['text-sm', { 'text-disabled': !modelValue?.nickname }]">

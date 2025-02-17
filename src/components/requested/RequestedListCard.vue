@@ -73,7 +73,7 @@ const requestedTabList: ListCardProps[] = [
   { content: info.mainCategoryName, width: 80 },
   { content: info.categoryName, width: 80 },
   { content: info.title },
-  { content: info.requesterName, width: 120, profileImg: info.requesterImg }
+  { content: info.requesterName, width: 120, profileImg: info.requesterUrl || '' }
 ]
 const router = useRouter()
 const queryClient = useQueryClient()

@@ -16,13 +16,13 @@
       </ModalView>
       <TitleContainer
         v-if="!isConfirmed"
-        :title="'비밀번호\n재설정'"
+        :title="'비밀번호\n확인'"
         :content="'비밀번호 재설정을 위해\n현재 비밀번호를 입력해주세요'" />
       <TitleContainer
         v-else
         :title="'비밀번호\n재설정'"
         :content="
-          !firstVisit
+          firstVisit
             ? '새로운 비밀번호를 입력해주세요\n보안을 위해 링크는 5분 후 만료됩니다'
             : '새로운 비밀번호를 입력해주세요'
         " />
@@ -73,7 +73,7 @@
         <p
           v-show="isInvalid"
           class="absolute text-red-1 text-xs font-semibold mt-1">
-          대문자, 소문자, 숫자, 특수문자 포함 8자-20자 입력해주세요
+          대문자, 소문자, 숫자, 특수문자 포함 8자-20자로 입력해주세요
         </p>
       </div>
       <div class="relative">
@@ -92,7 +92,7 @@
         <p
           v-show="isDifferent"
           class="absolute text-red-1 text-xs font-semibold mt-1">
-          비밀번호가 일치하지 않아요
+          비밀번호가 일치하지 않습니다
         </p>
       </div>
       <div class="flex flex-col gap-2 items-center">
@@ -128,7 +128,7 @@ const messageBody = ref('')
 const pw = ref('')
 const isConfirmed = ref(false)
 
-const firstVisit = ref(Cookies.get('accessToken') ? true : false)
+const firstVisit = ref(!Cookies.get('refreshToken') ? true : false)
 
 const handleCheck = async () => {
   await postPasswordCheck(pw.value)

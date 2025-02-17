@@ -7,7 +7,7 @@ export interface RequestedListData {
   mainCategoryName: string
   categoryName: string
   title: string
-  requesterImg: string
+  requesterUrl?: string
   requesterName: string
 }
 
@@ -18,9 +18,9 @@ export interface RequestHistoryListData {
   mainCategoryName: string
   categoryName: string
   title: string
-  requesterImg: string
+  requesterUrl?: string
   requesterName: string
-  processorImg?: string
+  processorUrl?: string
   processorName?: string
   taskStatus: string
   finishedAt?: string
@@ -57,7 +57,7 @@ export interface MyTaskListData {
   mainCategoryName: string
   categoryName: string
   title: string
-  requesterImg: string
+  requesterUrl?: string
   requesterName: string
   taskStatus: string
   finishedAt?: string

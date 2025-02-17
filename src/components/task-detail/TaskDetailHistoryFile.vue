@@ -37,6 +37,7 @@
           ]">
           <div
             v-if="history.details.commentFileDetails?.nickName === info.nickname"
+            ref="btnRef"
             class="relative cursor-pointer">
             <CommonIcons
               :name="menuDotIcon"
@@ -45,7 +46,7 @@
               v-if="isClicked"
               @click="handleModal"
               :class="[
-                'absolute shadow-custom bottom-0 w-20 h-[27px] rounded flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-1',
+                'absolute shadow-custom bottom-0 w-20 h-[27px] rounded flex items-center justify-center text-xs text-red-1 bg-white hover:bg-background-2',
                 isRequestor ? 'left-6' : 'right-6'
               ]">
               삭제
@@ -79,6 +80,7 @@ import { computed, defineProps, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import ImageContainer from '../common/ImageContainer.vue'
 import ModalView from '../common/ModalView.vue'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 const { history, requestorName, taskId } = defineProps<TaskDetailHistoryChatProps>()
 
@@ -103,6 +105,9 @@ const closeModal = () => {
   isClicked.value = !isClicked.value
   isModalOpen.value = false
 }
+const closeMenuDot = () => {
+  isClicked.value = false
+}
 const deleteCommentFile = async () => {
   isClicked.value = !isClicked.value
   if (history.details.commentFileDetails?.commentId !== undefined) {
@@ -110,4 +115,6 @@ const deleteCommentFile = async () => {
   }
   queryClient.invalidateQueries({ queryKey: ['historyData', taskId] })
 }
+
+const { htmlRef: btnRef } = useOutsideClick(() => closeMenuDot())
 </script>

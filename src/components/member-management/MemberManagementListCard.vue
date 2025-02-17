@@ -21,7 +21,7 @@
         @click="toggleModal('delete')">
         삭제
       </button>
-      <div class="relative">
+      <div class="relative h-full max-h-[34px]">
         <button
           type="button"
           :class="
