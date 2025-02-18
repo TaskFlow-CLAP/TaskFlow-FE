@@ -1,6 +1,6 @@
 <template>
   <div class="text-xs font-semibold flex gap-2 text-disabled">
-    <span class="text-primary1">지난</span>
+    <span class="text-primary3">지난</span>
     <div class="flex gap-2">
       <button
         type="button"

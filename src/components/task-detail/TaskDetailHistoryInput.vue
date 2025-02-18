@@ -31,7 +31,7 @@
         class="hover:bg-background-2 rounded p-1">
         <CommonIcons
           :name="sendIcon"
-          :style="{ fill: isSendable ? '#7879EB' : '#A1A1AA' }"
+          :style="{ fill: isSendable ? '#6D6EF0' : '#A1A1AA' }"
           @click="sendMessage" />
       </button>
     </div>

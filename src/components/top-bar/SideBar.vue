@@ -14,7 +14,7 @@
             class="cursor-pointer"
             :name="hamburgerIcon" />
           <button @click="onLogoClick">
-            <img src="/MainLogo.svg" />
+            <MainLogo />
           </button>
         </div>
         <div class="flex-1 overflow-y-auto scrollbar-hide flex flex-col gap-6">
@@ -56,7 +56,7 @@
         <div class="flex items-end whitespace-nowrap">
           <RouterLink
             to="/edit-information"
-            class="text-primary1 text-sm font-semibold"
+            class="text-primary1 text-sm font-semibold hover:underline"
             @click="$emit('close')">
             내 정보 수정
           </RouterLink>
@@ -75,6 +75,7 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import CommonIcons from '../common/CommonIcons.vue'
 import ImageContainer from '../common/ImageContainer.vue'
+import MainLogo from '../common/MainLogo.vue'
 
 const memberStore = useMemberStore()
 const { info } = storeToRefs(memberStore)

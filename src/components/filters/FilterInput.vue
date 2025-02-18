@@ -5,6 +5,7 @@
     :class="width === 'full' && 'grow'">
     <span class="filter-title">{{ title }}</span>
     <input
+      :aria-label="title"
       @input="onValueChange"
       class="w-full h-8 border-b border-border-1 outline-none text-xs px-2" />
   </div>

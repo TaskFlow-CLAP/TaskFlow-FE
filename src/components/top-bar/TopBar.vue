@@ -5,13 +5,19 @@
     <div class="max-w-[1200px] mx-auto px-6 flex w-full justify-between items-center relative">
       <div class="flex justify-center items-center gap-6 h-full">
         <button
+          class="relative"
           type="button"
           v-if="isLogined"
           @click="onOpenSide">
           <CommonIcons :name="hamburgerIcon" />
+          <span class="hidden-text">메뉴</span>
         </button>
-        <button @click="router.push('/')">
-          <img src="/MainLogo.svg" />
+        <button
+          class="relative"
+          type="button"
+          @click="router.push('/')">
+          <MainLogo />
+          <span class="hidden-text">로고 버튼</span>
         </button>
       </div>
       <div
@@ -66,10 +72,10 @@ import { useRouter } from 'vue-router'
 import { hamburgerIcon } from '../../constants/iconPath'
 import CommonIcons from '../common/CommonIcons.vue'
 import ImageContainer from '../common/ImageContainer.vue'
+import MainLogo from '../common/MainLogo.vue'
 import NotificationIcon from '../icons/NotificationIcon.vue'
 import NotificationModal from './NotificationModal.vue'
 import ProfileModal from './ProfileModal.vue'
-import SideBar from './SideBar.vue'
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)

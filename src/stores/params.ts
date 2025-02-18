@@ -134,7 +134,14 @@ export const useTeamBoardParamsStore = defineStore('teamBoardParams', () => {
     taskTitle: ''
   })
 
-  return { params }
+  const $reset = () => {
+    params.value.sortBy = 'CONTRIBUTE'
+    params.value.mainCategoryIds = []
+    params.value.categoryIds = []
+    params.value.taskTitle = ''
+  }
+
+  return { params, $reset }
 })
 
 export const useTaskBoardParamsStore = defineStore('taskBoardParams', () => {
@@ -146,5 +153,13 @@ export const useTaskBoardParamsStore = defineStore('taskBoardParams', () => {
     requesterNickname: ''
   })
 
-  return { params }
+  const $reset = () => {
+    params.value.labelId = ''
+    params.value.mainCategoryIds = []
+    params.value.categoryIds = []
+    params.value.title = ''
+    params.value.requesterNickname = ''
+  }
+
+  return { params, $reset }
 })

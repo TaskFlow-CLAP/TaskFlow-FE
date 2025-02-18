@@ -32,7 +32,8 @@ import FilterCategory from '../filters/FilterCategory.vue'
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterInput from '../filters/FilterInput.vue'
 
-const { params } = useTeamBoardParamsStore()
+const { params, $reset } = useTeamBoardParamsStore()
+$reset()
 
 const onParamsChange = useTeamBoardParamsChange()
 

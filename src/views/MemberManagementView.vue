@@ -4,14 +4,14 @@
       <template #button>
         <button
           type="button"
-          class="flex py-1 px-2 rounded hover:bg-background-2 items-center gap-1 text-xs font-semibold text-primary1"
+          class="flex py-1 px-2 rounded hover:bg-background-2 items-center gap-1 text-xs font-semibold text-primary3"
           @click="createNewMember">
           새 회원 추가
         </button>
         <MemberManagementAddByCsv />
         <a
           :href="csvPath"
-          class="flex py-1 px-2 rounded hover:bg-background-2 items-center gap-1 text-xs font-semibold text-primary1"
+          class="flex py-1 px-2 rounded hover:bg-background-2 items-center gap-1 text-xs font-semibold text-primary3"
           download>
           <CommonIcons :name="downloadIcon" />
           일괄추가 파일양식

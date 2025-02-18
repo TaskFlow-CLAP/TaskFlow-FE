@@ -34,7 +34,8 @@ import FilterCategory from '../filters/FilterCategory.vue'
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterInput from '../filters/FilterInput.vue'
 
-const { params } = useTaskBoardParamsStore()
+const { params, $reset } = useTaskBoardParamsStore()
+$reset()
 
 const onArrayChange = <Value extends number | string>(array: Value[], value: Value) => {
   return array.includes(value) ? array.filter(el => el !== value) : [...array, value]

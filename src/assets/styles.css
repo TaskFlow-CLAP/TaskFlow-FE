@@ -44,17 +44,17 @@ body {
   @apply button-large bg-white text-disabled border-border-1 hover:bg-background-2;
 }
 .button-large-red {
-  @apply button-large bg-red-1 text-white border-red-1 hover:bg-[#D61E1E];
+  @apply button-large bg-red-1 text-white border-red-1 hover:bg-[#CF1B1B];
 }
 .button-large-primary {
-  @apply button-large bg-primary1 text-white border-primary1 hover:bg-[#6D6EF0];
+  @apply button-large bg-primary1 text-white border-primary1 hover:bg-primary3;
 }
 
 .button-medium {
   @apply flex items-center justify-center rounded px-4 py-2 font-semibold gap-1 text-xs cursor-pointer shrink-0 h-full max-h-[34px];
 }
 .button-medium-primary {
-  @apply button-medium bg-primary1 text-white hover:bg-[#6869DE];
+  @apply button-medium bg-primary1 text-white hover:bg-primary3;
 }
 .button-medium-secondary {
   @apply button-medium bg-white border border-primary1 text-primary1 hover:bg-primary2;
@@ -73,7 +73,7 @@ body {
   @apply flex items-center gap-1 text-xs font-semibold;
 }
 .button-small-primary {
-  @apply text-primary1;
+  @apply text-primary3;
 }
 .button-small-default {
   @apply text-disabled;
@@ -147,6 +147,10 @@ body {
 }
 .task-detail-manager-dropdown {
   @apply flex w-full h-10 items-center rounded p-4 bg-white border border-border-1 cursor-pointer;
+}
+
+.hidden-text {
+  @apply absolute text-transparent w-[1px] h-[1px] overflow-hidden top-0 left-0;
 }
 
 .modal-enter-active,

@@ -19,7 +19,7 @@
           >검토 중 {{ info.inReviewingTaskCount }}건</span
         >
       </div>
-      <span class="text-xs font-semibold text-primary1">총 {{ info.totalTaskCount }}건</span>
+      <span class="text-xs font-semibold text-primary3">총 {{ info.totalTaskCount }}건</span>
     </div>
     <div
       class="w-full h-[360px] rounded-lg bg-primary2 shadow-custom overflow-y-auto scrollbar-hide flex flex-col items-center p-6 gap-4">

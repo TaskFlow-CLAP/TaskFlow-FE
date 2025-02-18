@@ -30,7 +30,7 @@
           <p>{{ department.name }}</p>
           <p
             class="font-semibold"
-            :class="[department.isManager ? 'text-primary1' : 'text-body', 'text-xs']">
+            :class="[department.isManager ? 'text-primary3' : 'text-body', 'text-xs']">
             {{ department.isManager ? '담당자 권한 O' : '담당자 권한 X' }}
           </p>
         </div>

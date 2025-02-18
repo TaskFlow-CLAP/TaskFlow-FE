@@ -12,7 +12,7 @@
             >검토 중 {{ teamSummary.inReviewing }}건</span
           >
         </div>
-        <span class="text-xs font-semibold text-primary1">총 {{ teamSummary.totalTasks }}건</span>
+        <span class="text-xs font-semibold text-primary3">총 {{ teamSummary.totalTasks }}건</span>
       </div>
       <div class="w-full h-[360px] items-center gap-4">
         <PieChart
