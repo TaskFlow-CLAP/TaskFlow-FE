@@ -35,7 +35,7 @@
           class="w-full h-8 flex items-center justify-center text-primary3 font-semibold gap-1 text-xs cursor-pointer shrink-0 hover:bg-background-2">
           <CommonIcons
             :name="plusIcon"
-            :style="{ fill: '#7879eb' }" />
+            :style="{ fill: '#6061DB' }" />
           <p>파일 선택</p>
         </label>
       </div>

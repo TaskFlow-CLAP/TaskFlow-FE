@@ -8,7 +8,7 @@
           @click="createNewRequest">
           <CommonIcons
             :name="plusIcon"
-            :style="{ fill: '#7879EB' }" />
+            :style="{ fill: '#6061DB' }" />
           새 요청 생성
         </button>
       </template>

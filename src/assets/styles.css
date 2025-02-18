@@ -44,7 +44,7 @@ body {
   @apply button-large bg-white text-disabled border-border-1 hover:bg-background-2;
 }
 .button-large-red {
-  @apply button-large bg-red-1 text-white border-red-1 hover:bg-[#D61E1E];
+  @apply button-large bg-red-1 text-white border-red-1 hover:bg-[#CF1B1B];
 }
 .button-large-primary {
   @apply button-large bg-primary1 text-white border-primary1 hover:bg-primary3;
