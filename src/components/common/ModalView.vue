@@ -9,7 +9,7 @@
         v-if="isOpen"
         class="bg-white rounded-lg shadow-lg px-8 py-8 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[99]">
         <div class="flex flex-col gap-8 w-[300px]">
-          <div class="flex flex-col gap-6">
+          <div class="flex flex-col gap-6 relative">
             <div class="flex flex-col items-center gap-2">
               <CommonIcons
                 v-if="type == 'successType'"
@@ -40,7 +40,13 @@
                 type === 'terminate' ? '종료 사유를 입력해주세요' : '반려 사유를 입력해주세요'
               "
               :class="{ 'border border-red-1 placeholder-red-500': isEmpty }"
+              maxlength="40"
               class="flex border w-full border-border-1 px-4 py-3 focus:outline-none resize-none h-[120px]" />
+            <p
+              v-if="type == 'inputType' || type === 'terminate'"
+              class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
+              ({{ textValue.length }}/{{ 40 }})
+            </p>
           </div>
 
           <button
