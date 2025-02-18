@@ -46,7 +46,7 @@
           <button
             type="button"
             @click="addNewLabel"
-            class="text-primary1 w-[21px]">
+            class="text-primary3 w-[21px]">
             확인
           </button>
           <button

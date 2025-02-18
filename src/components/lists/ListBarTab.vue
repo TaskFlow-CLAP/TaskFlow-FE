@@ -5,12 +5,14 @@
     :class="`${!width && 'grow'} ${justifyCenter && 'justify-center'}`">
     {{ content }}
     <button
+      class="relative"
       type="button"
       v-if="sortBy"
       @click="$emit('toggleSortBy', sortBy)">
       <OrderIcon
         :is-active="isActive"
         :class="isASC && 'rotate-180'" />
+      <span class="hidden-text">정렬</span>
     </button>
   </div>
 </template>

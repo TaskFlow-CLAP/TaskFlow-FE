@@ -17,7 +17,7 @@
             <button
               type="button"
               @click="router.push(`/category-second/${sub.subCategoryId}`)"
-              class="text-primary1 hover:underline">
+              class="text-primary3 hover:underline">
               수정
             </button>
             <button

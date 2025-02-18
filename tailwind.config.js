@@ -31,8 +31,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary1: '#7879EB',
+        primary1: '#6D6EF0',
         primary2: '#F7F9FF',
+        primary3: '#6061DB',
         black: '#18181B',
         body: '#71717A',
         disabled: '#A1A1AA',

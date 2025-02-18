@@ -45,7 +45,7 @@
               {{ option.nickname }}
             </p>
           </div>
-          <p class="text-primary1 text-xs font-semibold">잔여 작업 : {{ option.remainingTasks }}</p>
+          <p class="text-primary3 text-xs font-semibold">잔여 작업 : {{ option.remainingTasks }}</p>
         </div>
       </div>
     </div>

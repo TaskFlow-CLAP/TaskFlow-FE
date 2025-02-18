@@ -14,7 +14,7 @@
       class="flex flex-col text-xs gap-1"
       v-if="type === 'COMMENT'">
       <span>
-        <span class="font-semibold text-primary1">"{{ title }}"</span> 작업에 새로운 댓글이
+        <span class="font-semibold text-primary3">"{{ title }}"</span> 작업에 새로운 댓글이
         추가되었습니다
       </span>
       <span class="font-semibold text-body line-clamp-2">"{{ message }}"</span>
@@ -22,23 +22,23 @@
     <div
       class="text-xs"
       v-else-if="type === 'TASK_REQUESTED'">
-      <span class="font-semibold text-primary1">"{{ title }}"</span> 작업이 요청되었습니다
+      <span class="font-semibold text-primary3">"{{ title }}"</span> 작업이 요청되었습니다
     </div>
     <div
       class="text-xs"
       v-else-if="type === 'STATUS_SWITCHED'">
-      <span class="font-semibold text-primary1">"{{ title }}"</span> 작업이
-      <span class="font-semibold text-primary1">{{ message }}</span> 상태로 변경되었습니다
+      <span class="font-semibold text-primary3">"{{ title }}"</span> 작업이
+      <span class="font-semibold text-primary3">{{ message }}</span> 상태로 변경되었습니다
     </div>
     <div
       class="text-xs"
       v-else-if="type === 'PROCESSOR_ASSIGNED'">
-      <span class="font-semibold text-primary1">"{{ title }}"</span> 작업이 할당되었습니다
+      <span class="font-semibold text-primary3">"{{ title }}"</span> 작업이 할당되었습니다
     </div>
     <div
       class="text-xs"
       v-else-if="type === 'PROCESSOR_CHANGED'">
-      <span class="font-semibold text-primary1">"{{ title }}"</span> 작업이 재할당되었습니다
+      <span class="font-semibold text-primary3">"{{ title }}"</span> 작업이 재할당되었습니다
     </div>
   </div>
 </template>

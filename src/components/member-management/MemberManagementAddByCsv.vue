@@ -9,7 +9,7 @@
       @change="handleFileUpload" />
     <label
       for="file"
-      class="cursor-pointer flex items-center gap-1 text-xs font-semibold text-primary1">
+      class="cursor-pointer flex items-center gap-1 text-xs font-semibold text-primary3">
       <CommonIcons
         :name="plusIcon"
         :style="{ fill: '#7879EB' }" />

@@ -4,7 +4,7 @@
       <template #button>
         <button
           type="button"
-          class="flex items-center gap-1 py-1 px-2 rounded hover:bg-background-2 text-xs font-semibold text-primary1"
+          class="flex items-center gap-1 py-1 px-2 rounded hover:bg-background-2 text-xs font-semibold text-primary3"
           @click="createNewRequest">
           <CommonIcons
             :name="plusIcon"

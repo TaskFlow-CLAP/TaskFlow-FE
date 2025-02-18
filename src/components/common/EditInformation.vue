@@ -34,7 +34,7 @@
       <div class="flex gap-6">
         <label
           for="fileInput"
-          class="mt-3 text-xs text-primary1 font-semibold cursor-pointer hover:underline"
+          class="mt-3 text-xs text-primary3 font-semibold cursor-pointer hover:underline"
           >변경</label
         >
         <label
