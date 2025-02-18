@@ -1,8 +1,8 @@
-import { defineStore } from 'pinia'
-import { axiosInstance } from '@/utils/axios'
-import { ref } from 'vue'
 import type { User } from '@/types/auth'
+import { axiosInstance } from '@/utils/axios'
 import Cookies from 'js-cookie'
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
 export const useMemberStore = defineStore('memberInfo', () => {
   const INITIAL_INFO: User = {

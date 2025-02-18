@@ -1,8 +1,8 @@
 import { PERMITTED_URL } from '@/constants/common'
 import { useErrorStore } from '@/stores/error'
 import { useMemberStore } from '@/stores/member'
-import { createRouter, createWebHistory } from 'vue-router'
 import Cookies from 'js-cookie'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

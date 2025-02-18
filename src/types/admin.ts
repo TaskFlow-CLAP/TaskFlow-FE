@@ -44,20 +44,9 @@ export interface UserRegistrationProps {
   departmentId?: number
 }
 
-export interface UserInfoForAdmin extends UserRegistrationProps {
-  profileImageUrl: string
-  departmentName: string
-}
-
 export type RoleTypes = '관리자' | '사용자' | '담당자'
 
 export type RoleTypesEnum = 'ROLE_ADMIN' | 'ROLE_USER' | 'ROLE_MANAGER'
-
-export interface CategoryLineProps {
-  name?: string
-  code?: string
-  mainCategoryId?: string
-}
 
 export interface CategoryAllData {
   categories: Category[]

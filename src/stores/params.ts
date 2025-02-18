@@ -2,8 +2,8 @@ import type {
   LogsParams,
   MemberManagementParams,
   RequestParams,
-  TeamBoardParams,
-  TaskBoardParams
+  TaskBoardParams,
+  TeamBoardParams
 } from '@/types/stores'
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
