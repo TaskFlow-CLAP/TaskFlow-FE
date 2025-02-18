@@ -32,7 +32,8 @@ import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
 import { useTeamBoardParamsChange } from '@/hooks/useTeamBoardParamsChange'
 
-const { params } = useTeamBoardParamsStore()
+const { params, $reset } = useTeamBoardParamsStore()
+$reset()
 
 const onParamsChange = useTeamBoardParamsChange()
 
