@@ -41,6 +41,7 @@
 
 <script setup lang="ts">
 import { bentoIcon } from '@/constants/iconPath'
+import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
 import { useTeamBoardParamsStore } from '@/stores/params'
 import type { Status } from '@/types/common'
 import type { TaskCardProps } from '@/types/manager'
@@ -51,7 +52,6 @@ import TaskDetail from '../task-detail/TaskDetail.vue'
 import CommonIcons from './CommonIcons.vue'
 import ImageContainer from './ImageContainer.vue'
 import TaskLabel from './TaskLabel.vue'
-import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
 
 const { data } = defineProps<{ data: TaskCardProps; draggable?: boolean }>()
 const emit = defineEmits(['toggleModal'])

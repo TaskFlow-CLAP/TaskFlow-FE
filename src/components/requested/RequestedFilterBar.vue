@@ -28,16 +28,16 @@
 </template>
 
 <script setup lang="ts">
-import FilterDropdown from '../filters/FilterDropdown.vue'
-import FilterCategory from '../filters/FilterCategory.vue'
-import FilterInput from '../filters/FilterInput.vue'
+import { getCategory } from '@/api/common'
 import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
+import { useRequestParamsChange } from '@/hooks/useRequestParamsChange'
+import { useMemberStore } from '@/stores/member'
 import { useRequestParamsStore } from '@/stores/params'
 import { useQuery } from '@tanstack/vue-query'
-import { getCategory } from '@/api/common'
-import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
-import { useRequestParamsChange } from '@/hooks/useRequestParamsChange'
+import FilterCategory from '../filters/FilterCategory.vue'
+import FilterDropdown from '../filters/FilterDropdown.vue'
+import FilterInput from '../filters/FilterInput.vue'
 
 const store = useRequestParamsStore()
 store.$reset()

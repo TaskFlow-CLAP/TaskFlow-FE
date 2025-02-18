@@ -31,10 +31,10 @@
 </template>
 
 <script setup lang="ts">
+import { PAGE_SIZE_LIST, ROLE_LIST } from '@/constants/common'
 import { useMemberManagementParamsStore } from '@/stores/params'
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { PAGE_SIZE_LIST, ROLE_LIST } from '@/constants/common'
 
 const { params } = useMemberManagementParamsStore()
 </script>

@@ -2,7 +2,7 @@
   <div class="w-full">
     <div
       v-for="label in labelData"
-      :key="label.labelId"
+      :key="label.labelId ?? -1"
       class="flex w-full flex-col">
       <div class="category-management-line justify-between bg-white">
         <div class="flex w-full gap-7 items-center px-3 relative">
@@ -20,7 +20,7 @@
               )?.fillColor
             }"
             class="w-4 h-4 rounded-full border-2 cursor-pointer pr-3 relative"
-            @click="isEdit && clickColor(label.labelId)"></div>
+            @click="isEdit && clickColor(label.labelId || -1)"></div>
           <ColorSelectModal
             v-if="isColorModalVisible && editValue.labelId === label.labelId"
             :is-open="isColorModalVisible && editValue.labelId === label.labelId"

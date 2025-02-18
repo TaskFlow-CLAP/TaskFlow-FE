@@ -43,9 +43,9 @@ import type { TaskStatusListProps } from '@/types/user'
 import { axiosInstance } from '@/utils/axios'
 import { statusAsColor } from '@/utils/statusAsColor'
 import { useQueryClient } from '@tanstack/vue-query'
+import DOMPurify from 'dompurify'
 import { ref, watch } from 'vue'
 import ModalView from '../common/ModalView.vue'
-import DOMPurify from 'dompurify'
 
 const { modelValue, isProcessor, taskId } = defineProps<TaskStatusListProps>()
 const modalError = ref('')
@@ -98,6 +98,12 @@ const rejectRequest = async () => {
   if (rejectReason.value.length === 0) {
     toggleModal('fail')
     modalError.value = '종료 사유를 입력해주세요'
+    backModal.value = true
+    return
+  }
+  if (rejectReason.value.length > 40) {
+    toggleModal('fail')
+    modalError.value = '40자 이내의 반려 사유를 입력해주세요'
     backModal.value = true
     return
   }

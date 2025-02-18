@@ -22,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import { useParseParams } from '@/hooks/useParseParams'
 import { useMemberStore } from '@/stores/member'
 import { useRequestParamsStore } from '@/stores/params'
 import type { RequestedResponse } from '@/types/manager'
@@ -34,7 +35,6 @@ import ListPagination from '../lists/ListPagination.vue'
 import NoContent from '../lists/NoContent.vue'
 import RequestedListBar from './RequestedListBar.vue'
 import RequestedListCard from './RequestedListCard.vue'
-import { useParseParams } from '@/hooks/useParseParams'
 
 const { params } = useRequestParamsStore()
 const onPageChange = (value: number) => {

@@ -60,12 +60,12 @@ import type { RequestedListData } from '@/types/manager'
 import { axiosInstance } from '@/utils/axios'
 import { formatDate } from '@/utils/date'
 import { useQueryClient } from '@tanstack/vue-query'
+import DOMPurify from 'dompurify'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from '../common/ModalView.vue'
 import ListCardTab from '../lists/ListCardTab.vue'
 import TaskDetail from '../task-detail/TaskDetail.vue'
-import DOMPurify from 'dompurify'
 
 const { info } = defineProps<{ info: RequestedListData }>()
 const requestedTabList: ListCardProps[] = [
@@ -111,6 +111,12 @@ const rejectRequest = async () => {
   if (rejectReason.value.length === 0) {
     toggleModal('fail')
     modalError.value = '반려 사유를 입력해주세요'
+    backModal.value = true
+    return
+  }
+  if (rejectReason.value.length > 40) {
+    toggleModal('fail')
+    modalError.value = '40자 이내의 반려 사유를 입력해주세요'
     backModal.value = true
     return
   }

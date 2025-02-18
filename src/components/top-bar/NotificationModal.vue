@@ -63,10 +63,10 @@ import { axiosInstance } from '@/utils/axios'
 import InfiniteLoading from 'v3-infinite-loading'
 import 'v3-infinite-loading/lib/style.css'
 import { ref } from 'vue'
-import CommonIcons from '../common/CommonIcons.vue'
-import NotificationMessage from './NotificationMessage.vue'
 import { useRouter } from 'vue-router'
+import CommonIcons from '../common/CommonIcons.vue'
 import NoContent from '../lists/NoContent.vue'
+import NotificationMessage from './NotificationMessage.vue'
 
 const { isOpen } = defineProps<{
   isOpen: boolean

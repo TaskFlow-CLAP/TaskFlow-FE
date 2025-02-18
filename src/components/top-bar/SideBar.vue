@@ -67,13 +67,13 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router'
-import { computed } from 'vue'
-import CommonIcons from '../common/CommonIcons.vue'
 import { hamburgerIcon } from '@/constants/iconPath'
-import { SIDE_USER_MENU, SIDE_MANAGER_MENU, SIDE_ADMIN_MENU } from '@/constants/menu'
+import { SIDE_ADMIN_MENU, SIDE_MANAGER_MENU, SIDE_USER_MENU } from '@/constants/menu'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import CommonIcons from '../common/CommonIcons.vue'
 import ImageContainer from '../common/ImageContainer.vue'
 import MainLogo from '../common/MainLogo.vue'
 

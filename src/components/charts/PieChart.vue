@@ -15,18 +15,18 @@
 </template>
 
 <script setup lang="ts">
-import { Pie } from 'vue-chartjs'
+import type { PeriodType } from '@/types/manager'
 import {
+  ArcElement,
   Chart as ChartJS,
+  Colors,
+  Legend,
   Title,
   Tooltip,
-  Legend,
-  ArcElement,
-  Colors,
-  type ChartEvent,
-  type ActiveElement
+  type ActiveElement,
+  type ChartEvent
 } from 'chart.js'
-import type { PeriodType } from '@/types/manager'
+import { Pie } from 'vue-chartjs'
 import NoContent from '../lists/NoContent.vue'
 ChartJS.register(Title, Tooltip, Legend, ArcElement, Colors)
 

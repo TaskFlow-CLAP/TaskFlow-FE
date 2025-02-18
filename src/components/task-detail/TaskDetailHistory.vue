@@ -25,11 +25,16 @@
             v-if="
               item.taskHistoryType === 'STATUS_SWITCHED' ||
               item.taskHistoryType === 'PROCESSOR_CHANGED' ||
-              item.taskHistoryType === 'PROCESSOR_ASSIGNED'
+              item.taskHistoryType === 'PROCESSOR_ASSIGNED' ||
+              item.taskHistoryType === 'TASK_TERMINATED'
             "
             class="flex w-full gap-1 justify-center text-body text-sm">
-            <p>{{ HistoryMessageBefore[item.taskHistoryType] }}</p>
-            <p class="text-primary1">
+            <p>
+              {{ HistoryMessageBefore[item.taskHistoryType] }}
+            </p>
+            <p
+              v-if="item.taskHistoryType !== 'TASK_TERMINATED'"
+              class="text-primary1">
               {{ item.details.taskDetails?.value }}
             </p>
             <p>{{ HistoryMessageAfter[item.taskHistoryType] }}</p>

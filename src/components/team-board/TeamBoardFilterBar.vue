@@ -22,15 +22,15 @@
 </template>
 
 <script setup lang="ts">
+import { getCategory } from '@/api/common'
+import { useTeamBoardParamsChange } from '@/hooks/useTeamBoardParamsChange'
+import { useMemberStore } from '@/stores/member'
 import { useTeamBoardParamsStore } from '@/stores/params'
 import { useQuery } from '@tanstack/vue-query'
+import { storeToRefs } from 'pinia'
 import FilterCategory from '../filters/FilterCategory.vue'
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { getCategory } from '@/api/common'
-import { useMemberStore } from '@/stores/member'
-import { storeToRefs } from 'pinia'
-import { useTeamBoardParamsChange } from '@/hooks/useTeamBoardParamsChange'
 
 const { params, $reset } = useTeamBoardParamsStore()
 $reset()

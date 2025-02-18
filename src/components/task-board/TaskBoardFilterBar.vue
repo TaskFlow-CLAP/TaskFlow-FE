@@ -23,16 +23,16 @@
 </template>
 
 <script setup lang="ts">
-import FilterDropdown from '../filters/FilterDropdown.vue'
-import FilterCategory from '../filters/FilterCategory.vue'
-import FilterInput from '../filters/FilterInput.vue'
-import { useTaskBoardParamsStore } from '@/stores/params'
-import { useQuery } from '@tanstack/vue-query'
-import { computed } from 'vue'
-import type { LabelDataTypes } from '@/types/common'
 import { getCategory, getLabels } from '@/api/common'
 import { useMemberStore } from '@/stores/member'
+import { useTaskBoardParamsStore } from '@/stores/params'
+import type { LabelDataTypes } from '@/types/common'
+import { useQuery } from '@tanstack/vue-query'
 import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
+import FilterCategory from '../filters/FilterCategory.vue'
+import FilterDropdown from '../filters/FilterDropdown.vue'
+import FilterInput from '../filters/FilterInput.vue'
 
 const { params, $reset } = useTaskBoardParamsStore()
 $reset()

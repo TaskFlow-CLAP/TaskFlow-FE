@@ -15,8 +15,3 @@ export interface User {
     kakaoWork: boolean
   }
 }
-
-export interface loginDataTypes {
-  nickname: string
-  password: string
-}

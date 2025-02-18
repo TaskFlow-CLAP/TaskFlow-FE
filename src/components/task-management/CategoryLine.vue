@@ -49,10 +49,10 @@
 <script setup lang="ts">
 import { deleteCategoryAdmin } from '@/api/admin'
 import type { CategoryAllData } from '@/types/admin'
+import { useQueryClient } from '@tanstack/vue-query'
 import { defineProps, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ModalView from '../common/ModalView.vue'
-import { useQueryClient } from '@tanstack/vue-query'
 
 const { categories } = defineProps<CategoryAllData>()
 const router = useRouter()

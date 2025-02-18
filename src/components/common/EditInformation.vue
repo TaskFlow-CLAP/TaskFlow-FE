@@ -132,6 +132,7 @@
 import { patchEditInfo } from '@/api/common'
 import { ALLOWED_FILE_EXTENSIONS, ALLOWED_FILE_EXTENSIONS_IMAGE } from '@/constants/common'
 import { useMemberStore } from '@/stores/member'
+import DOMPurify from 'dompurify'
 import { storeToRefs } from 'pinia'
 import { nextTick, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
@@ -139,7 +140,6 @@ import FormButtonContainer from './FormButtonContainer.vue'
 import FormCheckbox from './FormCheckbox.vue'
 import ImageContainer from './ImageContainer.vue'
 import ModalView from './ModalView.vue'
-import DOMPurify from 'dompurify'
 
 const router = useRouter()
 

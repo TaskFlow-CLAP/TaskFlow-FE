@@ -71,6 +71,7 @@
 <script setup lang="ts">
 import { deleteComment } from '@/api/user'
 import { fileIcon, menuDotIcon } from '@/constants/iconPath'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 import { useMemberStore } from '@/stores/member'
 import type { TaskDetailHistoryChatProps } from '@/types/common'
 import { formatTimeShort } from '@/utils/date'
@@ -80,7 +81,6 @@ import { computed, defineProps, ref } from 'vue'
 import CommonIcons from '../common/CommonIcons.vue'
 import ImageContainer from '../common/ImageContainer.vue'
 import ModalView from '../common/ModalView.vue'
-import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 const { history, requestorName, taskId } = defineProps<TaskDetailHistoryChatProps>()
 

@@ -151,6 +151,12 @@ const rejectRequest = async () => {
     backModal.value = true
     return
   }
+  if (rejectReason.value.length > 40) {
+    toggleModal('fail')
+    modalError.value = '40자 이내의 반려 사유를 입력해주세요'
+    backModal.value = true
+    return
+  }
   backModal.value = false
   await terminateTaskUser(id, rejectReason.value)
   modalSuccessMessage.value = '요청이 반려되었습니다'
