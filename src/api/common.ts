@@ -9,7 +9,7 @@ const { isLogined } = storeToRefs(memberStore)
 
 export const patchEditInfo = async (formdata: FormData) => {
   if (!isLogined) return
-  const response = await formDataAxiosInstance.patch('/api/members/info', formdata)
+  const response = await formDataAxiosInstance.patch('/api/members/inf', formdata)
   return response.data
 }
 

@@ -5,13 +5,19 @@
     <div class="max-w-[1200px] mx-auto px-6 flex w-full justify-between items-center relative">
       <div class="flex justify-center items-center gap-6 h-full">
         <button
+          class="relative"
           type="button"
           v-if="isLogined"
           @click="onOpenSide">
           <CommonIcons :name="hamburgerIcon" />
+          <span class="hidden-text">메뉴</span>
         </button>
-        <button @click="router.push('/')">
-          <img src="/MainLogo.svg" />
+        <button
+          class="relative"
+          type="button"
+          @click="router.push('/')">
+          <MainLogo />
+          <span class="hidden-text">로고 버튼</span>
         </button>
       </div>
       <div
@@ -70,6 +76,7 @@ import ImageContainer from '../common/ImageContainer.vue'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 import { useRouter } from 'vue-router'
 import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
+import MainLogo from '../common/MainLogo.vue'
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)

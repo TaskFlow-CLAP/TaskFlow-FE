@@ -34,7 +34,8 @@ import { getCategory, getLabels } from '@/api/common'
 import { useMemberStore } from '@/stores/member'
 import { storeToRefs } from 'pinia'
 
-const { params } = useTaskBoardParamsStore()
+const { params, $reset } = useTaskBoardParamsStore()
+$reset()
 
 const onArrayChange = <Value extends number | string>(array: Value[], value: Value) => {
   return array.includes(value) ? array.filter(el => el !== value) : [...array, value]
