@@ -14,9 +14,9 @@
 
 <script setup lang="ts">
 import { MEMBER_MANAGEMENT_LIST_BAR_TAB } from '@/constants/admin'
-import ListBarTab from '../lists/ListBarTab.vue'
 import { useMemberManagementParamsStore } from '@/stores/params'
 import { computed } from 'vue'
+import ListBarTab from '../lists/ListBarTab.vue'
 
 const { params } = useMemberManagementParamsStore()
 const orderRequest = computed(() => ({

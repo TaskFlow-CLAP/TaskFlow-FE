@@ -83,10 +83,10 @@
 
 <script setup lang="ts">
 import { failIcon, successIcon, warningIcon } from '@/constants/iconPath'
+import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
 import { onUnmounted, ref, watch } from 'vue'
 import CommonIcons from './CommonIcons.vue'
 import LoadingIcon from './LoadingIcon.vue'
-import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
 
 const { isOpen, type, modelValue, isEmpty } = defineProps<{
   isOpen: boolean

@@ -9,20 +9,20 @@
 </template>
 
 <script setup lang="ts">
-import { Line } from 'vue-chartjs'
+import type { PeriodType } from '@/types/manager'
 import {
+  CategoryScale,
   Chart as ChartJS,
-  Title,
-  Tooltip,
+  Colors,
+  Filler,
   Legend,
+  LinearScale,
   LineElement,
   PointElement,
-  CategoryScale,
-  LinearScale,
-  Colors,
-  Filler
+  Title,
+  Tooltip
 } from 'chart.js'
-import type { PeriodType } from '@/types/manager'
+import { Line } from 'vue-chartjs'
 import NoContent from '../lists/NoContent.vue'
 
 ChartJS.register(

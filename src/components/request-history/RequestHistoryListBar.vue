@@ -12,11 +12,11 @@
 </template>
 
 <script setup lang="ts">
-import ListBarTab from '../lists/ListBarTab.vue'
-import { useRequestParamsStore } from '@/stores/params'
 import { REQUEST_HISTORY_LIST_BAR_TAB } from '@/constants/manager'
-import { computed } from 'vue'
 import { useRequestParamsChange } from '@/hooks/useRequestParamsChange'
+import { useRequestParamsStore } from '@/stores/params'
+import { computed } from 'vue'
+import ListBarTab from '../lists/ListBarTab.vue'
 
 const { params } = useRequestParamsStore()
 const orderRequest = computed(() => ({

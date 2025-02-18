@@ -29,8 +29,8 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import TaskDetail from '@/components/task-detail/TaskDetail.vue'
 import ModalView from '@/components/common/ModalView.vue'
+import TaskDetail from '@/components/task-detail/TaskDetail.vue'
 import { useErrorStore } from '@/stores/error'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'

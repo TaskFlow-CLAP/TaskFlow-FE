@@ -20,12 +20,12 @@
 </template>
 
 <script setup lang="ts">
+import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
+import { useLogsParamsChange } from '@/hooks/useLogsParamsChange'
+import { useLogsParamsStore } from '@/stores/params'
 import FilterDropdown from '../filters/FilterDropdown.vue'
 import FilterInput from '../filters/FilterInput.vue'
-import { useLogsParamsStore } from '@/stores/params'
-import { PAGE_SIZE_LIST, TERM_LIST } from '@/constants/common'
 import FilterIpAddress from '../filters/FilterIpAddress.vue'
-import { useLogsParamsChange } from '@/hooks/useLogsParamsChange'
 
 const store = useLogsParamsStore()
 store.$reset()

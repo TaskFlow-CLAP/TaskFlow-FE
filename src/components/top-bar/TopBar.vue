@@ -56,20 +56,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
-import CommonIcons from '../common/CommonIcons.vue'
-import SideBar from './SideBar.vue'
-import { hamburgerIcon } from '../../constants/iconPath'
-import NotificationIcon from '../icons/NotificationIcon.vue'
-import { storeToRefs } from 'pinia'
+import { getNotifiCount } from '@/api/common'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
+import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
 import { useMemberStore } from '@/stores/member'
+import { storeToRefs } from 'pinia'
+import { onMounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { hamburgerIcon } from '../../constants/iconPath'
+import CommonIcons from '../common/CommonIcons.vue'
+import ImageContainer from '../common/ImageContainer.vue'
+import NotificationIcon from '../icons/NotificationIcon.vue'
 import NotificationModal from './NotificationModal.vue'
 import ProfileModal from './ProfileModal.vue'
-import { getNotifiCount } from '@/api/common'
-import ImageContainer from '../common/ImageContainer.vue'
-import { useOutsideClick } from '@/hooks/useOutsideClick'
-import { useRouter } from 'vue-router'
-import { useIsOverlayOpenStore } from '@/stores/isOverlayOpen'
+import SideBar from './SideBar.vue'
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)

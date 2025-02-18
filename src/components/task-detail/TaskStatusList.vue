@@ -43,9 +43,9 @@ import type { TaskStatusListProps } from '@/types/user'
 import { axiosInstance } from '@/utils/axios'
 import { statusAsColor } from '@/utils/statusAsColor'
 import { useQueryClient } from '@tanstack/vue-query'
+import DOMPurify from 'dompurify'
 import { ref, watch } from 'vue'
 import ModalView from '../common/ModalView.vue'
-import DOMPurify from 'dompurify'
 
 const { modelValue, isProcessor, taskId } = defineProps<TaskStatusListProps>()
 const modalError = ref('')
