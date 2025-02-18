@@ -59,7 +59,7 @@
       <p class="task-detail">마감기한</p>
       <div v-if="data.dueDate">
         <div class="w-full flex justify-between items-center">
-          <p class="text-sm">{{ formatDueDate(data.dueDate) || '-' }}</p>
+          <p class="text-sm">{{ formatDueDate(data.dueDate)  }}</p>
         </div>
         <p class="text-red-1 text-xs font-semibold">{{ formatDaysBefore(data.dueDate) }}</p>
       </div>
