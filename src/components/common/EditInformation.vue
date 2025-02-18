@@ -286,12 +286,12 @@ const handleFileDelete = () => {
 }
 
 const handleSubmit = async () => {
-  modalHeader.value = '정보 수정 중 입니다...'
-  modalBody.value = '잠시만 기다려주세요'
-  modalType.value = 'loadingType'
-  isModalVisible.value = true
-
   if (isInvalid.value == false && isFull.value == false) {
+    modalHeader.value = '정보 수정 중 입니다...'
+    modalBody.value = '잠시만 기다려주세요'
+    modalType.value = 'loadingType'
+    isModalVisible.value = true
+
     const formData = new FormData()
     const memberInfo = {
       name: DOMPurify.sanitize(name.value),
@@ -310,10 +310,14 @@ const handleSubmit = async () => {
       selectedFile.value = null
     }
 
-    await patchEditInfo(formData)
-    isModalVisible.value = false
-    isSuccessModalVisible.value = true
-    await memberStore.updateMemberInfoWithToken()
+    try {
+      await patchEditInfo(formData)
+      isModalVisible.value = false
+      isSuccessModalVisible.value = true
+      await memberStore.updateMemberInfoWithToken()
+    } catch {
+      isModalVisible.value = false
+    }
   }
 }
 </script>
