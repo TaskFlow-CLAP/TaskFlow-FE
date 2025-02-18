@@ -12,7 +12,7 @@
         :isOpen="isModalVisible"
         type="successType"
         @close="closeModal">
-        <template #header>비밀번호가 변경 되었습니다</template>
+        <template #header>비밀번호가 변경되었습니다</template>
       </ModalView>
       <TitleContainer
         v-if="!isConfirmed"
