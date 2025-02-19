@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import defaultProfile from '@/assets/deafultProfile.png'
+import defaultProfile from '/deafultProfile.png'
 
 const { url, size } = defineProps<{ url?: string; size: number }>()
 </script>
