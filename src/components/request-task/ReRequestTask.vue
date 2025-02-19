@@ -95,6 +95,7 @@ const subCategoryArr = ref<SubCategory[]>([])
 const afterSubCategoryArr = ref<SubCategory[]>([])
 const initFileArr = ref<AttachmentResponse[]>([])
 const isFirst = ref(true)
+const isdescriptionFirst = ref(true)
 
 const { id, reqType } = defineProps<{ id: string; reqType: string }>()
 const router = useRouter()
@@ -145,9 +146,11 @@ watch(category1, async newValue => {
 })
 
 watch(category2, async newVal => {
-  if (newVal) {
+  if (newVal && !isdescriptionFirst.value) {
     const res = await getSubCategoryDetail(newVal.subCategoryId)
     description.value = res.descriptionExample
+  } else if (newVal) {
+    isdescriptionFirst.value = false
   }
 })
 
