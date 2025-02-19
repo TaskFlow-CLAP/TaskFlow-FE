@@ -24,7 +24,7 @@
       v-model="description"
       :is-invalidate="isInvalidate === 'description' ? isInvalidate : ''"
       :placeholderText="'부가 설명을 입력해주세요'"
-      :limit-length="200" />
+      :limit-length="1000" />
     <RequestTaskFileInput
       v-model="file"
       :initFileArr="initFileArr"
@@ -153,7 +153,6 @@ watch(category2, async newVal => {
 
 const handleSubmit = async () => {
   if (isSubmitting.value || isModalVisible.value) return
-
   if (!category1.value) {
     isInvalidate.value = 'category1'
     return
@@ -166,7 +165,7 @@ const handleSubmit = async () => {
   } else if (title.value.length > 30) {
     isInvalidate.value = 'title'
     return
-  } else if (description.value.length > 200) {
+  } else if (description.value.length > 1000) {
     isInvalidate.value = 'description'
     return
   }

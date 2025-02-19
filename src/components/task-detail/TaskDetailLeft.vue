@@ -15,7 +15,7 @@
     <div v-if="data.description">
       <p class="task-detail">부가 설명</p>
       <p
-        class="px-6 py-4 bg-primary2 rounded-lg font-normal min-h-[120px] whitespace-pre-wrap break-all">
+        class="px-6 py-4 bg-primary2 rounded-lg font-normal min-h-[120px] max-h-[360px] whitespace-pre-wrap break-all">
         {{ data.description }}
       </p>
     </div>
