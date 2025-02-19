@@ -37,7 +37,7 @@
     <ModalView
       :isOpen="isModalVisible === 'success'"
       :type="'successType'"
-      @close="handleCancel">
+      @close="finishEdit">
       <template #header>작업이 {{ statusText }}되었습니다</template>
     </ModalView>
     <ModalView
@@ -67,6 +67,7 @@ import {
 import type { Category, SubCategory } from '@/types/common'
 import type { AttachmentResponse } from '@/types/user'
 import getPossibleCategory from '@/utils/possibleCategory'
+import DOMPurify from 'dompurify'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
@@ -75,7 +76,6 @@ import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
-import DOMPurify from 'dompurify'
 
 const category1 = ref<Category | null>(null)
 const category2 = ref<SubCategory | null>(null)
@@ -101,6 +101,11 @@ const router = useRouter()
 
 const handleCancel = () => {
   router.back()
+}
+
+const finishEdit = () => {
+  isModalVisible.value = ''
+  router.push('my-request')
 }
 
 onMounted(async () => {

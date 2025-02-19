@@ -122,7 +122,7 @@ const handleCancel = () => {
 const finishRequest = () => {
   resetForm()
   isModalVisible.value = ''
-  router.push('MyRequest')
+  router.push('my-request')
 }
 
 const handleSubmit = async () => {
