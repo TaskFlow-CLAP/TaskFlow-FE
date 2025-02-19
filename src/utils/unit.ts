@@ -1,4 +1,4 @@
-export function formatFileSize(bytes: number): string {
+export const formatFileSize = (bytes: number) => {
   const kb = bytes / 1024
   const mb = kb / 1024
 

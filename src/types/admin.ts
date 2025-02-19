@@ -46,8 +46,6 @@ export interface UserRegistrationProps {
 
 export type RoleTypes = '관리자' | '사용자' | '담당자'
 
-export type RoleTypesEnum = 'ROLE_ADMIN' | 'ROLE_USER' | 'ROLE_MANAGER'
-
 export interface CategoryAllData {
   categories: Category[]
 }
@@ -104,7 +102,7 @@ export interface UserRegistrationApiProps {
   nickname: string
   isReviewer: boolean
   departmentId: number
-  role: RoleTypesEnum
+  role: Role
   departmentRole: string
 }
 
@@ -112,6 +110,6 @@ export interface UserUpdateValue {
   name: string
   isReviewer: boolean
   departmentId: number
-  role: RoleTypesEnum
+  role: Role
   departmentRole: string
 }

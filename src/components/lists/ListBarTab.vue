@@ -18,9 +18,9 @@
 </template>
 
 <script setup lang="ts">
+import OrderIcon from '@/assets/icons/OrderIcon.vue'
 import type { ListBarTabProps } from '@/types/common'
 import { computed } from 'vue'
-import OrderIcon from '../common/OrderIcon.vue'
 
 const { content, width, sortBy, currentOrderRequest } = defineProps<ListBarTabProps>()
 defineEmits(['toggleSortBy'])

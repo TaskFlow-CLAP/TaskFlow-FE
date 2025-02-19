@@ -41,18 +41,18 @@
         <p
           class="text-red-1"
           v-if="errorMessage.description === 'tooLong'">
-          템플릿은 100자 이내로 적어주세요
+          템플릿은 500자 이내로 적어주세요
         </p>
       </div>
       <textarea
         class="w-full h-32 border border-border-1 px-4 py-2 resize-none focus:outline-none rounded"
         :value="categoryForm.descriptionExample"
-        :maxlength="100"
+        :maxlength="500"
         :placeholder="'부가설명 템플릿을 작성해주세요'"
         @input="onValueChange">
       </textarea>
       <p class="absolute text-xs top-[calc(100%+4px)] w-full flex justify-end text-body">
-        {{ categoryForm.descriptionExample?.length || 0 }}/{{ 100 }}
+        {{ categoryForm.descriptionExample?.length || 0 }}/{{ 500 }}
       </p>
     </div>
 
@@ -120,7 +120,7 @@ const handleSubmit = async () => {
   } else if (categoryForm.value.code.length === 0) {
     errorMessage.value.categoryCode = 'noCode'
     return
-  } else if ((categoryForm.value.descriptionExample ?? '').length > 100) {
+  } else if ((categoryForm.value.descriptionExample ?? '').length > 500) {
     errorMessage.value.description = 'tooLong'
     return
   }

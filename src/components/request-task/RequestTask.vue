@@ -24,19 +24,19 @@
       v-model="description"
       :is-invalidate="isInvalidate === 'description' ? isInvalidate : ''"
       :placeholderText="'부가 설명을 입력해주세요'"
-      :limit-length="200" />
+      :limit-length="1000" />
     <RequestTaskFileInput
       v-model="file"
       :isUploading="isUploading" />
     <FormButtonContainer
-      :handleCancel="handleCancel"
-      :handleSubmit="handleSubmit"
+      :handleCancel
+      :handleSubmit
       cancelText="취소"
       submitText="요청" />
     <ModalView
       :isOpen="isModalVisible === 'success'"
       :type="'successType'"
-      @close="handleCancel">
+      @close="finishRequest">
       <template #header>작업이 요청되었습니다</template>
     </ModalView>
     <ModalView
@@ -53,6 +53,7 @@ import { getMainCategory, getSubCategory } from '@/api/common'
 import { getSubCategoryDetail, postTaskRequest } from '@/api/user'
 import type { Category, SubCategory } from '@/types/common'
 import getPossibleCategory from '@/utils/possibleCategory'
+import DOMPurify from 'dompurify'
 import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
@@ -61,7 +62,6 @@ import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
-import DOMPurify from 'dompurify'
 
 const category1 = ref<Category | null>(null)
 const category2 = ref<SubCategory | null>(null)
@@ -106,14 +106,23 @@ watch(category2, async newVal => {
 
 const router = useRouter()
 
-const handleCancel = () => {
+const resetForm = () => {
   category1.value = null
   category2.value = null
   title.value = ''
   description.value = ''
   file.value = []
-  isModalVisible.value = ''
+}
+
+const handleCancel = () => {
+  resetForm()
   router.back()
+}
+
+const finishRequest = () => {
+  resetForm()
+  isModalVisible.value = ''
+  router.push('my-request')
 }
 
 const handleSubmit = async () => {
@@ -131,7 +140,7 @@ const handleSubmit = async () => {
   } else if (title.value.length > 30) {
     isInvalidate.value = 'title'
     return
-  } else if (description.value.length > 200) {
+  } else if (description.value.length > 1000) {
     isInvalidate.value = 'description'
     return
   }

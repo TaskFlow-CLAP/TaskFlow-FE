@@ -143,3 +143,34 @@ export interface TaskDetailHistoryChatProps {
   taskId: number
   requestorName: string
 }
+
+export type RoleInMenu = 'manager' | 'user' | 'admin'
+
+export interface MenuItemProps {
+  menuId: number
+  content: string
+  role: RoleInMenu
+  link: string
+}
+
+export interface User {
+  profileImageUrl: string
+  name: string
+  nickname: string
+  email: string
+  isReviewer: boolean
+  role: Role | ''
+  departmentName: string
+  departmentRole: string
+  notificationSettingInfo: {
+    agit: boolean
+    email: boolean
+    kakaoWork: boolean
+  }
+}
+
+export interface SideMenu {
+  groupId: number
+  groupTitle: string
+  items: MenuItemProps[]
+}

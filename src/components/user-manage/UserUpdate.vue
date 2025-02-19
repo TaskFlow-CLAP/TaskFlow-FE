@@ -68,7 +68,7 @@ import {
   INITIAL_USER_REGISTRATION,
   RoleKeys,
   RoleMapping,
-  RoleTypeMapping
+  ROLE_TYPE_MAPPING
 } from '@/constants/admin'
 import type { UserRegistrationProps } from '@/types/admin'
 import DOMPurify from 'dompurify'
@@ -159,7 +159,7 @@ const handleSubmit = async () => {
 
     if (typeof userId.value === 'string') {
       const formData = {
-        role: RoleTypeMapping[userRegistrationForm.value.role],
+        role: ROLE_TYPE_MAPPING[userRegistrationForm.value.role],
         name: userRegistrationForm.value.name,
         isReviewer: isManager.value ? userRegistrationForm.value.isReviewer : false,
         departmentId: userRegistrationForm.value.department.departmentId,
