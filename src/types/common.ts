@@ -168,3 +168,9 @@ export interface User {
     kakaoWork: boolean
   }
 }
+
+export interface SideMenu {
+  groupId: number
+  groupTitle: string
+  items: MenuItemProps[]
+}

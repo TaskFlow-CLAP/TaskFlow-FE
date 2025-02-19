@@ -1,3 +1,4 @@
+import type { RoleTypes, UserRegistrationProps } from '@/types/admin'
 import type { CategoryForm, ListBarTabProps, Option, Role } from '@/types/common'
 
 export const MEMBER_MANAGEMENT_LIST_BAR_TAB: ListBarTabProps[] = [
@@ -32,8 +33,6 @@ export const LOGS_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: 'Status', width: 40 },
   { content: '비고' }
 ]
-
-import type { RoleTypes, UserRegistrationProps } from '@/types/admin'
 
 export const CATEGORY_FORM: CategoryForm = {
   name: '',
