@@ -1,4 +1,4 @@
-import type { User } from '@/types/auth'
+import type { User } from '@/types/common'
 import { axiosInstance } from '@/utils/axios'
 import Cookies from 'js-cookie'
 import { defineStore } from 'pinia'

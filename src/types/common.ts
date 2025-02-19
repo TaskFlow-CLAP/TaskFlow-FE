@@ -152,3 +152,19 @@ export interface MenuItemProps {
   role: RoleInMenu
   link: string
 }
+
+export interface User {
+  profileImageUrl: string
+  name: string
+  nickname: string
+  email: string
+  isReviewer: boolean
+  role: Role | ''
+  departmentName: string
+  departmentRole: string
+  notificationSettingInfo: {
+    agit: boolean
+    email: boolean
+    kakaoWork: boolean
+  }
+}
