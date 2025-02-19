@@ -30,14 +30,14 @@
             "
             class="flex w-full gap-1 justify-center text-body text-sm">
             <p>
-              {{ HistoryMessageBefore[item.taskHistoryType] }}
+              {{ HISTORY_MSG_BEFORE[item.taskHistoryType] }}
             </p>
             <p
               v-if="item.taskHistoryType !== 'TASK_TERMINATED'"
               class="text-primary1">
               {{ item.details.taskDetails?.value }}
             </p>
-            <p>{{ HistoryMessageAfter[item.taskHistoryType] }}</p>
+            <p>{{ HISTORY_MSG_AFTER[item.taskHistoryType] }}</p>
           </div>
           <span
             class="text-xs text-disabled text-center"
@@ -63,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { HistoryMessageAfter, HistoryMessageBefore } from '@/constants/user'
+import { HISTORY_MSG_AFTER, HISTORY_MSG_BEFORE } from '@/constants/user'
 import type { TaskDetailHistoryProps } from '@/types/common'
 import { formatDateWithDay, formatTimeShort } from '@/utils/date'
 import { watch } from 'vue'

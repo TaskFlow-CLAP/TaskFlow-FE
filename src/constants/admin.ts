@@ -50,7 +50,7 @@ export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {
   departmentRole: ''
 }
 
-export const RoleTypeMapping: { [key in RoleTypes]: RoleTypesEnum } = {
+export const ROLE_TYPE_MAPPING: { [key in RoleTypes]: RoleTypesEnum } = {
   사용자: 'ROLE_USER',
   담당자: 'ROLE_MANAGER',
   관리자: 'ROLE_ADMIN'
@@ -62,7 +62,7 @@ export const RoleMapping: { [key in RoleTypesEnum]: RoleTypes } = {
   ROLE_ADMIN: '관리자'
 }
 
-export const RoleKeys: RoleTypes[] = Object.keys(RoleTypeMapping) as RoleTypes[]
+export const RoleKeys: RoleTypes[] = Object.keys(ROLE_TYPE_MAPPING) as RoleTypes[]
 
-export const csvPath =
+export const CSV_PATH =
   'https://objectstorage.kr-central-2.kakaocloud.com/v1/34481374c1ee4bbb8745df43e4c13fff/taskflow/example/member_form_example.csv'
