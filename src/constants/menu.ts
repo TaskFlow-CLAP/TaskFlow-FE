@@ -1,4 +1,4 @@
-import type { MenuItemProps } from '@/types/menu'
+import type { MenuItemProps } from '@/types/common'
 
 interface SideMenu {
   groupId: number

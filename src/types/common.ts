@@ -143,3 +143,12 @@ export interface TaskDetailHistoryChatProps {
   taskId: number
   requestorName: string
 }
+
+export type RoleInMenu = 'manager' | 'user' | 'admin'
+
+export interface MenuItemProps {
+  menuId: number
+  content: string
+  role: RoleInMenu
+  link: string
+}
