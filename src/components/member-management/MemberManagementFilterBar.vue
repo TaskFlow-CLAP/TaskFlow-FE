@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-4">
+  <div class="flex gap-4 z-40">
     <FilterInput
       title="이름"
       :value="params.name"

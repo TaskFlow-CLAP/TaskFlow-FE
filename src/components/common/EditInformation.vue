@@ -199,6 +199,7 @@ const validateName = () => {
 
 const checkChange = () => {
   if (
+    imageDelete.value ||
     selectedFile.value ||
     info.value.name != name.value ||
     info.value.notificationSettingInfo.kakaoWork != kakaoWorkCheck.value ||
@@ -312,6 +313,8 @@ const handleSubmit = async () => {
 
     try {
       await patchEditInfo(formData)
+      selectedFile.value = null
+      imageDelete.value = false
       isModalVisible.value = false
       isSuccessModalVisible.value = true
       await memberStore.updateMemberInfoWithToken()

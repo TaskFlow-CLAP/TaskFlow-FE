@@ -103,9 +103,16 @@ const editValue = ref<LabelDataTypes>({
   labelId: 0
 })
 
-const handleEdit = () => (isEdit.value = !isEdit.value)
+const handleEdit = () => {
+  isEdit.value = !isEdit.value
+  if (!isEdit.value) {
+    prevName.value = ''
+  }
+}
 
+const prevName = ref('')
 const startEdit = async (label: LabelDataTypes) => {
+  prevName.value = label.labelName
   await nextTick()
   handleEdit()
   editValue.value = { ...label }
@@ -135,6 +142,11 @@ const updateLabelColor = (color: LabelColorTypes) => {
 }
 
 const finishEdit = async () => {
+  if (editValue.value.labelName === prevName.value) {
+    prevName.value = ''
+    handleEdit()
+    return
+  }
   if (editValue.value.labelName !== '' && editValue.value.labelName.length <= 10) {
     await patchLabelAdmin(editValue.value)
     emit('updateLabels')
