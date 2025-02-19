@@ -72,7 +72,7 @@
 
 <script lang="ts" setup>
 import { addMemberAdmin } from '@/api/admin'
-import { INITIAL_USER_REGISTRATION, RoleKeys, RoleTypeMapping } from '@/constants/admin'
+import { INITIAL_USER_REGISTRATION, ROLE_TYPE_MAPPING, RoleKeys } from '@/constants/admin'
 import DOMPurify from 'dompurify'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -154,7 +154,7 @@ const handleSubmit = async () => {
       ...restForm,
       departmentId: department?.departmentId,
       isReviewer: isManager.value ? userRegistrationForm.value.isReviewer : false,
-      role: RoleTypeMapping[userRegistrationForm.value.role],
+      role: ROLE_TYPE_MAPPING[userRegistrationForm.value.role],
       email: userRegistrationForm.value.nickname + userRegistrationForm.value.email
     }
 

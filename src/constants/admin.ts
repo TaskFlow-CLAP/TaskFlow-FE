@@ -1,4 +1,5 @@
-import type { CategoryForm, ListBarTabProps, Option } from '@/types/common'
+import type { RoleTypes, UserRegistrationProps } from '@/types/admin'
+import type { CategoryForm, ListBarTabProps, Option, Role } from '@/types/common'
 
 export const MEMBER_MANAGEMENT_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '이름', width: 80 },
@@ -33,8 +34,6 @@ export const LOGS_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '비고' }
 ]
 
-import type { RoleTypes, RoleTypesEnum, UserRegistrationProps } from '@/types/admin'
-
 export const CATEGORY_FORM: CategoryForm = {
   name: '',
   code: ''
@@ -50,19 +49,19 @@ export const INITIAL_USER_REGISTRATION: UserRegistrationProps = {
   departmentRole: ''
 }
 
-export const RoleTypeMapping: { [key in RoleTypes]: RoleTypesEnum } = {
+export const ROLE_TYPE_MAPPING: { [key in RoleTypes]: Role } = {
   사용자: 'ROLE_USER',
   담당자: 'ROLE_MANAGER',
   관리자: 'ROLE_ADMIN'
 }
 
-export const RoleMapping: { [key in RoleTypesEnum]: RoleTypes } = {
+export const RoleMapping: { [key in Role]: RoleTypes } = {
   ROLE_USER: '사용자',
   ROLE_MANAGER: '담당자',
   ROLE_ADMIN: '관리자'
 }
 
-export const RoleKeys: RoleTypes[] = Object.keys(RoleTypeMapping) as RoleTypes[]
+export const RoleKeys: RoleTypes[] = Object.keys(ROLE_TYPE_MAPPING) as RoleTypes[]
 
-export const csvPath =
+export const CSV_PATH =
   'https://objectstorage.kr-central-2.kakaocloud.com/v1/34481374c1ee4bbb8745df43e4c13fff/taskflow/example/member_form_example.csv'

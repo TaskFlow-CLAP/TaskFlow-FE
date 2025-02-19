@@ -1,4 +1,4 @@
-import type { User } from '@/types/auth'
+import type { User } from '@/types/common'
 import { axiosInstance } from '@/utils/axios'
 import Cookies from 'js-cookie'
 import { defineStore } from 'pinia'
@@ -25,7 +25,7 @@ export const useMemberStore = defineStore('memberInfo', () => {
   const isLogined = ref(false)
   const isPendingUser = ref(false)
 
-  async function updateMemberInfoWithToken() {
+  const updateMemberInfoWithToken = async () => {
     isPendingUser.value = false
     const token = Cookies.get('accessToken')
     const refreshToken = Cookies.get('refreshToken')
@@ -42,14 +42,14 @@ export const useMemberStore = defineStore('memberInfo', () => {
     return data.role
   }
 
-  function logout() {
+  const logout = () => {
     $reset()
     isLogined.value = false
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
   }
 
-  function $reset() {
+  const $reset = () => {
     info.value = INITIAL_INFO
   }
 

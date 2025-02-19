@@ -24,7 +24,7 @@
       v-model="description"
       :is-invalidate="isInvalidate === 'description' ? isInvalidate : ''"
       :placeholderText="'부가 설명을 입력해주세요'"
-      :limit-length="200" />
+      :limit-length="1000" />
     <RequestTaskFileInput
       v-model="file"
       :initFileArr="initFileArr"
@@ -37,7 +37,7 @@
     <ModalView
       :isOpen="isModalVisible === 'success'"
       :type="'successType'"
-      @close="handleCancel">
+      @close="finishEdit">
       <template #header>작업이 {{ statusText }}되었습니다</template>
     </ModalView>
     <ModalView
@@ -67,6 +67,7 @@ import {
 import type { Category, SubCategory } from '@/types/common'
 import type { AttachmentResponse } from '@/types/user'
 import getPossibleCategory from '@/utils/possibleCategory'
+import DOMPurify from 'dompurify'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import FormButtonContainer from '../common/FormButtonContainer.vue'
@@ -75,7 +76,6 @@ import CategoryDropDown from './CategoryDropDown.vue'
 import RequestTaskFileInput from './RequestTaskFileInput.vue'
 import RequestTaskInput from './RequestTaskInput.vue'
 import RequestTaskTextArea from './RequestTaskTextArea.vue'
-import DOMPurify from 'dompurify'
 
 const category1 = ref<Category | null>(null)
 const category2 = ref<SubCategory | null>(null)
@@ -95,12 +95,18 @@ const subCategoryArr = ref<SubCategory[]>([])
 const afterSubCategoryArr = ref<SubCategory[]>([])
 const initFileArr = ref<AttachmentResponse[]>([])
 const isFirst = ref(true)
+const isdescriptionFirst = ref(true)
 
 const { id, reqType } = defineProps<{ id: string; reqType: string }>()
 const router = useRouter()
 
 const handleCancel = () => {
   router.back()
+}
+
+const finishEdit = () => {
+  isModalVisible.value = ''
+  router.push('my-request')
 }
 
 onMounted(async () => {
@@ -140,15 +146,16 @@ watch(category1, async newValue => {
 })
 
 watch(category2, async newVal => {
-  if (newVal) {
+  if (newVal && !isdescriptionFirst.value) {
     const res = await getSubCategoryDetail(newVal.subCategoryId)
     description.value = res.descriptionExample
+  } else if (newVal) {
+    isdescriptionFirst.value = false
   }
 })
 
 const handleSubmit = async () => {
   if (isSubmitting.value || isModalVisible.value) return
-
   if (!category1.value) {
     isInvalidate.value = 'category1'
     return
@@ -161,7 +168,7 @@ const handleSubmit = async () => {
   } else if (title.value.length > 30) {
     isInvalidate.value = 'title'
     return
-  } else if (description.value.length > 200) {
+  } else if (description.value.length > 1000) {
     isInvalidate.value = 'description'
     return
   }

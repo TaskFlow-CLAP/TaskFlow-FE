@@ -95,12 +95,6 @@ export interface TaskHistory {
   details: TaskHistoryDetails
 }
 
-export interface TaskHistoryDetails {
-  taskDetails?: TaskDetails | null
-  commentDetails?: CommentDetails | null
-  commentFileDetails?: CommentFileDetails | null
-}
-
 export interface TaskDetails {
   value: string
 }
@@ -123,42 +117,15 @@ export interface CommentFileDetails {
   size: string
 }
 
+export interface TaskHistoryDetails {
+  taskDetails?: TaskDetails | null
+  commentDetails?: CommentDetails | null
+  commentFileDetails?: CommentFileDetails | null
+}
+
 export interface TaskDetailProps {
   selectedId: number
   closeTaskDetail: () => void
-}
-export interface ManagerInfoTypes {
-  nickName: string
-  profileUrl: string
-  totalAssignedTasks: number
-}
-
-export interface TaskDetailRightProps {
-  taskDetail: TaskDetailDatas
-}
-
-export interface TaskDetailLabelDropdownProps {
-  options: LabelDataTypes[]
-  modelValue: LabelDataTypes
-}
-
-export interface TaskHistoryDatas {
-  taskId: number
-  taskCode: string
-  requestedAt: string
-  finishedAt: string
-  taskStatus: Status
-  requesterNickName: string
-  requesterImageUrl: string
-  processorNickName: string
-  processorImageUrl: string
-  mainCategoryName: string
-  categoryName: string
-  title: string
-  description: string
-  attachmentResponse: AttachmentResponse[]
-  dueDate?: string
-  labelName?: string
 }
 
 export interface MyRequestResponse {
@@ -181,10 +148,6 @@ export interface ManagerDropdownProps {
   modelValue: ManagerTypes | null
   placeholderText: string
   isInvalidate: string
-}
-
-export interface DetailManagerDropdownProps {
-  modelValue: ManagerTypes
 }
 
 export interface TaskStatusListProps {

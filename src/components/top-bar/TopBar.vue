@@ -73,10 +73,10 @@ import { hamburgerIcon } from '../../constants/iconPath'
 import CommonIcons from '../common/CommonIcons.vue'
 import ImageContainer from '../common/ImageContainer.vue'
 import MainLogo from '../common/MainLogo.vue'
-import NotificationIcon from '../icons/NotificationIcon.vue'
 import NotificationModal from './NotificationModal.vue'
 import ProfileModal from './ProfileModal.vue'
 import SideBar from './SideBar.vue'
+import NotificationIcon from '@/assets/icons/NotificationIcon.vue'
 
 const memberStore = useMemberStore()
 const { isLogined, info } = storeToRefs(memberStore)

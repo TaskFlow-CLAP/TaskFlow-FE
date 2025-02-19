@@ -1,10 +1,4 @@
-import type { MenuItemProps } from '@/types/menu'
-
-interface SideMenu {
-  groupId: number
-  groupTitle: string
-  items: MenuItemProps[]
-}
+import type { SideMenu } from '@/types/common'
 
 export const SIDE_USER_MENU: SideMenu[] = [
   {

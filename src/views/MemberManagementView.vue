@@ -10,7 +10,7 @@
         </button>
         <MemberManagementAddByCsv />
         <a
-          :href="csvPath"
+          :href="CSV_PATH"
           class="flex py-1 px-2 rounded hover:bg-background-2 items-center gap-1 text-xs font-semibold text-primary3"
           download>
           <CommonIcons :name="downloadIcon" />
@@ -31,7 +31,7 @@ import TitleBar from '@/components/common/TitleBar.vue'
 import MemberManagementAddByCsv from '@/components/member-management/MemberManagementAddByCsv.vue'
 import MemberManagementFilterBar from '@/components/member-management/MemberManagementFilterBar.vue'
 import MemberManagementList from '@/components/member-management/MemberManagementList.vue'
-import { csvPath } from '@/constants/admin'
+import { CSV_PATH } from '@/constants/admin'
 import { downloadIcon } from '@/constants/iconPath'
 import { useRouter } from 'vue-router'
 

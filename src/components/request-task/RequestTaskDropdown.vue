@@ -21,7 +21,7 @@
       </div>
       <div
         v-if="dropdownOpen"
-        class="absolute w-full max-h-40 overflow-y-auto scrollbar-hide top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow border-t border-t-border-2">
+        class="absolute w-full max-h-40 overflow-y-auto scrollbar-hide top-[52px] flex flex-col gap-2 p-2 bg-white rounded z-10 shadow-custom">
         <div
           v-for="option in options"
           :key="option"

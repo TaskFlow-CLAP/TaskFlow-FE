@@ -21,7 +21,7 @@ export const REQUESTED_LIST_BAR_TAB: ListBarTabProps[] = [
   { content: '처리', width: 120, justifyCenter: true }
 ]
 
-export const HistoryMessageBefore: Record<TaskHistoryType, string> = {
+export const HISTORY_MSG_BEFORE: Record<TaskHistoryType, string> = {
   STATUS_SWITCHED: '요청이',
   PROCESSOR_CHANGED: '담당자가',
   COMMENT: '',
@@ -30,7 +30,7 @@ export const HistoryMessageBefore: Record<TaskHistoryType, string> = {
   TASK_TERMINATED: '작업이'
 }
 
-export const HistoryMessageAfter: Record<TaskHistoryType, string> = {
+export const HISTORY_MSG_AFTER: Record<TaskHistoryType, string> = {
   STATUS_SWITCHED: '상태로 변경되었습니다',
   PROCESSOR_CHANGED: '님으로 변경되었습니다',
   COMMENT: '',
