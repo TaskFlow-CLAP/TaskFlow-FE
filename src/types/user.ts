@@ -8,7 +8,7 @@ export interface MyRequestListData {
   mainCategoryName: string
   categoryName: string
   title: string
-  processorImg?: string
+  processorUrl?: string
   processorName?: string
   taskStatus: Status
   finishedAt?: string
