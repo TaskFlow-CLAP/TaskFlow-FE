@@ -223,10 +223,16 @@ VITE_API_BASE_URL=http://210.109.14.132:9090/
     <td align="center"><b>비밀번호 재설정 화면</b></td>
   </tr>
   <tr>
-    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/9a1460ca-e4da-4711-a823-83920f5e0e8c" />
-</td>
-    <td>
-<img width="620" alt="image" src="https://github.com/user-attachments/assets/5c65b030-d34e-4801-a8ef-9788b5e97e7f" />
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/9a1460ca-e4da-4711-a823-83920f5e0e8c" /></td>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/5c65b030-d34e-4801-a8ef-9788b5e97e7f" /></td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td align="center"><b>내 정보 수정</b></td>
+  </tr>
+  <tr>
+    <td><img width="1084" alt="image" src="https://github.com/user-attachments/assets/edc67aa7-9551-4a66-b66f-90a456312b3a" />
 </td>
   </tr>
 </table>
@@ -298,7 +304,65 @@ VITE_API_BASE_URL=http://210.109.14.132:9090/
 </td>
   </tr>
 </table>
+<table>
+  <tr>
+    <td align="center"><b>요청 승인(승인 권한O)</b></td>
+    <td align="center"><b>요청 반려(승인 권한O)</b></td>
+  </tr>
+  <tr>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/d23a8bfa-0ad9-455c-9197-765276d6e206" />
+
+</td>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/7b06ed0a-0b83-4276-970b-e2d1b5d19f3b" />
+
+</td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td align="center"><b>요청 상세 조회(담당자)</b></td>
+  </tr>
+  <tr>
+    <td><img width="1080" alt="image" src="https://github.com/user-attachments/assets/87c8d276-093a-4a47-82ab-100294d0d8e8" /></td>
+  </tr>
+</table>
+
+### [관리자 화면]
+- 관리자 권한 화면
+<table>
+  <tr>
+    <td align="center"><b>회원 관리</b></td>
+    <td align="center"><b>작업 보드</b></td>
+  </tr>
+  <tr>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/dcd197fe-b4b9-4920-b129-24fc781e1ccb" /></td>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/8931371d-db4c-4145-9195-5fe9c2136403" /></td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td align="center"><b>새 회원 추가</b></td>
+    <td align="center"><b>회원 정보 수정</b></td>
+  </tr>
+  <tr>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/f50da900-f9fb-4e20-a572-9930a39ac0ee" /></td>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/ce14b69c-d66d-46eb-bf14-fbb099c21f24" />
+</td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td align="center"><b>1차 카테고리 추가</b></td>
+    <td align="center"><b>2차 카테고리 추가</b></td>
+  </tr>
+  <tr>
+    <td><img width="1292" alt="image" src="https://github.com/user-attachments/assets/e7496d2f-6ce7-4774-bf62-bb14a7d57a86" /></td>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/ce14b69c-d66d-46eb-bf14-fbb099c21f24" />
+</td>
+  </tr>
+</table>
 <br>
+
 
 
 ## 7. 트러블 슈팅
