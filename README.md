@@ -1,5 +1,5 @@
 # 📖 사내 티켓관리 서비스 TaskFlow ReadME
-![LogoTF](https://github.com/user-attachments/assets/d1b949f0-d45e-443a-8d23-3e8d83a744f4)
+![TaskFlow 소개 배너](https://github.com/user-attachments/assets/bc6041ad-f75e-41f4-ba0a-bbd3d68ec2c7)
 
 **배포주소** : [🔗 Visit TaskFlow](https://taskflow.shop/)  
 
