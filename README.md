@@ -233,7 +233,7 @@ VITE_API_BASE_URL=http://210.109.14.132:9090/
 <br>
 
 ### [사용자 화면]
-- 사용자 권한 화면
+- 사용자 권한 화면
 <table>
   <tr>
     <td align="center"><b>내 요청</b></td>
@@ -262,7 +262,7 @@ VITE_API_BASE_URL=http://210.109.14.132:9090/
 <br>
 
 ### [담당자 화면]
-- 담당자 권한 화면
+- 담당자 권한 화면
 <table>
   <tr>
     <td align="center"><b>내 작업 </b></td>
