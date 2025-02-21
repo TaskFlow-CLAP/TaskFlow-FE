@@ -181,22 +181,18 @@ src/
 - **기능**
     - **페이지** : 로그인, 비밀번호 재인증, 이메일 인증, 비밀번호 재설정, 내 정보수정
     - **공통 컴포넌트** : 알림, 프로필 모달, 권한 별 사이드 바, 헤더
-
 <br>
 
 ### Tony(윤장호)
 
 - **기능**
     - **페이지** : 내 요청, 승인 대기중인 요청, 전체 요청 기록, 내 작업, 작업보드, 팀 현황, 통계,  로그인 기록, 작업 기록 회원 관리
-
 <br>
 
 ### Moya(최민규)
-
 - **기능**
     - **페이지** : 작업 요청, 요청 승인, 요청 수정, 요청 세부정보, 새 회원 추가, 회원 정보 수정, 작업 관리
     - **공통 컴포넌트** : 아이콘
-
 <br>
 
 ## 5. 시작가이드
@@ -217,37 +213,97 @@ $ npm run dev
 // 프로젝트 최상단 폴더에 .env생성 후 다음을 기입
 VITE_API_BASE_URL=http://210.109.14.132:9090/
 ```
-
-### [초기화면]
-- 서비스 초기 접속화면
-<table>
-  <tr>
-    <td align="center"><b>홈 화면</b></td>
-    <td align="center"><b>대시보드</b></td>
-    <td align="center"><b>설정 화면</b></td>
-  </tr>
-  <tr>
-    <td><img src="<img width="1268" alt="image" src="https://github.com/user-attachments/assets/10d1b04c-bd20-41ac-b672-2ca9972b4e72" />"width="300 height=200"></td>
-    <td><img src="./images/dashboard.png" width="300"></td>
-    <td><img src="./images/settings.png" width="300"></td>
-  </tr>
-</table>
-
-<br>
-
 ## 6. 페이지별 기능
 
 ### [초기화면]
-- 서비스 초기 접속화면
-
-| 초기화면 |
-|----------|
-
+- 서비스 초기 접속화면 및 인증 인가
+<table>
+  <tr>
+    <td align="center"><b>로그인 화면</b></td>
+    <td align="center"><b>비밀번호 재설정 화면</b></td>
+  </tr>
+  <tr>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/9a1460ca-e4da-4711-a823-83920f5e0e8c" />
+</td>
+    <td>
+<img width="620" alt="image" src="https://github.com/user-attachments/assets/5c65b030-d34e-4801-a8ef-9788b5e97e7f" />
+</td>
+  </tr>
+</table>
 <br>
+
+### [사용자 화면]
+- 사용자 권한 화면
+<table>
+  <tr>
+    <td align="center"><b>내 요청</b></td>
+    <td align="center"><b>작업 요청</b></td>
+  </tr>
+  <tr>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/b21dc462-abb3-44d7-9496-6bbe85af291d" />
+
+</td>
+    <td>
+<img width="620" alt="image" src="https://github.com/user-attachments/assets/c0e2edab-dd77-46a6-b324-c87416b035f5" />
+
+</td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td align="center"><b>요청 상세 조회</b></td>
+    <td align="center"><b>요청 수정</b></td>
+  </tr>
+  <tr>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/3829ff9c-a76f-4a4a-b887-ed752c4b943e" /></td>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/0d54ea63-c96e-4cc7-908c-f8aa8c300f0e" /></td>
+  </tr>
+</table>
+<br>
+
+### [담당자 화면]
+- 담당자 권한 화면
+<table>
+  <tr>
+    <td align="center"><b>내 작업 </b></td>
+    <td align="center"><b>작업 보드</b></td>
+  </tr>
+  <tr>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/4bad2842-3d26-4fd3-817d-601a27159c75" /></td>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/5cd84eba-c8c8-433f-8b70-d19e964421c1" /></td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td align="center"><b>팀 작업 현황</b></td>
+    <td align="center"><b>통계</b></td>
+  </tr>
+  <tr>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/92e4678e-a519-48f9-adb3-9c41fe7f7c2f" />
+</td>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/587352f6-26d5-48a2-a9d7-6e3b73bdeb6c" />
+</td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td align="center"><b>전체 요청 기록</b></td>
+    <td align="center"><b>승인 대기 중인 요청</b></td>
+  </tr>
+  <tr>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/84293b2e-f259-4c0f-a02c-d5b63cbe23ad" />
+
+</td>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/30a1cfd5-b633-4884-9106-206d6d5286e0" />
+</td>
+  </tr>
+</table>
+<br>
+
 
 ## 7. 트러블 슈팅
 
-- 노션링크
+- [FE - 트러블 슈팅](https://north-spade-8fa.notion.site/1a004df233a58082ba65c72e7fbf248d?pvs=74)
 
 <br>
 
