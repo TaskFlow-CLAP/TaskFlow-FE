@@ -356,9 +356,8 @@ VITE_API_BASE_URL=http://210.109.14.132:9090/
     <td align="center"><b>2차 카테고리 추가</b></td>
   </tr>
   <tr>
-    <td><img width="1292" alt="image" src="https://github.com/user-attachments/assets/e7496d2f-6ce7-4774-bf62-bb14a7d57a86" /></td>
-    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/ce14b69c-d66d-46eb-bf14-fbb099c21f24" />
-</td>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/e7496d2f-6ce7-4774-bf62-bb14a7d57a86" /></td>
+    <td><img width="620" alt="image" src="https://github.com/user-attachments/assets/ce14b69c-d66d-46eb-bf14-fbb099c21f24" /></td>
   </tr>
 </table>
 <br>
