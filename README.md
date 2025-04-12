@@ -1,7 +1,7 @@
 # 📖 사내 티켓관리 서비스 TaskFlow ReadME
 ![TaskFlow 소개 배너](https://github.com/user-attachments/assets/bc6041ad-f75e-41f4-ba0a-bbd3d68ec2c7)
 
-**배포주소** : [🔗 Visit TaskFlow](https://taskflow.shop/)  
+**배포주소** : 현재는 서비스가 중단되었습니다. 다음에 만나요👋
 
 [<img src="https://img.shields.io/badge/프로젝트 기간-2025.01.06~2025.02.20-green?style=flat&logo=&logoColor=white" />]()
 
