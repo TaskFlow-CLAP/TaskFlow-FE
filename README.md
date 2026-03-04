@@ -49,7 +49,7 @@
                          <td>
                  <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=ffffff">
                  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=ffffff">
-                 <img src="https://img.shields.io/badge/Vscode-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=ffffff">
+                 <img src="https://img.shields.io/badge/VSCode-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white" />
             </td>
             </tr>
         <tr>
